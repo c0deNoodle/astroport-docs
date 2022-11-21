@@ -1,0 +1,393 @@
+/* Fonts */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../../static/font/inter/static/Inter-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Whyte';
+  src: url('../../static/font/whyte/Inktrap/ABCWhyteInktrap-Regular-Trial.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+
+/* IFM Variables */
+
+:root {
+  --ifm-color-primary: #08082f;
+  --ifm-color-primary-dark: #07072a;
+  --ifm-color-primary-darker: #070728;
+  --ifm-color-primary-darkest: #060621;
+  --ifm-color-primary-light: #090934;
+  --ifm-color-primary-lighter: #090936;
+  --ifm-color-primary-lightest: #0a0a3d;
+  --ifm-toc-border-color: rgba(255, 255, 255, 0.0);
+
+
+  --ifm-code-font-size: 95%;
+  --ifm-breadcrumb-separator-filter: invert(100%) sepia(94%) saturate(17%) hue-rotate(223deg) brightness(104%) contrast(98%);
+  /* --ifm-breadcrumb-separator-filter: invert(64%) sepia(11%) saturate(0%) hue-rotate(149deg) brightness(99%) contrast(95%); */
+  --ifm-menu-link-sublist-icon-filter: invert(100%) sepia(94%) saturate(17%) hue-rotate(223deg) brightness(104%) contrast(98%);
+  --ifm-navbar-background-color: #08082f; 
+  --ifm-top-menu-color: rgba(0, 0, 0, 0.3);
+  --ifm-toc-link-color: white;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-font-family-base: 'Inter';
+  --ifm-heading-font-family: 'Whyte'; 
+
+  --ifm-menu-color: rgba(255, 255, 255, 0.6);
+  --ifm-menu-color-active: rgba(255, 255, 255, 1);
+  --ifm-link-color: rgba(255, 255, 255, 1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* CSS Global Variables */
+
+/* a {
+  color: white;
+} */
+
+a:hover {
+  color: rgba(255, 255, 255, 1);
+  /* font-weight: bold; */
+  /* text-decoration: underline; */
+}
+
+body {
+  background: url('../../static/img/texture.png'), #08082f;
+  color: #ffffff;
+  font-family: 'Inter';
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(
+    circle closest-side at 50% 50%, rgba(86, 67, 242, .8) 20%, rgba(131, 179, 253, .8) 58%, rgba(44, 164, 214, .8) 73%, rgba(22, 41, 230, .8) 90%, #08082f 150%
+  ) no-repeat;
+  position: fixed;
+  filter: blur(150px);
+  z-index: -1;
+}
+
+a code {
+  all: unset;
+}
+
+a.table-of-contents__link.toc-highlight.table-of-contents__link--active code {
+  color: white; 
+  font-weight: bold;
+}
+
+a.table-of-contents__link.toc-highlight.table-of-contents__link--active code:hover {
+  color: white; 
+  font-weight: bold;
+}
+
+a code:hover {
+  color: white;
+}
+
+/* a code:hover {
+  color: rgba(255, 255, 255, 1);
+  font-weight: bold;
+} */
+
+/* a.table-of-contents__link.toc-highlight {
+  color: rgba(255, 255, 255, 1);
+  font-weight: bold;
+} */
+
+/* .table-of-contents__link.toc-highlight:hover {
+  color: rgba(255, 255, 255, 1);
+  font-weight: bold;
+} */
+
+code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* code:hover {
+  color: white;
+  font-weight: bold;
+}
+
+.toc-highlight:hover {
+  color: white;
+} */
+
+/* a code:hover {
+  color: rgba(255, 255, 255, 1);
+} */
+
+
+input {
+  all: unset;
+}
+
+input {
+  display: inline-block;
+  position: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 50%;
+  height: 3.5em;
+  border-radius: 0.5em;
+  backdrop-filter: blur(15px);
+  font-family: 'Inter';
+  color: white;
+  text-align: left;
+  box-sizing: border-box;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+p {
+  font-family: 'Inter';
+}
+
+
+/* CSS Target Variables */
+
+.breadcrumbs__item--active .breadcrumbs__link {
+  color: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.05);
+ }
+
+.breadcrumbs__link {
+  color: rgba(255, 255, 255, 0.6);
+ }
+
+ .breadcrumbs__link:hover {
+  color: rgba(255, 255, 255, 1);
+ }
+
+.card {
+  background-color:rgba(255, 255, 255, 0.05);
+}
+
+.card:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.card.padding--lg {
+  border: none;
+  box-shadow: none;
+  border-radius: 16px; 
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.card.padding--lg:hover {
+  border: none;
+  box-shadow: none;
+  border-radius: 16px; 
+  color: rgba(255, 255, 255, 1);
+}
+
+.footer {
+  background-color: rgba(0, 0, 0, 0.3);
+  /* background-color: rgba(0, 0, 0, 0.0); */
+}
+
+/* footer.footer {
+  border-top: 0.5px solid; 
+  background-color: none !important; 
+} */
+
+
+
+a.footer__link-item {
+  color: white;
+}
+
+a.footer__link-item:hover {
+  color: white;
+  border: none;
+}
+
+button.button.button--secondary.button--outline {
+  border: none !important;
+}
+
+.list {
+  color: rgba(255, 255, 255, 0.4); 
+}
+
+.menu {
+  align-items: center;
+  align-content: center;
+  position: center;
+}
+
+
+
+ /* .menu__link {
+  color: rgba(255, 255, 255, 0.6);
+ }
+
+ .menu__link:hover {
+  color: rgba(255, 255, 255, 1);
+ } */
+
+
+
+ .navbar--fixed-top {
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+ }
+
+ /* .navbar-sidebar {
+  background-color: #08082f !important;
+  backdrop-filter: none !important;
+} */
+
+.navbar-sidebar--show {
+  backdrop-filter: none !important;
+}
+
+.navbar__brand {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.navbar__brand:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.navbar__link:hover {
+  /* color: white; */
+  font-weight: var(--ifm-font-weight-bold);
+}
+
+/* b.navbar__title.text--truncate:hover {
+  font-weight: bold; 
+} */
+
+/* nav.navbar.navbar--fixed-top.navbar--primary {
+  backdrop-filter: blur(10px);
+} */
+
+ /* .navbar {
+    backdrop-filter: blur(10px);
+ } */
+
+ /* @media (max-width: 1000px) {
+  nav.navbar.navbar--fixed-top {
+    backdrop-filter: none;
+  }
+} */
+
+
+
+ /* .navbar--primary {
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}  */
+
+
+
+
+
+
+
+/* 
+.navbar--primary {
+  background-color: #08082f;
+  backdrop-filter: none;
+} */
+
+.pagination-nav__label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.pagination-nav__label:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.pagination-nav__link {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: none;
+  border-radius: 16px; 
+}
+
+.pagination-nav__link:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: all var(--ifm-transition-fast) ease;
+}
+
+.pagination-nav__sublabel {
+  color: rgba(255, 255, 255, 1);
+  font-size: 10px;
+  margin-bottom: 10px;
+}
+ 
+
+
+
+
+.table-of-contents__link {
+  color: rgba(255, 255, 255, 0.6);
+ }
+
+ .table-of-contents__link:hover {
+  color: rgba(255, 255, 255, 1);
+ }
+
+
+
+
+ .theme-doc-sidebar-container {
+  color: rgb(255, 255, 255);
+  border-right: 1px solid var(--ifm-toc-border-color) !important;
+}
+
+.theme-doc-sidebar-menu {
+  margin-top: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10.5px);
+  border-radius: 12px;
+}
+
+.theme-edit-this-page:hover {
+  color: rgba(255, 255, 255, 1);
+  font-weight: bold;
+}
+
+
+.ch-codeblock .ch-code-button {
+  display: none;
+}
+
+.ch-codeblock:hover .ch-code-button {
+  display: block;
+}
+
+/* .ch-scrollycoding-step-content[data-selected] {
+  border-color: none !important;
+} */
+
+.ch-scrollycoding-step-content[data-selected] {
+  border-color: var(--ifm-toc-border-color);
+}

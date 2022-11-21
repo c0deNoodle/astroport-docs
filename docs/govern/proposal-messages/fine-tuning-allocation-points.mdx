@@ -1,0 +1,210 @@
+---
+sidebar_position: 1
+---
+
+# Fine-tuning Allocation Points
+
+The Generator contract allocates token rewards (ASTRO) for various LP tokens and distributes them pro-rata to LP stakers. The `setup_pools` endpoint within the Generator contract creates a new list of `pools` with allocation points and updates the contract’s config. `pools` is a vector that contains LP token addresses and allocation points.
+
+In this step-by-step, we walkthrough the `setup_pools` endpoint and proposal. 
+
+<CH.Scrollycoding>
+
+## Step 1 
+
+Before we dive in, it's generally a good idea to list all contract addresses that we will be using in our code. For fine-tuning pool allocation points, a proposal will interact with 3 contracts: the Assembly, Generator, and xASTRO contracts. For a full list of mainnet and testnet addresses, visit the Github [changelog](https://github.com/astroport-fi/astroport-changelog).
+
+```js index.js focus=1:4
+// contract addresses (testnet)
+const assembly_address = 'terra195m6n5xq4rkjy47fn5y3s08tfmj3ryknj55jqvgq2y55zul9myzsgy06hk';
+const xastro_address = 'terra1ctzthkc0nzseppqtqlwq9mjwy9gq8ht2534rtcj3yplerm06snmqfc5ucr';
+const generator_address = 'terra1ksvlfex49desf4c452j6dewdjs6c48nafemetuwjyj6yexd7x3wqvwa7j9';
+
+// base64 encoder
+function toEncodedBinary(object) {
+    return Buffer.from(JSON.stringify(object)).toString('base64');
+}
+
+// setup_pools_msg
+const setup_pools_msg = {
+    "setup_pools": {
+        "pools": [
+            ("lp_token_address", "1000"),
+            ("lp_addr2", "10"),
+            ... etc
+        ]
+    }
+}
+
+const binary = toEncodedBinary(setup_pools_msg)
+
+const proposal_msg = [
+    {
+        order: "1",
+            msg: {
+                wasm: {
+                    execute: {
+                        contract_addr: generator_address,
+                        msg: binary,
+                        funds: []
+                    }
+                }
+            }
+    }
+]
+
+// submit_proposal_msg
+const submit_proposal_msg = {
+    "submit_proposal": {
+        "title": "testing",
+        "description": "testing",
+        "link": null,
+        "messages": proposal_msg
+    }
+}
+
+const binary2 = toEncodedBinary(submit_proposal_msg)
+
+const proposal_msg2 = {
+    "send": {
+        "contract": assembly_address,
+        "amount": "30000000000",
+        "msg": binary2
+    }
+}
+```
+---
+
+## Step 2 
+
+We will need to encode and nest several messages. For this guide, we will be using a custom function that will encode and pass our messages.
+
+```js index.js focus=6:9
+
+```
+
+---
+
+## Step 3 
+
+There are two common mistakes to look for when crafting the `setup_pools` endpoint:
+
+- The message expects **LP token addresses,** not pair addresses!
+- The message expects a vector of LP contract addresses. Specifying a single address rewrites all active pools with the pools specified in the message. 
+
+```js index.js focus=11:20
+
+```
+
+---
+
+### Step 3.5
+
+You can query the generator contract to include previous LP token addresses and allocation points.
+
+*Note: In some cases, the community may want to decrease allocation points for particular pools, thus proposal submitters have to mutate config.active_pools list.*
+
+```js index.js 
+let config = await terra.wasm.contractQuery(terra, network.generatorAddress, {config: {}})
+config.active_pools.push(("new_lp_token", "new_alloc_points"))
+const generator_msg = {
+    "setup_pools": {
+        "pools":
+            ("lp_token_address", "1000"),
+            config.active_pools
+    }
+}
+```
+---
+
+## Step 4
+
+We use our `toEncodedBinary` function to encode our message and pass it into our `proposal_msg` variable along with our `generator_address`.
+
+```js index.js focus=22:37
+// contract addresses (testnet)
+const assembly_address = 'terra195m6n5xq4rkjy47fn5y3s08tfmj3ryknj55jqvgq2y55zul9myzsgy06hk';
+const xastro_address = 'terra1ctzthkc0nzseppqtqlwq9mjwy9gq8ht2534rtcj3yplerm06snmqfc5ucr';
+const generator_address = 'terra1ksvlfex49desf4c452j6dewdjs6c48nafemetuwjyj6yexd7x3wqvwa7j9';
+
+// base64 encoder
+function toEncodedBinary(object) {
+    return Buffer.from(JSON.stringify(object)).toString('base64');
+}
+
+// setup_pools_msg
+const setup_pools_msg = {
+    "setup_pools": {
+        "pools": [
+            ("lp_token_address", "1000"),
+            ("lp_addr2", "10"),
+            ... etc
+        ]
+    }
+}
+
+const binary = toEncodedBinary(setup_pools_msg)
+
+const proposal_msg = [
+    {
+        order: "1",
+            msg: {
+                wasm: {
+                    execute: {
+                        contract_addr: generator_address,
+                        msg: binary,
+                        funds: []
+                    }
+                }
+            }
+    }
+]
+
+// submit_proposal_msg
+const submit_proposal_msg = {
+    "submit_proposal": {
+        "title": "testing",
+        "description": "testing",
+        "link": null,
+        "messages": proposal_msg
+    }
+}
+
+const binary2 = toEncodedBinary(submit_proposal_msg)
+
+const proposal_msg2 = {
+    "send": {
+        "contract": assembly_address,
+        "amount": "30000000000",
+        "msg": binary2
+    }
+}
+```
+
+---
+
+## Step 5
+
+The `submit_proposal_message` variable contains general information regarding our proposal, such as our proposal’s title, description, link, and the `proposal_msg` array we defined above. If this proposal message seems familiar to you, it’s because it is! These fields are used in the Astroport web app to submit a proposal using a user-friendly UI.
+
+```js index.js focus=39:47
+
+```
+
+---
+
+## Step 6
+
+Our final message will call the `send` function in the xASTRO contract. This message requires the address of the contract that we are sending xASTRO to (`assembly_address`), the amount of ASTRO to send (30,000 ASTRO required for a proposal), and a msg field with our proposal binary from above.
+
+```js index.js focus=49:57
+
+```
+
+---
+
+</CH.Scrollycoding>
+
+Once a proposal has been submitted, it will go through the standard governance process. 
+
+
