@@ -158,7 +158,7 @@ const config = {
           },
           {
             // to: '/docs/learn/astro-pools/constant-product-pools',   
-            to: '/docs/learn/astro-pools/create-a-page',
+            to: '/docs/learn/astro-pools/astro-pools-intro',
             // to: '/docs/learn/astro-pools/intro',  
             // to: '/docs/learn/index',   
             label: 'Learn',
@@ -172,7 +172,7 @@ const config = {
 
 
           {
-            to: '/docs/govern/astral-assembly',    // ./docs-api/intro.md
+            to: '/docs/govern/astroport-improvement-proposal-framework',    // ./docs-api/intro.md
             label: 'Govern',
             position: 'left',
             activeBaseRegex: `/govern/`,

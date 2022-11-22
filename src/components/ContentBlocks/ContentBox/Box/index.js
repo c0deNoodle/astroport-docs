@@ -52,10 +52,7 @@ export default function Box(props) {
             </li>
 
             <li>
-
             <a className={styles.links} href="../../../../docs/learn/astro-pools/stableswap-pools">Stableswap Pools</a>
-
-
             </li>
             
           </ul>
@@ -96,7 +93,11 @@ export default function Box(props) {
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
           <ul className={styles.list}>
-            <li>Overview</li>
+            
+            <li>
+            <a className={styles.links} href="../../../../docs/learn/astral-assembly">Overview</a>
+            </li>
+
           </ul>
         </div>
   
@@ -115,9 +116,18 @@ export default function Box(props) {
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
           <ul className={styles.list}>
-            <li>Fees</li>
-            <li>Staking</li>
-            <li>Allocation</li>
+
+            <li>
+            <a className={styles.links} href="../../../../docs/learn/tokenomics/fees">Fees</a>
+            </li>
+
+            <li>
+            <a className={styles.links} href="../../../../docs/learn/tokenomics/staking-and-locking">Staking & Locking</a>
+            </li>
+
+            <li>
+            <a className={styles.links} href="../../../../docs/learn/tokenomics/allocation">Allocation</a>
+            </li>
           </ul>
         </div>
   
@@ -206,8 +216,22 @@ export default function Box(props) {
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
           <ul className={styles.list}>
-            <li>Overview</li>
-            <li>Astroport Contract Addresses</li>
+            {/* <li>
+            <a className={styles.links} href="../../../../docs/develop/category/smart-contracts">Overview</a>
+            </li> */}
+
+            <li>
+            <a className={styles.links} href="../../../../docs/develop/smart-contracts/astroport-contract-addresses">Astroport Contract Addresses</a>
+            </li>
+
+            <li>
+            <a className={styles.links} href="../../../../docs/develop/smart-contracts/factory">Astroport Factory</a>
+            </li>
+
+            <li>
+            <a className={styles.links} href="../../../../docs/develop/category/swap-pairs">Swap Pairs</a>
+            </li>
+
           </ul>
         </div>
   
@@ -217,7 +241,6 @@ export default function Box(props) {
     return (
       <div className={styles.box}>
   
-  
         <div className={styles.fig}>
           <img src={props.image} />
         </div>
@@ -226,7 +249,11 @@ export default function Box(props) {
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
           <ul className={styles.list}>
-            <li>APY Calculation</li>
+
+            <li>
+            <a className={styles.links} href="../../../../docs/develop/backend/apy-calculation">APY Calculation</a>
+            </li>
+
           </ul>
         </div>
   

@@ -217,8 +217,6 @@ p {
   background-color: none !important; 
 } */
 
-
-
 a.footer__link-item {
   color: white;
 }
@@ -242,8 +240,6 @@ button.button.button--secondary.button--outline {
   position: center;
 }
 
-
-
  /* .menu__link {
   color: rgba(255, 255, 255, 0.6);
  }
@@ -251,8 +247,6 @@ button.button.button--secondary.button--outline {
  .menu__link:hover {
   color: rgba(255, 255, 255, 1);
  } */
-
-
 
  .navbar--fixed-top {
   background-color: rgba(0, 0, 0, 0.3);
@@ -299,18 +293,10 @@ button.button.button--secondary.button--outline {
   }
 } */
 
-
-
  /* .navbar--primary {
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
 }  */
-
-
-
-
-
-
 
 /* 
 .navbar--primary {
@@ -391,3 +377,4 @@ button.button.button--secondary.button--outline {
 .ch-scrollycoding-step-content[data-selected] {
   border-color: var(--ifm-toc-border-color);
 }
+
