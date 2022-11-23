@@ -87,6 +87,7 @@ const config = {
         path: 'docs/overview',
         routeBasePath: 'docs/overview',
         sidebarPath: require.resolve('./sidebars.js'),
+        editUrl: 'https://github.com/astroport-fi/docs/blob/master',
       }, 
     ],
     [
@@ -102,6 +103,7 @@ const config = {
         path: 'docs/learn',
         routeBasePath: 'docs/learn',
         sidebarPath: require.resolve('./sidebars.js'),
+        editUrl: 'https://github.com/astroport-fi/docs/blob/master',
       }, 
     ],
     [
@@ -117,6 +119,7 @@ const config = {
         path: 'docs/govern',
         routeBasePath: 'docs/govern',
         sidebarPath: require.resolve('./sidebars.js'),
+        editUrl: 'https://github.com/astroport-fi/docs/blob/master',
       }, 
     ],
     [
@@ -132,6 +135,7 @@ const config = {
         path: 'docs/develop',
         routeBasePath: 'docs/develop',
         sidebarPath: require.resolve('./sidebars.js'),
+        editUrl: 'https://github.com/astroport-fi/docs/blob/master',
       }, 
     ],
   ],
