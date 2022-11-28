@@ -3,3 +3,134 @@ sidebar_position: 1
 ---
 
 # Constant Product Pools
+
+The constant product pool uses the widely known xy=k formula. More details around how the pool functions can be found [here](../../../learn/astro-pools/constant-product-pools).
+
+## Links
+
+- `contract.rs:` https://github.com/astroport-fi/astroport-core/blob/main/contracts/pair/src/contract.rs
+- `pair.rs` (package): https://github.com/astroport-fi/astroport-core/blob/main/packages/astroport/src/pair.rs
+- `integration.rs` (test): https://github.com/astroport-fi/astroport-core/blob/main/contracts/pair/tests/integration.rs
+
+## InstantiateMsg
+
+Initializes a new x*y=k pair.
+
+<CH.Section>
+
+<CH.Code>
+
+```json msg.json
+{
+  "token_code_id": 123,
+  "factory_addr": "terra...",
+  "asset_infos": [
+    {
+      "token": {
+        "contract_addr": "terra..."
+      }
+    },
+    {
+      "native_token": {
+        "denom": "uusd"
+      }
+    }
+  ],
+  "init_params": "<base64_encoded_json_string: optional binary serialised parameters for custom pool types>"
+}
+```
+
+```rust pair.rs
+#[cw_serde]
+pub struct InstantiateMsg {
+    pub asset_infos: Vec<AssetInfo>,
+    pub token_code_id: u64,
+    pub factory_addr: String,
+    pub init_params: Option<Binary>,
+}
+```
+
+```rust contract.rs
+#[cfg_attr(not(feature = "library"), entry_point)]
+pub fn instantiate(
+    deps: DepsMut,
+    env: Env,
+    _info: MessageInfo,
+    msg: InstantiateMsg,
+) -> Result<Response, ContractError> {
+    if msg.asset_infos.len() != 2 {
+        return Err(StdError::generic_err("asset_infos must contain exactly two elements").into());
+    }
+
+    msg.asset_infos[0].check(deps.api)?;
+    msg.asset_infos[1].check(deps.api)?;
+
+    if msg.asset_infos[0] == msg.asset_infos[1] {
+        return Err(ContractError::DoublingAssets {});
+    }
+
+    set_contract_version(deps.storage, CONTRACT_NAME, CONTRACT_VERSION)?;
+
+    let config = Config {
+        pair_info: PairInfo {
+            contract_addr: env.contract.address.clone(),
+            liquidity_token: Addr::unchecked(""),
+            asset_infos: msg.asset_infos.clone(),
+            pair_type: PairType::Xyk {},
+        },
+        factory_addr: addr_validate_to_lower(deps.api, msg.factory_addr.as_str())?,
+        block_time_last: 0,
+        price0_cumulative_last: Uint128::zero(),
+        price1_cumulative_last: Uint128::zero(),
+    };
+
+    CONFIG.save(deps.storage, &config)?;
+
+    let token_name = format_lp_token_name(&msg.asset_infos, &deps.querier)?;
+
+    // Create the LP token contract
+    let sub_msg: Vec<SubMsg> = vec![SubMsg {
+        msg: WasmMsg::Instantiate {
+            code_id: msg.token_code_id,
+            msg: to_binary(&TokenInstantiateMsg {
+                name: token_name,
+                symbol: "uLP".to_string(),
+                decimals: 6,
+                initial_balances: vec![],
+                mint: Some(MinterResponse {
+                    minter: env.contract.address.to_string(),
+                    cap: None,
+                }),
+                marketing: None,
+            })?,
+            funds: vec![],
+            admin: None,
+            label: String::from("Astroport LP token"),
+        }
+        .into(),
+        id: INSTANTIATE_TOKEN_REPLY_ID,
+        gas_limit: None,
+        reply_on: ReplyOn::Success,
+    }];
+
+    Ok(Response::new().add_submessages(sub_msg))
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`token_code_id`](focus://msg.json#2)   | [`u64`](focus://pair.rs#4)        | The token contract code ID used for the tokens in the pool        |
+| [`factory_addr`](focus://msg.json#3)      | [`String`](focus://pair.rs#5)       | The factory contract address       |
+| [`asset_infos`](focus://msg.json#4:15)   | [`Vec<AssetInfo>`](focus://pair.rs#3)        | Information about assets in the pool      |
+| [`init_params`](focus://msg.json#16)   | [`Option<Binary>`](focus://pair.rs#6)        | Optional binary serialised parameters for custom pool types      |
+
+</CH.Section>
+
+## ExecuteMsg
+
+
+
+## QueryMsg
+

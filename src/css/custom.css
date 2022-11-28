@@ -9,7 +9,7 @@
 
 @font-face {
   font-family: 'Whyte';
-  src: url('../../static/font/whyte/Inktrap/ABCWhyteInktrap-Regular-Trial.woff') format('woff');
+  src: url('../../static/font/whyte/ABCWhyteInktrap-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -49,6 +49,9 @@
   --ifm-menu-color: rgba(255, 255, 255, 0.6);
   --ifm-menu-color-active: rgba(255, 255, 255, 1);
   --ifm-link-color: rgba(255, 255, 255, 1);
+  --ifm-blockquote-color: rgba(255, 255, 255, 0.9);
+
+  --ifm-toc-link-color: white;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -69,8 +72,17 @@
   color: white;
 } */
 
+.table-of-contents__link {
+  color: rgba(255,255,255,0.6);
+}
+
+.table-of-contents__link:hover, .table-of-contents__link:hover code, .table-of-contents__link--active, .table-of-contents__link--active code {
+  color: white;
+  text-decoration: none;
+}
+
 a:hover {
-  color: rgba(255, 255, 255, 1);
+  /* color: rgba(255, 255, 255, 1); */
   /* font-weight: bold; */
   /* text-decoration: underline; */
 }
@@ -98,7 +110,7 @@ a code {
   all: unset;
 }
 
-a.table-of-contents__link.toc-highlight.table-of-contents__link--active code {
+/* a.table-of-contents__link.toc-highlight.table-of-contents__link--active code {
   color: white; 
   font-weight: bold;
 }
@@ -106,7 +118,7 @@ a.table-of-contents__link.toc-highlight.table-of-contents__link--active code {
 a.table-of-contents__link.toc-highlight.table-of-contents__link--active code:hover {
   color: white; 
   font-weight: bold;
-}
+} */
 
 a code:hover {
   color: white;
@@ -332,14 +344,14 @@ button.button.button--secondary.button--outline {
 
 
 
-
+/* 
 .table-of-contents__link {
   color: rgba(255, 255, 255, 0.6);
  }
 
  .table-of-contents__link:hover {
   color: rgba(255, 255, 255, 1);
- }
+ } */
 
 
 
