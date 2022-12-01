@@ -6,7 +6,7 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
-const theme = require("shiki/themes/dracula.json")
+const theme = require("shiki/themes/nord.json")
 const {
   remarkCodeHike,
 } = require("@code-hike/mdx")
@@ -128,7 +128,7 @@ const config = {
         beforeDefaultRemarkPlugins: [
           [remarkCodeHike, { 
             showCopyButton: true,
-            // lineNumbers: true,
+            lineNumbers: true,
             theme }],
         ],
         id: 'develop',

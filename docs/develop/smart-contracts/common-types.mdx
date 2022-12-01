@@ -1,0 +1,100 @@
+---
+sidebar_position: 1
+---
+
+# Common Types
+
+This is a collection of types which are commonly used in Astroport contracts.
+
+## Links 
+
+- **Github:** https://github.com/astroport-fi/astroport-core/tree/main/packages/astroport
+- **asset.rs:** https://github.com/astroport-fi/astroport-core/blob/main/packages/astroport/src/asset.rs
+- **common.rs** https://github.com/astroport-fi/astroport-core/blob/main/packages/astroport/src/common.rs
+
+## Data Types
+
+
+### `AssetInfo`
+
+AssetInfo is a convenience wrapper to represent whether a token is the native one (from a specific chain, like LUNA for Terra) or not. It also returns the contract address of that token.
+
+<CH.Section>
+<CH.Code>
+
+```rust asset.rs
+pub enum AssetInfo {
+    Token { contract_addr: Addr },
+    NativeToken { denom: String },
+}
+```
+
+</CH.Code>
+
+| **Variants**      | **Description** |
+| ----------- | ----------- |
+| [`Token`](focus://asset.rs#2)    | Non-native Token        |
+| [`NativeToken`](focus://asset.rs#3)      | Native token       |
+
+</CH.Section>
+
+### `Asset`
+
+
+
+
+### `DecimalAsset`
+
+### `PairInfo`
+
+It is used to represent response data coming from a `Pair-Info-Querier`.
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+    "asset_infos": [
+        {
+            "token": {
+                "contract_addr": "..."
+            }
+        }, 
+        {
+            "native_token": {
+                "denom": "..."
+            }
+        }
+    ], 
+    "contract_addr": "...", 
+    "liquidity_token": "...", 
+    "pair_type": {
+        "xyk": {}
+    }
+}
+```
+
+```rust asset.rs
+pub struct PairInfo {
+    pub asset_infos: [AssetInfo; 2],
+    pub contract_addr: Addr,
+    pub liquidity_token: Addr,
+    pub pair_type: PairType,
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`asset_infos`](focus://json#2:13)   | [`Vec<AssetInfo>`](#assetinfo)        | Asset information for the assets in the pool        |
+| [`contract_addr`](focus://json#14)      | `Addr`       | Pair contract address       |
+| [`liquidity_token`](focus://json#15)   | `Addr`        | Pair LP token address        |
+| [`pair_type`](focus://json#16:18)   | [`PairType`](./factory#pairtype)        | The pool type (xyk, stableswap, etc) available in [`PairType`]      |
+
+</CH.Section>
+
+
+
+### `OwnershipProposal`
+

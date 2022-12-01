@@ -10,33 +10,39 @@ The factory contract can create new Astroport pair contracts (and associated LP 
 
 ## Links
 
+- **Contract Address:** [terra14x9fr055x5hvr48hzy2t4q7kvjvfttsvxusa4xsdcy702mnzsvuqprer8r](https://terrasco.pe/mainnet/address/terra14x9fr055x5hvr48hzy2t4q7kvjvfttsvxusa4xsdcy702mnzsvuqprer8r)
+- **Testnet Address**: [terra1z3y69xas85r7egusa0c7m5sam0yk97gsztqmh8f2cc6rr4s4anysudp7k0](https://finder.terra.money/testnet/address/terra1z3y69xas85r7egusa0c7m5sam0yk97gsztqmh8f2cc6rr4s4anysudp7k0)
+- **Contract Repo:** https://github.com/astroport-fi/astroport-core/tree/main/contracts/factory
 - **contract.rs:** https://github.com/astroport-fi/astroport-core/blob/main/contracts/factory/src/contract.rs
-- **factory.rs (package):** https://github.com/astroport-fi/astroport-core/blob/main/packages/astroport/src/factory.rs
-- **integration.rs (test):** https://github.com/astroport-fi/astroport-core/blob/main/contracts/factory/tests/integration.rs
-
+- **factory.rs:** https://github.com/astroport-fi/astroport-core/blob/main/packages/astroport/src/factory.rs
+- **Tests:** https://github.com/astroport-fi/astroport-core/blob/main/contracts/factory/tests/integration.rs
 
 ## InstantiateMsg
 
+<CH.Section>
+
 The instantiation message takes in the token code ID for the token type supported on Astroport. It also takes in the `fee_address` that collects fees for governance, the contract `owner`, the Generator contract address and the initial pair types available to create.
+
 
 <CH.Code>
 
-```json msg.json
+```json json
 {
-  "token_code_id": 123,
-  "fee_address": "terra...",
-  "owner": "terra...",
-  "generator_address": "terra...",
-  "pair_configs": [{
-      "code_id": 123,
-      "pair_type": {
-        "xyk": {}
-      },
-      "total_fee_bps": 100,
-      "maker_fee_bps": 10,
-      "is_disabled": false
-    }
-  ]
+    "pair_configs:": [{
+        "code_id": 123, 
+        "pair_type": {
+            "xyk": {}
+        }, 
+        "total_fee_bps": 100, 
+        "maker_fee_bps": 10,
+        "is_disabled": false, 
+        "is_generator_disabled": false
+    }], 
+    "token_code_id": 123, 
+    "fee_address": "...", 
+    "generator_address": "terra...", 
+    "owner": "terra...", 
+    "whitelist_code_id": 123
 }
 ```
 
@@ -52,102 +58,48 @@ pub struct InstantiateMsg {
 }
 ```
 
-```rust contract.rs
-// Creates a new contract with the specified parameters packed in the `msg` variable.
+</CH.Code>
 
-#[cfg_attr(not(feature = "library"), entry_point)]
-pub fn instantiate(
-    deps: DepsMut,
-    _env: Env,
-    _info: MessageInfo,
-    msg: InstantiateMsg,
-) -> Result<Response, ContractError> {
-    set_contract_version(deps.storage, CONTRACT_NAME, CONTRACT_VERSION)?;
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`pair_configs`](focus://json#2:11)   | [`Vec<PairConfig>`](#pairconfig)        | IDs of contracts that are allowed to instantiate pairs      |
+| [`token_code_id`](focus://json#12)   | `u64`        | CW20 token contract code identifier        |
+| [`fee_address`](focus://json#13)      | `Option<String>`       | Contract address to send governance fees to (the Maker)       |
+| [`generator_address`](focus://json#14)   | `Option<String>`        | Address of contract that is used to auto_stake LP tokens once someone provides liquidity in a pool      |
+| [`owner`](focus://json#15)   | `String`        | Address of owner that is allowed to change factory contract parameters        |
+| [`whitelist_code_id`](focus://json#16)   | `u64`        | CW1 whitelist contract code id used to store 3rd party rewards for staking Astroport LP tokens      |
 
-    let mut config = Config {
-        owner: addr_validate_to_lower(deps.api, &msg.owner)?,
-        token_code_id: msg.token_code_id,
-        fee_address: None,
-        generator_address: None,
-        whitelist_code_id: msg.whitelist_code_id,
-    };
+</CH.Section>
 
-    config.generator_address = addr_opt_validate(deps.api, &msg.generator_address)?;
+#### `PairConfig`
 
-    config.fee_address = addr_opt_validate(deps.api, &msg.fee_address)?;
+This struct stores a pair type's configuration.
 
-    let config_set: HashSet<String> = msg
-        .pair_configs
-        .iter()
-        .map(|pc| pc.pair_type.to_string())
-        .collect();
+<CH.Section>
+<CH.Code>
 
-    if config_set.len() != msg.pair_configs.len() {
-        return Err(ContractError::PairConfigDuplicate {});
-    }
-
-    for pc in msg.pair_configs.iter() {
-        // Validate total and maker fee bps
-        if !pc.valid_fee_bps() {
-            return Err(ContractError::PairConfigInvalidFeeBps {});
-        }
-        PAIR_CONFIGS.save(deps.storage, pc.pair_type.to_string(), pc)?;
-    }
-    CONFIG.save(deps.storage, &config)?;
-
-    Ok(Response::new())
+```json json
+{
+    "code_id": 123, 
+    "pair_type": {
+        "xyk": {}
+    }, 
+    "total_fee_bps": 100, 
+    "maker_fee_bps": 10,
+    "is_disabled": false, 
+    "is_generator_disabled": false
 }
-
 ```
 
-
-```rust integration.rs
-#[test]
-fn proper_initialization() {
-    let mut app = mock_app();
-
-    let owner = Addr::unchecked("owner");
-
-    let factory_code_id = store_factory_code(&mut app);
-
-    let pair_configs = vec![PairConfig {
-        code_id: 321,
-        pair_type: PairType::Xyk {},
-        total_fee_bps: 100,
-        maker_fee_bps: 10,
-        is_disabled: false,
-        is_generator_disabled: false,
-    }];
-
-    let msg = InstantiateMsg {
-        pair_configs: pair_configs.clone(),
-        token_code_id: 123,
-        fee_address: None,
-        owner: owner.to_string(),
-        generator_address: Some(String::from("generator")),
-        whitelist_code_id: 234u64,
-    };
-
-    let factory_instance = app
-        .instantiate_contract(
-            factory_code_id,
-            Addr::unchecked(owner.clone()),
-            &msg,
-            &[],
-            "factory",
-            None,
-        )
-        .unwrap();
-
-    let msg = QueryMsg::Config {};
-    let config_res: ConfigResponse = app
-        .wrap()
-        .query_wasm_smart(&factory_instance, &msg)
-        .unwrap();
-
-    assert_eq!(123, config_res.token_code_id);
-    assert_eq!(pair_configs, config_res.pair_configs);
-    assert_eq!(owner, config_res.owner);
+```rust factory.rs
+#[cw_serde]
+pub struct PairConfig {
+    pub code_id: u64,
+    pub pair_type: PairType,
+    pub total_fee_bps: u16,
+    pub maker_fee_bps: u16,
+    pub is_disabled: bool,
+    pub is_generator_disabled: bool,
 }
 ```
 
@@ -155,12 +107,42 @@ fn proper_initialization() {
 
 | **Params**      | **Type** | **Description** |
 | ----------- | ----------- | ----------- |
-| `token_code_id`   | `u64`        | CW20 token contract code identifier        |
-| `fee_address`      | `Option<String>`       | Contract address to send governance fees to (the Maker)       |
-| `owner`   | `String`        | Address of owner that is allowed to change factory contract parameters        |
-| `generator_address`   | `Option<String>`        | Address of contract that is used to auto_stake LP tokens once someone provides liquidity in a pool      |
-| `pair_configs`   | `Vec<PairConfig>`        | IDs of contracts that are allowed to instantiate pairs      |
-| `whitelist_code_id`   | `u64`        | CW1 whitelist contract code id used to store 3rd party rewards for staking Astroport LP tokens      |
+| [`code_id`](focus://json#2)   | `u64`        | ID of contract which is allowed to create pairs of this type        |
+| [`pair_type`](focus://json#3:5)      | [`PairType`](#pairtype)       | The pair type (provided in a [`PairType`])       |
+| [`total_fee_bps`](focus://json#6)   | `u16`        | The total fees (in bps) charged by a pair of this type        |
+| [`maker_fee_bps`](focus://json#7)   | `u16`        | The amount of fees (in bps) collected by the Maker contract from this pair type      |
+| [`is_disabled`](focus://json#8)   | `bool`        | Whether a pair type is disabled or not. If it is disabled, new pairs cannot be created, but existing ones can still read the pair configuration      |
+| [`is_generator_disabled`](focus://json#9)   | `bool`        | Setting this to true means that pairs of this type will not be able to get an ASTRO generator      |
+
+</CH.Section>
+
+
+#### `PairType`
+
+This enum describes available pair types.
+
+<CH.Section>
+<CH.Code>
+
+
+```rust factory.rs
+#[cw_serde]
+pub enum PairType {
+    Xyk {},
+    Stable {},
+    Custom(String),
+}
+```
+
+</CH.Code>
+
+| **Variants**      | **Description** |
+| ----------- | ----------- |
+| [`Xyk`](focus://factory.rs#3)    | XYK pair type        |
+| [`Stable`](focus://factory.rs#4)      | Stable pair type       |
+| [`Custom`](focus://factory.rs#5)   | Custom pair type        |
+
+</CH.Section>
 
 ## ExecuteMsg
 
@@ -168,137 +150,47 @@ fn proper_initialization() {
 
 Updates contract variables, namely the code ID of the token implementation used in Astroport, the address that receives governance fees and the Generator contract address.
 
+<CH.Section>
 <CH.Code>
 
-```json msg.json
+```json json
 {
   "update_config": {
     "token_code_id": 123,
     "fee_address": "terra...",
-    "generator_address": "terra..."
+    "generator_address": "terra...", 
+    "whitelist_code_id": 123
   }
 }
 ```
 
-```rust factory.rs
+```rust factory.rs focus=1:7,27
 #[cw_serde]
 pub enum ExecuteMsg {
-    /// UpdateConfig updates relevant code IDs
     UpdateConfig {
         token_code_id: Option<u64>,
         fee_address: Option<String>,
         generator_address: Option<String>,
         whitelist_code_id: Option<u64>,
     },
-}
-```
-
-```rust contract.rs
-#[cfg_attr(not(feature = "library"), entry_point)]
-pub fn execute(
-    deps: DepsMut,
-    env: Env,
-    info: MessageInfo,
-    msg: ExecuteMsg,
-) -> Result<Response, ContractError> {
-    match msg {
-        ExecuteMsg::UpdateConfig {
-            token_code_id,
-            fee_address,
-            generator_address,
-            whitelist_code_id,
-        } => execute_update_config(
-            deps,
-            info,
-            UpdateConfig {
-                token_code_id,
-                fee_address,
-                generator_address,
-                whitelist_code_id,
-            },
-        ),
-    }
-}
-
-pub fn execute_update_config(
-    deps: DepsMut,
-    info: MessageInfo,
-    param: UpdateConfig,
-) -> Result<Response, ContractError> {
-    let mut config = CONFIG.load(deps.storage)?;
-
-    // Permission check
-    if info.sender != config.owner {
-        return Err(ContractError::Unauthorized {});
-    }
-
-    if let Some(fee_address) = param.fee_address {
-        // Validate address format
-        config.fee_address = Some(addr_validate_to_lower(deps.api, &fee_address)?);
-    }
-
-    if let Some(generator_address) = param.generator_address {
-        // Validate the address format
-        config.generator_address = Some(addr_validate_to_lower(deps.api, &generator_address)?);
-    }
-
-    if let Some(token_code_id) = param.token_code_id {
-        config.token_code_id = token_code_id;
-    }
-
-    if let Some(code_id) = param.whitelist_code_id {
-        config.whitelist_code_id = code_id;
-    }
-
-    CONFIG.save(deps.storage, &config)?;
-
-    Ok(Response::new().add_attribute("action", "update_config"))
-}
-```
-
-```rust integration.rs
-#[test]
-fn update_config() {
-    let mut app = mock_app();
-    let owner = Addr::unchecked("owner");
-    let mut helper = FactoryHelper::init(&mut app, &owner);
-
-    // Update config
-    helper
-        .update_config(
-            &mut app,
-            &owner,
-            Some(200u64),
-            Some("fee".to_string()),
-            Some("generator".to_string()),
-            None,
-        )
-        .unwrap();
-
-    let config_res: ConfigResponse = app
-        .wrap()
-        .query_wasm_smart(&helper.factory, &QueryMsg::Config {})
-        .unwrap();
-
-    assert_eq!(200u64, config_res.token_code_id);
-    assert_eq!("fee", config_res.fee_address.unwrap().to_string());
-    assert_eq!(
-        "generator",
-        config_res.generator_address.unwrap().to_string()
-    );
-
-    // Unauthorized err
-    let res = helper
-        .update_config(
-            &mut app,
-            &Addr::unchecked("not_owner"),
-            None,
-            None,
-            None,
-            None,
-        )
-        .unwrap_err();
-    assert_eq!(res.root_cause().to_string(), "Unauthorized");
+    UpdatePairConfig {
+        config: PairConfig,
+    },
+    CreatePair {
+        pair_type: PairType,
+        asset_infos: Vec<AssetInfo>,
+        init_params: Option<Binary>,
+    },
+    Deregister {
+        asset_infos: Vec<AssetInfo>,
+    },
+    ProposeNewOwner {
+        owner: String,
+        expires_in: u64,
+    },
+    DropOwnershipProposal {},
+    ClaimOwnership {},
+    MarkAsMigrated { pairs: Vec<String> },
 }
 ```
 
@@ -307,13 +199,16 @@ fn update_config() {
 
 | **Params**      | **Type** | **Description** |
 | ----------- | ----------- | ----------- |
-| `token_code_id`   | `u64`        | CW20 token contract code identifier        |
-| `fee_address`      | `Option<String>`       | Contract address to send governance fees to (the Maker)       |
-| `generator_address`   | `Option<String>`        | Address of contract that is used to auto_stake LP tokens once someone provides liquidity in a pool      |
-| `whitelist_code_id`   | `u64`        | CW1 whitelist contract code id used to store 3rd party rewards for staking Astroport LP tokens      |
+| [`token_code_id`](focus://json#3)   | `u64`        | CW20 token contract code identifier        |
+| [`fee_address`](focus://json#4)      | `Option<String>`       | Contract address to send governance fees to (the Maker)       |
+| [`generator_address`](focus://json#5)   | `Option<String>`        | Address of contract that is used to auto_stake LP tokens once someone provides liquidity in a pool      |
+| [`whitelist_code_id`](focus://json#6)   | `u64`        | CW1 whitelist contract code id used to store 3rd party rewards for staking Astroport LP tokens      |
 
+</CH.Section>
 
 ### `update_pair_config`
+
+<CH.Section>
 
 This function can be used to:
 
@@ -331,69 +226,50 @@ As an example, let's say a pool charged 30bps (`total_fee_bps` is 30) and we wan
 
 <CH.Code>
 
-```json json.msg
+```json json
 {
-  "update_pair_config": {
-    "config": {
-      "code_id": 123,
-      "pair_type": {
-        "xyk": {}
-      },
-      "total_fee_bps": 100,
-      "maker_fee_bps": 10,
-      "is_disabled": false
+    "update_pair_config": {
+        "config": {
+            "code_id": 123, 
+            "pair_type": {
+                "xyk": {}
+            }, 
+            "total_fee_bps": 100, 
+            "maker_fee_bps": 10,
+            "is_disabled": false, 
+            "is_generator_disabled": false
+        }
     }
-  }
 }
 ```
 
-```rust factory.rs
+```rust factory.rs focus=1:2,9:11,27
 #[cw_serde]
 pub enum ExecuteMsg {
-    /// UpdatePairConfig updates the config for a pair type.
+    UpdateConfig {
+        token_code_id: Option<u64>,
+        fee_address: Option<String>,
+        generator_address: Option<String>,
+        whitelist_code_id: Option<u64>,
+    },
     UpdatePairConfig {
         config: PairConfig,
     },
-}
-```
-
-```rust contract.rs
-#[cfg_attr(not(feature = "library"), entry_point)]
-pub fn execute(
-    deps: DepsMut,
-    env: Env,
-    info: MessageInfo,
-    msg: ExecuteMsg,
-) -> Result<Response, ContractError> {
-    match msg {
-        ExecuteMsg::UpdatePairConfig { config } => execute_update_pair_config(deps, info, config),
-    }
-}
-
-pub fn execute_update_pair_config(
-    deps: DepsMut,
-    info: MessageInfo,
-    pair_config: PairConfig,
-) -> Result<Response, ContractError> {
-    let config = CONFIG.load(deps.storage)?;
-
-    // Permission check
-    if info.sender != config.owner {
-        return Err(ContractError::Unauthorized {});
-    }
-
-    // Validate total and maker fee bps
-    if !pair_config.valid_fee_bps() {
-        return Err(ContractError::PairConfigInvalidFeeBps {});
-    }
-
-    PAIR_CONFIGS.save(
-        deps.storage,
-        pair_config.pair_type.to_string(),
-        &pair_config,
-    )?;
-
-    Ok(Response::new().add_attribute("action", "update_pair_config"))
+    CreatePair {
+        pair_type: PairType,
+        asset_infos: Vec<AssetInfo>,
+        init_params: Option<Binary>,
+    },
+    Deregister {
+        asset_infos: Vec<AssetInfo>,
+    },
+    ProposeNewOwner {
+        owner: String,
+        expires_in: u64,
+    },
+    DropOwnershipProposal {},
+    ClaimOwnership {},
+    MarkAsMigrated { pairs: Vec<String> },
 }
 ```
 
@@ -401,10 +277,14 @@ pub fn execute_update_pair_config(
 
 | **Params**      | **Type** | **Description** |
 | ----------- | ----------- | ----------- |
-| `config`   | `PairConfig`        | New [`PairConfig`] settings for a pair type        |
+| [`config`](focus://json#3:12)   | [`PairConfig`](#pairconfig)        | New [`PairConfig`] settings for a pair type        |
 
+
+</CH.Section>
 
 ### `create_pair`
+
+<CH.Section>
 
 Anyone can execute this function to create an Astroport pair. `CreatePair` creates both a `Pair` contract and a `LP(liquidity provider)` token contract. The account that instantiates the pair must specify the pair type they want as well as the assets for which the pool is created.
 
@@ -412,7 +292,7 @@ Custom pool types may also need extra parameters which can be packed in `init_pa
 
 <CH.Code>
 
-```json json.msg
+```json json
 {
   "create_pair": {
     "pair_type": {
@@ -421,12 +301,12 @@ Custom pool types may also need extra parameters which can be packed in `init_pa
     "asset_infos": [
       {
         "token": {
-          "contract_addr": "terra..."
+          "contract_addr": "..."
         }
       },
       {
         "native_token": {
-          "denom": "uusd"
+          "denom": "..."
         }
       }
     ],
@@ -435,220 +315,33 @@ Custom pool types may also need extra parameters which can be packed in `init_pa
 }
 ```
 
-```rust factory.rs
+```rust factory.rs focus=1:2,12:16,27
 #[cw_serde]
 pub enum ExecuteMsg {
-    /// CreatePair instantiates a new pair contract.
+    UpdateConfig {
+        token_code_id: Option<u64>,
+        fee_address: Option<String>,
+        generator_address: Option<String>,
+        whitelist_code_id: Option<u64>,
+    },
+    UpdatePairConfig {
+        config: PairConfig,
+    },
     CreatePair {
         pair_type: PairType,
         asset_infos: Vec<AssetInfo>,
         init_params: Option<Binary>,
     },
-}
-```
-
-```rust contract.rs
-#[cfg_attr(not(feature = "library"), entry_point)]
-pub fn execute(
-    deps: DepsMut,
-    env: Env,
-    info: MessageInfo,
-    msg: ExecuteMsg,
-) -> Result<Response, ContractError> {
-    match msg {
-        ExecuteMsg::CreatePair {
-            pair_type,
-            asset_infos,
-            init_params,
-        } => execute_create_pair(deps, env, pair_type, asset_infos, init_params),
-    }
-}
-
-pub fn execute_create_pair(
-    deps: DepsMut,
-    env: Env,
-    pair_type: PairType,
-    asset_infos: Vec<AssetInfo>,
-    init_params: Option<Binary>,
-) -> Result<Response, ContractError> {
-    check_asset_infos(deps.api, &asset_infos)?;
-
-    let config = CONFIG.load(deps.storage)?;
-
-    if PAIRS.has(deps.storage, &pair_key(&asset_infos)) {
-        return Err(ContractError::PairWasCreated {});
-    }
-
-    // Get pair type from config
-    let pair_config = PAIR_CONFIGS
-        .load(deps.storage, pair_type.to_string())
-        .map_err(|_| ContractError::PairConfigNotFound {})?;
-
-    // Check if pair config is disabled
-    if pair_config.is_disabled {
-        return Err(ContractError::PairConfigDisabled {});
-    }
-
-    let pair_key = pair_key(&asset_infos);
-    TMP_PAIR_INFO.save(
-        deps.storage,
-        &TmpPairInfo {
-            pair_key,
-            asset_infos: asset_infos.clone(),
-        },
-    )?;
-
-    let sub_msg: Vec<SubMsg> = vec![SubMsg {
-        id: INSTANTIATE_PAIR_REPLY_ID,
-        msg: WasmMsg::Instantiate {
-            admin: Some(config.owner.to_string()),
-            code_id: pair_config.code_id,
-            msg: to_binary(&PairInstantiateMsg {
-                asset_infos: asset_infos.clone(),
-                token_code_id: config.token_code_id,
-                factory_addr: env.contract.address.to_string(),
-                init_params,
-            })?,
-            funds: vec![],
-            label: "Astroport pair".to_string(),
-        }
-        .into(),
-        gas_limit: None,
-        reply_on: ReplyOn::Success,
-    }];
-
-    Ok(Response::new()
-        .add_submessages(sub_msg)
-        .add_attributes(vec![
-            attr("action", "create_pair"),
-            attr("pair", asset_infos.iter().join("-")),
-        ]))
-}
-```
-
-```rust integration.rs
-#[test]
-fn test_create_pair() {
-    let mut app = mock_app();
-    let owner = Addr::unchecked("owner");
-    let mut helper = FactoryHelper::init(&mut app, &owner);
-
-    let token1 = instantiate_token(
-        &mut app,
-        helper.cw20_token_code_id,
-        &owner,
-        "tokenX",
-        Some(18),
-    );
-    let token2 = instantiate_token(
-        &mut app,
-        helper.cw20_token_code_id,
-        &owner,
-        "tokenY",
-        Some(18),
-    );
-
-    let err = helper
-        .create_pair(&mut app, &owner, PairType::Xyk {}, [&token1, &token1], None)
-        .unwrap_err();
-    assert_eq!(
-        err.root_cause().to_string(),
-        "Doubling assets in asset infos"
-    );
-
-    let res = helper
-        .create_pair(&mut app, &owner, PairType::Xyk {}, [&token1, &token2], None)
-        .unwrap();
-
-    let err = helper
-        .create_pair(&mut app, &owner, PairType::Xyk {}, [&token1, &token2], None)
-        .unwrap_err();
-    assert_eq!(err.root_cause().to_string(), "Pair was already created");
-
-    assert_eq!(res.events[1].attributes[1], attr("action", "create_pair"));
-    assert_eq!(
-        res.events[1].attributes[2],
-        attr("pair", format!("{}-{}", token1.as_str(), token2.as_str()))
-    );
-
-    let res: PairInfo = app
-        .wrap()
-        .query_wasm_smart(
-            helper.factory.clone(),
-            &QueryMsg::Pair {
-                asset_infos: vec![
-                    AssetInfo::Token {
-                        contract_addr: token1.clone(),
-                    },
-                    AssetInfo::Token {
-                        contract_addr: token2.clone(),
-                    },
-                ],
-            },
-        )
-        .unwrap();
-
-    // In multitest, contract names are counted in the order in which contracts are created
-    assert_eq!("contract1", helper.factory.to_string());
-    assert_eq!("contract4", res.contract_addr.to_string());
-    assert_eq!("contract5", res.liquidity_token.to_string());
-
-    // Create disabled pair type
-    app.execute_contract(
-        owner.clone(),
-        helper.factory.clone(),
-        &ExecuteMsg::UpdatePairConfig {
-            config: PairConfig {
-                code_id: 0,
-                pair_type: PairType::Custom("Custom".to_string()),
-                total_fee_bps: 100,
-                maker_fee_bps: 40,
-                is_disabled: true,
-                is_generator_disabled: false,
-            },
-        },
-        &[],
-    )
-    .unwrap();
-
-    let token3 = instantiate_token(
-        &mut app,
-        helper.cw20_token_code_id,
-        &owner,
-        "tokenY",
-        Some(18),
-    );
-
-    let err = helper
-        .create_pair(
-            &mut app,
-            &Addr::unchecked("someone"),
-            PairType::Custom("Custom".to_string()),
-            [&token1, &token3],
-            None,
-        )
-        .unwrap_err();
-    assert_eq!(err.root_cause().to_string(), "Pair config disabled");
-
-    // Query fee info
-    let fee_info: FeeInfoResponse = app
-        .wrap()
-        .query_wasm_smart(
-            &helper.factory,
-            &QueryMsg::FeeInfo {
-                pair_type: PairType::Custom("Custom".to_string()),
-            },
-        )
-        .unwrap();
-    assert_eq!(100, fee_info.total_fee_bps);
-    assert_eq!(40, fee_info.maker_fee_bps);
-
-    // query blacklisted pairs
-    let pair_types: Vec<PairType> = app
-        .wrap()
-        .query_wasm_smart(&helper.factory, &QueryMsg::BlacklistedPairTypes {})
-        .unwrap();
-    assert_eq!(pair_types, vec![PairType::Custom("Custom".to_string())]);
+    Deregister {
+        asset_infos: Vec<AssetInfo>,
+    },
+    ProposeNewOwner {
+        owner: String,
+        expires_in: u64,
+    },
+    DropOwnershipProposal {},
+    ClaimOwnership {},
+    MarkAsMigrated { pairs: Vec<String> },
 }
 ```
 
@@ -656,113 +349,67 @@ fn test_create_pair() {
 
 | **Params**      | **Type** | **Description** |
 | ----------- | ----------- | ----------- |
-| `pair_type`   | `PairType`        | The pair type (exposed in [`PairType`])        |
-| `asset_infos`   | `Vec<AssetInfo>`        | The assets to create the pool for        |
-| `init_params`   | `Option<Binary>`        | Optional binary serialised parameters for custom pool types        |
+| [`pair_type`](focus://json#3:5)   | [`PairType`](#pairtype)        | The pair type (exposed in [`PairType`])        |
+| [`asset_infos`](focus://json#6:17)   | [`Vec<AssetInfo>`](./common-types#assetinfo)        | The assets to create the pool for        |
+| [`init_params`](focus://json#18)   | `Option<Binary>`        | Optional binary serialised parameters for custom pool types        |
+
+</CH.Section>
 
 
 ### `deregister`
+
+<CH.Section>
 
 Deregisters an already registered pair. This allows someone else to create a new pair (of any type) for the tokens that don't have a registered pair anymore. This is how pairs can be "upgraded".
 
 <CH.Code>
 
-```json json.msg
+```json json
 {
-  "deregister": {
-    "asset_infos": [
-      {
-        "token": {
-          "contract_address": "terra..."
-        }
-      },
-      {
-        "native_token": {
-          "denom": "uusd"
-        }
-      }
-    ]
-  }
+    "deregister": {
+        "asset_infos": [
+            {
+                "token": {
+                    "contract_addr": "..."
+                }
+            },
+            {
+                "native_token": {
+                    "denom": "..."
+                }
+            }
+        ]
+    }
 }
 ```
 
-```rust factory.rs
+```rust factory.rs focus=1:2,17:19,27
 #[cw_serde]
 pub enum ExecuteMsg {
-    /// Deregister removes a previously created pair.
+    UpdateConfig {
+        token_code_id: Option<u64>,
+        fee_address: Option<String>,
+        generator_address: Option<String>,
+        whitelist_code_id: Option<u64>,
+    },
+    UpdatePairConfig {
+        config: PairConfig,
+    },
+    CreatePair {
+        pair_type: PairType,
+        asset_infos: Vec<AssetInfo>,
+        init_params: Option<Binary>,
+    },
     Deregister {
         asset_infos: Vec<AssetInfo>,
     },
-}
-```
-
-```rust contract.rs
-#[cfg_attr(not(feature = "library"), entry_point)]
-pub fn execute(
-    deps: DepsMut,
-    env: Env,
-    info: MessageInfo,
-    msg: ExecuteMsg,
-) -> Result<Response, ContractError> {
-    match msg {
-        ExecuteMsg::Deregister { asset_infos } => deregister(deps, info, asset_infos),
-    }
-}
-
-pub fn deregister(
-    deps: DepsMut,
-    info: MessageInfo,
-    asset_infos: Vec<AssetInfo>,
-) -> Result<Response, ContractError> {
-    asset_infos[0].check(deps.api)?;
-    asset_infos[1].check(deps.api)?;
-
-    let config = CONFIG.load(deps.storage)?;
-
-    if info.sender != config.owner {
-        return Err(ContractError::Unauthorized {});
-    }
-
-    let pair_addr = PAIRS.load(deps.storage, &pair_key(&asset_infos))?;
-    PAIRS.remove(deps.storage, &pair_key(&asset_infos));
-
-    for asset_info1 in &asset_infos {
-        for asset_info2 in &asset_infos {
-            if asset_info1 != asset_info2 {
-                ROUTE.update::<_, StdError>(
-                    deps.storage,
-                    (asset_info1.to_string(), asset_info2.to_string()),
-                    |pairs| {
-                        Ok(pairs
-                            .unwrap_or_default()
-                            .iter()
-                            .cloned()
-                            .filter(|pair| pair != &pair_addr)
-                            .collect::<Vec<_>>())
-                    },
-                )?;
-            }
-        }
-    }
-
-    let mut response = Response::new();
-    if let Some(generator) = config.generator_address {
-        let pair_info = query_pair_info(&deps.querier, &pair_addr)?;
-
-        // sets the allocation point to zero for the lp_token
-        response = response.add_message(CosmosMsg::Wasm(WasmMsg::Execute {
-            contract_addr: generator.to_string(),
-            msg: to_binary(&DeactivatePool {
-                lp_token: pair_info.liquidity_token.to_string(),
-            })?,
-            funds: vec![],
-        }));
-    }
-
-    Ok(response.add_attributes(vec![
-        attr("action", "deregister"),
-        attr("pair_contract_addr", pair_addr),
-    ]))
+    ProposeNewOwner {
+        owner: String,
+        expires_in: u64,
+    },
+    DropOwnershipProposal {},
+    ClaimOwnership {},
+    MarkAsMigrated { pairs: Vec<String> },
 }
 ```
 
@@ -770,108 +417,53 @@ pub fn deregister(
 
 | **Params**      | **Type** | **Description** |
 | ----------- | ----------- | ----------- |
-| `asset_infos`   | `Vec<AssetInfo>`        | The assets for which we deregister a pool        |
+| [`asset_infos`](focus://json#3:14)   | [`Vec<AssetInfo>`](./common-types#assetinfo)        | The assets for which we deregister a pool        |
 
+</CH.Section>
 
 ### `propose_new_owner`
 
 Creates an offer to change the contract ownership. The validity period of the offer is set in the `expires_in` variable. After `expires_in` seconds pass, the proposal expires and cannot be accepted anymore.
 
+<CH.Section>
 <CH.Code>
 
-```json json.msg
+```json json
 {
   "propose_new_owner": {
-    "owner": "terra...",
+    "owner": "...",
     "expires_in": 1234567
   }
 }
 ```
 
-```rust factory.rs
+```rust factory.rs focus=1:2,20:23,27
 #[cw_serde]
 pub enum ExecuteMsg {
-    /// ProposeNewOwner creates a proposal to change contract ownership.
-    /// The validity period for the proposal is set in the `expires_in` variable.
+    UpdateConfig {
+        token_code_id: Option<u64>,
+        fee_address: Option<String>,
+        generator_address: Option<String>,
+        whitelist_code_id: Option<u64>,
+    },
+    UpdatePairConfig {
+        config: PairConfig,
+    },
+    CreatePair {
+        pair_type: PairType,
+        asset_infos: Vec<AssetInfo>,
+        init_params: Option<Binary>,
+    },
+    Deregister {
+        asset_infos: Vec<AssetInfo>,
+    },
     ProposeNewOwner {
         owner: String,
         expires_in: u64,
     },
-}
-```
-
-```rust contract.rs
-use astroport::common::{
-    propose_new_owner,
-};
-
-#[cfg_attr(not(feature = "library"), entry_point)]
-pub fn execute(
-    deps: DepsMut,
-    env: Env,
-    info: MessageInfo,
-    msg: ExecuteMsg,
-) -> Result<Response, ContractError> {
-    match msg {
-        ExecuteMsg::ProposeNewOwner { owner, expires_in } => {
-            let config = CONFIG.load(deps.storage)?;
-
-            propose_new_owner(
-                deps,
-                info,
-                env,
-                owner,
-                expires_in,
-                config.owner,
-                OWNERSHIP_PROPOSAL,
-            )
-            .map_err(Into::into)
-        }
-    }
-}
-```
-
-```rust common.rs
-pub fn propose_new_owner(
-    deps: DepsMut,
-    info: MessageInfo,
-    env: Env,
-    new_owner: String,
-    expires_in: u64,
-    owner: Addr,
-    proposal: Item<OwnershipProposal>,
-) -> StdResult<Response> {
-    // Permission check
-    if info.sender != owner {
-        return Err(StdError::generic_err("Unauthorized"));
-    }
-
-    let new_owner = addr_validate_to_lower(deps.api, new_owner.as_str())?;
-
-    // Check that the new owner is not the same as the current one
-    if new_owner == owner {
-        return Err(StdError::generic_err("New owner cannot be same"));
-    }
-
-    if MAX_PROPOSAL_TTL < expires_in {
-        return Err(StdError::generic_err(format!(
-            "Parameter expires_in cannot be higher than {}",
-            MAX_PROPOSAL_TTL
-        )));
-    }
-
-    proposal.save(
-        deps.storage,
-        &OwnershipProposal {
-            owner: new_owner.clone(),
-            ttl: env.block.time.seconds() + expires_in,
-        },
-    )?;
-
-    Ok(Response::new().add_attributes(vec![
-        attr("action", "propose_new_owner"),
-        attr("new_owner", new_owner),
-    ]))
+    DropOwnershipProposal {},
+    ClaimOwnership {},
+    MarkAsMigrated { pairs: Vec<String> },
 }
 ```
 
@@ -879,9 +471,10 @@ pub fn propose_new_owner(
 
 | **Params**      | **Type** | **Description** |
 | ----------- | ----------- | ----------- |
-| `owner`   | `String`        | Newly proposed contract owner        |
-| `expires_in`   | `u64`        | The date after which this proposal expires        |
+| [`owner`](focus://json#3)   | `String`        | Newly proposed contract owner        |
+| [`expires_in`](focus://json#4)   | `u64`        | The date after which this proposal expires        |
 
+</CH.Section>
 
 ### `drop_ownership_proposal`
 
@@ -889,58 +482,39 @@ Removes an existing offer to change the contract owner.
 
 <CH.Code>
 
-```json json.msg
+```json json
 {
   "drop_ownership_proposal": {}
 }
 ```
 
-```rust factory.rs
+```rust factory.rs focus=1:2,24,27
 #[cw_serde]
 pub enum ExecuteMsg {
-    /// DropOwnershipProposal removes the existing offer to change contract ownership.
+    UpdateConfig {
+        token_code_id: Option<u64>,
+        fee_address: Option<String>,
+        generator_address: Option<String>,
+        whitelist_code_id: Option<u64>,
+    },
+    UpdatePairConfig {
+        config: PairConfig,
+    },
+    CreatePair {
+        pair_type: PairType,
+        asset_infos: Vec<AssetInfo>,
+        init_params: Option<Binary>,
+    },
+    Deregister {
+        asset_infos: Vec<AssetInfo>,
+    },
+    ProposeNewOwner {
+        owner: String,
+        expires_in: u64,
+    },
     DropOwnershipProposal {},
-}
-```
-
-```rust contract.rs
-use astroport::common::{
-    drop_ownership_proposal,
-};
-
-#[cfg_attr(not(feature = "library"), entry_point)]
-pub fn execute(
-    deps: DepsMut,
-    env: Env,
-    info: MessageInfo,
-    msg: ExecuteMsg,
-) -> Result<Response, ContractError> {
-    match msg {
-        ExecuteMsg::DropOwnershipProposal {} => {
-            let config = CONFIG.load(deps.storage)?;
-
-            drop_ownership_proposal(deps, info, config.owner, OWNERSHIP_PROPOSAL)
-                .map_err(Into::into)
-        }
-    }
-}
-```
-
-```rust common.rs
-pub fn drop_ownership_proposal(
-    deps: DepsMut,
-    info: MessageInfo,
-    owner: Addr,
-    proposal: Item<OwnershipProposal>,
-) -> StdResult<Response> {
-    // Permission check
-    if info.sender != owner {
-        return Err(StdError::generic_err("Unauthorized"));
-    }
-
-    proposal.remove(deps.storage);
-
-    Ok(Response::new().add_attributes(vec![attr("action", "drop_ownership_proposal")]))
+    ClaimOwnership {},
+    MarkAsMigrated { pairs: Vec<String> },
 }
 ```
 
@@ -953,405 +527,89 @@ Used to claim contract ownership.
 
 <CH.Code>
 
-```json json.msg
+```json json
 {
   "claim_ownership": {}
 }
 ```
 
-```rust factory.rs
+```rust factory.rs focus=1:2,25,27
 #[cw_serde]
 pub enum ExecuteMsg {
-    /// Used to claim contract ownership.
+    UpdateConfig {
+        token_code_id: Option<u64>,
+        fee_address: Option<String>,
+        generator_address: Option<String>,
+        whitelist_code_id: Option<u64>,
+    },
+    UpdatePairConfig {
+        config: PairConfig,
+    },
+    CreatePair {
+        pair_type: PairType,
+        asset_infos: Vec<AssetInfo>,
+        init_params: Option<Binary>,
+    },
+    Deregister {
+        asset_infos: Vec<AssetInfo>,
+    },
+    ProposeNewOwner {
+        owner: String,
+        expires_in: u64,
+    },
+    DropOwnershipProposal {},
     ClaimOwnership {},
+    MarkAsMigrated { pairs: Vec<String> },
 }
 ```
-
-```rust contract.rs
-use astroport::common::{
-    claim_ownership, drop_ownership_proposal, propose_new_owner, validate_addresses,
-};
-
-#[cfg_attr(not(feature = "library"), entry_point)]
-pub fn execute(
-    deps: DepsMut,
-    env: Env,
-    info: MessageInfo,
-    msg: ExecuteMsg,
-) -> Result<Response, ContractError> {
-    match msg {
-        ExecuteMsg::ClaimOwnership {} => {
-            let pairs = PAIRS
-                .range(deps.storage, None, None, Order::Ascending)
-                .map(|pair| -> StdResult<Addr> { Ok(pair?.1) })
-                .collect::<StdResult<Vec<_>>>()?;
-
-            PAIRS_TO_MIGRATE.save(deps.storage, &pairs)?;
-
-            claim_ownership(deps, info, env, OWNERSHIP_PROPOSAL, |deps, new_owner| {
-                CONFIG
-                    .update::<_, StdError>(deps.storage, |mut v| {
-                        v.owner = new_owner;
-                        Ok(v)
-                    })
-                    .map(|_| ())
-            })
-            .map_err(Into::into)
-        }
-    }
-}
-```
-
-```rust common.rs
-pub fn claim_ownership(
-    deps: DepsMut,
-    info: MessageInfo,
-    env: Env,
-    proposal: Item<OwnershipProposal>,
-    cb: fn(DepsMut, Addr) -> StdResult<()>,
-) -> StdResult<Response> {
-    let p = proposal
-        .load(deps.storage)
-        .map_err(|_| StdError::generic_err("Ownership proposal not found"))?;
-
-    // Check the sender
-    if info.sender != p.owner {
-        return Err(StdError::generic_err("Unauthorized"));
-    }
-
-    if env.block.time.seconds() > p.ttl {
-        return Err(StdError::generic_err("Ownership proposal expired"));
-    }
-
-    proposal.remove(deps.storage);
-
-    // Run callback
-    cb(deps, p.owner.clone())?;
-
-    Ok(Response::new().add_attributes(vec![
-        attr("action", "claim_ownership"),
-        attr("new_owner", p.owner),
-    ]))
-}
-```
-
-```rust integration.rs
-#[test]
-fn check_update_owner() {
-    let mut app = mock_app();
-    let owner = Addr::unchecked("owner");
-    let helper = FactoryHelper::init(&mut app, &owner);
-
-    let new_owner = String::from("new_owner");
-
-    // New owner
-    let msg = ExecuteMsg::ProposeNewOwner {
-        owner: new_owner.clone(),
-        expires_in: 100, // seconds
-    };
-
-    // Unauthed check
-    let err = app
-        .execute_contract(
-            Addr::unchecked("not_owner"),
-            helper.factory.clone(),
-            &msg,
-            &[],
-        )
-        .unwrap_err();
-    assert_eq!(err.root_cause().to_string(), "Generic error: Unauthorized");
-
-    // Claim before proposal
-    let err = app
-        .execute_contract(
-            Addr::unchecked(new_owner.clone()),
-            helper.factory.clone(),
-            &ExecuteMsg::ClaimOwnership {},
-            &[],
-        )
-        .unwrap_err();
-    assert_eq!(
-        err.root_cause().to_string(),
-        "Generic error: Ownership proposal not found"
-    );
-
-    // Propose new owner
-    app.execute_contract(Addr::unchecked("owner"), helper.factory.clone(), &msg, &[])
-        .unwrap();
-
-    // Claim from invalid addr
-    let err = app
-        .execute_contract(
-            Addr::unchecked("invalid_addr"),
-            helper.factory.clone(),
-            &ExecuteMsg::ClaimOwnership {},
-            &[],
-        )
-        .unwrap_err();
-    assert_eq!(err.root_cause().to_string(), "Generic error: Unauthorized");
-
-    // Drop ownership proposal
-    let err = app
-        .execute_contract(
-            Addr::unchecked(new_owner.clone()),
-            helper.factory.clone(),
-            &ExecuteMsg::DropOwnershipProposal {},
-            &[],
-        )
-        .unwrap_err();
-    // new_owner is not an owner yet
-    assert_eq!(err.root_cause().to_string(), "Generic error: Unauthorized");
-
-    app.execute_contract(
-        owner.clone(),
-        helper.factory.clone(),
-        &ExecuteMsg::DropOwnershipProposal {},
-        &[],
-    )
-    .unwrap();
-
-    // Try to claim ownership
-    let err = app
-        .execute_contract(
-            Addr::unchecked(new_owner.clone()),
-            helper.factory.clone(),
-            &ExecuteMsg::ClaimOwnership {},
-            &[],
-        )
-        .unwrap_err();
-    assert_eq!(
-        err.root_cause().to_string(),
-        "Generic error: Ownership proposal not found"
-    );
-
-    // Propose new owner again
-    app.execute_contract(Addr::unchecked("owner"), helper.factory.clone(), &msg, &[])
-        .unwrap();
-    // Claim ownership
-    app.execute_contract(
-        Addr::unchecked(new_owner.clone()),
-        helper.factory.clone(),
-        &ExecuteMsg::ClaimOwnership {},
-        &[],
-    )
-    .unwrap();
-
-    // Let's query the contract state
-    let msg = QueryMsg::Config {};
-    let res: ConfigResponse = app.wrap().query_wasm_smart(&helper.factory, &msg).unwrap();
-
-    assert_eq!(res.owner, new_owner)
-}
-```
-
 
 </CH.Code>
-
 
 ### `mark_as_migrated`
 
 Mark pairs as migrated.
 
+<CH.Section>
 <CH.Code>
 
-```json json.msg
+```json json 
 {
-    "mark_as_migrated": {
-        "pairs": ["terra...", "terra..."]
+    "mask_as_migrated": {
+        "pairs": [
+            "terra...", 
+            "terra..."
+        ]
     }
 }
 ```
 
-```rust factory.rs
+```rust factory.rs focus=1:2,26:27
 #[cw_serde]
 pub enum ExecuteMsg {
-    /// MarkAsMigrated marks pairs as migrated
+    UpdateConfig {
+        token_code_id: Option<u64>,
+        fee_address: Option<String>,
+        generator_address: Option<String>,
+        whitelist_code_id: Option<u64>,
+    },
+    UpdatePairConfig {
+        config: PairConfig,
+    },
+    CreatePair {
+        pair_type: PairType,
+        asset_infos: Vec<AssetInfo>,
+        init_params: Option<Binary>,
+    },
+    Deregister {
+        asset_infos: Vec<AssetInfo>,
+    },
+    ProposeNewOwner {
+        owner: String,
+        expires_in: u64,
+    },
+    DropOwnershipProposal {},
+    ClaimOwnership {},
     MarkAsMigrated { pairs: Vec<String> },
-}
-```
-
-```rust contract.rs
-#[cfg_attr(not(feature = "library"), entry_point)]
-pub fn execute(
-    deps: DepsMut,
-    env: Env,
-    info: MessageInfo,
-    msg: ExecuteMsg,
-) -> Result<Response, ContractError> {
-    match msg {
-        ExecuteMsg::MarkAsMigrated { pairs } => execute_mark_pairs_as_migrated(deps, info, pairs),
-    }
-}
-
-fn execute_mark_pairs_as_migrated(
-    deps: DepsMut,
-    info: MessageInfo,
-    pairs: Vec<String>,
-) -> Result<Response, ContractError> {
-    let config = CONFIG.load(deps.storage)?;
-
-    if info.sender != config.owner {
-        return Err(ContractError::Unauthorized {});
-    }
-
-    let pairs = validate_addresses(deps.api, &pairs)?;
-
-    let not_migrated: Vec<Addr> = PAIRS_TO_MIGRATE
-        .load(deps.storage)?
-        .into_iter()
-        .filter(|addr| !pairs.contains(addr))
-        .collect();
-
-    PAIRS_TO_MIGRATE.save(deps.storage, &not_migrated)?;
-
-    Ok(Response::new().add_attribute("action", "execute_mark_pairs_as_migrated"))
-}
-```
-
-```rust integration.rs
-#[test]
-fn test_pair_migration() {
-    let mut app = mock_app();
-
-    let owner = Addr::unchecked("owner");
-    let mut helper = FactoryHelper::init(&mut app, &owner);
-
-    let token_instance0 =
-        instantiate_token(&mut app, helper.cw20_token_code_id, &owner, "tokenX", None);
-    let token_instance1 =
-        instantiate_token(&mut app, helper.cw20_token_code_id, &owner, "tokenY", None);
-    let token_instance2 =
-        instantiate_token(&mut app, helper.cw20_token_code_id, &owner, "tokenZ", None);
-
-    // Create pairs in factory
-    let pairs = [
-        helper
-            .create_pair_with_addr(
-                &mut app,
-                &owner,
-                PairType::Xyk {},
-                [&token_instance0, &token_instance1],
-                None,
-            )
-            .unwrap(),
-        helper
-            .create_pair_with_addr(
-                &mut app,
-                &owner,
-                PairType::Xyk {},
-                [&token_instance0, &token_instance2],
-                None,
-            )
-            .unwrap(),
-    ];
-
-    // Change contract ownership
-    let new_owner = Addr::unchecked("new_owner");
-
-    app.execute_contract(
-        owner.clone(),
-        helper.factory.clone(),
-        &ExecuteMsg::ProposeNewOwner {
-            owner: new_owner.to_string(),
-            expires_in: 100,
-        },
-        &[],
-    )
-    .unwrap();
-    app.execute_contract(
-        new_owner.clone(),
-        helper.factory.clone(),
-        &ExecuteMsg::ClaimOwnership {},
-        &[],
-    )
-    .unwrap();
-
-    let pair3 = helper
-        .create_pair_with_addr(
-            &mut app,
-            &owner,
-            PairType::Xyk {},
-            [&token_instance1, &token_instance2],
-            None,
-        )
-        .unwrap();
-
-    // Should panic due to pairs are not migrated.
-    for pair in pairs.clone() {
-        let res = app
-            .execute_contract(
-                new_owner.clone(),
-                pair,
-                &PairExecuteMsg::UpdateConfig {
-                    params: Default::default(),
-                },
-                &[],
-            )
-            .unwrap_err();
-
-        assert_eq!(
-            res.root_cause().to_string(),
-            "Pair is not migrated to the new admin!"
-        );
-    }
-
-    // Pair is created after admin migration
-    let res = app
-        .execute_contract(
-            Addr::unchecked("user1"),
-            pair3,
-            &PairExecuteMsg::UpdateConfig {
-                params: Default::default(),
-            },
-            &[],
-        )
-        .unwrap_err();
-
-    assert_ne!(res.to_string(), "Pair is not migrated to the new admin");
-
-    let pairs_res: Vec<Addr> = app
-        .wrap()
-        .query_wasm_smart(&helper.factory, &QueryMsg::PairsToMigrate {})
-        .unwrap();
-    assert_eq!(&pairs_res, &pairs);
-
-    // Factory owner was changed to new owner
-    let err = app
-        .execute_contract(
-            owner,
-            helper.factory.clone(),
-            &ExecuteMsg::MarkAsMigrated {
-                pairs: Vec::from(pairs.clone().map(String::from)),
-            },
-            &[],
-        )
-        .unwrap_err();
-    assert_eq!(err.root_cause().to_string(), "Unauthorized");
-
-    app.execute_contract(
-        new_owner,
-        helper.factory.clone(),
-        &ExecuteMsg::MarkAsMigrated {
-            pairs: Vec::from(pairs.clone().map(String::from)),
-        },
-        &[],
-    )
-    .unwrap();
-
-    for pair in pairs.clone() {
-        let res = app
-            .execute_contract(
-                Addr::unchecked("user1"),
-                pair,
-                &PairExecuteMsg::UpdateConfig {
-                    params: Default::default(),
-                },
-                &[],
-            )
-            .unwrap_err();
-
-        assert_ne!(res.to_string(), "Pair is not migrated to the new admin!");
-    }
 }
 ```
 
@@ -1360,7 +618,9 @@ fn test_pair_migration() {
 
 | **Params**      | **Type** | **Description** |
 | ----------- | ----------- | ----------- |
-| `pairs`   | `Vec<String>`        |         |
+| [`pairs`](focus://json#3:6)   | `Vec<String>`        | Migrated pairs        |
+
+</CH.Section>
 
 
 ## QueryMsg
@@ -1371,225 +631,155 @@ All query messages are described below. A custom struct is defined for each quer
 
 Returns general factory parameters (owner, token code ID, pair type configurations).
 
+<CH.Section>
 <CH.Code>
 
-```json json.msg
+```json json
 {
   "config": {}
 }
 ```
 
-```rust factory.rs 
+```rust factory.rs focus=1:5,23
 #[cw_serde]
 #[derive(QueryResponses)]
 pub enum QueryMsg {
-    /// Config returns contract settings specified in the custom [`ConfigResponse`] structure.
     #[returns(ConfigResponse)]
     Config {},
-}
-
-#[cw_serde]
-pub struct ConfigResponse {
-    /// Addres of owner that is allowed to change contract parameters
-    pub owner: Addr,
-    /// IDs of contracts which are allowed to create pairs
-    pub pair_configs: Vec<PairConfig>,
-    /// CW20 token contract code identifier
-    pub token_code_id: u64,
-    /// Address of contract to send governance fees to (the Maker)
-    pub fee_address: Option<Addr>,
-    /// Address of contract used to auto_stake LP tokens for Astroport pairs that are incentivized
-    pub generator_address: Option<Addr>,
-    /// CW1 whitelist contract code id used to store 3rd party rewards for staking Astroport LP tokens
-    pub whitelist_code_id: u64,
-}
-```
-
-```rust contract.rs
-#[cfg_attr(not(feature = "library"), entry_point)]
-pub fn query(deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<Binary> {
-    match msg {
-        QueryMsg::Config {} => to_binary(&query_config(deps)?),
-    }
-}
-
-/// Returns general contract parameters using a custom [`ConfigResponse`] structure.
-pub fn query_config(deps: Deps) -> StdResult<ConfigResponse> {
-    let config = CONFIG.load(deps.storage)?;
-    let resp = ConfigResponse {
-        owner: config.owner,
-        token_code_id: config.token_code_id,
-        pair_configs: PAIR_CONFIGS
-            .range(deps.storage, None, None, Order::Ascending)
-            .map(|item| Ok(item?.1))
-            .collect::<StdResult<Vec<_>>>()?,
-        fee_address: config.fee_address,
-        generator_address: config.generator_address,
-        whitelist_code_id: config.whitelist_code_id,
-    };
-
-    Ok(resp)
+    #[returns(PairInfo)]
+    Pair {
+        asset_infos: Vec<AssetInfo>,
+    },
+    #[returns(PairsResponse)]
+    Pairs {
+        start_after: Option<Vec<AssetInfo>>,
+        limit: Option<u32>,
+    },
+    #[returns(FeeInfoResponse)]
+    FeeInfo {
+        pair_type: PairType,
+    },
+    #[returns(Vec<PairType>)]
+    BlacklistedPairTypes {},
+    #[returns(Vec<Addr>)]
+    PairsToMigrate {},
 }
 ```
 
 </CH.Code>
+</CH.Section>
+
+#### `ConfigResponse`
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+    "owner": "terra...", 
+    "pair_configs": [
+        {
+            "code_id": 428, 
+            "pair_type": {
+                "stable": {}
+            },
+            "total_fee_bps": 5, 
+            "maker_fee_bps": 5000, 
+            "is_disabled": false, 
+            "is_generator_disabled": false
+        }, 
+        {
+            "code_id": 392, 
+            "pair_type": {
+                "xyk": {}
+            },
+            "total_fee_bps": 30, 
+            "maker_fee_bps": 3333, 
+            "is_disabled": false, 
+            "is_generator_disabled": false
+        }
+    ],
+    "token_code_id": 123, 
+    "fee_address": "terra...", 
+    "generator_address": "terra...", 
+    "whitelist_code_id": 123
+}
+```
+
+```rust factory.rs
+#[cw_serde]
+pub struct ConfigResponse {
+    pub owner: Addr,
+    pub pair_configs: Vec<PairConfig>,
+    pub token_code_id: u64,
+    pub fee_address: Option<Addr>,
+    pub generator_address: Option<Addr>,
+    pub whitelist_code_id: u64,
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`owner`](focus://json#2)   | `Addr`        | Addres of owner that is allowed to change contract parameters        |
+| [`pair_configs`](focus://json#3:24)   | [`Vec<PairConfig>`](#pairconfig)        | IDs of contracts which are allowed to create pairs        |
+| [`token_code_id`](focus://json#25)   | `u64`        | CW20 token contract code identifier        |
+| [`fee_address`](focus://json#26)   | `Option<Addr>`        | Address of contract to send governance fees to (the Maker)        |
+| [`generator_address`](focus://json#27)   | `Option<Addr>`        | Address of contract used to auto_stake LP tokens for Astroport pairs that are incentivized        |
+| [`whitelist_code_id`](focus://json#28)   | `u64`        | CW1 whitelist contract code id used to store 3rd party rewards for staking Astroport LP tokens        |
+
+
+</CH.Section>
+
 
 ### `pair`
 
 Returns information about a specific pair.
 
+<CH.Section>
 <CH.Code>
 
-```json json.msg
+```json json
 {
-  "pair": {
-    "asset_infos": [
-      {
-        "token": {
-          "contract_address": "terra..."
-        }
-      },
-      {
-        "native_token": {
-          "denom": "uusd"
-        }
-      }
-    ]
-  }
+    "pair": {
+        "asset_infos": [
+            {
+                "token": {
+                    "contract_addr": "..."
+                }
+            },
+            {
+                "native_token": {
+                    "denom": "..."
+                }
+            }
+        ]
+    }
 }
 ```
 
-```rust factory.rs 
+```rust factory.rs focus=1:3,6:9,23
 #[cw_serde]
 #[derive(QueryResponses)]
 pub enum QueryMsg {
-    /// Pair returns information about a specific pair according to the specified assets.
+    #[returns(ConfigResponse)]
+    Config {},
     #[returns(PairInfo)]
     Pair {
-        /// The assets for which we return a pair
         asset_infos: Vec<AssetInfo>,
     },
-}
-```
-
-</CH.Code>
-
-### `pairs`
-
-Returns information about multiple pairs (the result is paginated). The function starts returning pair information starting after the pair `start_after`. The function returns maximum `limit` pairs.
-
-<CH.Code>
-
-```json json.msg
-{
-  "pairs": {
-    "start_after": [
-      {
-        "token": {
-          "contract_address": "terra..."
-        }
-      },
-      {
-        "native_token": {
-          "denom": "uusd"
-        }
-      }
-    ],
-    "limit": 10
-  }
-}
-```
-
-
-```rust factory.rs 
-#[cw_serde]
-#[derive(QueryResponses)]
-pub enum QueryMsg {
-    /// Pairs returns an array of pairs and their information according to the specified parameters in `start_after` and `limit` variables.
     #[returns(PairsResponse)]
     Pairs {
-        /// The pair item to start reading from. It is an [`Option`] type that accepts [`AssetInfo`] elements.
         start_after: Option<Vec<AssetInfo>>,
-        /// The number of pairs to read and return. It is an [`Option`] type.
         limit: Option<u32>,
     },
-}
-```
-
-</CH.Code>
-
-### `fee_info`
-
-Returns the fee information for a specific pair type (`total_fee_bps` and `maker_fee_bps`).
-
-<CH.Code>
-
-```json json.msg
-{
-  "pair_type": {
-    "xyk": {}
-  }
-}
-```
-
-```rust factory.rs 
-#[cw_serde]
-#[derive(QueryResponses)]
-pub enum QueryMsg {
-    /// FeeInfo returns fee parameters for a specific pair. The response is returned using a [`FeeInfoResponse`] structure
     #[returns(FeeInfoResponse)]
     FeeInfo {
-        /// The pair type for which we return fee information. Pair type is a [`PairType`] struct
         pair_type: PairType,
     },
-}
-```
-
-</CH.Code>
-
-### `blacklisted_pair_types`
-
-Returns a vector that contains blacklisted pair types.
-
-<CH.Code>
-
-```json json.msg
-{
-  "blacklisted_pair_types": {}
-}
-```
-
-
-```rust factory.rs 
-#[cw_serde]
-#[derive(QueryResponses)]
-pub enum QueryMsg {
-    /// Returns a vector that contains blacklisted pair types
     #[returns(Vec<PairType>)]
     BlacklistedPairTypes {},
-}
-```
-
-</CH.Code>
-
-### `pairs_to_migrate`
-
-Returns a vector that contains pair addresses that are not migrated.
-
-<CH.Code>
-
-```json json.msg
-{
-  "pairs_to_migrate": {}
-}
-```
-
-
-```rust factory.rs 
-#[cw_serde]
-#[derive(QueryResponses)]
-pub enum QueryMsg {
-    /// Returns a vector that contains pair addresses that are not migrated
     #[returns(Vec<Addr>)]
     PairsToMigrate {},
 }
@@ -1597,33 +787,296 @@ pub enum QueryMsg {
 
 </CH.Code>
 
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`asset_infos`](focus://json#3:14)   | [`Vec<AssetInfo>`](./common-types#assetinfo)        | The assets in the pair        |
+
+</CH.Section>
+
+`pair` returns a [`PairInfo`](./common-types#pairinfo) response  struct.
+
+
+### `pairs`
+
+Returns information about multiple pairs (the result is paginated). The function starts returning pair information starting after the pair `start_after`. The function returns maximum `limit` pairs.
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+    "pairs": {
+        "start_after": [
+            {
+                "token": {
+                    "contract_addr": "..."
+                }
+            }, 
+            {
+                "native_token": {
+                    "denom": "..."
+                }
+            }
+        ], 
+        "limit": 10
+    }
+}
+```
+
+
+```rust factory.rs focus=1:3,10:14,23
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(ConfigResponse)]
+    Config {},
+    #[returns(PairInfo)]
+    Pair {
+        asset_infos: Vec<AssetInfo>,
+    },
+    #[returns(PairsResponse)]
+    Pairs {
+        start_after: Option<Vec<AssetInfo>>,
+        limit: Option<u32>,
+    },
+    #[returns(FeeInfoResponse)]
+    FeeInfo {
+        pair_type: PairType,
+    },
+    #[returns(Vec<PairType>)]
+    BlacklistedPairTypes {},
+    #[returns(Vec<Addr>)]
+    PairsToMigrate {},
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`start_after`](focus://json#3:14)   | [`Option<Vec<AssetInfo>>`](./common-types#assetinfo)        | The pair item to start reading from. It is an [`Option`] type that accepts [`AssetInfo`] elements        |
+| [`limit`](focus://json#15)   | `Option<u32>`        | The number of pairs to read and return. It is an [`Option`] type        |
+
+</CH.Section>
+
+#### `PairsResponse`
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+    "pairs": [
+        {
+            "asset_infos": [
+                {
+                    "token": {
+                        "contract_addr": "..."
+                    }
+
+                },
+                {
+                    "native_token": {
+                        "denom": "..."
+                    }
+                }
+            ], 
+            "contract_addr": "...", 
+            "liquidity_token": "...", 
+            "pair_type": {
+                "xyk": {}
+            }
+        }, 
+        ...etc
+    ]
+}
+```
+
+```rust factory.rs
+#[cw_serde]
+pub struct PairsResponse {
+    pub pairs: Vec<PairInfo>,
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`pairs`](focus://json#2:24)   | [`Vec<PairInfo>`](./common-types#pairinfo)        | Arrays of structs containing information about multiple pairs        |
+
+</CH.Section>
 
 
 
 
 
+### `fee_info`
 
+Returns fee information for a specific pair type (`total_fee_bps` and `maker_fee_bps`).
 
-| ----------- | ----------- | ----------- |
-| ----------- | ----------- | ----------- |
-| ----------- | ----------- | ----------- |
-| ----------- | ----------- | ----------- |
-| ----------- | ----------- | ----------- |
-| ----------- | ----------- | ----------- |
-| ----------- | ----------- | ----------- |
-| ----------- | ----------- | ----------- |
+<CH.Section>
+<CH.Code>
 
-| ----------- | ----------- | ----------- |
-| ----------- | ----------- | ----------- |
-| ----------- | ----------- | ----------- |
-| ----------- | ----------- | ----------- |
-| ----------- | ----------- | ----------- |
-| ----------- | ----------- | ----------- |
-| ----------- | ----------- | ----------- |
-| ----------- | ----------- | ----------- |
+```json json
+{
+    "fee_info": {
+        "pair_type": {
+            "xyk": {}
+        }
+    }
+}
+```
 
+```rust factory.rs focus=1:3,15:18,23
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(ConfigResponse)]
+    Config {},
+    #[returns(PairInfo)]
+    Pair {
+        asset_infos: Vec<AssetInfo>,
+    },
+    #[returns(PairsResponse)]
+    Pairs {
+        start_after: Option<Vec<AssetInfo>>,
+        limit: Option<u32>,
+    },
+    #[returns(FeeInfoResponse)]
+    FeeInfo {
+        pair_type: PairType,
+    },
+    #[returns(Vec<PairType>)]
+    BlacklistedPairTypes {},
+    #[returns(Vec<Addr>)]
+    PairsToMigrate {},
+}
+```
 
+</CH.Code>
 
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`pair_type`](focus://json#3:5)   | [`PairType`](./factory#pairtype)        | The pair type for which we return fee information. Pair type is a [`PairType`] struct        |
+
+</CH.Section>
+
+#### `FeeInfoResponse`
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+    "fee_address": "...", 
+    "total_fee_bps": 123, 
+    "maker_fee_bps": 123
+}
+```
+
+```rust factory.rs
+#[cw_serde]
+pub struct FeeInfoResponse {
+    pub fee_address: Option<Addr>,
+    pub total_fee_bps: u16,
+    pub maker_fee_bps: u16,
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`fee_address`](focus://json#2)   | `Option<Addr>`        | Contract address to send governance fees to        |
+| [`total_fee_bps`](focus://json#3)   | `u16`        | Total amount of fees (in bps) charged on a swap        |
+| [`maker_fee_bps`](focus://json#4)   | `u16`        | Amount of fees (in bps) sent to the Maker contract        |
+
+</CH.Section>
+
+### `blacklisted_pair_types`
+
+Returns a vector that contains blacklisted pair types.
+
+<CH.Code>
+
+```json json
+{
+  "blacklisted_pair_types": {}
+}
+```
+
+```rust factory.rs focus=1:3,19:20,23
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(ConfigResponse)]
+    Config {},
+    #[returns(PairInfo)]
+    Pair {
+        asset_infos: Vec<AssetInfo>,
+    },
+    #[returns(PairsResponse)]
+    Pairs {
+        start_after: Option<Vec<AssetInfo>>,
+        limit: Option<u32>,
+    },
+    #[returns(FeeInfoResponse)]
+    FeeInfo {
+        pair_type: PairType,
+    },
+    #[returns(Vec<PairType>)]
+    BlacklistedPairTypes {},
+    #[returns(Vec<Addr>)]
+    PairsToMigrate {},
+}
+```
+
+</CH.Code>
+
+`blacklisted_pair_types` returns a [`Vec<PairType>`](#pairtype) 
+
+### `pairs_to_migrate`
+
+Returns a vector that contains pair addresses that are not migrated.
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+  "pairs_to_migrate": {}
+}
+```
+
+```rust factory.rs focus=1:3,21:23
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(ConfigResponse)]
+    Config {},
+    #[returns(PairInfo)]
+    Pair {
+        asset_infos: Vec<AssetInfo>,
+    },
+    #[returns(PairsResponse)]
+    Pairs {
+        start_after: Option<Vec<AssetInfo>>,
+        limit: Option<u32>,
+    },
+    #[returns(FeeInfoResponse)]
+    FeeInfo {
+        pair_type: PairType,
+    },
+    #[returns(Vec<PairType>)]
+    BlacklistedPairTypes {},
+    #[returns(Vec<Addr>)]
+    PairsToMigrate {},
+}
+```
+
+</CH.Code>
+</CH.Section>
 
 
 

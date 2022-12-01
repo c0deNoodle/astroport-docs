@@ -2,15 +2,20 @@
 sidebar_position: 1
 ---
 
+import Admonition from '@theme/Admonition'
+
 # Constant Product Pools
 
 The constant product pool uses the widely known xy=k formula. More details around how the pool functions can be found [here](../../../learn/astro-pools/constant-product-pools).
 
 ## Links
 
-- `contract.rs:` https://github.com/astroport-fi/astroport-core/blob/main/contracts/pair/src/contract.rs
-- `pair.rs` (package): https://github.com/astroport-fi/astroport-core/blob/main/packages/astroport/src/pair.rs
-- `integration.rs` (test): https://github.com/astroport-fi/astroport-core/blob/main/contracts/pair/tests/integration.rs
+- **Contract Address:** 
+- **Testnet Address**: 
+- **Contract Repo:** https://github.com/astroport-fi/astroport-core/tree/main/contracts/pair
+- **contract.rs:** https://github.com/astroport-fi/astroport-core/blob/main/contracts/pair/src/contract.rs
+- **pair.rs** https://github.com/astroport-fi/astroport-core/blob/main/packages/astroport/src/pair.rs
+- **Tests:** https://github.com/astroport-fi/astroport-core/blob/main/contracts/pair/tests/integration.rs
 
 ## InstantiateMsg
 
@@ -20,7 +25,27 @@ Initializes a new x*y=k pair.
 
 <CH.Code>
 
-```json msg.json
+```json json 
+{
+  "asset_infos": [
+    {
+      "token": {
+        "contract_addr": "..."
+      }
+    },
+    {
+      "native_token": {
+        "denom": "..."
+      }
+    }
+  ],
+  "token_code_id": 123,
+  "factory_addr": "terra...",
+  "init_params": "<base64_encoded_json_string: optional binary serialised parameters for custom pool types>"
+}
+```
+{/* 
+```json json
 {
   "token_code_id": 123,
   "factory_addr": "terra...",
@@ -38,7 +63,7 @@ Initializes a new x*y=k pair.
   ],
   "init_params": "<base64_encoded_json_string: optional binary serialised parameters for custom pool types>"
 }
-```
+``` */}
 
 ```rust pair.rs
 #[cw_serde]
@@ -121,16 +146,1563 @@ pub fn instantiate(
 
 | **Params**      | **Type** | **Description** |
 | ----------- | ----------- | ----------- |
-| [`token_code_id`](focus://msg.json#2)   | [`u64`](focus://pair.rs#4)        | The token contract code ID used for the tokens in the pool        |
-| [`factory_addr`](focus://msg.json#3)      | [`String`](focus://pair.rs#5)       | The factory contract address       |
-| [`asset_infos`](focus://msg.json#4:15)   | [`Vec<AssetInfo>`](focus://pair.rs#3)        | Information about assets in the pool      |
-| [`init_params`](focus://msg.json#16)   | [`Option<Binary>`](focus://pair.rs#6)        | Optional binary serialised parameters for custom pool types      |
+| [`asset_infos`](focus://json#2:13)   | [`Vec<AssetInfo>`](#assetinfo)        | Information about assets in the pool      |
+| [`token_code_id`](focus://json#14)   | `u64`        | The token contract code ID used for the tokens in the pool        |
+| [`factory_addr`](focus://json#15)      | `String`       | The factory contract address       |
+| [`init_params`](focus://json#16)   | `Option<Binary>`        | Optional binary serialised parameters for custom pool types      |
+
+</CH.Section>
+
+#### `AssetInfo`
+
+`AssetInfo` is a convenience wrapper to represent whether a token is the native one (from a specific chain, like LUNA for Terra) or not. It also returns the contract address of that token.
+
+<CH.Section>
+<CH.Code>
+
+{/* ```json json
+{
+  "token": {
+    "contract_addr": "..."
+  }, 
+  "native_token": {
+    "denom": "..."
+  }   
+}
+``` */}
+
+```json json
+{
+  {
+    "token": {
+      "contract_addr": "..."
+    }, 
+    "native_token": {
+      "denom": "..."
+    }   
+  }
+}
+```
+
+```rust asset.rs
+#[cw_serde]
+#[derive(Hash, Eq)]
+pub enum AssetInfo {
+    Token { contract_addr: Addr },
+    NativeToken { denom: String },
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Description** |
+| ----------- | ----------- |
+| [`token`](focus://json#3:5)   | Non-native Token        |
+| [`native_token`](focus://json#6:8)   | Native token        |
+
+
+{/* | **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`token`](focus://json#2:6)   |         | The pair type (exposed in [`PairType`])        |
+| [`native_token`](focus://json#7:11)   |         | The assets to create the pool for        | */}
+
 
 </CH.Section>
 
 ## ExecuteMsg
 
+### `receive`
 
+Withdraws liquidity or assets that were swapped to (ask assets in a swap operation).
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+  "receive": {
+    "sender": "terra...",
+    "amount": "123",
+    "msg": "<base64_encoded_json_string>"
+  }
+}
+```
+
+```rust pair.rs
+#[cw_serde]
+pub enum ExecuteMsg {
+    Receive(Cw20ReceiveMsg),
+    ProvideLiquidity {
+        assets: Vec<Asset>,
+        slippage_tolerance: Option<Decimal>,
+        auto_stake: Option<bool>,
+        receiver: Option<String>,
+    },
+    Swap {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+        belief_price: Option<Decimal>,
+        max_spread: Option<Decimal>,
+        to: Option<String>,
+    },
+    UpdateConfig { params: Binary },
+    ProposeNewOwner {
+        owner: String,
+        expires_in: u64,
+    },
+    DropOwnershipProposal {},
+    ClaimOwnership {},
+}
+```
+
+```rust contract.rs
+#[cfg_attr(not(feature = "library"), entry_point)]
+pub fn execute(
+    deps: DepsMut,
+    env: Env,
+    info: MessageInfo,
+    msg: ExecuteMsg,
+) -> Result<Response, ContractError> {
+    let cfg = CONFIG.load(deps.storage)?;
+
+    if migration_check(deps.querier, &cfg.factory_addr, &env.contract.address)? {
+        return Err(ContractError::PairIsNotMigrated {});
+    }
+
+    match msg {
+        ExecuteMsg::Receive(msg) => receive_cw20(deps, env, info, msg),
+        ExecuteMsg::ProvideLiquidity {
+            assets,
+            slippage_tolerance,
+            auto_stake,
+            receiver,
+        } => provide_liquidity(
+            deps,
+            env,
+            info,
+            assets,
+            slippage_tolerance,
+            auto_stake,
+            receiver,
+        ),
+        ExecuteMsg::Swap {
+            offer_asset,
+            belief_price,
+            max_spread,
+            to,
+            ..
+        } => {
+            offer_asset.info.check(deps.api)?;
+            if !offer_asset.is_native_token() {
+                return Err(ContractError::Unauthorized {});
+            }
+
+            let to_addr = addr_opt_validate(deps.api, &to)?;
+
+            swap(
+                deps,
+                env,
+                info.clone(),
+                info.sender,
+                offer_asset,
+                belief_price,
+                max_spread,
+                to_addr,
+            )
+        }
+        _ => Err(ContractError::NonSupported {}),
+    }
+}
+
+pub fn receive_cw20(
+    deps: DepsMut,
+    env: Env,
+    info: MessageInfo,
+    cw20_msg: Cw20ReceiveMsg,
+) -> Result<Response, ContractError> {
+    match from_binary(&cw20_msg.msg) {
+        Ok(Cw20HookMsg::Swap {
+            belief_price,
+            max_spread,
+            to,
+            ..
+        }) => {
+            // Only asset contract can execute this message
+            let mut authorized = false;
+            let config = CONFIG.load(deps.storage)?;
+
+            for pool in config.pair_info.asset_infos {
+                if let AssetInfo::Token { contract_addr, .. } = &pool {
+                    if contract_addr == &info.sender {
+                        authorized = true;
+                    }
+                }
+            }
+
+            if !authorized {
+                return Err(ContractError::Unauthorized {});
+            }
+
+            let to_addr = addr_opt_validate(deps.api, &to)?;
+            let contract_addr = info.sender.clone();
+            let sender = addr_validate_to_lower(deps.api, cw20_msg.sender)?;
+            swap(
+                deps,
+                env,
+                info,
+                sender,
+                Asset {
+                    info: AssetInfo::Token { contract_addr },
+                    amount: cw20_msg.amount,
+                },
+                belief_price,
+                max_spread,
+                to_addr,
+            )
+        }
+        Ok(Cw20HookMsg::WithdrawLiquidity { .. }) => {
+            let sender = addr_validate_to_lower(deps.api, cw20_msg.sender)?;
+            withdraw_liquidity(deps, env, info, sender, cw20_msg.amount)
+        }
+        Err(err) => Err(err.into()),
+    }
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`receive`](focus://json#2:6)   | [`Cw20ReceiveMsg`](#cw20receivemsg)        |       |
+
+</CH.Section>
+
+#### `Cw20ReceiveMsg`
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+  "sender": "...", 
+  "amount": 123, 
+  "msg": "<base64_encoded_json_string>"
+}
+```
+
+```rust docs.rs
+pub struct Cw20ReceiveMsg {
+    pub sender: String,
+    pub amount: Uint128,
+    pub msg: Binary,
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`sender`](focus://json#2)   | `String`       |       |
+| [`amount`](focus://json#3)   | `Uint128`        |       |
+| [`msg`](focus://json#4)   | `Binary`        |       |
+
+
+
+</CH.Section>
+
+
+### `provide_liquidity`
+
+Provides liquidity by sending a user's native or token assets to the pool.
+
+<Admonition type="tip" title="NOTE">
+You should increase your token allowance for the pool before providing liquidity!
+</Admonition>
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+  "provide_liquidity": {
+    "assets": [
+      {
+        "info": {
+          "token": {
+            "contract_addr": "terra..."
+          }
+        },
+        "amount": "1000000"
+      },
+      {
+        "info": {
+          "native_token": {
+            "denom": "uusd"
+          }
+        },
+        "amount": "1000000"
+      }
+    ],
+    "slippage_tolerance": "0.01",
+    "auto_stake": false,
+    "receiver": "terra..."
+  }
+}
+```
+
+```rust pair.rs
+#[cw_serde]
+pub enum ExecuteMsg {
+    Receive(Cw20ReceiveMsg),
+    ProvideLiquidity {
+        assets: Vec<Asset>,
+        slippage_tolerance: Option<Decimal>,
+        auto_stake: Option<bool>,
+        receiver: Option<String>,
+    },
+    Swap {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+        belief_price: Option<Decimal>,
+        max_spread: Option<Decimal>,
+        to: Option<String>,
+    },
+    UpdateConfig { params: Binary },
+    ProposeNewOwner {
+        owner: String,
+        expires_in: u64,
+    },
+    DropOwnershipProposal {},
+    ClaimOwnership {},
+}
+```
+
+```rust contract.rs
+#[cfg_attr(not(feature = "library"), entry_point)]
+pub fn execute(
+    deps: DepsMut,
+    env: Env,
+    info: MessageInfo,
+    msg: ExecuteMsg,
+) -> Result<Response, ContractError> {
+    let cfg = CONFIG.load(deps.storage)?;
+
+    if migration_check(deps.querier, &cfg.factory_addr, &env.contract.address)? {
+        return Err(ContractError::PairIsNotMigrated {});
+    }
+
+    match msg {
+        ExecuteMsg::Receive(msg) => receive_cw20(deps, env, info, msg),
+        ExecuteMsg::ProvideLiquidity {
+            assets,
+            slippage_tolerance,
+            auto_stake,
+            receiver,
+        } => provide_liquidity(
+            deps,
+            env,
+            info,
+            assets,
+            slippage_tolerance,
+            auto_stake,
+            receiver,
+        ),
+        ExecuteMsg::Swap {
+            offer_asset,
+            belief_price,
+            max_spread,
+            to,
+            ..
+        } => {
+            offer_asset.info.check(deps.api)?;
+            if !offer_asset.is_native_token() {
+                return Err(ContractError::Unauthorized {});
+            }
+
+            let to_addr = addr_opt_validate(deps.api, &to)?;
+
+            swap(
+                deps,
+                env,
+                info.clone(),
+                info.sender,
+                offer_asset,
+                belief_price,
+                max_spread,
+                to_addr,
+            )
+        }
+        _ => Err(ContractError::NonSupported {}),
+    }
+}
+
+pub fn provide_liquidity(
+    deps: DepsMut,
+    env: Env,
+    info: MessageInfo,
+    assets: Vec<Asset>,
+    slippage_tolerance: Option<Decimal>,
+    auto_stake: Option<bool>,
+    receiver: Option<String>,
+) -> Result<Response, ContractError> {
+    if assets.len() != 2 {
+        return Err(StdError::generic_err("asset_infos must contain exactly two elements").into());
+    }
+    assets[0].info.check(deps.api)?;
+    assets[1].info.check(deps.api)?;
+
+    let auto_stake = auto_stake.unwrap_or(false);
+    for asset in assets.iter() {
+        asset.assert_sent_native_token_balance(&info)?;
+    }
+
+    let mut config = CONFIG.load(deps.storage)?;
+    let mut pools = config
+        .pair_info
+        .query_pools(&deps.querier, &env.contract.address)?;
+    let deposits = [
+        assets
+            .iter()
+            .find(|a| a.info.equal(&pools[0].info))
+            .map(|a| a.amount)
+            .expect("Wrong asset info is given"),
+        assets
+            .iter()
+            .find(|a| a.info.equal(&pools[1].info))
+            .map(|a| a.amount)
+            .expect("Wrong asset info is given"),
+    ];
+
+    if deposits[0].is_zero() || deposits[1].is_zero() {
+        return Err(ContractError::InvalidZeroAmount {});
+    }
+
+    let mut messages = vec![];
+    for (i, pool) in pools.iter_mut().enumerate() {
+        // If the asset is a token contract, then we need to execute a TransferFrom msg to receive assets
+        if let AssetInfo::Token { contract_addr, .. } = &pool.info {
+            messages.push(CosmosMsg::Wasm(WasmMsg::Execute {
+                contract_addr: contract_addr.to_string(),
+                msg: to_binary(&Cw20ExecuteMsg::TransferFrom {
+                    owner: info.sender.to_string(),
+                    recipient: env.contract.address.to_string(),
+                    amount: deposits[i],
+                })?,
+                funds: vec![],
+            }));
+        } else {
+            // If the asset is native token, the pool balance is already increased
+            // To calculate the total amount of deposits properly, we should subtract the user deposit from the pool
+            pool.amount = pool.amount.checked_sub(deposits[i])?;
+        }
+    }
+
+    let total_share = query_supply(&deps.querier, &config.pair_info.liquidity_token)?;
+    let share = if total_share.is_zero() {
+        // Initial share = collateral amount
+        let share = Uint128::new(
+            (U256::from(deposits[0].u128()) * U256::from(deposits[1].u128()))
+                .integer_sqrt()
+                .as_u128(),
+        )
+        .checked_sub(MINIMUM_LIQUIDITY_AMOUNT)
+        .map_err(|_| ContractError::MinimumLiquidityAmountError {})?;
+
+        messages.extend(mint_liquidity_token_message(
+            deps.querier,
+            &config,
+            &env.contract.address,
+            &env.contract.address,
+            MINIMUM_LIQUIDITY_AMOUNT,
+            false,
+        )?);
+
+        // share cannot become zero after minimum liquidity subtraction
+        if share.is_zero() {
+            return Err(ContractError::MinimumLiquidityAmountError {});
+        }
+
+        share
+    } else {
+        // Assert slippage tolerance
+        assert_slippage_tolerance(slippage_tolerance, &deposits, &pools)?;
+
+        // min(1, 2)
+        // 1. sqrt(deposit_0 * exchange_rate_0_to_1 * deposit_0) * (total_share / sqrt(pool_0 * pool_0))
+        // == deposit_0 * total_share / pool_0
+        // 2. sqrt(deposit_1 * exchange_rate_1_to_0 * deposit_1) * (total_share / sqrt(pool_1 * pool_1))
+        // == deposit_1 * total_share / pool_1
+        std::cmp::min(
+            deposits[0].multiply_ratio(total_share, pools[0].amount),
+            deposits[1].multiply_ratio(total_share, pools[1].amount),
+        )
+    };
+
+    // Mint LP tokens for the sender or for the receiver (if set)
+    let receiver = addr_opt_validate(deps.api, &receiver)?.unwrap_or_else(|| info.sender.clone());
+    messages.extend(mint_liquidity_token_message(
+        deps.querier,
+        &config,
+        &env.contract.address,
+        &receiver,
+        share,
+        auto_stake,
+    )?);
+
+    // Accumulate prices for the assets in the pool
+    if let Some((price0_cumulative_new, price1_cumulative_new, block_time)) =
+        accumulate_prices(env, &config, pools[0].amount, pools[1].amount)?
+    {
+        config.price0_cumulative_last = price0_cumulative_new;
+        config.price1_cumulative_last = price1_cumulative_new;
+        config.block_time_last = block_time;
+        CONFIG.save(deps.storage, &config)?;
+    }
+
+    Ok(Response::new().add_messages(messages).add_attributes(vec![
+        attr("action", "provide_liquidity"),
+        attr("sender", info.sender),
+        attr("receiver", receiver),
+        attr("assets", format!("{}, {}", assets[0], assets[1])),
+        attr("share", share),
+    ]))
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`assets`](focus://json#3:20)   | [`Vec<Asset>`](#asset)        | Describes a native or CW20 asset      |
+| [`slippage_tolerance`](focus://json#21)   | `Option<Decimal>`        | The slippage tolerance that allows liquidity provision only if the price in the pool doesn't move too much      |
+| [`auto_stake`](focus://json#22)   | `Option<bool>`        | Determines whether the LP tokens minted for the user is auto_staked in the Generator contract      |
+| [`receiver`](focus://json#23)   | `Option<String>`        | The receiver of LP tokens      |
+
+</CH.Section>
+
+#### `Asset`
+
+This enum contains asset info and a token amount.
+
+<CH.Section>
+<CH.Code>
+
+
+{/* ```json test
+{
+  {
+    "info": {
+      "token": {
+        "contract_addr": "..."
+      }
+    },
+    "amount": "1000000"
+  },
+  {
+    "info": {
+      "native_token": {
+        "denom": "..."
+      }
+    }, 
+    "amount": 123
+  }
+}
+``` */}
+
+```json json 
+{
+  "info": {
+    "token": {
+      "contract_addr": "..."
+    }, 
+    "native_token": {
+      "denom": "..."
+    }   
+  }, 
+  "amount": "1000000"
+}
+```
+
+```json testing
+{
+  "info": {
+
+      "token": {
+        "contract_addr": "..."
+      }
+
+
+      "native_token": {
+        "denom": "..."
+      }
+
+  }, 
+  "amount": 123
+}
+```
+
+```rust asset.rs
+#[cw_serde]
+pub struct Asset {
+    pub info: AssetInfo,
+    pub amount: Uint128,
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`info`](focus://json#2:9)   | [`AssetInfo`](#assetinfo)        | Information about an asset stored in a [`AssetInfo`] struct      |
+| [`amount`](focus://json#10)   | `Uint128`        | A token amount     |
+
+
+</CH.Section>
+
+
+
+
+
+### `swap`
+
+Swap performs a swap in the pool.
+
+<CH.Section>
+<CH.Code>
+
+
+```json json
+{
+  "swap": {
+    "offer_asset": {
+      "info": {
+        "token": {
+          "contract_addr": "..."
+        }
+      }, 
+      "amount": "10000000"
+    }, 
+    "ask_asset_info": {
+      "native_token": {
+        "denom": "..."
+      }
+    },
+    "belief_price": "1234567", 
+    "max_spread": "10000000",
+    "to": "...."
+  }
+}
+```
+
+```json test
+{
+  "swaps": {
+    "offer_assets": {
+      "info": {
+        "token": {
+          "contract_addr": "..."
+        }
+      }, 
+      "amount": "10000000"
+    }, 
+    "belief_price": "1234567", 
+    "max_spread": "10000000",
+    "to": "...."
+  }
+}
+```
+
+```rust pair.rs
+#[cw_serde]
+pub enum ExecuteMsg {
+    Receive(Cw20ReceiveMsg),
+    ProvideLiquidity {
+        assets: Vec<Asset>,
+        slippage_tolerance: Option<Decimal>,
+        auto_stake: Option<bool>,
+        receiver: Option<String>,
+    },
+    Swap {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+        belief_price: Option<Decimal>,
+        max_spread: Option<Decimal>,
+        to: Option<String>,
+    },
+    UpdateConfig { params: Binary },
+    ProposeNewOwner {
+        owner: String,
+        expires_in: u64,
+    },
+    DropOwnershipProposal {},
+    ClaimOwnership {},
+}
+```
+
+```rust contract.rs
+#[cfg_attr(not(feature = "library"), entry_point)]
+pub fn execute(
+    deps: DepsMut,
+    env: Env,
+    info: MessageInfo,
+    msg: ExecuteMsg,
+) -> Result<Response, ContractError> {
+    let cfg = CONFIG.load(deps.storage)?;
+
+    if migration_check(deps.querier, &cfg.factory_addr, &env.contract.address)? {
+        return Err(ContractError::PairIsNotMigrated {});
+    }
+
+    match msg {
+        ExecuteMsg::Receive(msg) => receive_cw20(deps, env, info, msg),
+        ExecuteMsg::ProvideLiquidity {
+            assets,
+            slippage_tolerance,
+            auto_stake,
+            receiver,
+        } => provide_liquidity(
+            deps,
+            env,
+            info,
+            assets,
+            slippage_tolerance,
+            auto_stake,
+            receiver,
+        ),
+        ExecuteMsg::Swap {
+            offer_asset,
+            belief_price,
+            max_spread,
+            to,
+            ..
+        } => {
+            offer_asset.info.check(deps.api)?;
+            if !offer_asset.is_native_token() {
+                return Err(ContractError::Unauthorized {});
+            }
+
+            let to_addr = addr_opt_validate(deps.api, &to)?;
+
+            swap(
+                deps,
+                env,
+                info.clone(),
+                info.sender,
+                offer_asset,
+                belief_price,
+                max_spread,
+                to_addr,
+            )
+        }
+        _ => Err(ContractError::NonSupported {}),
+    }
+}
+
+#[allow(clippy::too_many_arguments)]
+pub fn swap(
+    deps: DepsMut,
+    env: Env,
+    info: MessageInfo,
+    sender: Addr,
+    offer_asset: Asset,
+    belief_price: Option<Decimal>,
+    max_spread: Option<Decimal>,
+    to: Option<Addr>,
+) -> Result<Response, ContractError> {
+    offer_asset.assert_sent_native_token_balance(&info)?;
+
+    let mut config = CONFIG.load(deps.storage)?;
+
+    // If the asset balance is already increased, we should subtract the user deposit from the pool amount
+    let pools = config
+        .pair_info
+        .query_pools(&deps.querier, &env.contract.address)?
+        .into_iter()
+        .map(|mut p| {
+            if p.info.equal(&offer_asset.info) {
+                p.amount = p.amount.checked_sub(offer_asset.amount)?;
+            }
+            Ok(p)
+        })
+        .collect::<StdResult<Vec<_>>>()?;
+
+    let offer_pool: Asset;
+    let ask_pool: Asset;
+
+    if offer_asset.info.equal(&pools[0].info) {
+        offer_pool = pools[0].clone();
+        ask_pool = pools[1].clone();
+    } else if offer_asset.info.equal(&pools[1].info) {
+        offer_pool = pools[1].clone();
+        ask_pool = pools[0].clone();
+    } else {
+        return Err(ContractError::AssetMismatch {});
+    }
+
+    // Get fee info from the factory
+    let fee_info = query_fee_info(
+        &deps.querier,
+        &config.factory_addr,
+        config.pair_info.pair_type.clone(),
+    )?;
+
+    let offer_amount = offer_asset.amount;
+
+    let (return_amount, spread_amount, commission_amount) = compute_swap(
+        offer_pool.amount,
+        ask_pool.amount,
+        offer_amount,
+        fee_info.total_fee_rate,
+    )?;
+
+    // Check the max spread limit (if it was specified)
+    assert_max_spread(
+        belief_price,
+        max_spread,
+        offer_amount,
+        return_amount + commission_amount,
+        spread_amount,
+    )?;
+
+    // Compute the tax for the receiving asset (if it is a native one)
+    let return_asset = Asset {
+        info: ask_pool.info.clone(),
+        amount: return_amount,
+    };
+
+    let tax_amount = return_asset.compute_tax(&deps.querier)?;
+    let receiver = to.unwrap_or_else(|| sender.clone());
+    let mut messages = vec![return_asset.into_msg(&deps.querier, &receiver)?];
+
+    // Compute the Maker fee
+    let mut maker_fee_amount = Uint128::zero();
+    if let Some(fee_address) = fee_info.fee_address {
+        if let Some(f) =
+            calculate_maker_fee(&ask_pool.info, commission_amount, fee_info.maker_fee_rate)
+        {
+            maker_fee_amount = f.amount;
+            messages.push(f.into_msg(&deps.querier, fee_address)?);
+        }
+    }
+
+    // Accumulate prices for the assets in the pool
+    if let Some((price0_cumulative_new, price1_cumulative_new, block_time)) =
+        accumulate_prices(env, &config, pools[0].amount, pools[1].amount)?
+    {
+        config.price0_cumulative_last = price0_cumulative_new;
+        config.price1_cumulative_last = price1_cumulative_new;
+        config.block_time_last = block_time;
+        CONFIG.save(deps.storage, &config)?;
+    }
+
+    Ok(Response::new()
+        .add_messages(
+            // 1. send collateral tokens from the contract to a user
+            // 2. send inactive commission fees to the Maker contract
+            messages,
+        )
+        .add_attributes(vec![
+            attr("action", "swap"),
+            attr("sender", sender),
+            attr("receiver", receiver),
+            attr("offer_asset", offer_asset.info.to_string()),
+            attr("ask_asset", ask_pool.info.to_string()),
+            attr("offer_amount", offer_amount),
+            attr("return_amount", return_amount),
+            attr("tax_amount", tax_amount),
+            attr("spread_amount", spread_amount),
+            attr("commission_amount", commission_amount),
+            attr("maker_fee_amount", maker_fee_amount),
+        ]))
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`offer_asset`](focus://json#3:10)   | [`Asset`](#asset)        |       |
+| [`ask_asset_info`](focus://json#11:15)   | [`Option<AssetInfo>`](#assetinfo)        | Information about an asset stored in a [`AssetInfo`] struct     |
+| [`belief_price`](focus://json#16)   | `Option<Decimal>`        |      |
+| [`max_spread`](focus://json#17)   | `Option<Decimal>`        |      |
+| [`to`](focus://json#18)   | `Option<String>`        |      |
+
+
+</CH.Section>
 
 ## QueryMsg
+
+### `pair`
+
+Returns information about a pair in an object of type [`super::asset::PairInfo`].
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+  "pair": {}
+}
+```
+
+```rust pair.rs
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(PairInfo)]
+    Pair {},
+    #[returns(PoolResponse)]
+    Pool {},
+    #[returns(ConfigResponse)]
+    Config {},
+    #[returns(Vec<Asset>)]
+    Share { amount: Uint128 },
+    #[returns(SimulationResponse)]
+    Simulation {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+    },
+    #[returns(ReverseSimulationResponse)]
+    ReverseSimulation {
+        offer_asset_info: Option<AssetInfo>,
+        ask_asset: Asset,
+    },
+    #[returns(CumulativePricesResponse)]
+    CumulativePrices {},
+    #[returns(Uint128)]
+    QueryComputeD {},
+}
+```
+
+```rust contract.rs
+#[cfg_attr(not(feature = "library"), entry_point)]
+pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
+    match msg {
+        QueryMsg::Pair {} => to_binary(&CONFIG.load(deps.storage)?.pair_info),
+        QueryMsg::Pool {} => to_binary(&query_pool(deps)?),
+        QueryMsg::Share { amount } => to_binary(&query_share(deps, amount)?),
+        QueryMsg::Simulation { offer_asset, .. } => {
+            to_binary(&query_simulation(deps, offer_asset)?)
+        }
+        QueryMsg::ReverseSimulation { ask_asset, .. } => {
+            to_binary(&query_reverse_simulation(deps, ask_asset)?)
+        }
+        QueryMsg::CumulativePrices {} => to_binary(&query_cumulative_prices(deps, env)?),
+        QueryMsg::Config {} => to_binary(&query_config(deps)?),
+        _ => Err(StdError::generic_err("Query is not supported")),
+    }
+}
+```
+
+</CH.Code>
+</CH.Section>
+
+Returns information about a pool in an object of type [`PoolResponse`].
+
+### `pool`
+
+<CH.Section>
+<CH.Code>
+
+```json json 
+{
+  "pool": {}
+}
+```
+
+```rust pair.rs
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(PairInfo)]
+    Pair {},
+    #[returns(PoolResponse)]
+    Pool {},
+    #[returns(ConfigResponse)]
+    Config {},
+    #[returns(Vec<Asset>)]
+    Share { amount: Uint128 },
+    #[returns(SimulationResponse)]
+    Simulation {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+    },
+    #[returns(ReverseSimulationResponse)]
+    ReverseSimulation {
+        offer_asset_info: Option<AssetInfo>,
+        ask_asset: Asset,
+    },
+    #[returns(CumulativePricesResponse)]
+    CumulativePrices {},
+    #[returns(Uint128)]
+    QueryComputeD {},
+}
+```
+
+```rust contract.rs
+#[cfg_attr(not(feature = "library"), entry_point)]
+pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
+    match msg {
+        QueryMsg::Pair {} => to_binary(&CONFIG.load(deps.storage)?.pair_info),
+        QueryMsg::Pool {} => to_binary(&query_pool(deps)?),
+        QueryMsg::Share { amount } => to_binary(&query_share(deps, amount)?),
+        QueryMsg::Simulation { offer_asset, .. } => {
+            to_binary(&query_simulation(deps, offer_asset)?)
+        }
+        QueryMsg::ReverseSimulation { ask_asset, .. } => {
+            to_binary(&query_reverse_simulation(deps, ask_asset)?)
+        }
+        QueryMsg::CumulativePrices {} => to_binary(&query_cumulative_prices(deps, env)?),
+        QueryMsg::Config {} => to_binary(&query_config(deps)?),
+        _ => Err(StdError::generic_err("Query is not supported")),
+    }
+}
+
+pub fn query_pool(deps: Deps) -> StdResult<PoolResponse> {
+    let config = CONFIG.load(deps.storage)?;
+    let (assets, total_share) = pool_info(deps.querier, &config)?;
+
+    let resp = PoolResponse {
+        assets,
+        total_share,
+    };
+
+    Ok(resp)
+}
+```
+
+</CH.Code>
+</CH.Section>
+
+
+### `share`
+
+Returns information about the share of the pool in a vector that contains objects of type [`Asset`].
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+  "share": {
+    "amount": "1000000"
+  }
+}
+```
+
+```rust pair.rs
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(PairInfo)]
+    Pair {},
+    #[returns(PoolResponse)]
+    Pool {},
+    #[returns(ConfigResponse)]
+    Config {},
+    #[returns(Vec<Asset>)]
+    Share { amount: Uint128 },
+    #[returns(SimulationResponse)]
+    Simulation {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+    },
+    #[returns(ReverseSimulationResponse)]
+    ReverseSimulation {
+        offer_asset_info: Option<AssetInfo>,
+        ask_asset: Asset,
+    },
+    #[returns(CumulativePricesResponse)]
+    CumulativePrices {},
+    #[returns(Uint128)]
+    QueryComputeD {},
+}
+```
+
+```rust contract.rs
+#[cfg_attr(not(feature = "library"), entry_point)]
+pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
+    match msg {
+        QueryMsg::Pair {} => to_binary(&CONFIG.load(deps.storage)?.pair_info),
+        QueryMsg::Pool {} => to_binary(&query_pool(deps)?),
+        QueryMsg::Share { amount } => to_binary(&query_share(deps, amount)?),
+        QueryMsg::Simulation { offer_asset, .. } => {
+            to_binary(&query_simulation(deps, offer_asset)?)
+        }
+        QueryMsg::ReverseSimulation { ask_asset, .. } => {
+            to_binary(&query_reverse_simulation(deps, ask_asset)?)
+        }
+        QueryMsg::CumulativePrices {} => to_binary(&query_cumulative_prices(deps, env)?),
+        QueryMsg::Config {} => to_binary(&query_config(deps)?),
+        _ => Err(StdError::generic_err("Query is not supported")),
+    }
+}
+
+pub fn query_share(deps: Deps, amount: Uint128) -> StdResult<Vec<Asset>> {
+    let config = CONFIG.load(deps.storage)?;
+    let (pools, total_share) = pool_info(deps.querier, &config)?;
+    let refund_assets = get_share_in_assets(&pools, amount, total_share);
+
+    Ok(refund_assets)
+}
+```
+
+</CH.Code>
+</CH.Section>
+
+
+### `simulation`
+
+Returns information about a swap simulation in a [`SimulationResponse`] object.
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+  "simulation": {
+    "offer_asset":
+  }
+}
+```
+
+```rust pair.rs
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(PairInfo)]
+    Pair {},
+    #[returns(PoolResponse)]
+    Pool {},
+    #[returns(ConfigResponse)]
+    Config {},
+    #[returns(Vec<Asset>)]
+    Share { amount: Uint128 },
+    #[returns(SimulationResponse)]
+    Simulation {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+    },
+    #[returns(ReverseSimulationResponse)]
+    ReverseSimulation {
+        offer_asset_info: Option<AssetInfo>,
+        ask_asset: Asset,
+    },
+    #[returns(CumulativePricesResponse)]
+    CumulativePrices {},
+    #[returns(Uint128)]
+    QueryComputeD {},
+}
+```
+
+```rust contract.rs
+#[cfg_attr(not(feature = "library"), entry_point)]
+pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
+    match msg {
+        QueryMsg::Pair {} => to_binary(&CONFIG.load(deps.storage)?.pair_info),
+        QueryMsg::Pool {} => to_binary(&query_pool(deps)?),
+        QueryMsg::Share { amount } => to_binary(&query_share(deps, amount)?),
+        QueryMsg::Simulation { offer_asset, .. } => {
+            to_binary(&query_simulation(deps, offer_asset)?)
+        }
+        QueryMsg::ReverseSimulation { ask_asset, .. } => {
+            to_binary(&query_reverse_simulation(deps, ask_asset)?)
+        }
+        QueryMsg::CumulativePrices {} => to_binary(&query_cumulative_prices(deps, env)?),
+        QueryMsg::Config {} => to_binary(&query_config(deps)?),
+        _ => Err(StdError::generic_err("Query is not supported")),
+    }
+}
+
+pub fn query_simulation(deps: Deps, offer_asset: Asset) -> StdResult<SimulationResponse> {
+    let config = CONFIG.load(deps.storage)?;
+
+    let pools = config
+        .pair_info
+        .query_pools(&deps.querier, &config.pair_info.contract_addr)?;
+
+    let offer_pool: Asset;
+    let ask_pool: Asset;
+    if offer_asset.info.equal(&pools[0].info) {
+        offer_pool = pools[0].clone();
+        ask_pool = pools[1].clone();
+    } else if offer_asset.info.equal(&pools[1].info) {
+        offer_pool = pools[1].clone();
+        ask_pool = pools[0].clone();
+    } else {
+        return Err(StdError::generic_err(
+            "Given offer asset does not belong in the pair",
+        ));
+    }
+
+    // Get fee info from the factory contract
+    let fee_info = query_fee_info(
+        &deps.querier,
+        config.factory_addr,
+        config.pair_info.pair_type,
+    )?;
+
+    let (return_amount, spread_amount, commission_amount) = compute_swap(
+        offer_pool.amount,
+        ask_pool.amount,
+        offer_asset.amount,
+        fee_info.total_fee_rate,
+    )?;
+
+    Ok(SimulationResponse {
+        return_amount,
+        spread_amount,
+        commission_amount,
+    })
+}
+```
+
+</CH.Code>
+</CH.Section>
+
+
+### `reverse_simulation`
+
+Returns information about cumulative prices in a [`ReverseSimulationResponse`] object.
+
+<CH.Section>
+<CH.Code>
+
+```json json
+```
+
+```rust pair.rs
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(PairInfo)]
+    Pair {},
+    #[returns(PoolResponse)]
+    Pool {},
+    #[returns(ConfigResponse)]
+    Config {},
+    #[returns(Vec<Asset>)]
+    Share { amount: Uint128 },
+    #[returns(SimulationResponse)]
+    Simulation {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+    },
+    #[returns(ReverseSimulationResponse)]
+    ReverseSimulation {
+        offer_asset_info: Option<AssetInfo>,
+        ask_asset: Asset,
+    },
+    #[returns(CumulativePricesResponse)]
+    CumulativePrices {},
+    #[returns(Uint128)]
+    QueryComputeD {},
+}
+```
+
+```rust contract.rs
+#[cfg_attr(not(feature = "library"), entry_point)]
+pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
+    match msg {
+        QueryMsg::Pair {} => to_binary(&CONFIG.load(deps.storage)?.pair_info),
+        QueryMsg::Pool {} => to_binary(&query_pool(deps)?),
+        QueryMsg::Share { amount } => to_binary(&query_share(deps, amount)?),
+        QueryMsg::Simulation { offer_asset, .. } => {
+            to_binary(&query_simulation(deps, offer_asset)?)
+        }
+        QueryMsg::ReverseSimulation { ask_asset, .. } => {
+            to_binary(&query_reverse_simulation(deps, ask_asset)?)
+        }
+        QueryMsg::CumulativePrices {} => to_binary(&query_cumulative_prices(deps, env)?),
+        QueryMsg::Config {} => to_binary(&query_config(deps)?),
+        _ => Err(StdError::generic_err("Query is not supported")),
+    }
+}
+
+pub fn query_reverse_simulation(
+    deps: Deps,
+    ask_asset: Asset,
+) -> StdResult<ReverseSimulationResponse> {
+    let config = CONFIG.load(deps.storage)?;
+
+    let pools = config
+        .pair_info
+        .query_pools(&deps.querier, &config.pair_info.contract_addr)?;
+
+    let offer_pool: Asset;
+    let ask_pool: Asset;
+    if ask_asset.info.equal(&pools[0].info) {
+        ask_pool = pools[0].clone();
+        offer_pool = pools[1].clone();
+    } else if ask_asset.info.equal(&pools[1].info) {
+        ask_pool = pools[1].clone();
+        offer_pool = pools[0].clone();
+    } else {
+        return Err(StdError::generic_err(
+            "Given ask asset doesn't belong to pairs",
+        ));
+    }
+
+    // Get fee info from factory
+    let fee_info = query_fee_info(
+        &deps.querier,
+        config.factory_addr,
+        config.pair_info.pair_type,
+    )?;
+
+    let (offer_amount, spread_amount, commission_amount) = compute_offer_amount(
+        offer_pool.amount,
+        ask_pool.amount,
+        ask_asset.amount,
+        fee_info.total_fee_rate,
+    )?;
+
+    Ok(ReverseSimulationResponse {
+        offer_amount,
+        spread_amount,
+        commission_amount,
+    })
+}
+```
+
+</CH.Code>
+</CH.Section>
+
+
+### `cumulative_prices`
+
+Returns information about the cumulative prices in a [`CumulativePricesResponse`] object
+
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+  "cumulative_prices": {}
+}
+```
+
+```rust pair.rs
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(PairInfo)]
+    Pair {},
+    #[returns(PoolResponse)]
+    Pool {},
+    #[returns(ConfigResponse)]
+    Config {},
+    #[returns(Vec<Asset>)]
+    Share { amount: Uint128 },
+    #[returns(SimulationResponse)]
+    Simulation {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+    },
+    #[returns(ReverseSimulationResponse)]
+    ReverseSimulation {
+        offer_asset_info: Option<AssetInfo>,
+        ask_asset: Asset,
+    },
+    #[returns(CumulativePricesResponse)]
+    CumulativePrices {},
+    #[returns(Uint128)]
+    QueryComputeD {},
+}
+```
+
+```rust contract.rs
+#[cfg_attr(not(feature = "library"), entry_point)]
+pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
+    match msg {
+        QueryMsg::Pair {} => to_binary(&CONFIG.load(deps.storage)?.pair_info),
+        QueryMsg::Pool {} => to_binary(&query_pool(deps)?),
+        QueryMsg::Share { amount } => to_binary(&query_share(deps, amount)?),
+        QueryMsg::Simulation { offer_asset, .. } => {
+            to_binary(&query_simulation(deps, offer_asset)?)
+        }
+        QueryMsg::ReverseSimulation { ask_asset, .. } => {
+            to_binary(&query_reverse_simulation(deps, ask_asset)?)
+        }
+        QueryMsg::CumulativePrices {} => to_binary(&query_cumulative_prices(deps, env)?),
+        QueryMsg::Config {} => to_binary(&query_config(deps)?),
+        _ => Err(StdError::generic_err("Query is not supported")),
+    }
+}
+
+pub fn query_cumulative_prices(deps: Deps, env: Env) -> StdResult<CumulativePricesResponse> {
+    let config = CONFIG.load(deps.storage)?;
+    let (assets, total_share) = pool_info(deps.querier, &config)?;
+
+    let mut price0_cumulative_last = config.price0_cumulative_last;
+    let mut price1_cumulative_last = config.price1_cumulative_last;
+
+    if let Some((price0_cumulative_new, price1_cumulative_new, _)) =
+        accumulate_prices(env, &config, assets[0].amount, assets[1].amount)?
+    {
+        price0_cumulative_last = price0_cumulative_new;
+        price1_cumulative_last = price1_cumulative_new;
+    }
+
+    let cumulative_prices = vec![
+        (
+            assets[0].info.clone(),
+            assets[1].info.clone(),
+            price0_cumulative_last,
+        ),
+        (
+            assets[1].info.clone(),
+            assets[0].info.clone(),
+            price1_cumulative_last,
+        ),
+    ];
+
+    let resp = CumulativePricesResponse {
+        assets,
+        total_share,
+        cumulative_prices,
+    };
+
+    Ok(resp)
+}
+```
+
+</CH.Code>
+</CH.Section>
+
+
+### `config`
+
+Returns contract configuration settings in a custom [`ConfigResponse`] structure.
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+  "config": {}
+}
+```
+
+```rust pair.rs
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(PairInfo)]
+    Pair {},
+    #[returns(PoolResponse)]
+    Pool {},
+    #[returns(ConfigResponse)]
+    Config {},
+    #[returns(Vec<Asset>)]
+    Share { amount: Uint128 },
+    #[returns(SimulationResponse)]
+    Simulation {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+    },
+    #[returns(ReverseSimulationResponse)]
+    ReverseSimulation {
+        offer_asset_info: Option<AssetInfo>,
+        ask_asset: Asset,
+    },
+    #[returns(CumulativePricesResponse)]
+    CumulativePrices {},
+    #[returns(Uint128)]
+    QueryComputeD {},
+}
+```
+
+```rust contract.rs
+#[cfg_attr(not(feature = "library"), entry_point)]
+pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
+    match msg {
+        QueryMsg::Pair {} => to_binary(&CONFIG.load(deps.storage)?.pair_info),
+        QueryMsg::Pool {} => to_binary(&query_pool(deps)?),
+        QueryMsg::Share { amount } => to_binary(&query_share(deps, amount)?),
+        QueryMsg::Simulation { offer_asset, .. } => {
+            to_binary(&query_simulation(deps, offer_asset)?)
+        }
+        QueryMsg::ReverseSimulation { ask_asset, .. } => {
+            to_binary(&query_reverse_simulation(deps, ask_asset)?)
+        }
+        QueryMsg::CumulativePrices {} => to_binary(&query_cumulative_prices(deps, env)?),
+        QueryMsg::Config {} => to_binary(&query_config(deps)?),
+        _ => Err(StdError::generic_err("Query is not supported")),
+    }
+}
+
+pub fn query_config(deps: Deps) -> StdResult<ConfigResponse> {
+    let config: Config = CONFIG.load(deps.storage)?;
+    Ok(ConfigResponse {
+        block_time_last: config.block_time_last,
+        params: None,
+        owner: None,
+    })
+}
+```
+
+</CH.Code>
+</CH.Section>
+
+
+
+
+<CH.Section>
+<CH.Code>
+
+```json json
+```
+
+```rust pair.rs
+```
+
+```rust contract.rs
+#[cfg_attr(not(feature = "library"), entry_point)]
+pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
+    match msg {
+        QueryMsg::Pair {} => to_binary(&CONFIG.load(deps.storage)?.pair_info),
+        QueryMsg::Pool {} => to_binary(&query_pool(deps)?),
+        QueryMsg::Share { amount } => to_binary(&query_share(deps, amount)?),
+        QueryMsg::Simulation { offer_asset, .. } => {
+            to_binary(&query_simulation(deps, offer_asset)?)
+        }
+        QueryMsg::ReverseSimulation { ask_asset, .. } => {
+            to_binary(&query_reverse_simulation(deps, ask_asset)?)
+        }
+        QueryMsg::CumulativePrices {} => to_binary(&query_cumulative_prices(deps, env)?),
+        QueryMsg::Config {} => to_binary(&query_config(deps)?),
+        _ => Err(StdError::generic_err("Query is not supported")),
+    }
+}
+```
+
+</CH.Code>
+</CH.Section>
+
+
+
+
+{/* 
+
+// enums
+
+// mars
+
+{
+  "mars_address_type": "..."
+}
+
+
+// astroport 
+
+{
+    "token": {
+      "contract_addr": "..."
+    }, 
+} 
+
+
+*/}
 
