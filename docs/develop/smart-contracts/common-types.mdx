@@ -77,6 +77,39 @@ pub struct Asset {
 
 ### `DecimalAsset`
 
+This struct describes an asset as decimal.
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+    "info": {
+        "token": {
+            "contract_addr": "..."
+        }
+    }, 
+    "amount": "0.12345"
+}
+```
+
+```rust asset.rs
+#[cw_serde]
+pub struct DecimalAsset {
+    pub info: AssetInfo,
+    pub amount: Decimal256,
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`info`](focus://json#2:6)   | [`AssetInfo`](#assetinfo)        | Information about an asset stored in a [`AssetInfo`] struct      |
+| [`amount`](focus://json#7)   | `Decimal256`        | A token decimal amount     |
+
+</CH.Section>
+
 ### `PairInfo`
 
 It is used to represent response data coming from a `Pair-Info-Querier`.
@@ -127,6 +160,33 @@ pub struct PairInfo {
 </CH.Section>
 
 
-
 ### `OwnershipProposal`
 
+This structure describes the parameters used for creating a request for a change of contract ownership.
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+    "owner": "...", 
+    "ttl": 123456
+}
+```
+
+```rust common.rs
+#[cw_serde]
+pub struct OwnershipProposal {
+    pub owner: Addr,
+    pub ttl: u64,
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`owner`](focus://json#2)   | `Addr`        | The newly proposed contract owner        |
+| [`ttl`](focus://json#3)   | `u64`        | Time until the proposal to change ownership expires      |
+
+</CH.Section>
