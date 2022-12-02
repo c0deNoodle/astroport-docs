@@ -16,8 +16,55 @@ The stableswap pool uses the 4A(Rx+Ry) + D formula, resulting in a constant pric
 
 ## InstantiateMsg
 
-## ExecuteMsg
+Initializes a new x*y=k pair.
 
+<CH.Section>
+
+<CH.Code>
+
+```json json 
+{
+  "asset_infos": [
+    {
+      "token": {
+        "contract_addr": "..."
+      }
+    },
+    {
+      "native_token": {
+        "denom": "..."
+      }
+    }
+  ],
+  "token_code_id": 123,
+  "factory_addr": "terra...",
+  "init_params": "<base64_encoded_json_string: optional binary serialised parameters for custom pool types; example: {'amp': 100}>"
+}
+```
+
+```rust pair.rs
+#[cw_serde]
+pub struct InstantiateMsg {
+    pub asset_infos: Vec<AssetInfo>,
+    pub token_code_id: u64,
+    pub factory_addr: String,
+    pub init_params: Option<Binary>,
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`asset_infos`](focus://json#2:13)   | [`Vec<AssetInfo>`](../../smart-contracts/common-types#assetinfo)        | Information about assets in the pool      |
+| [`token_code_id`](focus://json#14)   | `u64`        | The token contract code ID used for the tokens in the pool        |
+| [`factory_addr`](focus://json#15)      | `String`       | The factory contract address       |
+| [`init_params`](focus://json#16)   | `Option<Binary>`        | Optional binary serialised parameters for custom pool types      |
+
+
+</CH.Section>
+
+## ExecuteMsg
 
 ### `receive`
 
