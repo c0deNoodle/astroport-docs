@@ -2,4 +2,914 @@
 sidebar_position: 2
 ---
 
+import Admonition from '@theme/Admonition'
+
 # Stableswap Pools
+
+The stableswap pool uses the 4A(Rx+Ry) + D formula, resulting in a constant price ∆x / ∆y = 1. More details around how the pool functions can be found [here](../../../learn/astro-pools/stableswap-pools).
+
+- **Contract Repo:** https://github.com/astroport-fi/astroport-core/tree/main/contracts/pair_stable
+- **contract.rs:** https://github.com/astroport-fi/astroport-core/blob/main/contracts/pair_stable/src/contract.rs
+- **pair.rs** https://github.com/astroport-fi/astroport-core/blob/main/packages/astroport/src/pair.rs
+- **Tests:** https://github.com/astroport-fi/astroport-core/tree/main/contracts/pair_stable/tests
+
+
+## InstantiateMsg
+
+## ExecuteMsg
+
+
+### `receive`
+
+Withdraws liquidity or assets that were swapped to (ask assets in a swap operation).
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+  "receive": {
+    "sender": "terra...",
+    "amount": "123",
+    "msg": "<base64_encoded_json_string>"
+  }
+}
+```
+
+```rust pair.rs focus=1:3,24
+#[cw_serde]
+pub enum ExecuteMsg {
+    Receive(Cw20ReceiveMsg),
+    ProvideLiquidity {
+        assets: Vec<Asset>,
+        slippage_tolerance: Option<Decimal>,
+        auto_stake: Option<bool>,
+        receiver: Option<String>,
+    },
+    Swap {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+        belief_price: Option<Decimal>,
+        max_spread: Option<Decimal>,
+        to: Option<String>,
+    },
+    UpdateConfig { params: Binary },
+    ProposeNewOwner {
+        owner: String,
+        expires_in: u64,
+    },
+    DropOwnershipProposal {},
+    ClaimOwnership {},
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`receive`](focus://json#2:6)   | [`Cw20ReceiveMsg`](https://docs.rs/cw20/latest/cw20/struct.Cw20ReceiveMsg.html)        | CW20 receive message      |
+
+</CH.Section>
+
+{/* #### `Cw20ReceiveMsg`
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+  "sender": "...", 
+  "amount": 123, 
+  "msg": "<base64_encoded_json_string>"
+}
+```
+
+```rust docs.rs
+pub struct Cw20ReceiveMsg {
+    pub sender: String,
+    pub amount: Uint128,
+    pub msg: Binary,
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`sender`](focus://json#2)   | `String`       |       |
+| [`amount`](focus://json#3)   | `Uint128`        |       |
+| [`msg`](focus://json#4)   | `Binary`        |       |
+
+
+</CH.Section> */}
+
+
+### `provide_liquidity`
+
+Provides liquidity by sending a user's native or token assets to the pool.
+
+<Admonition type="info" title="">
+You should increase your token allowance for the pool before providing liquidity!
+</Admonition>
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+  "provide_liquidity": {
+    "assets": [
+      {
+        "info": {
+          "token": {
+            "contract_addr": "terra..."
+          }
+        },
+        "amount": "1000000"
+      },
+      {
+        "info": {
+          "native_token": {
+            "denom": "..."
+          }
+        },
+        "amount": "1000000"
+      }
+    ],
+    "slippage_tolerance": "0.01",
+    "auto_stake": false,
+    "receiver": "terra..."
+  }
+}
+```
+
+```rust pair.rs focus=1:2,4:9,24
+#[cw_serde]
+pub enum ExecuteMsg {
+    Receive(Cw20ReceiveMsg),
+    ProvideLiquidity {
+        assets: Vec<Asset>,
+        slippage_tolerance: Option<Decimal>,
+        auto_stake: Option<bool>,
+        receiver: Option<String>,
+    },
+    Swap {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+        belief_price: Option<Decimal>,
+        max_spread: Option<Decimal>,
+        to: Option<String>,
+    },
+    UpdateConfig { params: Binary },
+    ProposeNewOwner {
+        owner: String,
+        expires_in: u64,
+    },
+    DropOwnershipProposal {},
+    ClaimOwnership {},
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`assets`](focus://json#3:20)   | [`Vec<Asset>`](../../smart-contracts/common-types#asset)        | Describes a native or CW20 asset      |
+| [`slippage_tolerance`](focus://json#21)   | `Option<Decimal>`        | The slippage tolerance that allows liquidity provision only if the price in the pool doesn't move too much      |
+| [`auto_stake`](focus://json#22)   | `Option<bool>`        | Determines whether the LP tokens minted for the user is auto_staked in the Generator contract      |
+| [`receiver`](focus://json#23)   | `Option<String>`        | The receiver of LP tokens      |
+
+</CH.Section>
+
+### `withdraw_liquidity`
+
+Burns LP tokens and withdraws liquidity from a pool. 
+
+<Admonition type="info" title="NOTE">
+This call must be sent to the LP token contract associated with the pool from which you want to withdraw liquidity from.
+</Admonition>
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+    "withdraw_liquidity": {}
+}
+```
+
+```rust pair.rs focus=1:2,9:10
+#[cw_serde]
+pub enum Cw20HookMsg {
+    Swap {
+        ask_asset_info: Option<AssetInfo>,
+        belief_price: Option<Decimal>,
+        max_spread: Option<Decimal>,
+        to: Option<String>,
+    },
+    WithdrawLiquidity { assets: Vec<Asset> },
+}
+```
+
+</CH.Code>
+</CH.Section>
+
+### `swap`
+
+Swap performs a swap in the pool.
+
+<CH.Section>
+<CH.Code>
+
+
+```json json
+{
+  "swap": {
+    "offer_asset": {
+      "info": {
+        "token": {
+          "contract_addr": "..."
+        }
+      }, 
+      "amount": "10000000"
+    }, 
+    "ask_asset_info": {
+      "native_token": {
+        "denom": "..."
+      }
+    },
+    "belief_price": "1234567", 
+    "max_spread": "10000000",
+    "to": "...."
+  }
+}
+```
+
+```rust pair.rs focus=1:2,10:16,24
+#[cw_serde]
+pub enum ExecuteMsg {
+    Receive(Cw20ReceiveMsg),
+    ProvideLiquidity {
+        assets: Vec<Asset>,
+        slippage_tolerance: Option<Decimal>,
+        auto_stake: Option<bool>,
+        receiver: Option<String>,
+    },
+    Swap {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+        belief_price: Option<Decimal>,
+        max_spread: Option<Decimal>,
+        to: Option<String>,
+    },
+    UpdateConfig { params: Binary },
+    ProposeNewOwner {
+        owner: String,
+        expires_in: u64,
+    },
+    DropOwnershipProposal {},
+    ClaimOwnership {},
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`offer_asset`](focus://json#3:10)   | [`Asset`](../../smart-contracts/common-types/#asset)        | Offer asset      |
+| [`ask_asset_info`](focus://json#11:15)   | [`Option<AssetInfo>`](../../smart-contracts/common-types/#assetinfo)        | Information about an asset stored in a [`AssetInfo`] struct     |
+| [`belief_price`](focus://json#16)   | `Option<Decimal>`        | Belief price     |
+| [`max_spread`](focus://json#17)   | `Option<Decimal>`        | The difference between the ask amount before and after the swap operation. If the swap spread exceeds the provided max limit, the swap will fail.  If `belief_price` is provided in combination with `max_spread`, the pool will check the difference between the return amount (using `belief_price`) and the real pool price.      |
+| [`to`](focus://json#18)   | `Option<String>`        | Address receiving tokens (if different from sender)     |
+
+</CH.Section>
+
+### `update_config`
+
+Update the pair's configuration.
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+    "update_config": {
+        "params": "<base64_encoded_json_string>: binary serialised parameters for stable pool types; example: {'amp': 100}"
+    }
+}
+```
+
+```rust pair.rs focus=1:2,17,24
+#[cw_serde]
+pub enum ExecuteMsg {
+    Receive(Cw20ReceiveMsg),
+    ProvideLiquidity {
+        assets: Vec<Asset>,
+        slippage_tolerance: Option<Decimal>,
+        auto_stake: Option<bool>,
+        receiver: Option<String>,
+    },
+    Swap {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+        belief_price: Option<Decimal>,
+        max_spread: Option<Decimal>,
+        to: Option<String>,
+    },
+    UpdateConfig { params: Binary },
+    ProposeNewOwner {
+        owner: String,
+        expires_in: u64,
+    },
+    DropOwnershipProposal {},
+    ClaimOwnership {},
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`params`](focus://json#3)   | `Binary`        | The pool's parameters      |
+
+</CH.Section>
+
+
+## QueryMsg
+
+### `pair`
+
+Queries information about a pair.
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+  "pair": {}
+}
+```
+
+```rust pair.rs focus=1:5,26
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(PairInfo)]
+    Pair {},
+    #[returns(PoolResponse)]
+    Pool {},
+    #[returns(ConfigResponse)]
+    Config {},
+    #[returns(Vec<Asset>)]
+    Share { amount: Uint128 },
+    #[returns(SimulationResponse)]
+    Simulation {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+    },
+    #[returns(ReverseSimulationResponse)]
+    ReverseSimulation {
+        offer_asset_info: Option<AssetInfo>,
+        ask_asset: Asset,
+    },
+    #[returns(CumulativePricesResponse)]
+    CumulativePrices {},
+    #[returns(Uint128)]
+    QueryComputeD {},
+}
+```
+
+</CH.Code>
+
+Returns a [`PairInfo`](../../smart-contracts/common-types#pairinfo) response struct.
+
+</CH.Section>
+
+### `pool`
+
+Queries information about a pool.
+
+<CH.Section>
+<CH.Code>
+
+```json json 
+{
+  "pool": {}
+}
+```
+
+```rust pair.rs focus=1:3,6:7,26
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(PairInfo)]
+    Pair {},
+    #[returns(PoolResponse)]
+    Pool {},
+    #[returns(ConfigResponse)]
+    Config {},
+    #[returns(Vec<Asset>)]
+    Share { amount: Uint128 },
+    #[returns(SimulationResponse)]
+    Simulation {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+    },
+    #[returns(ReverseSimulationResponse)]
+    ReverseSimulation {
+        offer_asset_info: Option<AssetInfo>,
+        ask_asset: Asset,
+    },
+    #[returns(CumulativePricesResponse)]
+    CumulativePrices {},
+    #[returns(Uint128)]
+    QueryComputeD {},
+}
+```
+
+</CH.Code>
+</CH.Section>
+
+#### `PoolResponse`
+
+This struct is used to return a query result with the total amount of LP tokens and assets in a specific pool.
+
+<CH.Section>
+<CH.Code>
+
+
+```json json
+{
+    "assets": [
+        {
+            "info": {
+                "token": {
+                    "contract_addr": "..."
+                }
+            },
+            "amount": "100000"
+        },
+        {
+            "info": {
+                "native_token": {
+                    "denom": "..."
+                }
+            },
+            "amount": "100000"
+        }
+    ], 
+    "total_share": "1234567"
+}
+```
+
+```rust pair.rs
+#[cw_serde]
+pub struct PoolResponse {
+    pub assets: Vec<Asset>,
+    pub total_share: Uint128,
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`assets`](focus://json#2:19)   | [`Vec<Asset>`](../../smart-contracts/common-types/#asset)        | The assets in the pool together with asset amounts     |
+| [`total_share`](focus://json#20)   | `Uint128`        | The total amount of LP tokens currently issued     |
+
+</CH.Section>
+
+### `config`
+
+Queries contract configuration settings.
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+  "config": {}
+}
+```
+
+```rust pair.rs focus=1:3,8:9,26
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(PairInfo)]
+    Pair {},
+    #[returns(PoolResponse)]
+    Pool {},
+    #[returns(ConfigResponse)]
+    Config {},
+    #[returns(Vec<Asset>)]
+    Share { amount: Uint128 },
+    #[returns(SimulationResponse)]
+    Simulation {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+    },
+    #[returns(ReverseSimulationResponse)]
+    ReverseSimulation {
+        offer_asset_info: Option<AssetInfo>,
+        ask_asset: Asset,
+    },
+    #[returns(CumulativePricesResponse)]
+    CumulativePrices {},
+    #[returns(Uint128)]
+    QueryComputeD {},
+}
+```
+
+</CH.Code>
+</CH.Section>
+
+#### `ConfigResponse`
+
+This struct is used to return a query result with the general contract configuration.
+
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+    "block_time_last": 1234567, 
+    "params": "<base64_encoded_json_string>",
+    "owner": "..."
+}
+```
+
+```rust pair.rs
+#[cw_serde]
+pub struct ConfigResponse {
+    pub block_time_last: u64,
+    pub params: Option<Binary>,
+    pub owner: Option<Addr>,
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`block_time_last`](focus://json#2)   | `u64`        | The assets in the pool together with asset amounts     |
+| [`params`](focus://json#3)   | `Option<Binary>`        | The pool's parameters     |
+| [`owner`](focus://json#4)   | `Option<Addr>`        | The contract owner     |
+
+
+</CH.Section>
+
+
+### `share`
+
+Queries information about the share of a pool. 
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+  "share": {
+    "amount": "1000000"
+  }
+}
+```
+
+```rust pair.rs focus=1:3,10:11,26
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(PairInfo)]
+    Pair {},
+    #[returns(PoolResponse)]
+    Pool {},
+    #[returns(ConfigResponse)]
+    Config {},
+    #[returns(Vec<Asset>)]
+    Share { amount: Uint128 },
+    #[returns(SimulationResponse)]
+    Simulation {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+    },
+    #[returns(ReverseSimulationResponse)]
+    ReverseSimulation {
+        offer_asset_info: Option<AssetInfo>,
+        ask_asset: Asset,
+    },
+    #[returns(CumulativePricesResponse)]
+    CumulativePrices {},
+    #[returns(Uint128)]
+    QueryComputeD {},
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`amount`](focus://json#3)   | `Uint128`        | Share of the pool      |
+
+
+</CH.Section>
+
+Returns a vector that contains objects of type [`Asset`](../../smart-contracts/common-types#asset).
+
+
+### `simulation`
+
+Queries information about a swap simulation.
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+    "simulation": {
+        "offer_asset": {
+            "info": {
+                "token": {
+                    "contract_addr": "..."
+                }
+            },
+            "amount": "100000"
+        }, 
+        "ask_asset_info": {
+            "native_token": {
+                "denom": "..."
+            }
+        }
+    }
+}
+```
+
+```rust pair.rs focus=1:3,12:16,26
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(PairInfo)]
+    Pair {},
+    #[returns(PoolResponse)]
+    Pool {},
+    #[returns(ConfigResponse)]
+    Config {},
+    #[returns(Vec<Asset>)]
+    Share { amount: Uint128 },
+    #[returns(SimulationResponse)]
+    Simulation {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+    },
+    #[returns(ReverseSimulationResponse)]
+    ReverseSimulation {
+        offer_asset_info: Option<AssetInfo>,
+        ask_asset: Asset,
+    },
+    #[returns(CumulativePricesResponse)]
+    CumulativePrices {},
+    #[returns(Uint128)]
+    QueryComputeD {},
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`offer_asset`](focus://json#2:10)   | [`Asset`](../../smart-contracts/common-types#asset)        | Offer asset      |
+| [`ask_asset_info`](focus://json#11:15)   | [`Option<AssetInfo>`](../../smart-contracts/common-types#assetinfo)        | Ask asset info      |
+
+</CH.Section>
+
+#### `SimulationResponse`
+
+This structure holds the parameters that are returned from a swap simulation response.
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+  "return_amount": "123456",
+  "spread_amount": "0",
+  "commission_amount": "123"
+}
+```
+
+```rust pair.rs
+#[cw_serde]
+pub struct SimulationResponse {
+    pub return_amount: Uint128,
+    pub spread_amount: Uint128,
+    pub commission_amount: Uint128,
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`return_amount`](focus://json#2)   | `Uint128`        | The amount of ask assets returned by the swap      |
+| [`spread_amount`](focus://json#3)   | `Uint128`        | The spread used in the swap operation      |
+| [`commission_amount`](focus://json#4)   | `Uint128`        | The amount of fees charged by the transaction      |
+
+</CH.Section>
+
+
+### `reverse_simulation`
+
+Queries information about a reverse swap simulation.
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+    "reverse_simulation": {
+        "offer_asset_info": {
+            "native_token": {
+                "denom": "..."
+            }
+        },
+        "ask_asset": {
+            "info": {
+                "token": {
+                    "contract_addr": "..."
+                }
+            },
+            "amount": "100000"
+        }
+    }
+}
+```
+
+```rust pair.rs focus=1:3,17:21,26
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(PairInfo)]
+    Pair {},
+    #[returns(PoolResponse)]
+    Pool {},
+    #[returns(ConfigResponse)]
+    Config {},
+    #[returns(Vec<Asset>)]
+    Share { amount: Uint128 },
+    #[returns(SimulationResponse)]
+    Simulation {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+    },
+    #[returns(ReverseSimulationResponse)]
+    ReverseSimulation {
+        offer_asset_info: Option<AssetInfo>,
+        ask_asset: Asset,
+    },
+    #[returns(CumulativePricesResponse)]
+    CumulativePrices {},
+    #[returns(Uint128)]
+    QueryComputeD {},
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`offer_asset_info`](focus://json#3:7)   | [`Option<AssetInfo>`](../../smart-contracts/common-types#assetinfo)        | Offer asset info     |
+| [`ask_asset`](focus://json#8:15)   | [`Asset`](../../smart-contracts/common-types#asset)        | Ask asset      |
+
+</CH.Section>
+
+#### `ReverseSimulationResponse`
+
+This structure holds the parameters that are returned from a reverse swap simulation response.
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+  "offer_amount": "12345",
+  "spread_amount": "0",
+  "commission_amount": "123"
+}
+```
+
+```rust pair.rs
+#[cw_serde]
+pub struct ReverseSimulationResponse {
+    pub offer_amount: Uint128,
+    pub spread_amount: Uint128,
+    pub commission_amount: Uint128,
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`offer_amount`](focus://json#2)   | `Uint128`        | The amount of offer assets returned by the reverse swap      |
+| [`spread_amount`](focus://json#3)   | `Uint128`        | The spread used in the swap operation      |
+| [`commission_amount`](focus://json#4)   | `Uint128`        | The amount of fees charged by the transaction      |
+
+</CH.Section>
+
+### `cumulative_prices`
+
+Queries information about cumulative prices in a pool.
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+  "cumulative_prices": {}
+}
+```
+
+```rust pair.rs focus=1:3,22:23,26
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(PairInfo)]
+    Pair {},
+    #[returns(PoolResponse)]
+    Pool {},
+    #[returns(ConfigResponse)]
+    Config {},
+    #[returns(Vec<Asset>)]
+    Share { amount: Uint128 },
+    #[returns(SimulationResponse)]
+    Simulation {
+        offer_asset: Asset,
+        ask_asset_info: Option<AssetInfo>,
+    },
+    #[returns(ReverseSimulationResponse)]
+    ReverseSimulation {
+        offer_asset_info: Option<AssetInfo>,
+        ask_asset: Asset,
+    },
+    #[returns(CumulativePricesResponse)]
+    CumulativePrices {},
+    #[returns(Uint128)]
+    QueryComputeD {},
+}
+```
+
+</CH.Code>
+</CH.Section>
+
+#### `CumulativePricesResponse`
+
+This structure is used to return a cumulative prices query response.
+
+
+<CH.Section>
+<CH.Code>
+
+```json json
+{
+    "assets": [
+        {
+            "info": {
+                "token": {
+                    "contract_addr": "..."
+                }
+            },
+            "amount": "100000"
+        },
+        {
+            "info": {
+                "native_token": {
+                    "denom": "..."
+                }
+            },
+            "amount": "100000"
+        }
+    ], 
+    "total_share": "12345667", 
+    "price0_cumulative_last": "12345667",
+    "price1_cumulative_last": "12345667"
+}
+```
+
+```rust pair.rs
+#[cw_serde]
+pub struct CumulativePricesResponse {
+    pub assets: Vec<Asset>,
+    pub total_share: Uint128,
+    pub cumulative_prices: Vec<(AssetInfo, AssetInfo, Uint128)>,
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`assets`](focus://json#2:19)   | [`Vec<Asset>`](../../smart-contracts/common-types#asset)        | The assets in the pool to query      |
+| [`total_share`](focus://json#20)   | `Uint128`        | The total amount of LP tokens currently issued      |
+| [`cumulative_prices`](focus://json#21:22)   | `Vec<(AssetInfo, AssetInfo, Uint128)>`       | The vector contains cumulative prices for each pair of assets in the pool      |
+
+</CH.Section>

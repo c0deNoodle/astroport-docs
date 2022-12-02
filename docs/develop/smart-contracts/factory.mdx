@@ -629,7 +629,7 @@ All query messages are described below. A custom struct is defined for each quer
 
 ### `config`
 
-Returns general factory parameters (owner, token code ID, pair type configurations).
+Queries general factory parameters (owner, token code ID, pair type configurations).
 
 <CH.Section>
 <CH.Code>
@@ -735,7 +735,7 @@ pub struct ConfigResponse {
 
 ### `pair`
 
-Returns information about a specific pair.
+Queries information about a specific pair.
 
 <CH.Section>
 <CH.Code>
@@ -793,12 +793,12 @@ pub enum QueryMsg {
 
 </CH.Section>
 
-`pair` returns a [`PairInfo`](./common-types#pairinfo) response  struct.
+Returns a [`PairInfo`](./common-types#pairinfo) response  struct.
 
 
 ### `pairs`
 
-Returns information about multiple pairs (the result is paginated). The function starts returning pair information starting after the pair `start_after`. The function returns maximum `limit` pairs.
+Queries information about multiple pairs (the result is paginated). The function starts returning pair information starting after the pair `start_after`. The function returns maximum `limit` pairs.
 
 <CH.Section>
 <CH.Code>
@@ -913,7 +913,7 @@ pub struct PairsResponse {
 
 ### `fee_info`
 
-Returns fee information for a specific pair type (`total_fee_bps` and `maker_fee_bps`).
+Queries fee information for a specific pair type (`total_fee_bps` and `maker_fee_bps`).
 
 <CH.Section>
 <CH.Code>

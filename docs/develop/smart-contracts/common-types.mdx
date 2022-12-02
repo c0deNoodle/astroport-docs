@@ -40,8 +40,40 @@ pub enum AssetInfo {
 
 ### `Asset`
 
+This enum contains asset info and a token amount.
+
+<CH.Section>
+<CH.Code>
 
 
+```json json 
+{
+    "info": {
+        "token": {
+            "contract_addr": "..."
+        }
+    }, 
+    "amount": "100000"
+}
+```
+
+```rust asset.rs
+#[cw_serde]
+pub struct Asset {
+    pub info: AssetInfo,
+    pub amount: Uint128,
+}
+```
+
+</CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`info`](focus://json#2:6)   | [`AssetInfo`](#assetinfo)        | Information about an asset stored in a [`AssetInfo`] struct      |
+| [`amount`](focus://json#7)   | `Uint128`        | A token amount     |
+
+
+</CH.Section>
 
 ### `DecimalAsset`
 
