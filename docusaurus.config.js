@@ -6,10 +6,8 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
-const theme = require("shiki/themes/nord.json")
-const {
-  remarkCodeHike,
-} = require("@code-hike/mdx")
+const theme = require('shiki/themes/nord.json');
+const { remarkCodeHike } = require('@code-hike/mdx');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -60,13 +58,13 @@ const config = {
         //   editUrl:
         //     'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         // },
-        
+
         docs: false,
         blog: false,
         theme: {
           customCss: [
-            require.resolve("@code-hike/mdx/styles.css"),
-            require.resolve("./src/css/custom.css"),
+            require.resolve('@code-hike/mdx/styles.css'),
+            require.resolve('./src/css/custom.css'),
           ],
         },
       }),
@@ -78,69 +76,85 @@ const config = {
       '@docusaurus/plugin-content-docs',
       {
         beforeDefaultRemarkPlugins: [
-          [remarkCodeHike, { 
-            showCopyButton: true,
-            // lineNumbers: true,
-            theme }],
+          [
+            remarkCodeHike,
+            {
+              showCopyButton: true,
+              // lineNumbers: true,
+              theme,
+            },
+          ],
         ],
         id: 'overview',
         path: 'docs/overview',
         routeBasePath: 'docs/overview',
         sidebarPath: require.resolve('./sidebars.js'),
         editUrl: 'https://github.com/astroport-fi/docs/blob/master',
-      }, 
+      },
     ],
     [
       '@docusaurus/plugin-content-docs',
       {
         beforeDefaultRemarkPlugins: [
-          [remarkCodeHike, { 
-            showCopyButton: true,
-            // lineNumbers: true,
-            theme }],
+          [
+            remarkCodeHike,
+            {
+              showCopyButton: true,
+              // lineNumbers: true,
+              theme,
+            },
+          ],
         ],
         id: 'learn',
         path: 'docs/learn',
         routeBasePath: 'docs/learn',
         sidebarPath: require.resolve('./sidebars.js'),
         editUrl: 'https://github.com/astroport-fi/docs/blob/master',
-      }, 
+      },
     ],
     [
       '@docusaurus/plugin-content-docs',
       {
         beforeDefaultRemarkPlugins: [
-          [remarkCodeHike, { 
-            showCopyButton: true,
-            // lineNumbers: true,
-            theme }],
+          [
+            remarkCodeHike,
+            {
+              showCopyButton: true,
+              // lineNumbers: true,
+              theme,
+            },
+          ],
         ],
         id: 'govern',
         path: 'docs/govern',
         routeBasePath: 'docs/govern',
         sidebarPath: require.resolve('./sidebars.js'),
         editUrl: 'https://github.com/astroport-fi/docs/blob/master',
-      }, 
+      },
     ],
     [
       '@docusaurus/plugin-content-docs',
       {
         beforeDefaultRemarkPlugins: [
-          [remarkCodeHike, { 
-            showCopyButton: true,
-            lineNumbers: true,
-            theme }],
+          [
+            remarkCodeHike,
+            {
+              showCopyButton: true,
+              lineNumbers: true,
+              theme,
+            },
+          ],
         ],
         id: 'develop',
         path: 'docs/develop',
         routeBasePath: 'docs/develop',
         sidebarPath: require.resolve('./sidebars.js'),
         editUrl: 'https://github.com/astroport-fi/docs/blob/master',
-      }, 
+      },
     ],
   ],
 
-  themes: ["mdx-v2"],
+  themes: ['mdx-v2'],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
@@ -155,35 +169,32 @@ const config = {
         },
         items: [
           {
-            to: '/docs/overview/intro-to-astroport',    // ./docs-api/intro.md
+            to: '/docs/overview/intro-to-astroport', // ./docs-api/intro.md
             label: 'Overview',
             position: 'left',
             activeBaseRegex: `/overview/`,
           },
           {
-            // to: '/docs/learn/astro-pools/constant-product-pools',   
+            // to: '/docs/learn/astro-pools/constant-product-pools',
             to: '/docs/learn/astro-pools/astro-pools-intro',
-            // to: '/docs/learn/astro-pools/intro',  
-            // to: '/docs/learn/index',   
+            // to: '/docs/learn/astro-pools/intro',
+            // to: '/docs/learn/index',
             label: 'Learn',
             position: 'left',
             activeBaseRegex: `/learn/`,
           },
 
-
-
           // {to: '/blog', label: 'Blog', position: 'left'},
 
-
           {
-            to: '/docs/govern/astroport-improvement-proposal-framework',    // ./docs-api/intro.md
+            to: '/docs/govern/astroport-improvement-proposal-framework', // ./docs-api/intro.md
             label: 'Govern',
             position: 'left',
             activeBaseRegex: `/govern/`,
           },
           {
-            // to: '/docs/develop/smart-contracts/astroport-contract-addresses',   
-            to: '/docs/develop/category/smart-contracts',   
+            // to: '/docs/develop/smart-contracts/astroport-contract-addresses',
+            to: '/docs/develop/category/smart-contracts',
             label: 'Develop',
             position: 'left',
             activeBaseRegex: `/develop/`,
@@ -198,7 +209,6 @@ const config = {
 
         style: 'primary',
         // hideOnScroll: true,
-
       },
 
       // colorMode: {
@@ -209,7 +219,7 @@ const config = {
         sidebar: {
           hideable: true,
           autoCollapseCategories: true,
-        }
+        },
       },
       footer: {
         style: 'dark',
@@ -265,13 +275,9 @@ const config = {
         // copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
       },
 
-
       // prism: {
       //   darkTheme: darkCodeTheme,
       // },
-
-
-
     }),
 };
 
