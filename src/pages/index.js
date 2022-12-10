@@ -9,7 +9,7 @@ import BannerUrl from '@site/static/img/banner.png';
 import ChadUrl from '@site/static/img/astrochad.png';
 import PepeUrl from '@site/static/img/astropepe.png';
 import AssemblyUrl from '@site/static/img/assembly.png';
-import SearchBar  from '@theme/SearchBar';
+import SearchBar from '@theme/SearchBar';
 import ContentBlocks from '../components/ContentBlocks';
 
 import styles from './index.module.css';
@@ -34,13 +34,14 @@ import styles from './index.module.css';
 // }
 
 function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
+
   return (
     <header className={clsx(styles.heroBanner)}>
       <div className="container">
-        <h1 className="hero__title">{siteConfig.title}</h1>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        
+        <h1 className="hero__title mb-4">{siteConfig.title}</h1>
+        <p className="hero__subtitle mb-8">{siteConfig.tagline}</p>
+
         {/* <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
@@ -49,13 +50,11 @@ function HomepageHeader() {
           </Link>
         </div> */}
 
+        <input placeholder="Search docs" type="text" />
 
-          <input placeholder="Search docs" type="text" />
+        <br />
 
-          <br />
-
-          {/* <img src={BannerUrl} /> */}
-    
+        {/* <img src={BannerUrl} /> */}
       </div>
     </header>
   );
@@ -67,43 +66,42 @@ const contentBlockProps = {
     image: BannerUrl,
     title: 'Getting Started',
     text: 'Today, the doors of Astroport’s governing body, the Astral Assembly, open. And that means all astronauts can enter to help shape the future of Terra 2.0’s most popular swap protocol.',
-    footer: false
+    footer: false,
   },
   learn: {
     banner: true,
     image: BannerUrl,
     title: 'Learn',
     text: 'Today, the doors of Astroport’s governing body, the Astral Assembly, open. And that means all astronauts can enter to help shape the future of Terra 2.0’s most popular swap protocol.',
-    footer: false
+    footer: false,
   },
   govern: {
     banner: false,
     image: AssemblyUrl,
     title: 'Govern',
     text: 'Today, the doors of Astroport’s governing body, the Astral Assembly, open. And that means all astronauts can enter to help shape the future of Terra 2.0’s most popular swap protocol.',
-    footer: false
-  }, 
+    footer: false,
+  },
   develop: {
     banner: false,
     image: ChadUrl,
     title: 'Develop',
     text: 'Today, the doors of Astroport’s governing body, the Astral Assembly, open. And that means all astronauts can enter to help shape the future of Terra 2.0’s most popular swap protocol.',
-    footer: true
-  }
-}
+    footer: true,
+  },
+};
 
 export default function Home() {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
   return (
-    <Layout 
+    <Layout
       title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      description="Description will go into a meta tag in <head />"
+    >
       <br />
 
       <HomepageHeader />
-      <main>
-        {/* <HomepageFeatures /> */}
-      </main>
+      <main>{/* <HomepageFeatures /> */}</main>
 
       {/* <ContentBlocks 
         banner={contentBlockProps.overview.banner}
@@ -114,13 +112,12 @@ export default function Home() {
 
       /> */}
 
-
-{/* 
+      {/* 
       <div className={styles.pepe}>
         <img src={PepeUrl} />
       </div> */}
 
-      <ContentBlocks 
+      <ContentBlocks
         banner={contentBlockProps.learn.banner}
         image={contentBlockProps.learn.image}
         title={contentBlockProps.learn.title}
@@ -128,7 +125,7 @@ export default function Home() {
         footer={contentBlockProps.learn.footer}
       />
 
-      <ContentBlocks 
+      <ContentBlocks
         banner={contentBlockProps.govern.banner}
         image={contentBlockProps.govern.image}
         title={contentBlockProps.govern.title}
@@ -140,7 +137,7 @@ export default function Home() {
         <img src={ChadUrl} />
       </div> */}
 
-      <ContentBlocks 
+      <ContentBlocks
         banner={contentBlockProps.develop.banner}
         image={contentBlockProps.develop.image}
         title={contentBlockProps.develop.title}

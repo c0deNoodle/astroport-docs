@@ -23,7 +23,7 @@ const iconsClassNames =
 
 const SocialIcons = () => {
   return (
-    <div className="flex gap-x-8 px-16">
+    <div className="hidden lg:flex gap-x-8 px-8">
       <TwitterIcon className={iconsClassNames} />
       <TelegramIcon className={iconsClassNames} />
       <DiscordIcon className={iconsClassNames} />
@@ -35,20 +35,22 @@ const SocialIcons = () => {
 export default function NavbarWrapper(props) {
   return (
     <>
-      <div className="flex justify-end items-center h-[90px] px-6 md:px-[80px]">
+      <div className="hidden md:flex justify-end items-center h-[90px] px-4 md:px-6">
         <img
           src="../../../img/logo.svg"
           alt="logo"
           className="h-[32px] mr-auto"
         />
-        <NavigationItems />
-        <SocialIcons />
-        <button
-          className="uppercase rounded-2xl bg-primary py-2 px-6 text-[13px] font-medium text-white hover:bg-white hover:text-primary transition-all duration-500"
-          onClick={() => window.open(APP_URL, '_blank')}
-        >
-          Enter app
-        </button>
+        <div className="flex gap-16 items-center">
+          <NavigationItems />
+          <SocialIcons />
+          <button
+            className="uppercase rounded-2xl bg-primary py-2 px-6 text-[13px] font-medium text-white hover:bg-white hover:text-primary transition-all duration-500"
+            onClick={() => window.open(APP_URL, '_blank')}
+          >
+            Enter app
+          </button>
+        </div>
       </div>
       <Navbar {...props} />
     </>
