@@ -5,7 +5,7 @@ import TwitterIcon from '../../components/icons/TwitterIcon';
 import DiscordIcon from '../../components/icons/DiscordIcon';
 import MediumIcon from '../../components/icons/MediumIcon';
 import TelegramIcon from '../../components/icons/TelegramIcon';
-import { APP_URL } from '../../constants';
+import { APP_URL, SOCIAL_MEDIA_LINKS } from '../../constants';
 
 const NavigationItems = () => {
   return (
@@ -24,10 +24,18 @@ const iconsClassNames =
 const SocialIcons = () => {
   return (
     <div className="hidden lg:flex gap-x-8 px-8">
-      <TwitterIcon className={iconsClassNames} />
-      <TelegramIcon className={iconsClassNames} />
-      <DiscordIcon className={iconsClassNames} />
-      <MediumIcon className={iconsClassNames} />
+      <a href={SOCIAL_MEDIA_LINKS.twitter} target="_blank">
+        <TwitterIcon className={iconsClassNames} />
+      </a>
+      <a href={SOCIAL_MEDIA_LINKS.telegram} target="_blank">
+        <TelegramIcon className={iconsClassNames} />
+      </a>
+      <a href={SOCIAL_MEDIA_LINKS.discord} target="_blank">
+        <DiscordIcon className={iconsClassNames} />
+      </a>
+      <a href={SOCIAL_MEDIA_LINKS.medium} target="_blank">
+        <MediumIcon className={iconsClassNames} />
+      </a>
     </div>
   );
 };
