@@ -118,30 +118,9 @@ a:hover {
 }
 
 body {
-  background: url('../../static/img/texture.png'), #08082f;
+  background-color: #08082f;
   color: #ffffff;
   font-family: 'Inter';
-}
-
-body::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1500px;
-  height: 1500px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  background: radial-gradient(
-    50% 50% at 50% 50%,
-    rgb(86, 67, 242) 0%,
-    rgb(131, 179, 253) 58.33%,
-    rgb(44, 164, 214) 73.44%,
-    rgb(0, 13, 55) 100%
-  );
-  position: fixed;
-  filter: blur(300px);
-  z-index: -1;
 }
 
 /* div.col.col--3.a code {

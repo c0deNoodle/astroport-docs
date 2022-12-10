@@ -4,7 +4,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
-import RadialGradiant from '../components/RadialGradient';
+import RadialGradient from '../components/RadialGradient';
 import BannerUrl from '@site/static/img/banner.png';
 import ChadUrl from '@site/static/img/astrochad.png';
 import PepeUrl from '@site/static/img/astropepe.png';
@@ -98,12 +98,12 @@ export default function Home() {
       title={`Hello from ${siteConfig.title}`}
       description="Description will go into a meta tag in <head />"
     >
-      <br />
+      <RadialGradient />
+      <div className="relative z-10">
+        <HomepageHeader />
+        <main>{/* <HomepageFeatures /> */}</main>
 
-      <HomepageHeader />
-      <main>{/* <HomepageFeatures /> */}</main>
-
-      {/* <ContentBlocks 
+        {/* <ContentBlocks 
         banner={contentBlockProps.overview.banner}
         image={contentBlockProps.overview.image}
         title={contentBlockProps.overview.title}
@@ -112,38 +112,39 @@ export default function Home() {
 
       /> */}
 
-      {/* 
+        {/* 
       <div className={styles.pepe}>
         <img src={PepeUrl} />
       </div> */}
 
-      <ContentBlocks
-        banner={contentBlockProps.learn.banner}
-        image={contentBlockProps.learn.image}
-        title={contentBlockProps.learn.title}
-        text={contentBlockProps.learn.text}
-        footer={contentBlockProps.learn.footer}
-      />
+        <ContentBlocks
+          banner={contentBlockProps.learn.banner}
+          image={contentBlockProps.learn.image}
+          title={contentBlockProps.learn.title}
+          text={contentBlockProps.learn.text}
+          footer={contentBlockProps.learn.footer}
+        />
 
-      <ContentBlocks
-        banner={contentBlockProps.govern.banner}
-        image={contentBlockProps.govern.image}
-        title={contentBlockProps.govern.title}
-        text={contentBlockProps.govern.text}
-        footer={contentBlockProps.govern.footer}
-      />
+        <ContentBlocks
+          banner={contentBlockProps.govern.banner}
+          image={contentBlockProps.govern.image}
+          title={contentBlockProps.govern.title}
+          text={contentBlockProps.govern.text}
+          footer={contentBlockProps.govern.footer}
+        />
 
-      {/* <div className={styles.figs}>
+        {/* <div className={styles.figs}>
         <img src={ChadUrl} />
       </div> */}
 
-      <ContentBlocks
-        banner={contentBlockProps.develop.banner}
-        image={contentBlockProps.develop.image}
-        title={contentBlockProps.develop.title}
-        text={contentBlockProps.develop.text}
-        footer={contentBlockProps.develop.footer}
-      />
+        <ContentBlocks
+          banner={contentBlockProps.develop.banner}
+          image={contentBlockProps.develop.image}
+          title={contentBlockProps.develop.title}
+          text={contentBlockProps.develop.text}
+          footer={contentBlockProps.develop.footer}
+        />
+      </div>
     </Layout>
   );
 }

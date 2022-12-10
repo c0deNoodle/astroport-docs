@@ -43,7 +43,7 @@ const SocialIcons = () => {
 export default function NavbarWrapper(props) {
   return (
     <>
-      <div className="hidden md:flex justify-end items-center h-[90px] px-4 md:px-6">
+      <div className="hidden md:flex justify-end items-center h-[90px] px-4 md:px-6 z-10">
         <img
           src="../../../img/logo.svg"
           alt="logo"
