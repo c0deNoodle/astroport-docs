@@ -13,63 +13,60 @@ const contentBoxProps = {
   },
   govern: {
     title: 'Govern',
-  }, 
+  },
   develop: {
     title: 'Develop',
-  }
-}
+  },
+};
 
-export default function ContentBlocks(props) {
-
-  if (props.banner == true) {
+export default function ContentBlocks({ banner, image, title, text, footer }) {
+  if (banner == true) {
     return (
       <div>
         <div className={styles.banner}>
-          <img src={props.image}/>
+          <img src={image} />
         </div>
-        <h2 className={styles.title}>{props.title}</h2>
-        <p className={styles.text}>{props.text}</p>
+        <h2 className={styles.title}>{title}</h2>
+        <p className={styles.text}>{text}</p>
         <ContentBox title={contentBoxProps.learn.title} />
       </div>
     );
-  } else if (props.title == 'Learn') {
+  } else if (title == 'Learn') {
     return (
       <div>
         <div className={styles.figs}>
-          <img src={props.image}/>
+          <img src={image} />
         </div>
-        <h2 className={styles.title}>{props.title}</h2>
-        <p className={styles.text}>{props.text}</p>
+        <h2 className={styles.title}>{title}</h2>
+        <p className={styles.text}>{text}</p>
         <ContentBox title={contentBoxProps.learn.title} />
       </div>
     );
-  } else if (props.title == 'Govern') {
+  } else if (title == 'Govern') {
     return (
       <div>
         <div className={styles.figs}>
-          <img src={props.image}/>
+          <img src={image} />
         </div>
-        <h2 className={styles.title}>{props.title}</h2>
-        <p className={styles.text}>{props.text}</p>
+        <h2 className={styles.title}>{title}</h2>
+        <p className={styles.text}>{text}</p>
         <ContentBox title={contentBoxProps.govern.title} />
       </div>
     );
-  } else if (props.footer == true) {
+  } else if (footer == true) {
     return (
       <div>
         <div className={styles.figs}>
-          <img src={props.image}/>
+          <img src={image} />
         </div>
-        <h2 className={styles.title}>{props.title}</h2>
-        <p className={styles.text}>{props.text}</p>
+        <h2 className={styles.title}>{title}</h2>
+        <p className={styles.text}>{text}</p>
         <ContentBox title={contentBoxProps.develop.title} />
 
         <div className={styles.footer}>
-          <img src={LaunchUrl}/>
+          <img src={LaunchUrl} />
         </div>
-
       </div>
     );
-  } 
-  
+  }
 }
