@@ -72,6 +72,17 @@ const config = {
   ],
 
   plugins: [
+    async function myPlugin(context, options) {
+      return {
+        name: 'docusaurus-tailwindcss',
+        configurePostCss(postcssOptions) {
+          // Appends TailwindCSS and AutoPrefixer.
+          postcssOptions.plugins.push(require('tailwindcss'));
+          postcssOptions.plugins.push(require('autoprefixer'));
+          return postcssOptions;
+        },
+      };
+    },
     [
       '@docusaurus/plugin-content-docs',
       {
@@ -160,13 +171,6 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'Astroport',
-        logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
-          width: 30,
-          height: 24,
-        },
         items: [
           {
             to: '/docs/overview/intro-to-astroport', // ./docs-api/intro.md
