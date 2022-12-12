@@ -15,7 +15,7 @@ const RadialGradient = () => {
       {/* Noise Pattern */}
       <div
         className="absolute z-0 w-full h-full left-0 top-0 bg-repeat bg-center"
-        style={{ backgroundImage: "url('../../img/grain pattern_200px.png')" }}
+        style={{ backgroundImage: "url('/img/grain pattern_200px.png')" }}
       />
     </>
   );
