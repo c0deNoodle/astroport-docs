@@ -2,19 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* override some tailwind preflights to avoid breaking the UI */
-img,
-svg,
-video,
-canvas,
-audio,
-iframe,
-embed,
-object {
-  display: inline;
-  vertical-align: middle;
-}
-
 /* Fonts */
 
 @font-face {
