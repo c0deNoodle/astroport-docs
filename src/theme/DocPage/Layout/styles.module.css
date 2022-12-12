@@ -1,0 +1,9 @@
+.docPage {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.docsWrapper {
+  display: flex;
+}
