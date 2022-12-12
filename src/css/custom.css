@@ -67,6 +67,8 @@ object {
 
   --ifm-menu-color: rgba(255, 255, 255, 0.6);
   --ifm-menu-color-active: rgba(255, 255, 255, 1);
+  --ifm-menu-color-background-active: rgba(0, 0, 0, 0.2);
+
   --ifm-link-color: rgba(255, 255, 255, 1);
   --ifm-blockquote-color: rgba(255, 255, 255, 0.9);
 
@@ -383,10 +385,10 @@ button.button.button--secondary.button--outline {
 }
 
 .theme-doc-sidebar-menu {
-  margin-top: 1.5rem;
+  padding: 8px;
   background-color: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10.5px);
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 .theme-edit-this-page:hover {
