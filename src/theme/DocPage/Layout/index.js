@@ -4,7 +4,6 @@ import Layout from '@theme/Layout';
 import BackToTopButton from '@theme/BackToTopButton';
 import DocPageLayoutSidebar from '@theme/DocPage/Layout/Sidebar';
 import DocPageLayoutMain from '@theme/DocPage/Layout/Main';
-import styles from './styles.module.css';
 
 import RadialGradient from '../../../components/RadialGradient';
 
@@ -12,10 +11,10 @@ export default function DocPageLayout({ children }) {
   const sidebar = useDocsSidebar();
   const [hiddenSidebarContainer, setHiddenSidebarContainer] = useState(false);
   return (
-    <Layout wrapperClassName={styles.docsWrapper}>
+    <Layout wrapperClassName="flex">
       <RadialGradient />
       <BackToTopButton />
-      <div className={styles.docPage}>
+      <div className="md:pt-[40px] relative w-full flex px-0 md:px-6">
         {sidebar && (
           <DocPageLayoutSidebar
             sidebar={sidebar.items}
