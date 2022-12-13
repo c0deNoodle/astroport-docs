@@ -1,9 +1,6 @@
 .box {
   display: flex;
-  width: 550px;
   height: 252px;
-  left: 157px;
-  top: 1005px;
 
   background: rgba(255, 255, 255, 0.05);
   /* backgroundblur */
