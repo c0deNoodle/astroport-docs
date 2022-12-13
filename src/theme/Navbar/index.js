@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from '@theme-original/Navbar';
+import Link from '@docusaurus/Link';
 
 import TwitterIcon from '../../components/icons/TwitterIcon';
 import DiscordIcon from '../../components/icons/DiscordIcon';
@@ -44,11 +45,9 @@ export default function NavbarWrapper(props) {
   return (
     <>
       <div className="hidden md:flex justify-end items-center h-[90px] px-4 md:px-6 z-10">
-        <img
-          src="../../../img/logo.svg"
-          alt="logo"
-          className="h-[32px] mr-auto"
-        />
+        <Link href="/" className="h-[32px] mr-auto">
+          <img src="/img/logo.svg" alt="logo" />
+        </Link>
         <div className="flex gap-16 items-center">
           <NavigationItems />
           <SocialIcons />
