@@ -410,3 +410,12 @@ button.button.button--secondary.button--outline {
   /* text-decoration-thickness: none;
   text-decoration-color: none;  */
 }
+
+/* tailwind preflight styles */
+
+*,
+::before,
+::after {
+  border-width: 0;
+  border-style: solid;
+}

@@ -19,7 +19,7 @@ const NavigationItems = () => {
 };
 
 const iconsClassNames =
-  'h-7 hover:text-indigo-300 cursor-pointer transition-all duration-200';
+  'h-7 hover:text-indigo-300 cursor-pointer transition-all duration-200 block';
 
 const SocialIcons = () => {
   return (
@@ -53,7 +53,7 @@ export default function NavbarWrapper(props) {
           <NavigationItems />
           <SocialIcons />
           <button
-            className="uppercase rounded-2xl bg-primary py-2 px-6 text-[13px] font-medium text-white hover:bg-white hover:text-primary transition-all duration-500"
+            className="uppercase rounded-2xl bg-primary py-2 px-6 text-[13px] font-medium text-white hover:bg-white hover:text-primary transition-all duration-500 cursor-pointer"
             onClick={() => window.open(APP_URL, '_blank')}
           >
             Enter app
