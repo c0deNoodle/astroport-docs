@@ -368,6 +368,8 @@ button.button.button--secondary.button--outline {
   font-weight: bold;
 }
 
+/* Code hike styles */
+
 .ch-codeblock .ch-code-button {
   display: none;
 }
@@ -376,12 +378,13 @@ button.button.button--secondary.button--outline {
   display: block;
 }
 
-/* .ch-scrollycoding-step-content[data-selected] {
-  border-color: none !important;
-} */
+.ch-scrollycoding-step-content {
+  opacity: 0.4;
+}
 
 .ch-scrollycoding-step-content[data-selected] {
-  border-color: var(--ifm-toc-border-color);
+  opacity: 1;
+  border: none;
 }
 
 /* span.ch-section-link:hover {
