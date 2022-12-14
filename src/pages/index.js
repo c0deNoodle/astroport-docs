@@ -50,7 +50,11 @@ function HomepageHeader() {
           </Link>
         </div> */}
 
-        <input placeholder="Search docs" type="text" />
+        <input
+          placeholder="Search docs"
+          type="text"
+          className="px-4 bg-black/30 rounded-lg h-14 backdrop-blur-lg outline-0 max-w-[700px] w-full"
+        />
 
         <br />
 

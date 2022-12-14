@@ -178,30 +178,6 @@ a code:hover {
   color: rgba(255, 255, 255, 1);
 } */
 
-input {
-  all: unset;
-}
-
-input {
-  display: inline-block;
-  position: center;
-  background-color: rgba(0, 0, 0, 0.3);
-  width: 50%;
-  height: 3.5em;
-  border-radius: 0.5em;
-  backdrop-filter: blur(15px);
-  font-family: 'Inter';
-  color: white;
-  text-align: left;
-  box-sizing: border-box;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-p {
-  font-family: 'Inter';
-}
-
 /* CSS Target Variables */
 
 .breadcrumbs__item--active .breadcrumbs__link {
@@ -425,4 +401,18 @@ button.button.button--secondary.button--outline {
 ::after {
   border-width: 0;
   border-style: solid;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
 }
