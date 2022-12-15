@@ -1,15 +1,15 @@
 import React from 'react';
 import clsx from 'clsx';
-import Link from '@docusaurus/Link';
+// import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
+// import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import RadialGradient from '../components/RadialGradient';
 import BannerUrl from '@site/static/img/banner.png';
 import ChadUrl from '@site/static/img/astrochad.png';
-import PepeUrl from '@site/static/img/astropepe.png';
+// import PepeUrl from '@site/static/img/astropepe.png';
 import AssemblyUrl from '@site/static/img/assembly.png';
-import SearchBar from '@theme/SearchBar';
+// import SearchBar from '@theme/SearchBar';
 import ContentBlocks from '../components/ContentBlocks';
 
 import styles from './index.module.css';
@@ -50,13 +50,11 @@ function HomepageHeader() {
           </Link>
         </div> */}
 
-        <input
+        {/* <input
           placeholder="Search docs"
           type="text"
           className="px-4 bg-black/30 rounded-lg h-14 backdrop-blur-lg outline-0 max-w-[700px] w-full"
-        />
-
-        <br />
+        /> */}
 
         {/* <img src={BannerUrl} /> */}
       </div>
@@ -96,12 +94,10 @@ const contentBlockProps = {
 };
 
 export default function Home() {
-  const { siteConfig } = useDocusaurusContext();
+  // const { siteConfig } = useDocusaurusContext();
+
   return (
-    <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
-    >
+    <Layout>
       <RadialGradient />
       <div className="relative z-10">
         <HomepageHeader />
