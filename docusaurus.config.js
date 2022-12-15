@@ -173,6 +173,11 @@ const config = {
       colorMode: {
         disableSwitch: true,
       },
+      docs: {
+        sidebar: {
+          // hideable: true,
+        },
+      },
       navbar: {
         items: [
           {
@@ -190,9 +195,6 @@ const config = {
             position: 'left',
             activeBaseRegex: `/learn/`,
           },
-
-          // {to: '/blog', label: 'Blog', position: 'left'},
-
           {
             to: '/docs/govern/astroport-improvement-proposal-framework', // ./docs-api/intro.md
             label: 'Govern',
@@ -208,6 +210,10 @@ const config = {
           },
           // {to: '/blog', label: 'Blog', position: 'left'},
           {
+            type: 'search',
+            position: 'right',
+          },
+          {
             href: 'https://github.com/astroport-fi/astroport-core',
             label: 'GitHub',
             position: 'right',
@@ -218,16 +224,6 @@ const config = {
         // hideOnScroll: true,
       },
 
-      // colorMode: {
-      //   disableSwitch: true,
-      // },
-
-      docs: {
-        sidebar: {
-          hideable: true,
-          autoCollapseCategories: true,
-        },
-      },
       footer: {
         links: [
           {

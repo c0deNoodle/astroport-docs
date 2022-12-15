@@ -14,7 +14,7 @@ export default function DocPageLayout({ children }) {
     <Layout wrapperClassName="flex">
       <RadialGradient />
       <BackToTopButton />
-      <div className="md:pt-[40px] relative w-full flex px-0 md:px-6">
+      <div className="relative w-full flex px-0">
         {sidebar && (
           <DocPageLayoutSidebar
             sidebar={sidebar.items}
