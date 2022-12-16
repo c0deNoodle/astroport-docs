@@ -385,6 +385,17 @@ button.button.button--secondary.button--outline {
   border: none;
 }
 
+/* extend and collapse code block based on content height */
+
+section:not(.ch-scrollycoding) .ch-editor-frame {
+  height: 100% !important;
+  max-height: max-content !important;
+}
+
+section:not(.ch-scrollycoding) .ch-editor-frame > :nth-child(even) {
+  min-height: auto !important;
+}
+
 /* span.ch-section-link:hover {
   all: unset;
 } */
