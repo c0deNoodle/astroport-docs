@@ -2,4 +2,24 @@
 sidebar_position: 2
 ---
 
+import Fees1Url from '@site/static/img/tokenomics/fees-1.png';
+import Fees2Url from '@site/static/img/tokenomics/fees-2.png';
+
+
 # Fees
+
+A fee is charged on all trades on Astroport pools by traders in the respective native pool tokens. This fee is embedded in the Astroport smart contracts and is subject to adjustment by the Astral Assembly.
+
+<img src={Fees1Url} style={{ paddingBottom: 15 }} />
+
+For constant product pools, this fee will initially be 0.3%, divided as follows:
+
+- A 0.2% fee (2/3rds of the total fee) goes to the LPs for the relevant pool — this remains denominated in the native pool tokens and acts as a payment by increasing the size of the pools (thus increasing the number of tokens that LPs can redeem when they remove liquidity); and
+- A 0.1% fee (1/3rd of the total fee) goes to the Astral Assembly — this is used to purchase ASTRO from ASTRO liquidity pools. The purchased ASTRO goes into the xASTRO and vxASTRO staking pools per a ratio set by the Astral Assembly.
+
+For stableswap invariant pools, this fee will initially be 0.05%, divided as follows:
+
+- a 0.025% fee (½ of the total fee) goes to the LPs for the relevant pool, in the same manner as described above for constant product pools
+- a 0.025% fee (½ of the total fee) goes to the Astral Assembly in the same way described above for Constant Product pools.
+
+<img src={Fees2Url} style={{ paddingBottom: 15 }} />

@@ -2,4 +2,24 @@
 sidebar_position: 2
 ---
 
+import AstroGeneratorsUrl from '@site/static/img/learn/astro-generators/astro-generators-1.png';
+
 # Astro Generators
+
+One of the issues that liquidity providers (LPs) face, is the decision of which platform to provide liquidity to, as the rewards might differ in amount or value. Astroport addresses this problem with special, proxy-based smart contracts that enable simultaneous “dual farming” of ASTRO tokens and governance tokens coming from another community seeking to incentivize LPs.
+
+These proxy contracts are connected to the Astro Generator contract which allows liquidity providers to claim dual governance token rewards (both $ASTRO and tokens coming from other communities e.g. ).
+
+Integrating with the Astroport Generator will garner more liquidity for Cosmos projects and LPs will have a better user experience, with fewer steps and transactions.
+
+## Dual Liquidity Mining
+
+Rather than depositing Astroport LP tokens directly in third-party staking contracts, LPs can deposit their tokens into one of Astroport’s ASTRO Generators. With the use of proxy contracts, the ASTRO Generators forward LP tokens into relevant third-party staking contracts. Therefore, LPs end up accruing two sets of rewards (both ASTRO and the third-party protocol tokens). 
+
+When an LP wishes to claim accrued dual rewards from a specific generator, (1) the ASTRO generator transfers their appropriate amount of ASTRO, and (2) the proxy contract claims third-party token rewards and sends these as well to the LP's wallet.
+
+
+<img src={AstroGeneratorsUrl} style={{ paddingBottom: 15 }} />
+
+
+This dual distribution model has a number of advantages. First, this architecture minimizes the development and operational requirements for third-party protocols that want to integrate with Astroport. Second, LPs who continue to stake only in a third-party protocol’s staking contracts will continue to receive those granted tokens and may remain there if they so choose.
