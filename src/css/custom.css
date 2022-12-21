@@ -64,6 +64,9 @@
   --ifm-link-color: rgb(255, 255, 255);
 
   --ifm-code-background: rgba(255, 255, 255, 0.1);
+
+  --ifm-table-border-color: rgba(217, 217, 217, 0.2);
+  --ifm-table-cell-padding: 1.25rem;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -420,6 +423,9 @@ textarea {
   padding: 0;
 }
 
-.astroImages {
-  
+table {
+  display: table;
+  backdrop-filter: blur(30px);
+  background-color: rgba(217, 217, 217, 0.05);
+  /* border-radius: 16px; */
 }
