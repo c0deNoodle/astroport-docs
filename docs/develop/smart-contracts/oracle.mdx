@@ -1,0 +1,130 @@
+---
+sidebar_position: 5
+---
+
+# Oracle
+
+## Overview
+
+This Oracle contract calculates a 1 day TWAP for a xy=k Astroport pool.
+
+## Links
+
+- **Contract Repo:** https://github.com/astroport-fi/astroport-core/tree/main/contracts/periphery/oracle
+- **contract.rs:** https://github.com/astroport-fi/astroport-core/blob/main/contracts/periphery/oracle/src/contract.rs
+- **oracle.rs:** https://github.com/astroport-fi/astroport-core/blob/main/packages/astroport/src/oracle.rs
+- **Tests:** https://github.com/astroport-fi/astroport-core/tree/main/contracts/periphery/oracle/tests
+
+## InstantiateMsg
+
+Instantiates the Oracle contract.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json 
+        {
+            "factory_contract": "terra...", 
+            "asset_infos": [
+                {
+                    "token": {
+                        "contract_addr": "..."
+                    }
+                },
+                {
+                    "native_token": {
+                        "denom": "..."
+                    }
+                }
+            ]
+        }
+        ```
+
+        ```rust oracle.rs
+        #[cw_serde]
+        pub struct InstantiateMsg {
+            pub factory_contract: String,
+            pub asset_infos: Vec<AssetInfo>,
+        }
+        ```
+
+    </CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`factory_contract`](focus://json#2)   | `String`    | The factory contract address      |
+| [`asset_infos`](focus://json#3:14)   | [`Vec<AssetInfo>`](./common-types#assetinfo) | The assets that have a pool for which this contract provides price feeds      |
+
+</CH.Section>
+
+## ExecuteMsg
+
+### `update`
+
+Updates the local TWAP value and the target pair's cumulative prices.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+            "update": {}
+        }
+        ```
+
+        ```rust oracle.rs
+        #[cw_serde]
+        pub enum ExecuteMsg {
+            Update {},
+        }
+        ```
+
+    </CH.Code>
+</CH.Section>
+
+## QueryMsg
+
+### `consult`
+
+Multiplies a token amount (token that's present in the target pool for the TWAP) by the latest TWAP value for that token.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+            "consult": {
+                "token": {
+                    "native_token": {
+                        "denom": "..."
+                    }
+                },
+                "amount": "1000000"
+            }
+        }
+        ```
+
+        ```rust oracle.rs
+            #[cw_serde]
+            #[derive(QueryResponses)]
+            pub enum QueryMsg {
+                #[returns(Vec<(AssetInfo, Uint256)>)]
+                Consult {
+                    token: AssetInfo,
+                    amount: Uint128,
+                },
+            }
+        ```
+
+    </CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`token`](focus://json#3:7)   | [`AssetInfo`](./common-types#assetinfo)    | The asset for which to compute a new TWAP value      |
+| [`amount`](focus://json#8)   | `Uint128` | The amount of tokens for which to compute the token price      |
+
+</CH.Section>
+
+Returns a vector that contains objects of type ([`AssetInfo`](./common-types#assetinfo), `Uint256`)
+
+
