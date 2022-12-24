@@ -3,3 +3,752 @@ sidebar_position: 2
 ---
 
 # Maker
+
+The Maker contract collects part of Astroport's pair fees (according to the factory's `maker_fee`). The accrued fees are swapped to ASTRO and then send to stakers and governance (according to the `governance_percent`).
+
+## Links
+
+- **Contract Address:** [terra1ygcvxp9s054q8u2q4hvl52ke393zvgj0sllahlycm4mj8dm96zjsa45rzk](https://terrasco.pe/mainnet/address/terra1ygcvxp9s054q8u2q4hvl52ke393zvgj0sllahlycm4mj8dm96zjsa45rzk)
+- **Testnet Address:** [terra146ffs60x8seza3cq9a447mhw0zqeylkj37ye4uj7rl2uwhvgq89sts2ess](https://finder.terra.money/testnet/address/terra146ffs60x8seza3cq9a447mhw0zqeylkj37ye4uj7rl2uwhvgq89sts2ess)
+- **Contract Repo:** https://github.com/astroport-fi/astroport-core/tree/main/contracts/tokenomics/maker
+- **contract.rs:** https://github.com/astroport-fi/astroport-core/blob/main/contracts/tokenomics/maker/src/contract.rs
+- **maker.rs:** https://github.com/astroport-fi/astroport-core/blob/main/packages/astroport/src/maker.rs
+- **Tests:** https://github.com/astroport-fi/astroport-core/tree/main/contracts/tokenomics/maker/tests
+
+## InstantiateMsg
+
+Initializes the contract with required addresses and the `governance_percent`.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+            "owner": "...",
+            "astro_token_contract": "...",
+            "factory_contract": "...",
+            "staking_contract": "...",
+            "governance_contract": "...",
+            "governance_percent": "20",
+            "max_spread": "23.3"
+        }
+        ```
+
+        ```rust maker.rs
+        #[cw_serde]
+        pub struct InstantiateMsg {
+            pub owner: String,
+            pub astro_token_contract: String,
+            pub factory_contract: String,
+            pub staking_contract: String,
+            pub governance_contract: Option<String>,
+            pub governance_percent: Option<Uint64>,
+            pub max_spread: Option<Decimal>,
+        }
+        ```
+
+    </CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`owner`](focus://json#2)   | `String`        | Address that's allowed to change contract parameters         |
+| [`astro_token_contract`](focus://json#3)   | `String`        | The ASTRO token contract address         |
+| [`factory_contract`](focus://json#4)   | `String`        | The factory contract address         |
+| [`staking_contract`](focus://json#5)   | `String`        | The xASTRO staking contract address         |
+| [`governance_contract`](focus://json#6)   | `Option<String>`        | The governance contract address (fee distributor for vxASTRO)         |
+| [`governance_percent`](focus://json#7)   | `Option<Uint64>`        |  The percentage of fees that go to governance_contract         |
+| [`max_spread`](focus://json#8)   | `Option<Decimal>`        | The maximum spread used when swapping fee tokens to ASTRO         |
+
+</CH.Section>
+
+## ExecuteMsg
+
+### `collect`
+
+Swaps accrued fee tokens to ASTRO.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+            "collect": {
+                "assets": [
+                    {
+                        "asset_info": {
+                            "token": {
+                                "contract_addr": "..."
+                            }
+                        },
+                        "limit": "1000000"
+                    }, 
+                    {
+                        "asset_info": {
+                            "native_token": {
+                                "denom": "..."
+                            }
+                        },
+                        "limit": "1000000"
+                    },
+                    etc...
+                ]
+            }
+        }
+        ```
+
+        ```rust maker.rs focus=1:5,26
+        #[cw_serde]
+        pub enum ExecuteMsg {
+            Collect {
+                assets: Vec<AssetWithLimit>,
+            },
+            UpdateConfig {
+                factory_contract: Option<String>,
+                staking_contract: Option<String>,
+                governance_contract: Option<UpdateAddr>,
+                governance_percent: Option<Uint64>,
+                max_spread: Option<Decimal>,
+            },
+            UpdateBridges {
+                add: Option<Vec<(AssetInfo, AssetInfo)>>,
+                remove: Option<Vec<AssetInfo>>,
+            },
+            SwapBridgeAssets { assets: Vec<AssetInfo>, depth: u64 },
+            DistributeAstro {},
+            ProposeNewOwner {
+                owner: String,
+                expires_in: u64,
+            },
+            DropOwnershipProposal {},
+            ClaimOwnership {},
+            EnableRewards { blocks: u64 },
+        }
+        ```
+
+    </CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`assets`](focus://json#3:21)   | [`Vec<AssetWithLimit>`](#assetwithlimit)        | The assets to swap to ASTRO         |
+
+</CH.Section>
+
+#### `AssetWithLimit`
+
+This struct holds parameters to help with swapping a specific amount of a fee token to ASTRO.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+            "asset_info": {
+                "token": {
+                    "contract_addr": "..."
+                }
+            },
+            "limit": "10000"
+        }
+        ```
+
+        ```rust maker.rs
+        #[cw_serde]
+        pub struct AssetWithLimit {
+            pub info: AssetInfo,
+            pub limit: Option<Uint128>,
+        }
+        ```
+
+    </CH.Code>
+</CH.Section>
+
+
+### `update_config`
+
+Updates the contract's general settings. All fields are optional.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+            "update_config": {
+                "factory_contract": "...", 
+                "staking_contract": "...", 
+                "governance_contract": {
+                    "set": "..."
+                }, 
+                "governance_percent": "20",
+                "max_spread": "12.3"
+            }
+        }
+        ```
+
+        ```rust maker.rs focus=1:2,6:12,26
+        #[cw_serde]
+        pub enum ExecuteMsg {
+            Collect {
+                assets: Vec<AssetWithLimit>,
+            },
+            UpdateConfig {
+                factory_contract: Option<String>,
+                staking_contract: Option<String>,
+                governance_contract: Option<UpdateAddr>,
+                governance_percent: Option<Uint64>,
+                max_spread: Option<Decimal>,
+            },
+            UpdateBridges {
+                add: Option<Vec<(AssetInfo, AssetInfo)>>,
+                remove: Option<Vec<AssetInfo>>,
+            },
+            SwapBridgeAssets { assets: Vec<AssetInfo>, depth: u64 },
+            DistributeAstro {},
+            ProposeNewOwner {
+                owner: String,
+                expires_in: u64,
+            },
+            DropOwnershipProposal {},
+            ClaimOwnership {},
+            EnableRewards { blocks: u64 },
+        }
+        ```
+
+    </CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`factory_contract`](focus://json#3)   | `Option<String>`        | The factory contract address         |
+| [`staking_contract`](focus://json#4)   | `Option<String>`        | The xASTRO staking contract address         |
+| [`governance_contract`](focus://json#5:7)   | [`Option<UpdateAddr>`](#updateaddr)        | The governance contract address (fee distributor for vxASTRO)         |
+| [`governance_percent`](focus://json#8)   | `Option<Uint64>`        | The percentage of fees that go to `governance_contract`         |
+| [`governance_contract`](focus://json#9)   | `Option<Decimal>`        | The maximum spread used when swapping fee tokens to ASTRO         |
+
+</CH.Section>
+
+#### `UpdateAddr`
+
+This is an enum used for setting and removing a contract address.
+
+<CH.Section>
+    <CH.Code>
+
+        ```rust factory.rs
+        #[cw_serde]
+        pub enum UpdateAddr {
+            Set(String),
+            Remove {},
+        }
+        ```
+
+    </CH.Code>
+
+
+| **Variants**      | **Description** |
+| ----------- | ----------- |
+| [`Set`](focus://factory.rs#3)    | Sets a new contract address        |
+| [`Remove`](focus://factory.rs#4)      | Removes a contract address       |
+
+</CH.Section>
+
+{/* ### `update_bridges`
+
+Add bridge tokens used to swap specific fee tokens to ASTRO (effectively declaring a swap route).
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        ```
+
+        ```rust maker.rs
+        #[cw_serde]
+        pub enum ExecuteMsg {
+            Collect {
+                assets: Vec<AssetWithLimit>,
+            },
+            UpdateConfig {
+                factory_contract: Option<String>,
+                staking_contract: Option<String>,
+                governance_contract: Option<UpdateAddr>,
+                governance_percent: Option<Uint64>,
+                max_spread: Option<Decimal>,
+            },
+            UpdateBridges {
+                add: Option<Vec<(AssetInfo, AssetInfo)>>,
+                remove: Option<Vec<AssetInfo>>,
+            },
+            SwapBridgeAssets { assets: Vec<AssetInfo>, depth: u64 },
+            DistributeAstro {},
+            ProposeNewOwner {
+                owner: String,
+                expires_in: u64,
+            },
+            DropOwnershipProposal {},
+            ClaimOwnership {},
+            EnableRewards { blocks: u64 },
+        }
+        ```
+
+    </CH.Code>
+</CH.Section> */}
+
+### `swap_bridge_assets`
+
+Swap fee tokens via bridge assets.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+            "swap_bridge_assets": {
+                "assets": [
+                    {
+                        "native_token": {
+                            "denom": "..."
+                        }
+                    }, 
+                    {
+                        "native_token": {
+                            "denom": "..."
+                        }
+                    }
+                ], 
+                "depth": "12345"
+            }
+        }
+        ```
+
+        ```rust maker.rs focus=1:2,17,26
+        #[cw_serde]
+        pub enum ExecuteMsg {
+            Collect {
+                assets: Vec<AssetWithLimit>,
+            },
+            UpdateConfig {
+                factory_contract: Option<String>,
+                staking_contract: Option<String>,
+                governance_contract: Option<UpdateAddr>,
+                governance_percent: Option<Uint64>,
+                max_spread: Option<Decimal>,
+            },
+            UpdateBridges {
+                add: Option<Vec<(AssetInfo, AssetInfo)>>,
+                remove: Option<Vec<AssetInfo>>,
+            },
+            SwapBridgeAssets { assets: Vec<AssetInfo>, depth: u64 },
+            DistributeAstro {},
+            ProposeNewOwner {
+                owner: String,
+                expires_in: u64,
+            },
+            DropOwnershipProposal {},
+            ClaimOwnership {},
+            EnableRewards { blocks: u64 },
+        }
+        ```
+
+    </CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`assets`](focus://json#3:14)   | [`Vec<AssetInfo>`](../common-types#assetinfo)        | Information about an asset stored in a `AssetInfo` struct         |
+| [`depth`](focus://json#15)   | `u64`        | Swap depth         |
+
+</CH.Section>
+
+### `distribute_astro`
+
+Distribute ASTRO to stakers and to governance.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+            "distribute_astro": {}
+        }
+        ```
+
+        ```rust maker.rs focus=1:2,18,26
+        #[cw_serde]
+        pub enum ExecuteMsg {
+            Collect {
+                assets: Vec<AssetWithLimit>,
+            },
+            UpdateConfig {
+                factory_contract: Option<String>,
+                staking_contract: Option<String>,
+                governance_contract: Option<UpdateAddr>,
+                governance_percent: Option<Uint64>,
+                max_spread: Option<Decimal>,
+            },
+            UpdateBridges {
+                add: Option<Vec<(AssetInfo, AssetInfo)>>,
+                remove: Option<Vec<AssetInfo>>,
+            },
+            SwapBridgeAssets { assets: Vec<AssetInfo>, depth: u64 },
+            DistributeAstro {},
+            ProposeNewOwner {
+                owner: String,
+                expires_in: u64,
+            },
+            DropOwnershipProposal {},
+            ClaimOwnership {},
+            EnableRewards { blocks: u64 },
+        }
+        ```
+
+    </CH.Code>
+</CH.Section>
+
+### `propose_new_owner`
+
+Creates a proposal to change contract ownership. The proposal validity period is set in the expires_in variable.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+           "propose_new_owner": {
+                "owner": "...", 
+                "expires_in": 1234567
+           } 
+        }
+        ```
+
+        ```rust maker.rs focus=1:2,19:22,26
+        #[cw_serde]
+        pub enum ExecuteMsg {
+            Collect {
+                assets: Vec<AssetWithLimit>,
+            },
+            UpdateConfig {
+                factory_contract: Option<String>,
+                staking_contract: Option<String>,
+                governance_contract: Option<UpdateAddr>,
+                governance_percent: Option<Uint64>,
+                max_spread: Option<Decimal>,
+            },
+            UpdateBridges {
+                add: Option<Vec<(AssetInfo, AssetInfo)>>,
+                remove: Option<Vec<AssetInfo>>,
+            },
+            SwapBridgeAssets { assets: Vec<AssetInfo>, depth: u64 },
+            DistributeAstro {},
+            ProposeNewOwner {
+                owner: String,
+                expires_in: u64,
+            },
+            DropOwnershipProposal {},
+            ClaimOwnership {},
+            EnableRewards { blocks: u64 },
+        }
+        ```
+
+    </CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`owner`](focus://json#3)   | `String`        | The newly proposed owner         |
+| [`expires_in`](focus://json#4)   | `u64`        | The validity period of the proposal to change the owner         |
+
+</CH.Section>
+
+### `drop_ownership_proposal`
+
+Removes the existing proposal to change contract ownership.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+            "drop_ownership_proposal": {}
+        }
+        ```
+
+        ```rust maker.rs focus=1:2,23,26
+        #[cw_serde]
+        pub enum ExecuteMsg {
+            Collect {
+                assets: Vec<AssetWithLimit>,
+            },
+            UpdateConfig {
+                factory_contract: Option<String>,
+                staking_contract: Option<String>,
+                governance_contract: Option<UpdateAddr>,
+                governance_percent: Option<Uint64>,
+                max_spread: Option<Decimal>,
+            },
+            UpdateBridges {
+                add: Option<Vec<(AssetInfo, AssetInfo)>>,
+                remove: Option<Vec<AssetInfo>>,
+            },
+            SwapBridgeAssets { assets: Vec<AssetInfo>, depth: u64 },
+            DistributeAstro {},
+            ProposeNewOwner {
+                owner: String,
+                expires_in: u64,
+            },
+            DropOwnershipProposal {},
+            ClaimOwnership {},
+            EnableRewards { blocks: u64 },
+        }
+        ```
+
+    </CH.Code>
+</CH.Section>
+
+### `claim_ownership`
+
+Used to claim contract ownership, thus changing the contract's owner.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+            "claim_ownership": {}
+        }
+        ```
+
+        ```rust maker.rs focus=1:2,24,26
+        #[cw_serde]
+        pub enum ExecuteMsg {
+            Collect {
+                assets: Vec<AssetWithLimit>,
+            },
+            UpdateConfig {
+                factory_contract: Option<String>,
+                staking_contract: Option<String>,
+                governance_contract: Option<UpdateAddr>,
+                governance_percent: Option<Uint64>,
+                max_spread: Option<Decimal>,
+            },
+            UpdateBridges {
+                add: Option<Vec<(AssetInfo, AssetInfo)>>,
+                remove: Option<Vec<AssetInfo>>,
+            },
+            SwapBridgeAssets { assets: Vec<AssetInfo>, depth: u64 },
+            DistributeAstro {},
+            ProposeNewOwner {
+                owner: String,
+                expires_in: u64,
+            },
+            DropOwnershipProposal {},
+            ClaimOwnership {},
+            EnableRewards { blocks: u64 },
+        }
+        ```
+
+    </CH.Code>
+</CH.Section>
+
+### `enable_rewards`
+
+Enables the distribution of current fees accrued in the contract over "blocks" number of blocks.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+            "enable_rewards": {
+                "blocks": 1000000
+            }
+        }
+        ```
+
+        ```rust maker.rs focus=1:2,25:26
+        #[cw_serde]
+        pub enum ExecuteMsg {
+            Collect {
+                assets: Vec<AssetWithLimit>,
+            },
+            UpdateConfig {
+                factory_contract: Option<String>,
+                staking_contract: Option<String>,
+                governance_contract: Option<UpdateAddr>,
+                governance_percent: Option<Uint64>,
+                max_spread: Option<Decimal>,
+            },
+            UpdateBridges {
+                add: Option<Vec<(AssetInfo, AssetInfo)>>,
+                remove: Option<Vec<AssetInfo>>,
+            },
+            SwapBridgeAssets { assets: Vec<AssetInfo>, depth: u64 },
+            DistributeAstro {},
+            ProposeNewOwner {
+                owner: String,
+                expires_in: u64,
+            },
+            DropOwnershipProposal {},
+            ClaimOwnership {},
+            EnableRewards { blocks: u64 },
+        }
+        ```
+
+    </CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`blocks`](focus://json#3)   | `u64`        | Number of blocks         |
+
+</CH.Section>
+
+## QueryMsg
+
+### `config`
+
+Queries information about the Maker's configuration.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+            "config": {}
+        }
+        ```
+
+        ```rust maker.rs
+        #[cw_serde]
+        #[derive(QueryResponses)]
+        pub enum QueryMsg {
+            #[returns(ConfigResponse)]
+            Config {},
+            #[returns(BalancesResponse)]
+            Balances { assets: Vec<AssetInfo> },
+            #[returns(Vec<(String, String)>)]
+            Bridges {},
+        }
+        ```
+
+    </CH.Code>
+</CH.Section>
+
+### `balances`
+
+Queries token balances for each specified asset held by the Maker.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+            "balances": {
+                "assets": [
+                    {
+                        "native_token": {
+                            "denom": "..."
+                        }
+                    }, 
+                    {
+                        "token": {
+                            "contract_addr": "..."
+                        }
+                    }, 
+                    etc...
+                ]
+            }
+        }
+        ```
+
+        ```rust maker.rs
+        #[cw_serde]
+        #[derive(QueryResponses)]
+        pub enum QueryMsg {
+            #[returns(ConfigResponse)]
+            Config {},
+            #[returns(BalancesResponse)]
+            Balances { assets: Vec<AssetInfo> },
+            #[returns(Vec<(String, String)>)]
+            Bridges {},
+        }
+        ```
+
+    </CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`assets`](focus://json#3:15)   | [`Vec<AssetInfo>`](../common-types#assetinfo)        | Assets held in Maker contract         |
+
+</CH.Section>
+
+#### `BalancesResponse`
+
+A custom struct used to return multiple asset balances.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+            "balances": [
+                {
+                    "info": {
+                        "native_token": {
+                            "denom": "..."
+                        }
+                    }, 
+                    "amount": "1000000"
+                }, 
+                {
+                    "info": {
+                        "token": {
+                            "contract_addr": "..."
+                        }
+                    }, 
+                    "amount": "1000000"
+                }, 
+                etc...
+            ]
+        }
+        ```
+
+        ```rust maker.rs
+        #[cw_serde]
+        pub struct BalancesResponse {
+            pub balances: Vec<Asset>,
+        }
+        ```
+    </CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`balances`](focus://json#2:20)   | [`Vec<Asset>`](../common-types#asset)        | Holds the balance for assets held in the Maker contract       |
+
+</CH.Section>
+
+### `bridges`
+
+Queries availiable bridges.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+            "bridges": {}
+        }
+        ```
+
+        ```rust maker.rs
+        #[cw_serde]
+        #[derive(QueryResponses)]
+        pub enum QueryMsg {
+            #[returns(ConfigResponse)]
+            Config {},
+            #[returns(BalancesResponse)]
+            Balances { assets: Vec<AssetInfo> },
+            #[returns(Vec<(String, String)>)]
+            Bridges {},
+        }
+        ```
+
+    </CH.Code>
+</CH.Section>
+
+Returns a vector containing assets of types `(String, String)`
