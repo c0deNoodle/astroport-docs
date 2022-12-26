@@ -4,16 +4,26 @@ sidebar_position: 1
 
 # APY Calculation
 
-```jsx 
-import React from 'react';
-import Layout from '@theme/Layout';
+## Assumptions
 
-export default function MyReactPage() {
-  return (
-    <Layout>
-      <h1>My React page</h1>
-      <p>This is a React page</p>
-    </Layout>
-  );
-}
-```
+We assume `4,656,810` blocks/year ~= `12,758` blocks per day.
+
+The axlUSDC value of an Astroport swap is calculated at the time of Terra chain indexing, which is usually less than 1 min behind realtime.
+
+## Swap Fee Returns 
+
+Chain indexing is done block by block, listening for "swap" transactions on Astroport contracts. The swap results are summed up over `12,758` blocks to get 24h volume.  The result is then multiplied by the amount of fees that go to LPs (.2% for xyk, .025% for stableswap) to get 24h fees, then multiply by 365 and divide by the pool liquidity to get an APR value.  
+
+From there, we calculate the APY as ***APY = ((1 + (daily fees) / (pool liquidity))^365) - 1***
+
+## ASTRO and 3rd Party Rewards 
+
+The methodology is almost identical to the one used for swap fees, but besides ASTRO emissions, we also track when 3rd party rewards are sent to their corresponding generator proxy contract and from that point we know how many tokens to sum so we compute an APR/APY for 3rd party rewards.
+
+## Total Rewards 
+
+Total (combined) APY is calculated as:
+
+***APY = ((1 + (sum of all 24 fees and token rewards) / (pool liquidity))^365) - 1***
+
+More specifically, the APR is calculated by extrapolating from a 24 hour period of fees + protocol rewards, and the APY is calculated from the APR.
