@@ -6,51 +6,104 @@ import Admonition from '@theme/Admonition'
 
 # Astroport Contract Addresses 
 
+## List of Contracts
+
+- [**`factory:`**](./factory) Creates new Astroport pair contracts (and associated LP token contracts) which are tracked in a registry and used as a directory for all pairs. 
+- [**`constant_product_pools:`**](./swap-pairs/constant-product-pools) Uses the widely known xy=k formula.
+- [**`stableswap_pools:`**](./swap-pairs/stableswap-pools) Uses the 4A(Rx+Ry) + D formula, resulting in a constant price ∆x / ∆y = 1.
+- [**`oracle:`**](./oracle) Calculates a 1 day TWAP for an xy=k Astroport pool.
+- [**`router:`**](./router) Contains logic to facilitate multi-hop swaps for Cosmos native & CW20 tokens.
+- [**`token:`**](./token) Implementation for the ASTRO token.
+- [**`generator:`**](./tokenomics/generator) Allocates token rewards (ASTRO) for various LP tokens and distributes them pro-rata to LPs. 
+- [**`generator_proxy:`**](./tokenomics/generator-proxy) Allows an external staking contract to be connected to the Generator to offer a second reward besides ASTRO token emissions.
+- [**`maker:`**](./tokenomics/maker) Collects part of Astroport's pair fees (according to the factory's `maker_fee`).
+- [**`staking:`**](./tokenomics/staking)  Allows ASTRO holders to stake their tokens in exchange for xASTRO.
+- [**`vesting:`**](./tokenomics/vesting) Progressively unlocks ASTRO that can then be distributed to LPs via the Generator contract.
+- [**`xastro_token:`**](./tokenomics/xastro-token) ASTRO token implementation.
+- [**`astral_assembly:`**](./astral-assembly) Allows xASTRO holders as well as Initial Astroport Builders to post and vote on new on-chain proposals that can execute arbitrary logic.
+
+
+## Contract Addresses 
+
 <Admonition type="info" title="">
 For a complete list of addresses, visit the official [Github changelog](https://github.com/astroport-fi/astroport-changelog).
 </Admonition>
 
-## Terra 2.0
+### Terra 2.0
 
 The following are the addresses for the Astroport `phoenix-1` mainnet deployment.
 
-| **Contract Name**      | **Contract Address** |
-| ----------- | ----------- |
-| Astro Temporary Multisig      | terra174gu7kg8ekk5gsxdma5jlfcedm653tyg6ayppw       |
-| Astral Assembly (code ID 266)   | terra1k9j8rcyk87v5jvfla2m9wp200azegjz0eshl7n2pwv852a7ssceqsnn7pq        |
-| Assembly Treasury (code ID 70)   | terra12ncurr62xe93xrsh2drp4zvehj0gn32lfnshr8k0p4xfyju2knwq2qgmh2        |
-| ASTRO Token (code ID 69)   | terra1nsuqsk6kh58ulczatwev87ttq2z6r3pusulg9r24mfj2fvtzd4uq3exn26        |
-| Factory (code ID 75)   | terra14x9fr055x5hvr48hzy2t4q7kvjvfttsvxusa4xsdcy702mnzsvuqprer8r        |
-| Router (code ID 76)   | terra1j8hayvehh3yy02c2vtw5fdhz9f4drhtee8p5n5rguvg3nyd6m83qd2y90a        |
-| xASTRO Staking (code ID 85)   | terra1nyu6sk9rvtvsltm7tjjrp6rlavnm3e4sq03kltde6kesam260f8szar8ze        |
-| xASTRO Token (code ID 73)   | terra1x62mjnme4y0rdnag3r8rfgjuutsqlkkyuh4ndgex0wl3wue25uksau39q8        |
-| Maker (code ID 77)   | terra1ygcvxp9s054q8u2q4hvl52ke393zvgj0sllahlycm4mj8dm96zjsa45rzk        |
-| Generator (code ID 79)   | terra1ksvlfex49desf4c452j6dewdjs6c48nafemetuwjyj6yexd7x3wqvwa7j9        |
-| Generator Vesting (code ID 78)   | terra1qyuarnzcc6uuft9n9mltraprreke4v8gvxd8u3nslngxhflhru9qw34nc3        |
-| Astroport Whitelist (code ID 70)   | terra17aq66zyakz8su32u8tkgwmqemf0sylvv9a23nz7c7ydvkerll28ssss0ug        |
-| Stableswap Pair (code ID 72)   | N/A        |
-| Constant Product Pair (code ID 322)   | N/A        |
+```json 
+{
+    "astroport_temporary_multisig": "terra174gu7kg8ekk5gsxdma5jlfcedm653tyg6ayppw", 
+    "astal_assembly": "terra1k9j8rcyk87v5jvfla2m9wp200azegjz0eshl7n2pwv852a7ssceqsnn7pq", 
+    "assembly_treasury": "terra12ncurr62xe93xrsh2drp4zvehj0gn32lfnshr8k0p4xfyju2knwq2qgmh2", 
+    "astro_token": "terra1nsuqsk6kh58ulczatwev87ttq2z6r3pusulg9r24mfj2fvtzd4uq3exn26", 
+    "factory": "terra14x9fr055x5hvr48hzy2t4q7kvjvfttsvxusa4xsdcy702mnzsvuqprer8r", 
+    "router": "terra1j8hayvehh3yy02c2vtw5fdhz9f4drhtee8p5n5rguvg3nyd6m83qd2y90a", 
+    "xastro_staking": "terra1nyu6sk9rvtvsltm7tjjrp6rlavnm3e4sq03kltde6kesam260f8szar8ze", 
+    "xastro_token": "terra1x62mjnme4y0rdnag3r8rfgjuutsqlkkyuh4ndgex0wl3wue25uksau39q8", 
+    "maker": "terra1ygcvxp9s054q8u2q4hvl52ke393zvgj0sllahlycm4mj8dm96zjsa45rzk", 
+    "generator": "terra1ksvlfex49desf4c452j6dewdjs6c48nafemetuwjyj6yexd7x3wqvwa7j9", 
+    "generator_vesting": "terra1qyuarnzcc6uuft9n9mltraprreke4v8gvxd8u3nslngxhflhru9qw34nc3", 
+    "astroport_whitelist": "terra17aq66zyakz8su32u8tkgwmqemf0sylvv9a23nz7c7ydvkerll28ssss0ug"
+}
+```
 
 The following are the addresses for the Astroport `pisco-1` testnet deployment.
 
-| **Contract Name**      | **Contract Address** |
-| ----------- | ----------- |
-| Astro Temporary Multisig      | terra190fxpjfkp6cygr2k9unzjurq42dyehqd579h5j       |
-| Astral Assembly (code ID 4648)   | terra195m6n5xq4rkjy47fn5y3s08tfmj3ryknj55jqvgq2y55zul9myzsgy06hk        |
-| Assembly Treasury (code ID 301)   | terra162zc8ssdd5q5lzudq9lxl2lvz74dsdn8hvw0zdk5nnj4k4dwsyas6j6asa        |
-| ASTRO Token (code ID 300)   | terra167dsqkh2alurx997wmycw9ydkyu54gyswe3ygmrs4lwume3vmwks8ruqnv        |
-| Factory (code ID 308)   | terra1z3y69xas85r7egusa0c7m5sam0yk97gsztqmh8f2cc6rr4s4anysudp7k0        |
-| Router (code ID 4750)   | terra1na348k6rvwxje9jj6ftpsapfeyaejxjeq6tuzdmzysps20l6z23smnlv64        |
-| xASTRO Staking (code ID 306)   | terra19t8ffmz6q2rdm3rllyksd6sex6n650a4anttzzvz9mf8mqr4nkrq44cyu6        |
-| xASTRO Token (code ID 305)   | terra1ctzthkc0nzseppqtqlwq9mjwy9gq8ht2534rtcj3yplerm06snmqfc5ucr        |
-| Maker (code ID 311)   | terra146ffs60x8seza3cq9a447mhw0zqeylkj37ye4uj7rl2uwhvgq89sts2ess        |
-| Generator (code ID 313)   | terra1gc4d4v82vjgkz0ag28lrmlxx3tf6sq69tmaujjpe7jwmnqakkx0qm28j2l        |
-| Generator Vesting (code ID 312)   | terra1703s0etk3u07ur6qjjrxpmjsccfmsfnfwf0h0dket6srz066cemqjxlt78        |
-| Astroport Whitelist (code ID 301)   | terra162zc8ssdd5q5lzudq9lxl2lvz74dsdn8hvw0zdk5nnj4k4dwsyas6j6asa        |
-| ASTRO-LUNA Pool (code ID 302)   | terra1udsua9w6jljwxwgwsegvt6v657rg3ayfvemupnes7lrggd28s0wq7g8azm        |
-| Stableswap Pair (code ID 303)   | N/A        |
-| Constant Product Pair (code ID 3172)   | N/A        |
+```json 
+{
+    "astroport_temporary_multisig": "terra190fxpjfkp6cygr2k9unzjurq42dyehqd579h5j",
+    "astal_assembly": "terra195m6n5xq4rkjy47fn5y3s08tfmj3ryknj55jqvgq2y55zul9myzsgy06hk",
+    "assembly_treasury": "terra162zc8ssdd5q5lzudq9lxl2lvz74dsdn8hvw0zdk5nnj4k4dwsyas6j6asa",
+    "astro_token": "terra167dsqkh2alurx997wmycw9ydkyu54gyswe3ygmrs4lwume3vmwks8ruqnv",
+    "factory": "terra1z3y69xas85r7egusa0c7m5sam0yk97gsztqmh8f2cc6rr4s4anysudp7k0",
+    "router": "terra1na348k6rvwxje9jj6ftpsapfeyaejxjeq6tuzdmzysps20l6z23smnlv64",
+    "xastro_staking": "terra19t8ffmz6q2rdm3rllyksd6sex6n650a4anttzzvz9mf8mqr4nkrq44cyu6",
+    "xastro_token": "terra1ctzthkc0nzseppqtqlwq9mjwy9gq8ht2534rtcj3yplerm06snmqfc5ucr",
+    "maker": "terra146ffs60x8seza3cq9a447mhw0zqeylkj37ye4uj7rl2uwhvgq89sts2ess",
+    "generator": "terra1gc4d4v82vjgkz0ag28lrmlxx3tf6sq69tmaujjpe7jwmnqakkx0qm28j2l",
+    "generator_vesting": "terra1703s0etk3u07ur6qjjrxpmjsccfmsfnfwf0h0dket6srz066cemqjxlt78",
+    "astroport_whitelist": "terra162zc8ssdd5q5lzudq9lxl2lvz74dsdn8hvw0zdk5nnj4k4dwsyas6j6asa",
+    "astro_luna_pool": "terra1udsua9w6jljwxwgwsegvt6v657rg3ayfvemupnes7lrggd28s0wq7g8azm"
+}
+```
 
-## Injective
+### Terra Classic
 
-The following are the addresses for the Astroport injective testnet deployment.
+The following are the addresses for the Astroport `columbus-5` mainnet deployment.
+
+```json 
+{
+    "astroport_temporary_multisig": "terra1c7m6j8ya58a2fkkptn8fgudx8sqjqvc8azq0ex", 
+    "astal_assembly": "terra1sq9ppsvt4k378wwhvm2vyfg7kqrhtve8p0n3a6", 
+    "assembly_treasury": "terra16m3runusa9csfev7ymj62e8lnswu8um29k5zky", 
+    "astro_token": "terra1xj49zyqrwpv5k928jwfpfy2ha668nwdgkwlrg3", 
+    "factory": "terra1fnywlw4edny3vw44x04xd67uzkdqluymgreu7g", 
+    "router": "terra16t7dpwwgx9n3lq6l6te3753lsjqwhxwpday9zx", 
+    "xastro_staking": "terra1f68wt2ch3cx2g62dxtc8v68mkdh5wchdgdjwz7", 
+    "xastro_token": "terra14lpnyzc9z4g3ugr4lhm8s4nle0tq8vcltkhzh7", 
+    "maker": "terra12u7hcmpltazmmnq0fvyl225usn3fy6qqlp05w0", 
+    "generator": "terra1zgrx9jjqrfye8swykfgmd6hpde60j0nszzupp9", 
+    "generator_vesting": "terra1hncazf652xa0gpcwupxfj6k4kl4k4qg64yzjyf"
+}
+```
+
+The following are the addresses for the Astroport `bombay-12` testnet deployment.
+
+```json 
+{
+    "astroport_temporary_multisig": "terra1c7m6j8ya58a2fkkptn8fgudx8sqjqvc8azq0ex", 
+    "astal_assembly": "terra109039nj38vnzyryqvcjctdh33r4qlq5dmrzqn0", 
+    "assembly_treasury": "terra1dp83pv9kfw27wflsdpj8ewjuzasssaw9lvnqnt", 
+    "astro_token": "terra1jqcw39c42mf7ngq4drgggakk3ymljgd3r5c3r5", 
+    "factory": "terra15jsahkaf9p0qu8ye873p0u5z6g07wdad0tdq43", 
+    "router": "terra13wf295fj9u209nknz2cgqmmna7ry3d3j5kv7t4", 
+    "xastro_staking": "terra1h2smqfg9lmemewwde9a4vf8fcp6z8666kxdhzh", 
+    "xastro_token": "terra1yufp7cv85qrxrx56ulpfgstt2gxz905fgmysq0", 
+    "maker": "terra14906rw2kyu50cdw25x0uymkrlqtgqxjemdfd0n", 
+    "generator": "terra1gjm7d9nmewn27qzrvqyhda8zsfl40aya7tvaw5", 
+    "generator_vesting": "terra1g73et67yraz33vtwtg8c7q39gq50z2q92dz822", 
+}
+```
