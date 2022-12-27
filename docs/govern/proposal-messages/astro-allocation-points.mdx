@@ -2,11 +2,13 @@
 sidebar_position: 1
 ---
 
-# Fine-tuning Allocation Points
+# ASTRO Allocation Points
 
-The Generator contract allocates token rewards (ASTRO) for various LP tokens and distributes them pro-rata to LP stakers. The `setup_pools` endpoint within the Generator contract creates a new list of `pools` with allocation points and updates the contract’s config. `pools` is a vector that contains LP token addresses and allocation points.
+The [Generator contract](../../develop/smart-contracts/tokenomics/generator) allocates token rewards (ASTRO) for various LP tokens and distributes them pro-rata to LP stakers. In order to update allocation points (and the distribution of ASTRO emissions), an on-chain proposal must be submitted. The proposal takes in an `executable_message` that points to the `setup_pools` endpoint within the Generator contract. 
 
-In this step-by-step, we walkthrough the `setup_pools` endpoint and proposal. 
+ The `setup_pools` endpoint creates a new list of `pools` with allocation points and updates the contract’s config. `pools` is a vector that contains LP token addresses and allocation points.
+
+The step-by-step tutorial below walks through the `setup_pools` endpoint and proposal. 
 
 <CH.Scrollycoding>
 

@@ -483,3 +483,38 @@ table {
 .lp-3 {
   animation: lp2 6s infinite linear;
 }
+
+
+/* div.ch-code-scroll-content {
+  width: 420px !important;
+} */
+
+/* div.ch-code-wrapper {
+  code {
+    white-space : pre-wrap !important;
+  }
+} */
+
+/* code.ch-code-scroll-parent:active {
+  white-space : pre-wrap !important;
+} */
+
+/* code.ch-code-scroll-parent {
+  white-space : pre-wrap !important;
+} */
+
+/* div.ch-code-scroll-content {
+  width: 420px !important;
+} */
+
+/* div.ch-code-wrapper {
+  white-space: pre-wrap !important;
+}
+
+pre code {
+  white-space: pre-wrap !important;
+} */
+
+/* div.ch-code-scroll-content {
+  width: 420px !important;
+} */

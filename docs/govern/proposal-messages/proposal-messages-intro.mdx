@@ -1,0 +1,45 @@
+import ProposalMessagesOverview1 from '@site/static/img/proposal-messages/overview/proposal-messages-overview-1.png';
+import ProposalMessagesOverview2 from '@site/static/img/proposal-messages/overview/proposal-messages-overview-2.png';
+import DocCardList from '@theme/DocCardList';
+import Admonition from '@theme/Admonition'
+
+# Proposal Messages
+
+## Overview
+
+The [Assembly contract](../../develop/smart-contracts/astral-assembly) allows xASTRO holders as well as Initial Astroport Builders to post new on-chain proposals that can execute arbitrary logic.
+
+Astroport smart contracts can only be upgraded by the contract’s `owner` address. Therefore, the `owner` address will be the Assembly contract itself. That means that the Astral Assembly must approve all smart contract parameter changes, smart contract upgrades, and treasury disbursements to the Astroport smart contracts on Terra Classic and Terra 2. For a full list of upgradeable contracts and availiable parameter changes, look [here](../../develop/smart-contracts/smart-contracts-intro#access-controls-and-permissions).  
+
+{/* <Admonition type="info" title="NOTE">
+For a full list of upgradeable contracts and availiable parameter changes, look [here](../../develop/smart-contracts/access-controls-and-permissions).  
+</Admonition> */}
+
+
+Upon approval, the upgrades or assignments will be autonomously executed.
+
+## Using the Astroport Web App
+
+The simplest way to submit an on-chain proposal is by using the [Astroport Web App](../../learn/astroport-web-app/astroport-web-app-intro). Once you have connected a wallet, head over to the Governance tab and select `Submit Proposal`. 
+
+<img src={ProposalMessagesOverview1} style={{ paddingBottom: 10 }} />
+
+A proposal takes in the following parameters: 
+
+- `title`: Proposal title
+- `description`: Description for proposal
+- `executable_message`: Proposal message(s)
+- `link`: Forum link for proposal
+- `deposit`: You must temporarily lock 30,000 xASTRO in order to submit a proposal for a formal vote.
+
+<img src={ProposalMessagesOverview2} style={{ paddingBottom: 10 }} />
+
+## Executable Messages
+
+The subsequent list of tutorials in this section cover the most common types of executable messages available for smart contract parameter changes, such as: 
+
+- [**Fine-tuning ASTRO Allocation Points:**](./astro-allocation-points) Updates allocation points for ASTRO token emissions.
+- [**Integrating Proxy Contracts:**](./proxy-contracts) Connects an external staking contract with the Generator contract to offer 3rd party token rewards. 
+- [**Integrating Dual Rewards:**](./dual-rewards) Updates allocation points and integrates proxy contracts in one combined proposal to offer a second reward besides ASTRO token emissions.
+
+{/* <DocCardList /> */}

@@ -203,7 +203,8 @@ const config = {
           },
           {
             // to: '/docs/develop/smart-contracts/astroport-contract-addresses',
-            to: '/docs/develop/category/smart-contracts',
+            // to: '/docs/develop/category/smart-contracts',
+            to: '/docs/develop/smart-contracts/smart-contracts-intro',
             label: 'Develop',
             position: 'left',
             activeBaseRegex: `/develop/`,
