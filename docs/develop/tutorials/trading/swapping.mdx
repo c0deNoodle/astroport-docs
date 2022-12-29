@@ -8,7 +8,7 @@ import Admonition from '@theme/Admonition'
 
 ## Overview 
 
-The contract for a given pair allows anyone to perform a `swap` between two assets in a pool. Depending on the type of assets in the pair, a user could perform two types of swaps: 
+The pair contract for a given pool allows anyone to perform a `swap` between the assets in a pair. Depending on the type of assets in the pair, a user could perform two types of swaps: 
 
 - Native swap (Native -> Native / Native -> CW20)
 - CW20 swap (CW20 -> CW20 / CW20 -> Native)
@@ -279,7 +279,7 @@ Performs a CW20 swap in a given pool.
 
         To encode our message, there are two common options: 
 
-        - An online [base64 encoder](https://www.base64encode.org/)
+        - An [online base64 encoder](https://www.base64encode.org/)
         - A custom function
 
         The code in this section uses a custom function (`toBase64`) to display our binary message - this function needs to be defined elsewhere to be used. The actual string representation of our message would be an encoded binary.
@@ -291,7 +291,7 @@ Performs a CW20 swap in a given pool.
 
         #### `toBase64` Encoder
 
-        The code in this section is an example of what a `send` message may look like [feather.js](./tutorials-intro#featherjs) to define our custome function and encode our message. 
+        The code in this section is an example of what a `send` message may look like [feather.js](./tutorials-intro#featherjs) to define our custom function and encode our message. 
 
         ```js
         const toBase64 = (obj) => {
