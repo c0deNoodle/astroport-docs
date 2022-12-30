@@ -3,3 +3,222 @@ sidebar_position: 1
 ---
 
 # Creating a Pair
+
+## Overview
+
+The [`factory`](../../smart-contracts/factory) contract can create new Astroport pair contracts (and associated LP token contracts) which are tracked in a registry and used as a directory for all pairs. 
+
+Currently, Astroport support's the following pool types: 
+
+- Constant Product Pools
+- Stableswap Pools 
+
+Governance may decide to add custom pools that can have any implementation.
+
+## Constant Product Pools
+
+Creates an `xyk` pair.
+
+<CH.Section>
+    <CH.Scrollycoding>
+
+        ### `create_pair` 
+
+        To create an xyk pair, you need to execute a contract message pointing to the [`create_pair`](../../smart-contracts/factory#create_pair) endpoint in the [factory](../../smart-contracts/factory) contract.
+
+        `create_pair` takes in the `pair_type` (`xyk`) and a vector containing objects of type [`AssetInfo`](../../smart-contracts/common-types#assetinfo) (contract addresses or native denomenations for the pair).
+
+        ```json
+        {
+            "create_pair": {
+                "pair_type": {
+                    "xyk": {}
+                }, 
+                "asset_infos": [
+                    {
+                        "token": {
+                            "contract_addr": astroAddress
+                        }
+                    }, 
+                    {
+                        "token": {
+                            "contract_addr": steakAddress
+                        }
+                    }
+                ]
+            }
+        }
+        ```
+
+        ---
+
+        #### `feather.js` example
+
+        For example, if you want to create a pair on Terra, you can implement this operation using [feather.js](../tutorials-intro#featherjs). 
+
+        ```js 
+        const factoryAddress = `terra1z3y69xas85r7egusa0c7m5sam0yk97gsztqmh8f2cc6rr4s4anysudp7k0`;
+        const astroAddress = 'terra167dsqkh2alurx997wmycw9ydkyu54gyswe3ygmrs4lwume3vmwks8ruqnv';
+        const steakAddress = 'terra1xztnx8mm7dagn4ck3dgylaqucp6h6agw83pmyc29hnplq7355trs78fkcq'
+
+        const createPair = new MsgExecuteContract(
+            wallet.key.accAddress('terra'),
+            factoryAddress,
+            {
+                "create_pair": {
+                    "pair_type": {
+                        "xyk": {}
+                    }, 
+                    "asset_infos": [
+                        {
+                            "token": {
+                                "contract_addr": astroAddress
+                            }
+                        }, 
+                        {
+                            "token": {
+                                "contract_addr": steakAddress
+                            }
+                        }
+                    ]
+                }
+            }
+        )
+
+        let fee = new Fee(2000000, { uluna: 200000 });
+
+        // // BROADCAST TRANSACTION
+        let tx = await wallet.createAndSignTx({
+            msgs: [createPair],
+            fee,
+            chainID: 'pisco-1',
+        });
+
+        let result = await lcd.tx.broadcast(tx, 'pisco-1');
+
+        console.log(result);
+        ```
+
+
+    </CH.Scrollycoding>
+</CH.Section>
+
+## Stableswap Pools
+
+Creates a `stable` pair.
+
+<CH.Section>
+    <CH.Scrollycoding>
+
+        ### `create_pair`
+
+        To create a stable pair, you need to execute a contract message pointing to the [`create_pair`](../../smart-contracts/factory#create_pair) endpoint in the [factory](../../smart-contracts/factory) contract like we did with `xyk` pairs above. 
+        
+        However, there are two key differences: 
+
+        -  `pair_type` is now defined as `stable: {}` 
+        - `init_params` is used to pass in a binary encoded message. In this case, additional pool parameters needed for initializing stableswap pairs such as amplitude.
+
+
+        ```json 
+        {
+            "create_pair": {
+                "pair_type": {
+                    "stable": {}
+                }, 
+                "asset_infos": [
+                    {
+                        "token": {
+                            "contract_addr": lunaxAddress
+                        }
+                    }, 
+                        {
+                        "token": {
+                            "contract_addr": steakAddress
+                        }
+                    }
+                ], 
+                "init_params": toBase64(
+                    {
+                        "amp": 10
+                    }
+                )
+            }
+        }
+        ```
+
+        ---
+
+        ### Encoding our `Msg`
+
+        To encode our message, there are two common options:
+
+        - An [online base64 encoder](https://www.base64encode.org/)
+        - A custom function
+
+        The code in this section uses a custom function (`toBase64`) to display our binary message - this function needs to be defined elsewhere to be used. The actual string representation of our message would be an encoded binary.
+
+        ```json focus=18:22
+        ```
+
+        ---
+
+        #### toBase64
+
+        The code in this section is an example of using [feather.js](../tutorials-intro#featherjs) to define a custom function to encode our `init_params` message.
+
+        ```js
+        const factoryAddress = `terra1z3y69xas85r7egusa0c7m5sam0yk97gsztqmh8f2cc6rr4s4anysudp7k0`;
+        const lunaxAddress = 'terra138fmmywk3zvqezaqwnxyv8kyr8k7q4e7latncv0xreej62u9mx0su95h7d';
+        const steakAddress = 'terra1xztnx8mm7dagn4ck3dgylaqucp6h6agw83pmyc29hnplq7355trs78fkcq'
+
+        const toBase64 = (obj) => {
+            return Buffer.from(JSON.stringify(obj)).toString("base64");
+        };
+
+        const createStablePair = new MsgExecuteContract(
+            wallet.key.accAddress('terra'),
+            factoryAddress,
+            {
+                "create_pair": {
+                    "pair_type": {
+                        "stable": {}
+                    }, 
+                    "asset_infos": [
+                        {
+                            "token": {
+                                "contract_addr": lunaxAddress
+                            }
+                        }, 
+                            {
+                            "token": {
+                                "contract_addr": steakAddress
+                            }
+                        }
+                    ], 
+                    "init_params": toBase64(
+                        {
+                            "amp": 10
+                        }
+                    )
+                }
+            }
+        )
+
+
+        let fee = new Fee(2000000, { uluna: 200000 });
+
+        // // BROADCAST TRANSACTION
+        let tx = await wallet.createAndSignTx({
+            msgs: [createStablePair],
+            fee,
+            chainID: 'pisco-1',
+        });
+
+        let result = await lcd.tx.broadcast(tx, 'pisco-1');
+
+        console.log(result);
+        ```
+
+    </CH.Scrollycoding>
+</CH.Section>
