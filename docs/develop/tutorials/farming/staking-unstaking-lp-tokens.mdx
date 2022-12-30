@@ -3,3 +3,128 @@ sidebar_position: 3
 ---
 
 # Staking/Unstaking LP Tokens
+
+## Overview
+
+A user can stake their LP tokens into the Generator contract to receive ASTRO or 3rd party emissions by calling [`deposit`](../../smart-contracts/tokenomics/generator#deposit). The `deposit` operation should be executed from inside the contract of the LP token you want to stake.
+
+Users can also unstake their LP tokens by calling [`withdraw`](../../smart-contracts/tokenomics/generator#withdraw) endpoint in the Generator contract. `withdraw` also claims any outstanding token emissions.
+
+## Staking LP Tokens
+
+<CH.Section>
+    <CH.Scrollycoding>
+
+        ### `send`
+
+        To stake our LP tokens in the Generator contract, you need to execute a contract message pointing to the `send` enpoint of the contract associated with the LP token you want to stake.
+
+        The `send` operation takes in a: 
+
+        - `contract` - Address LP tokens are being sent to (Generator contract) 
+        - `amount` - Amount to send/stake 
+        - `msg` - Binary encoded message containing our contract call.
+
+        ```json
+        {
+            "send": {
+                "contract": generatorAddress,
+                "amount": "10000000",
+                "msg": toBase64(
+                    {
+                        "deposit": {}
+                    }
+                )
+            }
+        }
+        ```
+
+        ---
+
+        ### `deposit`
+
+        Our encoded message performs a contract call to the [`deposit`](../../smart-contracts/tokenomics/generator#deposit) endpoint in the Generator contract. 
+
+        No other parameters are required.
+
+
+        ```json focus=6:8
+        ```
+
+        ---
+
+        ### Encoding our `Msg`
+
+
+        To encode our message, there are two common options:
+
+        - An [online base64 encoder](https://www.base64encode.org/)
+        - A custom function
+
+        The code in this section uses a custom function (toBase64) to display our binary message - this function needs to be defined elsewhere to be used. The actual string representation of our message would be an encoded binary.
+
+        ```json focus=5:9
+        ```
+        --- 
+
+        #### `toBase64`
+
+        The code in this section is an example of a `deposit` message using [feather.js](../tutorials-intro#featherjs) to define our custom function and encode our message.
+
+        ```js
+        const generatorAddress = 'terra1gc4d4v82vjgkz0ag28lrmlxx3tf6sq69tmaujjpe7jwmnqakkx0qm28j2l';
+
+        const stakeLPTokens = new MsgExecuteContract(
+            wallet.key.accAddress('terra'),
+            astrolunaLPAddress,
+            {
+                "send": {
+                    "contract": generatorAddress,
+                    "amount": "10000000",
+                    "msg": toBase64(
+                        {
+                            "deposit": {}
+                        }
+                    )
+                }
+            }
+        )
+
+        const fee = new Fee(2000000, { uluna: 200000 });
+
+        const tx = await wallet.createAndSignTx({
+            msgs: [stakeLPTokens],
+            fee,
+            chainID: 'pisco-1',
+        });
+
+        const result = await lcd.tx.broadcast(tx, 'pisco-1');
+
+        console.log(result);
+        ```
+
+    </CH.Scrollycoding>
+</CH.Section> 
+
+## Unstaking LP Tokens
+
+<CH.Section>
+    <CH.Scrollycoding>
+
+        ### `withdraw`
+
+        To unstake LP tokens from the Generator contract, you need to execute a contract message pointing to the [`withdraw`](../../smart-contracts/tokenomics/generator#withdraw) endpoing in the Generator contract. 
+
+        `withdraw` takes in the address `lp_token` you want to withdraw and an `amount` to withdraw. 
+
+        ```json
+        {
+            "withdraw": {
+                "lp_token": astrolunaLPAddress,
+                "amount": "5000000"
+            }
+        }
+        ```
+
+    </CH.Scrollycoding>
+</CH.Section> 
