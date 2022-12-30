@@ -3,3 +3,78 @@ sidebar_position: 4
 ---
 
 # Claiming Rewards
+
+## Overview
+
+There are two main types of rewards that liquidity providers can claim: 
+
+- Swap fees. Each trade incurs a swap fee depending on the pool type. Fees are then distributed to liquidity providers on a pro rata basis. 
+
+- If you stake your LP tokens into the [`Generator`](../../smart-contracts/tokenomics/generator) contract, you can also receive ASTRO emissions and 3rd party incentive rewards. 
+
+## Collecting Pool Fees
+
+Use for collecting swap fees from a pool.
+
+<CH.Section>
+    <CH.Scrollycoding>
+
+        ### `collect`
+
+        To collect swap fees, you need to execute a contract message pointing to the [`collect`](../../smart-contracts/tokenomics/maker#collect) endpoint in the [`Maker`](../../smart-contracts/tokenomics/maker) contract. 
+
+        `collect` takes in a vector of objects containing information about each asset in our pair. 
+
+        The code in this section collects swap fees for the ASTRO-LUNA pool.
+
+        ```json 
+        {
+            "collect": {
+                "assets": [
+                    {
+                        "info": {
+                            "token": {
+                                "contract_addr": astroAddress
+                            }
+                        }
+                    }, 
+                    {
+                        "info": {
+                            "native_token": {
+                                "denom": "uluna"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+        ```
+
+
+    </CH.Scrollycoding>
+</CH.Section>
+
+## Collecting LP Rewards
+
+Use for collecting LP rewards from the Generator contract. 
+
+<CH.Section>
+    <CH.Scrollycoding>
+
+        ### `claim_rewards`
+
+        If you have staked your LP tokens into the Generator contract, and your pool is eligible for ASTRO or 3rd party emissions, then you can collect rewards from the Generator contract in addition to swap fees. 
+
+        To claim rewards, you have to execute a contract message to the [`claim_rewards`](../../smart-contracts/tokenomics/generator#claim_rewards) endpoint in the [`Generator`](../../smart-contracts/tokenomics/generator) contract and specify the addresses of the `lp_tokens` you want to claim rewards for. 
+
+        ```json 
+        {
+            "claim_rewards": {
+                "lp_tokens": [
+                    astrolunaLPAddress
+                ]
+            }
+        }
+        ```
+    </CH.Scrollycoding>
+</CH.Section>
