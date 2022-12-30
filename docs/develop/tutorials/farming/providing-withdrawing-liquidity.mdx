@@ -4,3 +4,292 @@ sidebar_position: 2
 
 # Providing/Withdrawing Liquidity
 
+## Overview 
+
+A user can provide liquidity to a pool by calling `provide_liquidity`. Before executing the `provide_liqudity` operation, a user must allow the pool contract to take tokens from their wallet for all CW20 tokens in a given pair.
+
+Users can also withdraw liquidity by calling `withdraw_liquidity`. To receive the underlying liquidity back plus accrued LP fees, LPs must burn their liquidity tokens.
+
+## Providing Liquidity
+
+<CH.Section>
+    <CH.Scrollycoding>
+
+        ### `increase_allowance`
+
+        Before we can provide liquidity to a pool, we need to increase the token allowance for all CW20 tokens in the pair.
+
+        The [`increase_allowance`](https://github.com/CosmWasm/cw-plus/blob/main/packages/cw20/README.md#messages-1) endpoint for a given CW20 token contract contains:
+        
+        - A `spender` (the pair address we are depositing to in our example)
+        - The `amount` to increase the allowance by
+        - An optional expiration time
+
+        ```json
+        {
+            "increase_allowance": {
+                "spender": astrolunaAddress,
+                "amount": "1000000000000",
+                "expires": {
+                    "never": {}
+                }
+            }
+        }
+        ```
+
+        ---
+
+        ### `provide_liquidity`
+
+        To provide liquidity, you need to execute a contract message pointing to the [`provide_liquidity`](../../smart-contracts/swap-pairs/constant-product-pools#provide_liquidity) endpoint in the [`pair`](../../smart-contracts/swap-pairs/constant-product-pools) contract for the selected pool. 
+
+        `assets` is the only required parameter and contains information about each token in the pair, including the contract address or native denomination and the amount to deposit. 
+
+        For new pools, you can deposit any ratio of tokens in a pair. For existing pairs, the contract will throw an error message if the proper balance of ratios between tokens is not met.
+
+        ```json
+        {
+            "provide_liquidity": {
+                "assets": [
+                    {
+                        "info": {
+                            "token": {
+                                "contract_addr": astroAddress
+                            }
+                        },
+                        "amount": beliefPrice
+                    },
+                    {
+                        "info": {
+                            "native_token": {
+                                "denom": "uluna"
+                            }
+                        },
+                        "amount": "500000"
+                    }
+                ],
+                "slippage_tolerance": "0.005",
+                "auto_stake": false, 
+                "receiver": "..."
+            }
+        }
+        ```
+
+        ---
+
+        #### Optional Parameters
+
+        `provide_liqudity` takes up the following optional parameters: 
+
+        - `slippage_tolerance`: Allows liquidity provision while the price of assets in a pool stays within a certain range
+        - `auto_stake`: Determines whether the LP tokens minted for the user are auto staked in the Generator contract.
+        - `receiver`: The receiver of LP tokens (if different from sender)
+
+
+
+        ```json focus=21:23
+        ```
+
+        ---
+
+        #### `Coins`
+
+        If the pair you are providing liquidity to contains a native asset, you will also need to send the native token along with the transaction message. 
+
+        The code in this section is an example of what a `provide_liquidity` message may look like using feather.js to send Coins with our transaction.
+
+        ```js
+        const astroAddress = 'terra167dsqkh2alurx997wmycw9ydkyu54gyswe3ygmrs4lwume3vmwks8ruqnv';
+
+        const provideLiquidity = new MsgExecuteContract(
+            wallet.key.accAddress('terra'),
+            astrolunaAddress,
+            {
+                "provide_liquidity": {
+                    "assets": [
+                        {
+                            "info": {
+                                "token": {
+                                    "contract_addr": astroAddress
+                                }
+                            },
+                            "amount": beliefPrice
+                        },
+                        {
+                            "info": {
+                                "native_token": {
+                                    "denom": "uluna"
+                                }
+                            },
+                            "amount": "500000"
+                        }
+                    ],
+                    "slippage_tolerance": "0.005",
+                    "auto_stake": false
+                }
+            }, 
+            new Coins({ "uluna": "500000" })
+        );
+
+
+        const fee = new Fee(2000000, { uluna: 200000 });
+
+        const tx = await wallet.createAndSignTx({
+        msgs: [provideLiquidity],
+        fee,
+        chainID: 'pisco-1',
+        });
+
+        const result = await lcd.tx.broadcast(tx, 'pisco-1');
+
+        console.log(result);
+        ```
+
+        ---
+
+        ### Calculating Deposit Amount
+
+        As noted above, the contract will throw an error message if the proper balance of ratios between tokens is not met.
+
+        In order to obtain the ratio of tokens that we need, we can simulate a swap and input our response as the `amount` for one of our deposits. 
+
+        ```json
+        {
+            "provide_liquidity": {
+                "assets": [
+                    {
+                        "info": {
+                            "token": {
+                                "contract_addr": astroAddress
+                            }
+                        },
+                        "amount": beliefPrice
+                    },
+                    {
+                        "info": {
+                            "native_token": {
+                                "denom": "uluna"
+                            }
+                        },
+                        "amount": "500000"
+                    }
+                ],
+                "slippage_tolerance": "0.005",
+                "auto_stake": false
+            }
+        }
+        ```
+
+        ---
+
+        #### `simulation`
+
+        The [`simulation`](../../smart-contracts/swap-pairs/constant-product-pools#simulation) endpoint contains information about our offer asset and the amount to swap. 
+
+        Our input `amount` and response will gives us the proper ratio of tokens that we need to `provide_liquidity`. 
+
+        ```json
+        {
+            "simulation": {
+                "offer_asset": {
+                    "info": {
+                        "native_token": {
+                            "denom": "uluna"
+                        }
+                    },
+                    "amount": "500000"
+                }
+            }
+        }
+        ```
+
+        ---
+
+    </CH.Scrollycoding>
+</CH.Section>
+
+
+## Withdrawing Liquidity 
+
+<CH.Section>
+    <CH.Scrollycoding>
+
+        ### `withdraw_liquidity`
+
+        To [`withdraw_liquidity`](../../smart-contracts/swap-pairs/constant-product-pools#withdraw_liquidity), you need to execute a contract message pointing to the `send` endpoint in the CW20 contract of the LP token associated with the pair. 
+
+        send includes the contract the tokens are being sent to (pair contract address), the amount to send (withdraw), and a binary encoded msg containing our contract call (`withdraw: {}`).
+
+        ```json
+        {
+            "send": {
+                "contract": astrolunaAddress,
+                "amount": "10000000",
+                "msg": toBase64(
+                    {
+                        "withdraw_liquidity": {}
+                    }
+                )
+            }
+        }
+        ```
+        ---
+
+        ### Encoding our `Msg`
+
+        To encode our message, there are two common options:
+
+        - An [online base64 encoder](https://www.base64encode.org/)
+        - A custom function
+
+        The code in this section uses a custom function (`toBase64`) to display our binary message - this function needs to be defined elsewhere to be used. The actual string representation of our message would be an encoded binary.
+
+        ```json focus=5:9
+        ```
+
+        ---
+
+        #### `toBase64`
+
+        The code in this section is an example of a `withdraw_liquidity` message using [feather.js](../tutorials-intro#featherjs) to define our custom function and encode our message.
+
+        ```js
+        const astrolunaAddress = 'terra1udsua9w6jljwxwgwsegvt6v657rg3ayfvemupnes7lrggd28s0wq7g8azm';
+        const astrolunaLPAddress = 'terra1886vn036tc9e7ejx8pe4nkhts3gwpdfegwc4n3u77n0q76fjdthqarl8uc';
+        
+        const toBase64 = (obj) => {
+            return Buffer.from(JSON.stringify(obj)).toString("base64");
+        };
+
+        const withdraw = new MsgExecuteContract(
+            wallet.key.accAddress('terra'),
+            astrolunaLPAddress,
+            {
+                "send": {
+                    "contract": astrolunaAddress,
+                    "amount": "10000000",
+                    "msg": toBase64(
+                        {
+                            "withdraw_liquidity": {}
+                        }
+                    )
+                }
+            }
+        )
+
+        const fee = new Fee(2000000, { uluna: 200000 });
+
+        // // BROADCAST TRANSACTION
+        const tx = await wallet.createAndSignTx({
+        msgs: [withdraw],
+        fee,
+        chainID: 'pisco-1',
+        });
+
+        const result = await lcd.tx.broadcast(tx, 'pisco-1');
+
+        console.log(result);
+        ```
+
+    </CH.Scrollycoding>
+</CH.Section>
