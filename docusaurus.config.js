@@ -131,7 +131,7 @@ const config = {
             remarkCodeHike,
             {
               showCopyButton: true,
-              // lineNumbers: true,
+              lineNumbers: true,
               theme,
             },
           ],
