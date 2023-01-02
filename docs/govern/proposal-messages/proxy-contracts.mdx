@@ -2,4 +2,531 @@
 sidebar_position: 2
 ---
 
+import Admonition from '@theme/Admonition'
+
 # Proxy Contracts
+
+## Overview 
+
+## Prerequisites
+
+- [Intro to Dual Liquidity Mining](../../learn/astro-generators#dual-liquidity-mining)
+- A liquidity mining mechanism to distribute your governance token to LPs in the Astroport pool. For new projects that want their liquidity mining mechanism to be integrated with Astroport, the simplest path is basing your liquidity mining contracts on the [Mirror design](https://github.com/Mirror-Protocol/mirror-contracts/tree/main/contracts/mirror_staking). Alternatively, [Anchor’s liquidity mining mechanism](https://github.com/Anchor-Protocol/anchor-token-contracts/tree/main/contracts/staking) is simpler and should not require big changes to the example generator proxy contract.
+- A deployed generator proxy contract specific to your liquidity mining mechanism and Astroport pool. Astroport provides a [`Generator Proxy`](../../develop/smart-contracts/tokenomics/generator-proxy) template that you can customize. Astroport also provides a full example proxy contract designed for the Mirror liquidity mining mechanism.
+
+## Using the Astroport Web App
+
+Use when submitting a proposal to integrate a proxy contract through the Astroport Web App. This tutorial walks you through the `Executable Messages` field of the proposal.
+
+<CH.Section>
+    <CH.Scrollycoding>
+
+        ### `Vec<ProposalMessage>`
+
+        The Executable Messages field in our proposal takes in a vector containing objects of type [`ProposalMessage`](../../develop/smart-contracts/astral-assembly#proposalmessage). 
+        
+        To integrate proxy contracts, we need to submit two proposal messages. Each `ProposalMessage` requires the following parameters: 
+
+        - `order`: The order of execution of the message
+        - `msg`: Execution message of type [`CosmosMsg`](https://docs.rs/cosmwasm-std/latest/cosmwasm_std/enum.CosmosMsg.html)
+
+
+        ```json 
+        [
+            {
+                "order": "1", 
+                "msg": {
+                    "wasm": {
+                        "execute": {
+                            "contract_addr": generatorAddress,
+                            "msg": toBase64(
+                                {
+                                    "set_allowed_reward_proxies": {
+                                        "proxies": [
+                                        "terra...", 
+                                        "terra..."
+                                        ]
+                                    }
+                                }
+                            ),
+                            "funds": []
+                        }
+                    }
+                }
+            }, 
+            {
+                "order": "2", 
+                "msg": {
+                    "wasm": {
+                        "execute": {
+                            "contract_addr": generatorAddress,
+                            "msg": toBase64(
+                                {
+                                    "move_to_proxy": {
+                                        "lp_token": exLPTokenAddress,
+                                        "proxy": exProxyAddress
+                                    } 
+                                }
+                            ),
+                            "funds": []
+                        }
+                    }
+                }
+            }
+        ]
+        ```
+
+        ---
+
+        #### `wasm`
+
+        `CosmosMsg` is an enum that supports various types of messages. To integrate proxy contracts, both of our `CosmosMsg` must be of type [`wasm`](https://docs.rs/cosmwasm-std/latest/cosmwasm_std/enum.WasmMsg.html). Furthermore, both of our `wasm` messages must be of type [`execute`](https://docs.rs/cosmwasm-std/latest/cosmwasm_std/enum.WasmMsg.html#variant.Execute). 
+        
+        In the background, we are creating two wasm contract calls. One to the `set_allowed_reward_proxies` endpoint and another to the [`move_to_proxy`](../../develop/smart-contracts/tokenomics/generator#move_to_proxy) endpoint (both found in the [`Generator`](../../develop/smart-contracts/tokenomics/generator) contract).
+        
+        ```json focus=5:20,26:39
+        ```
+
+        ---
+
+        #### `execute`
+
+        The execute operation in both of our messages requires the following parameters:
+
+        - `contract_addr`: Address of the contract where the execute message is being sent to. For both of our messages, this would be the [`Generator`](../../develop/smart-contracts/tokenomics/generator) contract.
+        - `msg`: A binary encoded message containing our contract call.
+        - `funds`: Any funds to send along with our transaction.
+
+        ```json focus=6:19,27:38
+        ```
+
+        ---
+
+        #### `msg`
+
+        The code in this section uses a custom function (`toBase64`) to display our binary messages - this function needs to be defined elsewhere to be used and is not accessible within the Astroport Web App.
+
+        Use for demonstration purposes only. The actual string representation of our messages will be an encoded binary, which will be covered below.
+
+        ```json focus=8:17,29:36
+        ```
+
+        ---
+
+        ### `set_allowed_reward_proxies`
+
+        To integrate proxy contracts, our first proposal msg must point to the `set_allowed_reward_proxies` endpoint in the [`Generator`](../../develop/smart-contracts/tokenomics/generator) contract.
+
+        `set_allowed_reward_proxies` takes in a list of proxy contracts. 
+        
+        <Admonition type="info" title="NOTE">
+            Specifying a single address rewrites all active proxy contracts with the proxy contracts specified in the message. You can query the Generator contract (`config: {}`) to include previous proxy contract addresses.
+        </Admonition>
+
+        ```json focus=8:15
+        {
+            "order": "1", 
+            "msg": {
+                "wasm": {
+                    "execute": {
+                        "contract_addr": generatorAddress,
+                        "msg": toBase64(
+                            {
+                                "set_allowed_reward_proxies": {
+                                    "proxies": [
+                                        "terra...", 
+                                        "terra..."
+                                    ]
+                                }
+                            }
+                        ),
+                        "funds": []
+                    }
+                }
+            }
+        }
+        ```
+
+        ---
+
+        ### `move_to_proxy`
+
+        To integrate proxy contracts, our second proposal msg must point to the [`move_to_proxy`](../../develop/smart-contracts/tokenomics/generator#move_to_proxy) endpoint in the [`Generator`](../../develop/smart-contracts/tokenomics/generator) contract.
+
+        `move_to_proxy` takes in the following parameters:
+        - `lp_token`: Address of LP token contract to migrate
+        - `proxy`: Address of the deployed proxy contract
+
+        ```json focus=8:13
+        {
+            "order": "2", 
+            "msg": {
+                "wasm": {
+                    "execute": {
+                        "contract_addr": generatorAddress,
+                        "msg": toBase64(
+                            {
+                                "move_to_proxy": {
+                                    "lp_token": exLPToken,
+                                    "proxy": exProxyAddress
+                                } 
+                            }
+                        ),
+                        "funds": []
+                    }
+                }
+            }
+        }
+        ```
+
+        ---
+
+        ### Encoding our `msg`s
+
+        Our messages need to be encoded and and passed as inputs for our `msg` parameter within our each of our `execute` calls.
+
+        Since we are using the Astroport Web App to submit our proposal, we will encode our message manually using an [online Base64 encoder](https://www.base64encode.org/).
+
+        Make sure to replace the substitute variables with contract addresses before encoding your message.
+
+        ```json focus=8:17,29:36
+        [
+            {
+                "order": "1", 
+                "msg": {
+                    "wasm": {
+                        "execute": {
+                            "contract_addr": generatorAddress,
+                            "msg": toBase64(
+                                {
+                                    "set_allowed_reward_proxies": {
+                                        "proxies": [
+                                        "terra...", 
+                                        "terra..."
+                                        ]
+                                    }
+                                }
+                            ),
+                            "funds": []
+                        }
+                    }
+                }
+            }, 
+            {
+                "order": "2", 
+                "msg": {
+                    "wasm": {
+                        "execute": {
+                            "contract_addr": generatorAddress,
+                            "msg": toBase64(
+                                {
+                                    "move_to_proxy": {
+                                        "lp_token": exLPTokenAddress,
+                                        "proxy": exProxyAddress
+                                    } 
+                                }
+                            ),
+                            "funds": []
+                        }
+                    }
+                }
+            }
+        ]
+        ```
+
+        ---
+
+        #### Final Result 
+
+        Once we encode our messages, our final Executable Message that we would submit to the Astroport Web App to integrate proxy rewards ends up looking something like the code in this section.
+
+        You can see our contract calls to the `set_allowed_reward_proxies` and `move_to_proxy` endpoints by decoding our msg using a [Base64 decoder](https://www.base64decode.org/).
+
+        ```json
+        [
+            {
+                "order": "1", 
+                "msg": {
+                    "wasm": {
+                        "execute": {
+                            "contract_addr": "terra1ksvlfex49desf4c452j6dewdjs6c48nafemetuwjyj6yexd7x3wqvwa7j9",
+                            "msg": "ewogICAgInNldF9hbGxvd2VkX3Jld2FyZF9wcm94aWVzIjogewogICAgICAgICJwcm94aWVzIjogWwogICAgICAgICAgJ3RlcnJhMTRld3ZxMzl2ZzIzajBoY2VzZWN2Nmhremt3a3ZybnV4emQ1c2RkbXJ5OWx4NnFyaGF4Y3FqZHg2ZXInLAogICAgICAgICAgJ3RlcnJhMTV5dXE2NGxwNzRkZjBkNXBkY213emVwODBqMGFhNGhzM2ZrdHF5dXB6NGE4MmF5dmR3MnM0cmR5a3YnLAogICAgICAgICAgJ3RlcnJhMTJqdnptMmN5MzN6c3B2cDhhc243bnM5OGpteWs0ODllczJjeTJqOGs5MjZtcjJuN21ldHFoYTQzMHEnLAogICAgICAgICAgJ3RlcnJhMXlhcTQyM2trbTV1bTgzdnhhYXAyMHJ6a255OWhobGhxYWQ4d3pkYzQzejIwY214bXVranF6NDZlMGYnLAogICAgICAgICAgJ3RlcnJhMXkzcGpuNmcwYXd6cGttZTJuZnA0bnp1NzVhZTZ3dWhkZnp0ZG4ycHFqdTV0bHpoa3BoanE1c3QydHMnCiAgICAgICAgXQogICAgfQp9",
+                            "funds": []
+                        }
+                    }
+                }
+            }, 
+            {
+                "order": "2", 
+                "msg": {
+                    "wasm": {
+                        "execute": {
+                            "contract_addr": "terra1ksvlfex49desf4c452j6dewdjs6c48nafemetuwjyj6yexd7x3wqvwa7j9",
+                            "msg": "ewogICAgIm1vdmVfdG9fcHJveHkiOiB7CiAgICAgICAgImxwX3Rva2VuIjogInRlcnJhMXM0bHMwYW1rNTZ2dmZndjVqdnNkYWN2cjM5cjNhNzZwNDl3Z3BsdjByMjdueHQ3ZzN1Z3Fwd3VsOTciLAogICAgICAgICJwcm94eSI6ICJ0ZXJyYTF5M3BqbjZnMGF3enBrbWUybmZwNG56dTc1YWU2d3VoZGZ6dGRuMnBxanU1dGx6aGtwaGpxNXN0MnRzIgogICAgfSAKfQ==",
+                            "funds": []
+                        }
+                    }
+                }
+            }
+        ]
+        ```
+
+    </CH.Scrollycoding>
+</CH.Section>
+
+## Submitting a Proposal Directly
+
+An advantage of submitting a proposal directly using, for example, a js script is that you could perform calculations from query results, pass variables, encode your message automatically, and separate multiple proposal messages into their own modular variables. However, some additional steps are required to submit a proposal directly. 
+
+The Astroport Web App essentially wraps our executable message (covered above) within a [`submit_proposal`](../../develop/smart-contracts/astral-assembly#submit_proposal) message to the [`Assembly`](../../develop/smart-contracts/astral-assembly) contract. To submit a proposal ourselves, we will have wrap our executable messages within a `submit_proposal` message as well. 
+
+<CH.Section>
+    <CH.Scrollycoding>
+
+        ### `send`
+
+        To submit a proposal, you need to execute a contract call pointing to the [`send`](https://docs.rs/cw20/latest/cw20/enum.Cw20ExecuteMsg.html#variant.Send) endpoint in the xASTRO token contract. 
+
+        The send operation takes in a:
+
+        - `contract` - Address where xASTRO tokens are being sent to (Assembly address)
+        - `amount` - Amount to send/stake (30,000 xASTRO for mainnet)
+        - `msg` - Binary encoded messages containing our contract call to [`submit_proposal`](../../develop/smart-contracts/astral-assembly#submit_proposal)
+
+        ```json 
+        {
+            "send": {
+                "contract": assemblyAddress, 
+                "amount": "1000", // testnet deposit amount
+                "msg": toBase64(
+                    {
+                        "submit_proposal": {
+                            "title": "integrate proxy contract", 
+                            "description": "Proposal to integrate 3rd party rewards", 
+                            "link": "https://forum.astroport.fi/", 
+                            "messages": [allow_proxies_msg, move_to_proxy_msg]
+                        }
+                    }
+                ) 
+            }
+        }
+        ```
+
+        ---
+
+        ### `submit_proposal` 
+
+        Our encoded message performs a contract call to the [`submit_proposal`](../../develop/smart-contracts/astral-assembly#submit_proposal) endpoint in the [`Assembly`](../../develop/smart-contracts/astral-assembly) contract.
+
+        `submit_proposal` takes in the following parameters:
+
+        - `title`: Proposal title
+        - `description`: Description for the proposal
+        - `link`: Link to forum discussion
+        - `messages`: Proposal message containing our binary contract call to `set_allowed_reward_proxies` and [`move_to_proxy`](../../develop/smart-contracts/tokenomics/generator#move_to_proxy) (both found in the [`Generator`](../../develop/smart-contracts/tokenomics/generator) contract).
+
+        ```json focus=6:13
+        ```
+
+        ---
+
+        ### `allow_proxies_msg`
+
+        If you're submitting a proposal directly through a script, you can separate each proposal message into an individual variable that gets inputted into the vector of `messages` in our proposal. Overall, this increases the modularity of our code. 
+
+        `allow_proxies_msg` takes in our first proposal message. It contains an `order` of `"1"` and points to the `set_allowed_reward_proxies` endpoint in the [`Generator`](../../develop/smart-contracts/tokenomics/generator) contract stored in a binary encoded `msg`.  
+
+        `set_allowed_reward_proxies` takes in a list of proxy contracts. 
+
+
+        ```js
+        let allow_proxies_msg = {
+            "order": "1", 
+            "msg": {
+                "wasm": {
+                    "execute": {
+                        "contract_addr": generatorAddress,
+                        "msg": toBase64(
+                            {
+                                "set_allowed_reward_proxies": {
+                                    "proxies": config.allowed_reward_proxies
+                                }
+                            }
+                        ),
+                        "funds": []
+                    }
+                }
+            }
+        }
+        ```
+
+        ---
+
+        #### Update `config`
+
+        Specifying a single address rewrites all active proxy contracts with the proxy contracts specified in the message. You can query the Generator contract to include previous proxy contract addresses.
+
+        ```js
+        let config;
+
+        const query = await lcd.wasm.contractQuery(
+            generatorAddress, 
+            {
+                "config": {}
+            }
+        ).then(result => { config = result });
+
+        // before
+        console.log(config.allowed_reward_proxies);
+
+        config.allowed_reward_proxies.push(exProxyAddress); 
+
+        // after
+        console.log(config.allowed_reward_proxies);
+        ```
+
+        ---
+
+        ### `move_to_proxy_msg`
+
+        [`move_to_proxy`](../../develop/smart-contracts/tokenomics/generator#move_to_proxy) takes in our second proposal message. It contains an `order` of `"2"` and points to the `move_to_proxy` endpoint in the [`Generator`](../../develop/smart-contracts/tokenomics/generator) contract stored in a binary encoded `msg`.  
+
+        `move_to_proxy` takes in the following parameters:
+
+        - `lp_token`: Address of LP token contract to migrate
+        - `proxy`: Address of the deployed proxy contract
+
+        ```js 
+        let move_to_proxy_msg = {
+            "order": "2", 
+            "msg": {
+                "wasm": {
+                    "execute": {
+                        "contract_addr": generatorAddress,
+                        "msg": toBase64(
+                            {
+                                "move_to_proxy": {
+                                    "lp_token": exLPToken,
+                                    "proxy": exProxyAddress
+                                } 
+                            }
+                        ),
+                        "funds": []
+                    }
+                }
+            }
+        }
+        ```
+
+        --- 
+
+        ### Encding our `msg`s
+
+        There are several messages within our proposal that need to be encoded (`submit_proposal`, `set_allowed_reward_proxies`, and `move_to_proxy`)
+
+        The code in this section uses a custom function (`toBase64`) to display our binary message - this function needs to be defined elsewhere to be used. The actual string representation of our message would be an encoded binary.
+
+        ```js
+        let toBase64 = (obj) => {
+            return Buffer.from(JSON.stringify(obj)).toString("base64");
+        };
+        ```
+
+        ---
+
+        ### Complete Example
+
+        If you want to submit a proposal on Terra, you can implement this operation using [feather.js](../../develop/tutorials/tutorials-intro#featherjs).
+
+        ```js
+        let toBase64 = (obj) => {
+            return Buffer.from(JSON.stringify(obj)).toString("base64");
+        };
+
+        let config;
+
+        const query = await lcd.wasm.contractQuery(
+            generatorAddress, 
+            {
+                "config": {}
+            }
+        ).then(result => { config = result });
+
+        config.allowed_reward_proxies.push(exProxyAddress); 
+
+        let allow_proxies_msg = {
+            "order": "1", 
+            "msg": {
+                "wasm": {
+                    "execute": {
+                        "contract_addr": generatorAddress,
+                        "msg": toBase64(
+                            {
+                                "set_allowed_reward_proxies": {
+                                    "proxies": config.allowed_reward_proxies
+                                }
+                            }
+                        ),
+                        "funds": []
+                    }
+                }
+            }
+        }
+
+        let move_to_proxy_msg = {
+            "order": "2", 
+            "msg": {
+                "wasm": {
+                    "execute": {
+                        "contract_addr": generatorAddress,
+                        "msg": toBase64(
+                            {
+                                "move_to_proxy": {
+                                    "lp_token": exLPToken,
+                                    "proxy": exProxyAddress
+                                } 
+                            }
+                        ),
+                        "funds": []
+                    }
+                }
+            }
+        }
+
+        const integrateProxyContract = new MsgExecuteContract(
+            wallet.key.accAddress('terra'), 
+            xastroAddress, 
+            {
+                "send": {
+                    "contract": assemblyAddress, 
+                    "amount": "1000", // testnet deposit amount
+                    "msg": toBase64(
+                        {
+                            "submit_proposal": {
+                                "title": "integrate proxy contract", 
+                                "description": "Proposal to integrate 3rd party rewards", 
+                                "link": "https://forum.astroport.fi/", 
+                                "messages": [allow_proxies_msg, move_to_proxy_msg]
+                            }
+                        }
+                    ) 
+                }
+            }
+        )
+
+        // BROADCAST TRANSACTION
+        let fee = new Fee(2000000, { uluna: 100000 });
+
+        let tx = await wallet.createAndSignTx({
+            msgs: [integrateProxyContract],
+            fee,
+            chainID: 'phoenix-1',
+        });
+
+        let result = await lcd.tx.broadcast(tx, 'phoenix-1');
+
+        console.log(result);
+        ```
+
+    </CH.Scrollycoding>
+</CH.Section>
