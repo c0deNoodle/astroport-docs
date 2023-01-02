@@ -8,6 +8,8 @@ import Admonition from '@theme/Admonition'
 
 ## Overview 
 
+Proxies contracts allow stakers to claim third-party token rewards. In this tutorial, we cover integrating a deployed proxy contract by submitting a proposal to the Astral Assembly. 
+
 ## Prerequisites
 
 - [Intro to Dual Liquidity Mining](../../learn/astro-generators#dual-liquidity-mining)
@@ -389,7 +391,7 @@ The Astroport Web App essentially wraps our executable message (covered above) w
 
         ### `move_to_proxy_msg`
 
-        [`move_to_proxy`](../../develop/smart-contracts/tokenomics/generator#move_to_proxy) takes in our second proposal message. It contains an `order` of `"2"` and points to the `move_to_proxy` endpoint in the [`Generator`](../../develop/smart-contracts/tokenomics/generator) contract stored in a binary encoded `msg`.  
+        `move_to_proxy_msg` takes in our second proposal message. It contains an `order` of `"2"` and points to the `move_to_proxy` endpoint in the [`Generator`](../../develop/smart-contracts/tokenomics/generator) contract stored in a binary encoded `msg`.  
 
         `move_to_proxy` takes in the following parameters:
 

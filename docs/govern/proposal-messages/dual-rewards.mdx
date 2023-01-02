@@ -3,3 +3,244 @@ sidebar_position: 3
 ---
 
 # Dual Rewards
+
+## Overview
+
+Integrating dual rewards combines the previous two tutorials in this section (adjusting allocation points and integrating proxy contracts) within 1 proposal message. Adjusting allocation points adjusts the amount of ASTRO emissions pool's receive while integrating proxy contracts enables third-party token rewards. 
+
+A proposal message that combines both effectively enables `Dual Rewards` for a given pool. 
+
+## Prerequisites
+
+- [ASTRO Allocation Points](./astro-allocation-points)
+- [Proxy Contracts](./proxy-contracts)
+
+## Using the Astroport Web App
+
+Use when submitting a proposal to integrate Dual Rewards through the Astroport Web App. This tutorial walks through the complete and encoded proposal. To learn more about each `Executable Messages` in the proposal, visit the tutorials in [prerequisites](#prerequisites).
+
+<CH.Section>
+    <CH.Scrollycoding>
+
+        ### Complete Proposal
+
+        The complete proposal that we would submit to the Astroport Web App combines our two previous proposals into one. Note that integrating proxy contracts requires 2 proposals itself (`set_allowed_reward_proxies` and [`move_to_proxy`](../../develop/smart-contracts/tokenomics/generator#move_to_proxy)). In total, the  proposal for Dual Rewards should contain 3 executable messages, the last one pointing to the [`setup_pools`](../../develop/smart-contracts/tokenomics/generator#setup_pools) endpoint in the [`Generator`](../../develop/smart-contracts/tokenomics/generator) contract.  
+
+        For more details on structuring each message, visit [ASTRO Allocation Points](./astro-allocation-points) and [Proxy Contracts](./proxy-contracts).  
+
+        ```json
+        [
+            {
+                "order": "1", 
+                "msg": {
+                    "wasm": {
+                        "execute": {
+                            "contract_addr": generatorAddress, 
+                            "msg": toBase64(
+                                {
+                                    "setup_pools": {
+                                        "pools": [
+                                            [
+                                                "terra...", 
+                                                "1538"
+                                            ], 
+                                            [
+                                                "terra...", 
+                                                "30018"
+                                            ], 
+                                            etc...
+                                        ]
+                                    }
+                                }
+                            ),
+                            "funds": []
+                        }
+                    }
+                }
+            }, 
+            {
+                "order": "2", 
+                "msg": {
+                    "wasm": {
+                        "execute": {
+                            "contract_addr": generatorAddress,
+                            "msg": toBase64(
+                                {
+                                    "set_allowed_reward_proxies": {
+                                        "proxies": [
+                                            "terra...", 
+                                            "terra...", 
+                                            etc...
+                                        ]
+                                    }
+                                }
+                            ),
+                            "funds": []
+                        }
+                    }
+                }
+            }, 
+            {
+                "order": "3", 
+                "msg": {
+                    "wasm": {
+                        "execute": {
+                            "contract_addr": generatorAddress,
+                            "msg": toBase64(
+                                {
+                                    "move_to_proxy": {
+                                        "lp_token": exLPToken,
+                                        "proxy": exProxyAddress
+                                    } 
+                                }
+                            ),
+                            "funds": []
+                        }
+                    }
+                }
+            }
+        ]
+        ```
+
+        ---
+
+        ### Encoded Proposal
+
+        After encoding each contract call, our final Executable Message that we would submit to the Astroport Web App to integrate dual rewards ends up looking something like the code in this section.
+
+        You can see our each contract call to the `setup_pools`, `set_allowed_reward_proxies`, and `move_to_proxy` endpoints by decoding our `msg`s using a [Base64 decoder](https://www.base64decode.org/).
+
+        ```json
+        [
+            {
+                "order": "1", 
+                "msg": {
+                    "wasm": {
+                        "execute": {
+                            "contract_addr": "terra1gc4d4v82vjgkz0ag28lrmlxx3tf6sq69tmaujjpe7jwmnqakkx0qm28j2l", 
+                            "msg": "ewogICJzZXR1cF9wb29scyI6IHsKICAgICJwb29scyIgOiBbCiAgICAgIFsKICAgICAgICAidGVycmExOG1jbWxmNHYyM2VodWtraDdxeGdwZjV0em56ZzY4OTNmeG1mOWZmbWR0OXBoZ2YzNjV6cXZtbHVnNiIsCiAgICAgICAgIjE1MzgiCiAgICAgIF0sCiAgICAgIFsKICAgICAgICAidGVycmExNmVzams3cXFsZ2g4dzdwMmE1OHl4aGdrZms0eWt2NzJwN2hhMDU2enVsNThhZHpqbTZtc3ZjNjc0dCIsCiAgICAgICAgIjMwMDE4IgogICAgICBdLAogICAgICBbCiAgICAgICAgInRlcnJhMWNrbXNxZGhsa3k5anhjbXR5ajY0Y3Jnemp4YWQ5cHZzZDU4azh6c3hzbnY0dnp2d2R0N3FrZTA0aGwiLAogICAgICAgICI0MDAyNiIKICAgICAgXSwKICAgICAgWwogICAgICAgICJ0ZXJyYTFrZ2dmZDZ6MGFkMms5cTh2MjRmN2Z0eHlxdXNoOGZwOXhrdTlueXJqY3Myd3YwZTRreXBzemZyZmQwIiwKICAgICAgICAiNjY2NiIKICAgICAgXSwKICAgICAgWwogICAgICAgICJ0ZXJyYTFjcTIyZXVneHdncDB4MzRjcWZyeG1kOWpreXk0M2dhczkzeXFqaG13cm03ajBoNWVjcnFxNWo3ZGdwIiwKICAgICAgICAiNjY2NiIKICAgICAgXSwKICAgICAgWwogICAgICAgICJ0ZXJyYTFraHN4d2ZuenV4cWN5emEyc3JheGYybmdrcjNkd3k5ZjdybTB1dHMweHBrZXNoczk2Y2NzcXR1Nm52IiwKICAgICAgICAiMTEyNTciCiAgICAgIF0sCiAgICAgIFsKICAgICAgICAidGVycmExaDN6Mnp2NmF3OTRmeDUyNjNkeTZ0Z3o2Njk5a3htZXdseDN2cmN1NGpqcnVkZzZ4bXR5cWs2dnQwdSIsCiAgICAgICAgIjY2NjYiCiAgICAgIF0sCiAgICAgIFsKICAgICAgICAidGVycmExY2VzNms2anA3cXpranB3c2w2eGc0Zjd6ZndyZTB1MjNjZ2xnNjloaGozZzIwZmh5Z3Rwc3UyNGRzeSIsCiAgICAgICAgIjIxNTIiCiAgICAgIF0KICAgIF0KICB9Cn0=",
+                            "funds": []
+                        }
+                    }
+                }
+            }, 
+            {
+                "order": "2", 
+                "msg": {
+                    "wasm": {
+                        "execute": {
+                            "contract_addr": "terra1gc4d4v82vjgkz0ag28lrmlxx3tf6sq69tmaujjpe7jwmnqakkx0qm28j2l",
+                            "msg": "ewogICAgInNldF9hbGxvd2VkX3Jld2FyZF9wcm94aWVzIjogewogICAgICAgICJwcm94aWVzIjogWwogICAgICAgICAgJ3RlcnJhMTRld3ZxMzl2ZzIzajBoY2VzZWN2Nmhremt3a3ZybnV4emQ1c2RkbXJ5OWx4NnFyaGF4Y3FqZHg2ZXInLAogICAgICAgICAgJ3RlcnJhMTV5dXE2NGxwNzRkZjBkNXBkY213emVwODBqMGFhNGhzM2ZrdHF5dXB6NGE4MmF5dmR3MnM0cmR5a3YnLAogICAgICAgICAgJ3RlcnJhMTJqdnptMmN5MzN6c3B2cDhhc243bnM5OGpteWs0ODllczJjeTJqOGs5MjZtcjJuN21ldHFoYTQzMHEnLAogICAgICAgICAgJ3RlcnJhMXlhcTQyM2trbTV1bTgzdnhhYXAyMHJ6a255OWhobGhxYWQ4d3pkYzQzejIwY214bXVranF6NDZlMGYnLAogICAgICAgICAgJ3RlcnJhMXkzcGpuNmcwYXd6cGttZTJuZnA0bnp1NzVhZTZ3dWhkZnp0ZG4ycHFqdTV0bHpoa3BoanE1c3QydHMnCiAgICAgICAgXQogICAgfQp9",
+                            "funds": []
+                        }
+                    }
+                }
+            }, 
+            {
+                "order": "3", 
+                "msg": {
+                    "wasm": {
+                        "execute": {
+                            "contract_addr": "terra1gc4d4v82vjgkz0ag28lrmlxx3tf6sq69tmaujjpe7jwmnqakkx0qm28j2l",
+                            "msg": "ewogICAgIm1vdmVfdG9fcHJveHkiOiB7CiAgICAgICAgImxwX3Rva2VuIjogInRlcnJhMXM0bHMwYW1rNTZ2dmZndjVqdnNkYWN2cjM5cjNhNzZwNDl3Z3BsdjByMjdueHQ3ZzN1Z3Fwd3VsOTciLAogICAgICAgICJwcm94eSI6ICJ0ZXJyYTF5M3BqbjZnMGF3enBrbWUybmZwNG56dTc1YWU2d3VoZGZ6dGRuMnBxanU1dGx6aGtwaGpxNXN0MnRzIgogICAgfSAKfQ==",
+                            "funds": []
+                        }
+                    }
+                }
+            }
+        ]
+        ```
+
+    </CH.Scrollycoding>
+</CH.Section>
+
+
+## Submitting a Proposal Directly
+
+An advantage of submitting a proposal directly using, for example, a js script is that you could perform calculations from query results, pass variables, encode your message automatically, and separate multiple proposal messages into their own modular variables. This comes in handy when submitting 3 separate executable messages. 
+
+<CH.Section>
+    <CH.Scrollycoding>
+
+        ### `send`
+
+        To submit a proposal, you need to execute a contract call pointing to the [`send`](https://docs.rs/cw20/latest/cw20/enum.Cw20ExecuteMsg.html#variant.Send) endpoint in the xASTRO token contract. 
+
+        The send operation takes in a:
+
+        - `contract` - Address where xASTRO tokens are being sent to (Assembly address)
+        - `amount` - Amount to send/stake (30,000 xASTRO for mainnet)
+        - `msg` - Binary encoded messages containing our contract call to [`submit_proposal`](../../develop/smart-contracts/astral-assembly#submit_proposal)
+
+        ```json 
+        {
+            "send": {
+                "contract": assemblyAddress, 
+                "amount": "1000", // testnet deposit amount
+                "msg": toBase64(
+                    {
+                        "submit_proposal": {
+                            "title": "integrate proxy contract", 
+                            "description": "Proposal to integrate 3rd party rewards", 
+                            "link": "https://forum.astroport.fi/", 
+                            "messages": [setup_pools_msg, allow_proxies_msg, move_to_proxy_msg]
+                        }
+                    }
+                ) 
+            }
+        }
+        ```
+
+        --- 
+
+        ### `messages`
+
+        To learn how to structure your proposal modularly, visit [`Proxy Contracts`](./proxy-contracts). Integrating proxy contracts already requires 2 executable messages (`allow_proxies_msg` and `move_to_proxy_msg`). Adjusting allocation points would simply add 1 more message: `setup_pools_msg`. 
+
+
+        ```json focus=11
+        ```
+
+        ---
+
+        ### `setup_pools_msg`
+
+        `setup_pools_msg` is our new proposal message. It contains an `order` of `"1"` (modifying the order of the other 2 proposals from our previous tutorial). The proposal message points to the [`setup_pools`](../../develop/smart-contracts/tokenomics/generator#setup_pools) endpoint in the [`Generator`](../../develop/smart-contracts/tokenomics/generator) contract stored in a binary encoded `msg`.  
+
+        `setup_pools` takes in pools - a vector that contains LP token addresses and allocation points.
+
+        To learn more about the `setup_pools` endpoint and proposal, visit the dedicated guide [here](./astro-allocation-points). 
+
+        ```json
+        let setup_pools_msg = {
+            "order": "1", 
+            "msg": {
+                "wasm": {
+                    "execute": {
+                        "contract_addr": generatorAddress, 
+                        "msg": toBase64(
+                            {
+                                "setup_pools": {
+                                    "pools": [
+                                        [
+                                        "terra...", 
+                                        "1538"
+                                        ], 
+                                        [
+                                        "terra...", 
+                                        "30018"
+                                        ], 
+                                        etc...
+                                    ]
+                                }
+                            }
+                        ),
+                        "funds": []
+                    }
+                }
+            }
+        }
+        ```
+
+    </CH.Scrollycoding>
+</CH.Section>
