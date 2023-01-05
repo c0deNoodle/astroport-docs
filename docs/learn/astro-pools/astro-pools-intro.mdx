@@ -1,17 +1,17 @@
 # Astro Pools
 
-Early AMM systems used the same algorithm for determining token prices based on the ratio of the two tokens in the pool. As DEXes have matured, many new algorithms have emerged, each with its own set of tradeoffs. 
+Early AMM systems used the same xy=k algorithm for determining token prices based on the ratio of the two tokens in the pool. As DEXes have matured, many new algorithms have emerged, each with its own set of tradeoffs.
 
 Different ‘token markets’ have different properties and characteristics; therefore, different pool types can be more or less appropriate for a particular token market. Choosing the appropriate pool type for a given token market can increase efficiency for both traders and liquidity providers. Some factors that may affect pool type choice for a target token market include:
 
 1. **Pair correlation:** How the fair market prices of the two target tokens tend to move relative to one another
 2. **Pair volatility:** The magnitude and frequency of fair market price fluctuations in the two target tokens
 3. **Market locality:** Whether there are similar token markets to the target token market, and their sizes relative to the target token market
-4. **Market maturity:** How well-understood are the values of the two target tokens
-5. **Lifecycle stage:** Whether the target tokens are pre or post-liquidity
-Astroport allows for the following pool types, which enable Astroport to accommodate a wide variety of token markets:
+4. **Market maturity:** How well the market understands the values of the two target tokens
+5. **Lifecycle stage:** Whether the target tokens are pre- or post-liquidity, Astroport allows for the following pool types, which enable Astroport to accommodate a wide variety of token markets:
 
 - [**Constant Product Pools**](./constant-product-pools)
 - [**Stableswap Invariant Pools**](./stableswap-pools)
 
 In addition, Astroport has a flexible architecture that allows builders to create new pool types that fit seamlessly within Astroport, with minimal changes to core protocol code.
+

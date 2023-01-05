@@ -181,14 +181,14 @@ const config = {
       navbar: {
         items: [
           {
-            to: '/docs/overview/intro-to-astroport', // ./docs-api/intro.md
+            to: '/docs/overview/astroport-onboarding/astroport-onboarding-intro', // ./docs-api/intro.md
             label: 'Overview',
             position: 'left',
             activeBaseRegex: `/overview/`,
           },
           {
             // to: '/docs/learn/astro-pools/constant-product-pools',
-            to: '/docs/learn/astro-pools/astro-pools-intro',
+            to: '/docs/learn/overview',
             // to: '/docs/learn/astro-pools/intro',
             // to: '/docs/learn/index',
             label: 'Learn',
@@ -196,7 +196,7 @@ const config = {
             activeBaseRegex: `/learn/`,
           },
           {
-            to: '/docs/govern/astroport-improvement-proposal-framework', // ./docs-api/intro.md
+            to: '/docs/govern/overview', // ./docs-api/intro.md
             label: 'Govern',
             position: 'left',
             activeBaseRegex: `/govern/`,
@@ -204,7 +204,8 @@ const config = {
           {
             // to: '/docs/develop/smart-contracts/astroport-contract-addresses',
             // to: '/docs/develop/category/smart-contracts',
-            to: '/docs/develop/smart-contracts/smart-contracts-intro',
+            // to: '/docs/develop/smart-contracts/smart-contracts-intro',
+            to: '/docs/develop/overview',
             label: 'Develop',
             position: 'left',
             activeBaseRegex: `/develop/`,
@@ -232,15 +233,16 @@ const config = {
             items: [
               {
                 label: 'Terms of Service',
-                to: '/docs/overview/legal/terms-of-service',
-              },
-              {
-                label: 'Privacy Policy',
-                to: '/docs/overview/legal/privacy-policy',
+                to: 'https://astroport.fi/en/terms-and-conditions'
+                // to: '/docs/overview/legal/terms-of-service',
               },
               {
                 label: 'Cookie Policy',
-                to: '/docs/overview/legal/cookie-policy',
+                to: 'https://astroport.fi/en/cookie-policy',
+              },
+              {
+                label: 'Privacy Policy',
+                to: 'https://astroport.fi/en/privacy-policy',
               },
             ],
           },

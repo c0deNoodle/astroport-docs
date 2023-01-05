@@ -1,0 +1,19 @@
+# Security
+
+## Overview
+
+Using Astroport doesn't come without risk. Before you decide to deposit your assets in the protocol or swap tokens, you should do your research and understand the risks involved. This section will only give an overview of the main risks associated with the Astroport protocol.
+
+## Smart Contract Bugs
+
+The Astroport contracts were audited by [Halborn](https://github.com/astroport-fi/astroport-audits/tree/main/halborn) and [Oak Security](https://github.com/astroport-fi/astroport-audits/tree/main/oak). However, security audits do not completely eliminate smart contract risk. We urge you not to put your life savings or money you can't afford to lose into Astroport.
+
+## Suboptimal Parameters
+
+Governance may set suboptimal parameters for:
+
+- Amplification parameters for specific pools (e.g LunaX-LUNA where LunaX accrues interest)
+- ASTRO emissions in the Generator contract which can lead to one generator receiving more ASTRO than intended
+- Blacklisting registries, where they blacklist the wrong token from being staked in the Generator contract, leading to that token not receiving any ASTRO emissions until it is whitelisted again
+
+

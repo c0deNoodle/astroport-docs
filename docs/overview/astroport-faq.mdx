@@ -1,5 +1,134 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
+import Admonition from '@theme/Admonition'
+
 # Astroport FAQ
+
+## Overview
+
+Find some of the most frequently asked questions around Astroport. Do you still have a question that is not addressed below? You can find more information by searching the AstroDocs or by joining the [Astroport Discord](https://discord.com/invite/astroport) to engage with other community members.
+
+## Token FAQ
+
+### What is the difference between ASTROC & ASTRO?
+
+<Admonition type="info" title="NOTE">
+    Astroport initially launched on the original Terra network (Terra Classic), with is governed by the ASTROC (ASTRO Classic) token. With the launch of Astroport on the Terra 2 network, a new governance token has been minted, called ASTRO.
+
+    There is no bridge between ASTROC and ASTRO, and each set of tokens governs the deployment on its respective chain. In other words, ASTROC tokens have no governance power over Astroport on Terra 2, and ASTRO tokens have no governance power on Astroport on Terra Classic.
+</Admonition>
+
+### What is the token distribution for ASTRO?
+
+<Admonition type="info" title="NOTE">
+    The token distribution ensures that the wider community will have a majority say in everything on Astroport. Originally, the community held 110M ASTROC after the [lockdrop on Terra Classic](https://astroport.medium.com/hello-astro-announcing-the-astroport-governance-token-drops-a07a1bf3ed94). 49% of the supply of 1B ASTROC went to liquidity rewards for 69 years.10% of the supply was reserved for the Astral Assembly. The rest is allocated to Astroport Builders, who have a 3-year lock-up period.
+
+    When Astroport launched on Terra 2, the supply of the new ASTRO token was increased from 1 billion to 1.1 billion. The additional 100 million tokens are to be exclusively used to incentivize liquidity.
+</Admonition>
+
+[insert image]
+
+### What is the unlock schedule for the Builder Tokens?
+
+<Admonition type="info" title="NOTE">
+    The Builder Tokens unlock over three years; for both ASTROC and ASTRO. Both sets of tokens were scheduled to begin unlocking on December 14, 2022. Due to the completed legal and upcoming smart contract amendments, the unlocks will now [begin on July 1, 2023](https://blog.astroport.fi/post/astroport-builders-delay-governance-token-unlocks-by-six-months).
+
+    On that date, one-third of builder tokens will unlock on both chains, and the remaining two-thirds will begin unlocking on a linear daily basis over the following 24 months.
+</Admonition>
+
+[insert image]
+
+### Was there an ICO?
+
+<Admonition type="info" title="NOTE">
+    Astroport did not have an ICO. Instead, ASTROC was distributed through a lockdrop. ASTRO was distributed through an airdrop to ASTROC holders. To learn more about the lockdrop, look [here](https://astroport.medium.com/hello-astro-announcing-the-astroport-governance-token-drops-a07a1bf3ed94).
+</Admonition>
+
+### Who was part of the Initial Astro Builders?
+
+<Admonition type="info" title="NOTE">
+    The development of the protocol occurred through a joint venture involving Delphi Labs, Terraform Labs, Attic Lab and [WE3](https://we3.co/) (a decentralized design collective) and their respective service providers.
+</Admonition>
+
+## dApp FAQ
+
+### Can I withdraw trading fees from a pair without withdrawing liquidity?
+
+<Admonition type="info" title="NOTE">
+    In the case of constant product and stableswap pools, you must withdraw your liquidity to get the trading fees you accumulated.
+</Admonition>
+
+### Does the protocol mitigate frontrunning?
+
+<Admonition type="info" title="NOTE">
+    The Astroport protocol does not mitigate frontrunning. Similar to other DEXs, traders can have their orders frontrun.
+</Admonition>
+
+### Can flashloan attacks be applied to the protocol, and if so, are those flashloan attack risks mitigated?
+
+<Admonition type="info" title="NOTE">
+    Anyone can take out a flashloan from another Terra 2-based protocol and then use the borrowed funds to trade on Astroport. Nothing in the Astroport contracts prevents this type of behavior as it is considered valid.
+</Admonition>
+
+## Governance FAQ
+
+### I've submitted a proposal to the Astroport forum. When can I submit an on-chain proposal?
+
+<Admonition type="info" title="NOTE">
+    A community review period is required after submitting a proposal to the Astroport forum. The minimum duration of this period is determined by two variables:
+
+    - Feedback Period: 7 days
+    - Frozen Period: 2 days
+
+    Please note that in the case of UI ARCs, there is no need for a Frozen Period.
+</Admonition>
+
+### How many ASTRO (if any) are required to submit a proposal?
+
+<Admonition type="info" title="NOTE">
+    You must temporarily lock 30,000 xASTRO in order to submit a proposal for a formal vote.
+</Admonition>
+
+### Do proposal submitters lose their xASTRO if their proposal fails?
+
+<Admonition type="info" title="NOTE">
+    Once the voting ends (after ~4 days) proposers get their xASTRO back regardless of the outcome.
+</Admonition>
+
+### Can proposal submitters vote on their own proposal?
+
+<Admonition type="info" title="NOTE">
+    No. The proposal submitter address will not be able to participate in the voting process for their own proposal.
+</Admonition>
+
+### What is the required quorum for a vote?
+
+<Admonition type="info" title="NOTE">
+    10% of votable tokens (circulating xASTRO + locked builder allocation) must participate in order for a proposal to pass.
+</Admonition>
+
+### What happens if a governance vote doesn't reach quorum?
+
+<Admonition type="info" title="NOTE">
+    The proposal fails and can potentially be resubmitted.
+</Admonition>
+
+### What is the voting threshold for a vote to pass?
+
+<Admonition type="info" title="NOTE">
+    To pass, a simple majority is required (50% + 1 vote).
+</Admonition>
+
+### How many times can I resubmit a proposal?
+
+<Admonition type="info" title="NOTE">
+    An AIP can be resubmitted for an on-chain vote up to 3 times without having to go through phases 1-4 of the AIP process again if it failed to pass due to legitimate external reasons (e.g., potential low governance participation that did not meet the minimum on-chain quorum).
+</Admonition>
+
+### What is the cut-off for being able to vote?
+
+<Admonition type="info" title="NOTE">
+    To participate in a vote a wallet address must have held xASTRO 1 block before the proposal was created. 
+</Admonition>

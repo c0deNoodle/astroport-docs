@@ -1,8 +1,5 @@
 {
     "label": "Workstation",
     "position": 5,
-    "link": {
-      "type": "generated-index",
-      "description": "Astronaut approved step-by-step tutorials:"
-    }
+    "link": { "type": "doc", "id": "workstation-intro" }
 }

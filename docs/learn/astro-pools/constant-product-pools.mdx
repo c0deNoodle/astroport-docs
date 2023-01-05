@@ -2,18 +2,24 @@
 sidebar_position: 1
 ---
 
-import XYKChartUrl from '@site/static/img/learn/astro-pools/xyk-chart.png';
+import XYKChartUrl from '@site/static/img/learn/astro-pools/xyk.png';
 
 # Constant Product Pools
 
-Constant product pools are a good choice for token pairs with high volatility (e.g. ASTRO-USDC), as they facilitate trading at all possible prices, even during large, sudden market moves. They are also well suited for primary markets, where traders are more likely to speculate and act on external information despite high slippage.
+## Overview
 
-## How Constant Product Pools Work
+Constant product pools are a good choice for token pairs with high volatility (e.g. ASTRO-axlUSDC), as they facilitate trading at all possible prices, even during large, sudden market moves. They are also well suited for primary markets, where traders are more likely to speculate and act on external information despite high slippage.
+
+## How Constant Product Pools Work​
 
 Constant product pools work by keeping their reserves balanced according to the following equation:
 
+[ insert formula ] 
+
 Where **Rx** and **Ry** are the reserves of token X and token Y respectively, and k is a constant. Any trades that occur will change the values of Rx and Ry, but only in ways that satisfy this equation. If a trader wishes to sell a quantity ∆x of token X, they will receive a quantity ∆y of token Y such that:
 
-To add liquidity, liquidity providers deposit token X and token Y in a ratio that matches the current price (**Rx** / **Ry**). The added liquidity increases the value of **k**. Intuitively, with more liquidity present in the reserves, traders will receive a larger output (∆y) for a given input (∆x). This way, increased liquidity reduces trade slippage.
+[ insert formula ] 
 
-<img src={XYKChartUrl} style={{ paddingBottom: 15 }} />
+To add liquidity, liquidity providers deposit token X and token Y in a ratio that matches the current price **(Rx / Ry)**. The added liquidity increases the value of **k**. Intuitively, with more liquidity present in the reserves, traders will receive a larger output (∆y) for a given input (∆x). This way, increased liquidity reduces trade slippage.
+
+<img src={XYKChartUrl} style={{ }} />

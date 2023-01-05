@@ -518,3 +518,19 @@ pre code {
 /* div.ch-code-scroll-content {
   width: 420px !important;
 } */
+
+div.overview-figs {
+  background-color: rgba(8,8,47,0.85);
+  width: 221px;
+  height: 203px;
+  border-radius: 8px;
+  margin: 16px;
+}
+
+div.overview-figs:hover {
+  background-color: rgba(8,8,47,1);
+  transition: all var(--ifm-transition-fast) ease;
+}
+
+
+/* style={{ backgroundColor: '#0B0534bf', width: 221, height: 203, borderRadius: 8, margin: 16 }} */
