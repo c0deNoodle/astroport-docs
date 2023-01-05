@@ -37,7 +37,7 @@ export default function Box(props) {
         <div className={styles.text}>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
-          <ul className={styles.list}>
+          {/* <ul className={styles.list}>
             <li>
               <a
                 className={styles.links}
@@ -55,7 +55,7 @@ export default function Box(props) {
                 Stableswap Pools
               </a>
             </li>
-          </ul>
+          </ul> */}
         </div>
       </div>
     );
@@ -69,11 +69,11 @@ export default function Box(props) {
         <div className={styles.text}>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
-          <ul className={styles.list}>
+          {/* <ul className={styles.list}>
             <li>
               <a
                 className={styles.links}
-                href="../../../../docs/learn/category/starter-pack"
+                href="../../../../docs/learn/workstation/category/starter-pack"
               >
                 Starter Pack
               </a>
@@ -82,7 +82,7 @@ export default function Box(props) {
             <li>
               <a
                 className={styles.links}
-                href="../../../../docs/learn/category/farmers-fields"
+                href="../../../../docs/learn/workstation/category/farmers-fields"
               >
                 Farmers Fields
               </a>
@@ -91,13 +91,13 @@ export default function Box(props) {
             <li>
               <a
                 className={styles.links}
-                href="../../../../docs/learn/category/traders-port"
+                href="../../../../docs/learn/workstation/category/traders-port"
               >
                 Traders Port
               </a>
             </li>
 
-          </ul>
+          </ul> */}
         </div>
       </div>
     );  
@@ -111,36 +111,10 @@ export default function Box(props) {
         <div className={styles.text}>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
-          <ul className={styles.list}>
-
-            <li>
-              <a
-                className={styles.links}
-                href="../../../../docs/develop/category/trading"
-              >
-                Trading
-              </a>
-            </li>
-
-            <li>
-              <a
-                className={styles.links}
-                href="../../../../docs/develop/category/farming"
-              >
-                Farming
-              </a>
-            </li>
-
-            <li>
-              <a
-                className={styles.links}
-                href="../../../../docs/develop/category/governance"
-              >
-                Governance
-              </a>
-            </li>
-
-          </ul>
+          {/* <ul className={styles.list}>
+            <li>Proxy Contracts</li>
+            <li>Dual Rewards</li>
+          </ul> */}
         </div>
       </div>
     );
@@ -158,10 +132,10 @@ export default function Box(props) {
         <div className={styles.text}>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
-          <ul className={styles.list}>
+          {/* <ul className={styles.list}>
             <li>Proxy Contracts</li>
             <li>Dual Rewards</li>
-          </ul>
+          </ul> */}
         </div>
       </div>
     );
@@ -175,7 +149,7 @@ export default function Box(props) {
         <div className={styles.text}>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
-          <ul className={styles.list}>
+          {/* <ul className={styles.list}>
             <li>
               <a
                 className={styles.links}
@@ -184,7 +158,7 @@ export default function Box(props) {
                 Overview
               </a>
             </li>
-          </ul>
+          </ul> */}
         </div>
       </div>
     );
@@ -198,20 +172,11 @@ export default function Box(props) {
         <div className={styles.text}>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
-          <ul className={styles.list}>
+          {/* <ul className={styles.list}>
             <li>
               <a
                 className={styles.links}
-                href="../../../../docs/learn/astro-tokenomics/utility"
-              >
-                Utility
-              </a>
-            </li>
-
-            <li>
-              <a
-                className={styles.links}
-                href="../../../../docs/learn/astro-tokenomics/fees"
+                href="../../../../docs/learn/tokenomics/fees"
               >
                 Fees
               </a>
@@ -220,12 +185,21 @@ export default function Box(props) {
             <li>
               <a
                 className={styles.links}
-                href="../../../../docs/learn/astro-tokenomics/allocation"
+                href="../../../../docs/learn/tokenomics/staking-and-locking"
+              >
+                Staking & Locking
+              </a>
+            </li>
+
+            <li>
+              <a
+                className={styles.links}
+                href="../../../../docs/learn/tokenomics/allocation"
               >
                 Allocation
               </a>
             </li>
-          </ul>
+          </ul> */}
         </div>
       </div>
     );
@@ -239,10 +213,10 @@ export default function Box(props) {
         <div className={styles.text}>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
-          <ul className={styles.list}>
+          {/* <ul className={styles.list}>
             <li>AIP Lifecycle</li>
             <li>AIP Templates</li>
-          </ul>
+          </ul> */}
         </div>
       </div>
     );
@@ -256,10 +230,10 @@ export default function Box(props) {
         <div className={styles.text}>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
-          <ul className={styles.list}>
+          {/* <ul className={styles.list}>
             <li>Overview</li>
             <li>AIF Template</li>
-          </ul>
+          </ul> */}
         </div>
       </div>
     );
@@ -273,35 +247,34 @@ export default function Box(props) {
         <div className={styles.text}>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
-          <ul className={styles.list}>
+          {/* <ul className={styles.list}>
             <li>
               <a
                 className={styles.links}
-                href="../../../../docs/govern/proposal-messages/astro-allocation-points"
+                href="../../../../docs/govern/proposal-messages/fine-tuning-allocation-points"
               >
-                ASTRO Allocation Points
+                ASTRO Emissions
               </a>
             </li>
 
             <li>
               <a
                 className={styles.links}
-                href="../../../../docs/govern/proposal-messages/proxy-contracts"
+                href="../../../../docs/govern/proposal-messages/integrating-proxy-contracts"
               >
-                Proxy Contracts
+                Integrating Proxy Contracts
               </a>
             </li>
 
             <li>
               <a
                 className={styles.links}
-                href="../../../../docs/govern/proposal-messages/dual-rewards"
+                href="../../../../docs/govern/proposal-messages/integrating-dual-rewards"
               >
                 Dual Rewards
               </a>
             </li>
-
-          </ul>
+          </ul> */}
         </div>
       </div>
     );
@@ -315,11 +288,7 @@ export default function Box(props) {
         <div className={styles.text}>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
-          <ul className={styles.list}>
-            {/* <li>
-            <a className={styles.links} href="../../../../docs/develop/category/smart-contracts">Overview</a>
-            </li> */}
-
+          {/* <ul className={styles.list}>
             <li>
               <a
                 className={styles.links}
@@ -341,12 +310,12 @@ export default function Box(props) {
             <li>
               <a
                 className={styles.links}
-                href="../../../../docs/develop/smart-contracts/swap-pairs/swap-pairs-intro"
+                href="../../../../docs/develop/category/swap-pairs"
               >
                 Swap Pairs
               </a>
             </li>
-          </ul>
+          </ul> */}
         </div>
       </div>
     );
@@ -360,7 +329,7 @@ export default function Box(props) {
         <div className={styles.text}>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
-          <ul className={styles.list}>
+          {/* <ul className={styles.list}>
             <li>
               <a
                 className={styles.links}
@@ -369,7 +338,7 @@ export default function Box(props) {
                 APY Calculation
               </a>
             </li>
-          </ul>
+          </ul> */}
         </div>
       </div>
     );

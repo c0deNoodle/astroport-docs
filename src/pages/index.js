@@ -88,23 +88,29 @@ export default function Home() {
 
         <ContentBlocks
           title="Learn"
-          text="Today, the doors of Astroport’s governing body, the Astral Assembly, open. And that means all astronauts can enter to help shape the future of Terra 2.0’s most popular swap protocol."
+          text="Get ready to explore the vast universe of Astroport. Dive in and discover all the ways you can deepen your understanding of Astroport, whether you're a beginner just starting your DeFi journey or a seasoned pro looking to expand your AMM knowledge."
         />
+
+        <div className="max-w-[600px] w-full mx-auto aspect-square">
+          <Satellites />
+        </div>
+
         <ContentBlocks
           title="Govern"
-          text="Today, the doors of Astroport’s governing body, the Astral Assembly, open. And that means all astronauts can enter to help shape the future of Terra 2.0’s most popular swap protocol."
+          text="Discover how to propose contributions as an active community member to the Astroport governing body, the Astral Assembly."
         >
-          <div className="max-w-[600px] w-full mx-auto aspect-square">
-            <Satellites />
-          </div>
         </ContentBlocks>
+
+
+         <div className="max-w-[600px] w-full mx-auto aspect-square">
+            <AstroChad />
+        </div>
+
         <ContentBlocks
           title="Develop"
-          text="Today, the doors of Astroport’s governing body, the Astral Assembly, open. And that means all astronauts can enter to help shape the future of Terra 2.0’s most popular swap protocol."
+          text="Expand your developer skills and explore the exciting realm of Astroport's code base with detailed explanations and tutorials."
         >
-          <div className="max-w-[600px] w-full mx-auto aspect-square">
-            <AstroChad />
-          </div>
+
         </ContentBlocks>
       </main>
     </Layout>

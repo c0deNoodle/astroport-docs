@@ -1,12 +1,16 @@
 .box {
   display: flex;
-  height: 252px;
-  width: 547.3px;
+  height: 136px;
+  width: 364px;
 
   background: rgba(255, 255, 255, 0.05);
+  /* backgroundblur */
+
   backdrop-filter: blur(10.5px);
+  /* Note: backdrop-filter has minimal browser support */
+
   border-radius: 16px;
-  cursor: pointer;
+  margin: 12px;
 }
 
 .box:hover {
@@ -77,7 +81,7 @@ ul.list li:hover {
 .subtext {
   color: rgba(255, 255, 255, 0.4);
   font-size: 13.3333px;
-  padding-right: 4%;
+  padding-right: 5%;
   margin-bottom: 20px;
 }
 
