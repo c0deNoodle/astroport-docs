@@ -49,7 +49,7 @@ const boxProps = {
     },
     workstation: {
       title: 'Workstation', 
-      description: 'Astronaut approved step-by-step tutorials to guide you through the Astroport Web App', 
+      description: 'Astronaut approved step-by-step tutorials', 
       image: BackendUrl, 
       list: 'Workstation'
     }
@@ -58,21 +58,21 @@ const boxProps = {
     aipf: {
       title: 'Astroport Improvement Proposal Framework',
       description:
-        'Today, the doors of Astroport’s governing body, the Astral Assembly, open.',
+        'The framework that empowers Assembly participants',
       image: ProposalUrl,
       list: 'AIPF',
     },
     aif: {
       title: 'Astroport Incentive Framework',
       description:
-        'Today, the doors of Astroport’s governing body, the Astral Assembly, open.',
+        'The blueprint for ASTRO emissions',
       image: SurpriseUrl,
       list: 'AIF',
     },
     proposalMessages: {
       title: 'Proposal Messages',
       description:
-        'Today, the doors of Astroport’s governing body, the Astral Assembly, open.',
+        'Insights and best practices for on-chain governance proposals',
       image: ShipUrl,
       list: 'Proposal Messages',
     },

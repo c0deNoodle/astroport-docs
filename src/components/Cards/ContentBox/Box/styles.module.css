@@ -1,7 +1,13 @@
 .box {
   display: flex;
   height: 136px;
-  width: 364px;
+  width: 273px;
+
+  /* height: 136px;
+  width: 364px; */
+
+  /* height: 252px;
+  width: 547.3px; */
 
   background: rgba(255, 255, 255, 0.05);
   /* backgroundblur */
