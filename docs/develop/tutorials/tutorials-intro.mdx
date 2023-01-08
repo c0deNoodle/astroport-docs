@@ -74,6 +74,15 @@ Executing the query returns the current block `height` as well as an encoded `JS
 }
 ```
 
+{/* ```bash
+{
+    "height": "3394568", 
+    "result": {
+        "smart": "<base64-encoded-string>"
+    }
+}
+``` */}
+
 ---
 
 #### Step 5
@@ -130,7 +139,7 @@ const lcd = new LCDClient({
     chainID: 'pisco-1', // testnet chain-id
     gasAdjustment: 1.75,
     gasPrices: { uluna: 0.015 },
-    prefix: 'terra', // bech32 prefix, used by the LCD to understand which is the right chain to query
+    prefix: 'terra', // bech32 prefix
   },
 });
 

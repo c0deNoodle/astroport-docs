@@ -1,7 +1,5 @@
 {
     "label": "Creating a Wallet",
     "position": 1,
-    "link": {
-      "type": "generated-index"
-    }
+    "link": { "type": "doc", "id": "creating-a-wallet-intro" }
 }

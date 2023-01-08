@@ -1,7 +1,5 @@
 {
     "label": "Farmers Fields",
     "position": 2,
-    "link": {
-      "type": "generated-index"
-    }
+    "link": { "type": "doc", "id": "farmers-fields-intro" }
 }

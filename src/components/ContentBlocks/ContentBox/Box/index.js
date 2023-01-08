@@ -364,7 +364,7 @@ export default function Box(props) {
             <li>
               <a
                 className={styles.links}
-                href="../../../../docs/develop/backend/apy-calculation"
+                href="../../../../docs/develop/backend#apy-calculation"
               >
                 APY Calculation
               </a>

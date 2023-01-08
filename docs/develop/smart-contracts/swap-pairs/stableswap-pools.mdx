@@ -6,7 +6,11 @@ import Admonition from '@theme/Admonition'
 
 # Stableswap Pools
 
+## Overview
+
 The stableswap pool uses the 4A(Rx+Ry) + D formula, resulting in a constant price ∆x / ∆y = 1. More details around how the pool functions can be found [here](../../../learn/astro-pools/stableswap-pools).
+
+## Links
 
 - **Contract Repo:** https://github.com/astroport-fi/astroport-core/tree/main/contracts/pair_stable
 - **contract.rs:** https://github.com/astroport-fi/astroport-core/blob/main/contracts/pair_stable/src/contract.rs
@@ -38,7 +42,7 @@ Initializes a new stableswap pair.
   ],
   "token_code_id": 123,
   "factory_addr": "terra...",
-  "init_params": "<base64_encoded_json_string: optional binary serialised parameters for custom pool types; example: {'amp': 100}>"
+  "init_params": "<base64_encoded_json_string; example: {'amp': 100}>"
 }
 ```
 
@@ -341,7 +345,7 @@ Update the pair's configuration.
 ```json json
 {
     "update_config": {
-        "params": "<base64_encoded_json_string>: binary serialised parameters for stable pool types; example: {'amp': 100}"
+        "params": "<base64_encoded_json_string>; example: {'amp': 100}"
     }
 }
 ```

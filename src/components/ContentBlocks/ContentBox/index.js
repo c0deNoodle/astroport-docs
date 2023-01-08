@@ -3,6 +3,27 @@ import clsx from 'clsx';
 import styles from './styles.module.css';
 import Box from './Box';
 
+import AstroPoolsUrl from '@site/static/img/card-icons/astro-pools.png';
+import AstroGeneratorsUrl from '@site/static/img/card-icons/astro-generators.png';
+import AstralAssemblyUrl from '@site/static/img/card-icons/astral-assembly.png';
+import AstroTokenomicsUrl from '@site/static/img/card-icons/astro-tokenomics.png';
+import WorkstationUrl from '@site/static/img/card-icons/workstation.png';
+
+import AIPFUrl from '@site/static/img/card-icons/aipf.png';
+import AIFUrl from '@site/static/img/card-icons/aif.png';
+import ProposalMessagesUrl from '@site/static/img/card-icons/proposal-messages.png';
+
+import BackendUrl from '@site/static/img/card-icons/backend.png';
+import SmartContractsUrl from '@site/static/img/card-icons/smart-contracts.png';
+import TutorialsUrl from '@site/static/img/card-icons/tutorials.png';
+
+import StarterPackUrl from '@site/static/img/card-icons/astro-rocketship.png';
+import FarmersFieldsUrl from '@site/static/img/card-icons/astro-chad.png';
+import TradersPortUrl from '@site/static/img/card-icons/pepe-astronaut.png';
+
+
+// ------------------
+
 import AstroHammerUrl from '../../../../static/img/astrohammer.png';
 import AstroShieldUrl from '../../../../static/img/astroshield.png';
 import AstroGeneratorUrl from '../../../../static/img/astrogenerator.png';
@@ -12,7 +33,7 @@ import ShipUrl from '../../../../static/img/ship.png';
 import ProposalUrl from '../../../../static/img/proposal.png';
 import SurpriseUrl from '../../../../static/img/surprise.png';
 
-import BackendUrl from '../../../../static/img/backend.png';
+// import BackendUrl from '../../../../static/img/backend.png';
 import ContractsUrl from '../../../../static/img/contracts.png';
 
 // import LaunchUrl from '../../../static/img/launch.png';
@@ -23,34 +44,34 @@ const boxProps = {
       title: 'Astro Pools',
       description:
         'Discover the different liquidity pool types of Astroport',
-      image: AstroShieldUrl,
+      image: AstroPoolsUrl,
       list: 'Astro Pools',
     },
     astroGenerators: {
       title: 'Astro Generators',
       description:
         'Open the operation manual of Astroports unique Generators',
-      image: AstroGeneratorUrl,
+      image: AstroGeneratorsUrl,
       list: 'Astro Generators',
     },
     astroAssembly: {
       title: 'Astral Assembly',
       description:
         'Enter the doors of Astroports governing body, the Astral Assembly',
-      image: AstroHammerUrl,
+      image: AstralAssemblyUrl,
       list: 'Astro Assembly',
     },
     astroTokenomics: {
       title: 'Astro Tokenomics',
       description:
         'Learn the key insights about the fuel that powers the station: ASTRO',
-      image: TokenUrl,
+      image: AstroTokenomicsUrl,
       list: 'Astro Tokenomics',
     },
     workstation: {
       title: 'Workstation', 
       description: 'Astronaut approved step-by-step tutorials to guide you through the Astroport Web App', 
-      image: BackendUrl, 
+      image: WorkstationUrl, 
       list: 'Workstation'
     }
   },
@@ -59,21 +80,21 @@ const boxProps = {
       title: 'Astroport Improvement Proposal Framework',
       description:
         'The framework that empowers Assembly participants',
-      image: ProposalUrl,
+      image: AIPFUrl,
       list: 'AIPF',
     },
     aif: {
       title: 'Astroport Incentive Framework',
       description:
         'The blueprint for ASTRO emissions',
-      image: SurpriseUrl,
+      image: AIFUrl,
       list: 'AIF',
     },
     proposalMessages: {
       title: 'Proposal Messages',
       description:
         'Insights and best practices for on-chain governance proposals',
-      image: ShipUrl,
+      image: ProposalMessagesUrl,
       list: 'Proposal Messages',
     },
   },
@@ -82,7 +103,7 @@ const boxProps = {
       title: 'Smart Contracts',
       description:
         'Deep dive into the galactic smart contracts powering Astroport',
-      image: ContractsUrl,
+      image: SmartContractsUrl,
       list: 'Smart Contracts',
     },
     backend: {
@@ -95,7 +116,7 @@ const boxProps = {
     tutorials: {
       title: 'Tutorials', 
       description: 'Apply and improve your developer skills with hands-on tutorials', 
-      image: AstroHammerUrl, 
+      image: TutorialsUrl, 
       list: 'Tutorials'
     }
   },
@@ -216,7 +237,7 @@ export default function ContentBox(props) {
 
         <a
           className={styles.links}
-          href="../../../docs/develop/category/backend"
+          href="../../../docs/develop/backend"
         >
           <Box
             title={boxProps.develop.backend.title}

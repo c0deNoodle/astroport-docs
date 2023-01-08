@@ -533,4 +533,52 @@ div.overview-figs:hover {
 }
 
 
+.theme-doc-markdown a {
+  text-decoration: underline;
+  /* color: rgb(212, 242, 222); */
+  color: rgb(184, 175, 255);
+  width: 420px;
+}
+
+.theme-doc-markdown a:hover {
+  text-decoration: underline;
+  color: white;
+}
+
+
+div.row {
+  width: 100%;
+  flex-direction: row;
+}
+
+/* div.starterPack a {
+  text-decoration: none !important;
+} */
+
+a.links_src-components-Cards-ContentBox-styles-module {
+  display: inline-block;
+  text-decoration: none;
+}
+
+a.links_src-components-Cards-ContentBox-styles-module:hover {
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* a.div.box_src-components-Cards-ContentBox-Box-styles-module {
+  text-decoration: none;
+} */
+
+/* .links_src-components-Cards-ContentBox-styles-module {
+} */
+
+
+
+/* .theme-doc-markdown::before {
+  width: 100% !important;
+} */
 /* style={{ backgroundColor: '#0B0534bf', width: 221, height: 203, borderRadius: 8, margin: 16 }} */
+
+/* .ch-editor-frame {
+  max-width: 856.75px;
+} */
