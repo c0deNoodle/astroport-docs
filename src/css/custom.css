@@ -578,6 +578,10 @@ a.links_src-components-Cards-ContentBox-styles-module:hover {
   text-decoration: none;
 }
 
+p.hero__subtitle.mb-8 {
+  margin-bottom: 0;
+}
+
 
 
 /* a.div.box_src-components-Cards-ContentBox-Box-styles-module {

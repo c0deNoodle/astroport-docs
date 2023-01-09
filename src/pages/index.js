@@ -86,28 +86,34 @@ export default function Home() {
           <Lottie animationData={animationHero} />
         </div>
 
-        <ContentBlocks
-          title="Learn"
-          text="Get ready to explore the vast universe of Astroport. Dive in and discover all the ways you can deepen your understanding of Astroport, whether you're a beginner just starting your DeFi journey or a seasoned pro looking to expand your AMM knowledge."
-        />
+        <div className="pb-[3rem]">
+          <ContentBlocks
+            title="Learn"
+            text="Get ready to explore the vast universe of Astroport. Dive in and discover all the ways you can deepen your understanding of Astroport, whether you're a beginner just starting your DeFi journey or a seasoned pro looking to expand your AMM knowledge."
+          />
+        </div>
 
-        <div className="max-w-[600px] w-full mx-auto aspect-square">
+        <div className="max-w-[600px] w-full mx-auto aspect-square pb-[6rem]">
           <Satellites />
         </div>
 
-        <ContentBlocks
-          title="Govern"
-          text="Discover how to propose contributions as an active community member to the Astroport governing body, the Astral Assembly."
-        ></ContentBlocks>
+        <div className="py-[3rem]">
+          <ContentBlocks
+            title="Govern"
+            text="Discover how to propose contributions as an active community member to the Astroport governing body, the Astral Assembly."
+          ></ContentBlocks>
+        </div>
 
         <div className="max-w-[600px] w-full mx-auto aspect-square">
           <AstroChad />
         </div>
 
-        <ContentBlocks
-          title="Develop"
-          text="Expand your developer skills and explore the exciting realm of Astroport's code base with detailed explanations and tutorials."
-        ></ContentBlocks>
+        <div className="pb-[3rem]">
+          <ContentBlocks
+            title="Develop"
+            text="Expand your developer skills and explore the exciting realm of Astroport's code base with detailed explanations and tutorials."
+          ></ContentBlocks>
+        </div>
       </main>
     </Layout>
   );
