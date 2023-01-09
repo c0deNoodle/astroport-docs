@@ -43,6 +43,14 @@ import xASTROUrl from '@site/static/img/card-icons/xastro.png';
 import AstroShield from '@site/static/img/card-icons/astro-shield.png';
 import VestingUrl from '@site/static/img/card-icons/vesting.png';
 
+import CosmosUrl from '@site/static/img/card-icons/cosmos.png';
+import Terra2Url from '@site/static/img/card-icons/terra2.png';
+import TerraClassicUrl from '@site/static/img/card-icons/terra-station.png';
+import InjectiveUrl from '@site/static/img/card-icons/injective.png';
+
+import AstroRocketship from '@site/static/img/card-icons/astro-rocketship.png';
+import AstroHammer from '@site/static/img/card-icons/workstation.png';
+
 const boxProps = {
   learn: {
     astroPools: {
@@ -192,11 +200,11 @@ const boxProps = {
       image: PoolUrl, 
       list: 'Creating a Pool'
     },
-    depositingWithdrawingLiquidity: {
-      title: 'Depositing/Withdrawing Liquidity', 
+    providingWithdrawingLiquidity: {
+      title: 'Providing/Withdrawing Liquidity', 
       description: 'Discover how to manage your liquidity',
       image: TokenUrl, 
-      list: 'Depositing/Withdrawing Liquidity'
+      list: 'Providing/Withdrawing Liquidity'
     }, 
     stakingUnstakingLPTokens: {
       title: 'Staking/Unstaking LP Tokens', 
@@ -235,7 +243,7 @@ const boxProps = {
     voting: {
       title: 'Voting', 
       description: 'Take part in the governance process of the Astral Assembly',
-      image: MessengerUrl, 
+      image: AstroHammer, 
       list: 'Voting'
     }
   }, 
@@ -268,7 +276,7 @@ const boxProps = {
       title: 'Vesting', 
       description: 'Progressively unlocks ASTRO that can then be distributed to LP stakers',
       image: VestingUrl, 
-      list: 'Voting'
+      list: 'Vesting'
     },
     xastroToken: {
       title: 'xASTRO Token', 
@@ -276,7 +284,121 @@ const boxProps = {
       image: xASTROUrl, 
       list: 'xASTRO Token'
     }
+  }, 
+  tutorials: {
+    network: {
+      title: 'Network', 
+      description: 'Learn how to query, broadcast, and sign transactions',
+      image: ProposalMessagesUrl, 
+      list: 'Network'
+    }, 
+    trading: {
+      title: 'Trading', 
+      description: 'The beginning to automating your trading strategies',
+      image: AstroChadUrl, 
+      list: 'Trading'
+    }, 
+    farming: {
+      title: 'Farming', 
+      description: 'Discover how to manage your liquidity like a pro',
+      image: PoolUrl, 
+      list: 'Farming'
+    }, 
+    governance: {
+      title: 'Governance', 
+      description: 'Take part in the governing body of Astroport, the Astral Assembly',
+      image: AstralAssemblyUrl, 
+      list: 'Governance'
+    }
+  }, 
+  network: {
+    cosmosChains: {
+      title: 'Cosmos Chains', 
+      description: 'Learn how to generally connect to Cosmos chains',
+      image: CosmosUrl, 
+      list: 'Cosmos Chains'
+    }, 
+    terra2: {
+      title: 'Terra 2.0', 
+      description: 'Discover how to connect the the Terra 2.0 network',
+      image: Terra2Url, 
+      list: 'Terra 2.0'
+    }, 
+    terraClassic: {
+      title: 'Terra Classic', 
+      description: 'Discover how to connect to the Terra Classic network',
+      image: TerraClassicUrl, 
+      list: 'Terra Classic'
+    }, 
+    injective: {
+      title: 'Injective', 
+      description: 'Discover how to connect to the Injective network',
+      image: InjectiveUrl, 
+      list: 'Injective'
+    }
+  }, 
+  trading: {
+    swapping: {
+      title: 'Swapping', 
+      description: 'Discover how swap assets or integrate swaps into your Web App ',
+      image: SmartPepeUrl, 
+      list: 'Swapping'
+    }, 
+    multihopRouting: {
+      title: 'Multi-hop Routing', 
+      description: 'Improve your swapping skills with custom multi-hop routs',
+      image: AstroChadUrl, 
+      list: 'Multi-hop Routing'
+    }
+  }, 
+  farming: {
+    creatingAPair: {
+      title: 'Creating a Pair', 
+      description: 'Learn how to create the different liquidity pool types of Astroport',
+      image: AstroRocketship, 
+      list: 'Creating a Pair'
+    }, 
+    providingWithdrawingLiquidity: {
+      title: 'Providing/Withdrawing Liquidity', 
+      description: 'Discover how to manage your liquidity',
+      image: PoolUrl, 
+      list: 'Providing/Withdrawing Liquidity'
+    }, 
+    stakingUnstakingLPTokens: {
+      title: 'Staking/Unstaking LP Tokens', 
+      description: 'Learn how to stake/unstake your LP tokens from the Generator contract',
+      image: GeneratorUrl, 
+      list: 'Staking/Unstaking LP Tokens'
+    }, 
+    claimingRewards: {
+      title: 'Claiming Rewards', 
+      description: 'Claim trading fees and additional LP incentive rewards',
+      image: TokenUrl, 
+      list: 'Claiming Rewards'
+    }
+  }, 
+  governance: {
+    stakingUnstakingASTROxASTRO: {
+      title: 'Staking/Unstaking', 
+      description: 'Discover how to join the Astral Assembly and stake ASTRO',
+      image: TokenUrl, 
+      list: 'Claiming Rewards'
+    },
+    submittingAProposal: {
+      title: 'Submitting a Proposal', 
+      description: 'Learn how to submit on-chain proposals',
+      image: ProposalMessagesUrl, 
+      list: 'Submitting a Proposal'
+    }, 
+    voting: {
+      title: 'Voting', 
+      description: 'Take part in the governance process of the Astral Assembly',
+      image: AstroHammer, 
+      list: 'Voting'
+    }
   }
+
+
 };
 
 export default function ContentBox(props) {
@@ -604,13 +726,13 @@ export default function ContentBox(props) {
 
         <a
           className={styles.links}
-          href="../../../learn/workstation/farmers-fields/depositing-withdrawing-liquidity"
+          href="../../../learn/workstation/farmers-fields/providing-withdrawing-liquidity"
         >
         <Box
-          title={boxProps.farmersFields.depositingWithdrawingLiquidity.title}
-          description={boxProps.farmersFields.depositingWithdrawingLiquidity.description}
-          image={boxProps.farmersFields.depositingWithdrawingLiquidity.image}
-          list={boxProps.farmersFields.depositingWithdrawingLiquidity.list}
+          title={boxProps.farmersFields.providingWithdrawingLiquidity.title}
+          description={boxProps.farmersFields.providingWithdrawingLiquidity.description}
+          image={boxProps.farmersFields.providingWithdrawingLiquidity.image}
+          list={boxProps.farmersFields.providingWithdrawingLiquidity.list}
         />
         </a>
 
@@ -793,9 +915,260 @@ export default function ContentBox(props) {
     )
   }
 
+  else if (props.title == 'Tutorials') {
+    return (
+      <div className={styles.box}>
+
+        <a
+          className={styles.links}
+          href="../../../docs/develop/tutorials/network/network-intro"
+        >
+          <Box
+            title={boxProps.tutorials.network.title}
+            description={boxProps.tutorials.network.description}
+            image={boxProps.tutorials.network.image}
+            list={boxProps.tutorials.network.list}
+          />
+        </a>
+
+        <a
+          className={styles.links}
+          href="../../../docs/develop/tutorials/trading/trading-intro"
+        >
+          <Box
+            title={boxProps.tutorials.trading.title}
+            description={boxProps.tutorials.trading.description}
+            image={boxProps.tutorials.trading.image}
+            list={boxProps.tutorials.trading.list}
+          />
+        </a>
+
+        <a
+          className={styles.links}
+          href="../../../docs/develop/tutorials/farming/farming-intro"
+        >
+          <Box
+            title={boxProps.tutorials.farming.title}
+            description={boxProps.tutorials.farming.description}
+            image={boxProps.tutorials.farming.image}
+            list={boxProps.tutorials.farming.list}
+          />
+        </a>
+
+        <a
+          className={styles.links}
+          href="../../../docs/develop/tutorials/governance/governance-intro"
+        >
+          <Box
+            title={boxProps.tutorials.governance.title}
+            description={boxProps.tutorials.governance.description}
+            image={boxProps.tutorials.governance.image}
+            list={boxProps.tutorials.governance.list}
+          />
+        </a>
+
+      </div>
+    );
+  }
+
+  else if (props.title == 'Network') {
+    return (
+      <div className={styles.box}>
+
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/network/cosmos-chains"
+        >
+          <Box
+            title={boxProps.network.cosmosChains.title}
+            description={boxProps.network.cosmosChains.description}
+            image={boxProps.network.cosmosChains.image}
+            list={boxProps.network.cosmosChains.list}
+          />
+        </a>
+
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/network/terra-2"
+        >
+          <Box
+            title={boxProps.network.terra2.title}
+            description={boxProps.network.terra2.description}
+            image={boxProps.network.terra2.image}
+            list={boxProps.network.terra2.list}
+          />
+        </a>
+
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/network/terra-classic"
+        >
+          <Box
+            title={boxProps.network.terraClassic.title}
+            description={boxProps.network.terraClassic.description}
+            image={boxProps.network.terraClassic.image}
+            list={boxProps.network.terraClassic.list}
+          />
+        </a>
+
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/network/injective"
+        >
+          <Box
+            title={boxProps.network.injective.title}
+            description={boxProps.network.injective.description}
+            image={boxProps.network.injective.image}
+            list={boxProps.network.injective.list}
+          />
+        </a>
+
+      </div>
+    );
+  }
 
 
 
+  else if (props.title == 'Trading') {
+    return (
+      <div className={styles.box}>
 
+
+          <a
+            className={styles.links}
+            href="../../../develop/tutorials/trading/swapping"
+          >
+            <Box
+              title={boxProps.trading.swapping.title}
+              description={boxProps.trading.swapping.description}
+              image={boxProps.trading.swapping.image}
+              list={boxProps.trading.swapping.list}
+            />
+          </a>
+
+
+
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/trading/multi-hop-routing"
+        >
+        <Box
+          title={boxProps.trading.multihopRouting.title}
+          description={boxProps.trading.multihopRouting.description}
+          image={boxProps.trading.multihopRouting.image}
+          list={boxProps.trading.multihopRouting.list}
+        />
+        </a>
+
+      </div>
+    )
+  }
+
+  else if (props.title == 'Farming') {
+    return (
+      <div className={styles.box}>
+
+
+          <a
+            className={styles.links}
+            href="../../../develop/tutorials/farming/creating-a-pair"
+          >
+            <Box
+              title={boxProps.farming.creatingAPair.title}
+              description={boxProps.farming.creatingAPair.description}
+              image={boxProps.farming.creatingAPair.image}
+              list={boxProps.farming.creatingAPair.list}
+            />
+          </a>
+
+
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/farming/providing-withdrawing-liquidity"
+        >
+        <Box
+          title={boxProps.farming.providingWithdrawingLiquidity.title}
+          description={boxProps.farming.providingWithdrawingLiquidity.description}
+          image={boxProps.farming.providingWithdrawingLiquidity.image}
+          list={boxProps.farming.providingWithdrawingLiquidity.list}
+        />
+        </a>
+
+        <a
+            className={styles.links}
+            href="../../../develop/tutorials/farming/staking-unstaking-lp-tokens"
+          >
+            <Box
+              title={boxProps.farming.stakingUnstakingLPTokens.title}
+              description={boxProps.farming.stakingUnstakingLPTokens.description}
+              image={boxProps.farming.stakingUnstakingLPTokens.image}
+              list={boxProps.farming.stakingUnstakingLPTokens.list}
+            />
+          </a>
+
+
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/farming/claiming-rewards"
+        >
+        <Box
+          title={boxProps.farming.claimingRewards.title}
+          description={boxProps.farming.claimingRewards.description}
+          image={boxProps.farming.claimingRewards.image}
+          list={boxProps.farming.claimingRewards.list}
+        />
+        </a>
+
+
+      </div>
+    )
+  }
+
+
+  else if (props.title == 'Governance') {
+    return (
+      <div className={styles.box}>
+
+
+          <a
+            className={styles.links}
+            href="../../../develop/tutorials/governance/staking-unstaking-astro"
+          >
+            <Box
+              title={boxProps.governance.stakingUnstakingASTROxASTRO.title}
+              description={boxProps.governance.stakingUnstakingASTROxASTRO.description}
+              image={boxProps.governance.stakingUnstakingASTROxASTRO.image}
+              list={boxProps.governance.stakingUnstakingASTROxASTRO.list}
+            />
+          </a>
+
+
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/governance/submitting-a-proposal"
+        >
+        <Box
+          title={boxProps.governance.submittingAProposal.title}
+          description={boxProps.governance.submittingAProposal.description}
+          image={boxProps.governance.submittingAProposal.image}
+          list={boxProps.governance.submittingAProposal.list}
+        />
+        </a>
+
+        <a
+            className={styles.links}
+            href="../../../develop/tutorials/governance/voting"
+          >
+            <Box
+              title={boxProps.governance.voting.title}
+              description={boxProps.governance.voting.description}
+              image={boxProps.governance.voting.image}
+              list={boxProps.governance.voting.list}
+            />
+          </a>
+
+      </div>
+    )
+  }
 
 }

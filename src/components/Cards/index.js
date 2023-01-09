@@ -97,9 +97,48 @@ export default function ContentBlocks({ image, title, text, children }) {
   else if (title === 'Tokenomics') {
     return (
       <div>
-        {/* <h2 className={styles.title}>{title}</h2>
-        <p className={styles.text}>{text}</p> */}
         <ContentBox title="Tokenomics" />
+      </div>
+    );
+  }
+
+  else if (title === 'Tutorials') {
+    return (
+      <div>
+        <ContentBox title="Tutorials" />
+      </div>
+    );
+  }
+
+
+  else if (title === 'Network') {
+    return (
+      <div>
+        <ContentBox title="Network" />
+      </div>
+    );
+  }
+
+  else if (title === 'Trading') {
+    return (
+      <div>
+        <ContentBox title="Trading" />
+      </div>
+    );
+  }
+
+  else if (title === 'Farming') {
+    return (
+      <div>
+        <ContentBox title="Farming" />
+      </div>
+    );
+  }
+
+  else if (title === 'Governance') {
+    return (
+      <div>
+        <ContentBox title="Governance" />
       </div>
     );
   }
