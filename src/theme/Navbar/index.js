@@ -11,10 +11,19 @@ import { APP_URL, SOCIAL_MEDIA_LINKS } from '../../constants';
 const NavigationItems = () => {
   return (
     <div className="flex gap-x-9">
-      <a>Blog</a>
-      <a>Community</a>
-      <a>Docs</a>
-      <a>Governance</a>
+      <a
+      href='https://blog.astroport.fi/'
+      >
+        Blog</a>
+      {/* <a>Community</a> */}
+      <a
+      href='../../'
+      >
+      Docs</a>
+      <a
+      href='https://forum.astroport.fi/'
+      >
+      Forum</a>
     </div>
   );
 };

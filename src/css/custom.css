@@ -67,6 +67,9 @@
 
   --ifm-table-border-color: rgba(217, 217, 217, 0.2);
   --ifm-table-cell-padding: 1.25rem;
+
+  --ifm-navbar-link-color: rgba(255, 255, 255, 0.6);
+  --ifm-navbar-link-hover-color: rgba(255, 255, 255, 1);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -275,18 +278,28 @@ button.button.button--secondary.button--outline {
   backdrop-filter: none !important;
 }
 
-.navbar__brand {
+/* .navbar__brand {
   color: rgba(255, 255, 255, 0.9);
 }
 
 .navbar__brand:hover {
   color: rgba(255, 255, 255, 1);
-}
+} */
 
 .navbar__link:hover {
-  /* color: white; */
   font-weight: var(--ifm-font-weight-bold);
 }
+
+.navbar__link:active {
+  color: var(--ifm-navbar-link-hover-color);
+  text-decoration: none;
+}
+
+.navbar__item.navbar__link.navbar__link--active {
+  color: rgb(255, 255, 255, 1);
+  font-weight: var(--ifm-font-weight-bold);
+}
+
 
 /* b.navbar__title.text--truncate:hover {
   font-weight: bold; 
@@ -564,6 +577,8 @@ a.links_src-components-Cards-ContentBox-styles-module:hover {
   display: inline-block;
   text-decoration: none;
 }
+
+
 
 /* a.div.box_src-components-Cards-ContentBox-Box-styles-module {
   text-decoration: none;
