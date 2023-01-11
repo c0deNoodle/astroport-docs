@@ -1,15 +1,9 @@
 .box {
   display: flex;
   height: 252px;
-
   background: rgba(255, 255, 255, 0.05);
-  /* backgroundblur */
-
   backdrop-filter: blur(10.5px);
-  /* Note: backdrop-filter has minimal browser support */
-
   border-radius: 16px;
-  margin: 12px;
 }
 
 .box:hover {
@@ -100,7 +94,7 @@ ul.list {
 }
 
 ul.list li:before {
-  content: '';
+  content: "";
   position: absolute;
   border-right: 2px solid rgba(255, 255, 255, 0.4);
   border-bottom: 2px solid rgba(255, 255, 255, 0.4);

@@ -1,19 +1,8 @@
 .title {
   text-align: center;
   font-size: 40px;
-  font-family: 'Whyte';
+  font-family: "Whyte";
   margin-bottom: 12px;
-}
-
-.text {
-  padding-left: 25%;
-  padding-right: 25%;
-  text-align: center;
-  font-size: 18px;
-  color: #fff;
-  opacity: 0.6;
-  font-family: 'Inter';
-  margin-bottom: 40px;
 }
 
 .figs {

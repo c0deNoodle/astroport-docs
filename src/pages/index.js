@@ -1,23 +1,23 @@
-import React from 'react';
-import Lottie from 'lottie-react';
-import clsx from 'clsx';
+import React from "react";
+import Lottie from "lottie-react";
+import clsx from "clsx";
 // import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Layout from '@theme/Layout';
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import Layout from "@theme/Layout";
 // import HomepageFeatures from '@site/src/components/HomepageFeatures';
-import BannerUrl from '@site/static/img/banner.png';
-import ChadUrl from '@site/static/img/astrochad.png';
+import BannerUrl from "@site/static/img/banner.png";
+import ChadUrl from "@site/static/img/astrochad.png";
 // import PepeUrl from '@site/static/img/astropepe.png';
-import AssemblyUrl from '@site/static/img/assembly.png';
+import AssemblyUrl from "@site/static/img/assembly.png";
 // import SearchBar from '@theme/SearchBar';
-import * as animationHero from '@site/static/hero.json';
+import * as animationHero from "@site/static/hero.json";
 
-import styles from './index.module.css';
+import styles from "./index.module.css";
 
-import RadialGradient from '../components/RadialGradient';
-import ContentBlocks from '../components/ContentBlocks';
-import AstroChad from '../components/AstroChad';
-import Satellites from '../components/Satellites';
+import RadialGradient from "../components/RadialGradient";
+import ContentBlocks from "../components/ContentBlocks";
+import AstroChad from "../components/AstroChad";
+import Satellites from "../components/Satellites";
 
 // function HomepageHeader() {
 //   const {siteConfig} = useDocusaurusContext();
@@ -73,9 +73,8 @@ export default function Home() {
   return (
     <Layout>
       <RadialGradient />
-      <div className="relative z-10 py-8 lg:py-12">
+      <main className="relative z-10 py-8 lg:py-12 px-4 overflow-x-hidden">
         <HomepageHeader />
-        <main>{/* <HomepageFeatures /> */}</main>
 
         {/* 
       <div className={styles.pepe}>
@@ -107,7 +106,7 @@ export default function Home() {
             <AstroChad />
           </div>
         </ContentBlocks>
-      </div>
+      </main>
     </Layout>
   );
 }
