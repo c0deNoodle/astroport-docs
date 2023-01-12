@@ -113,18 +113,9 @@ const boxProps = {
 };
 
 export default function ContentBox(props) {
-  if (props.title == "Getting Started") {
+  if (props.title == "Learn") {
     return (
-      <div className={styles.box}>
-        <Box />
-        <Box />
-        <Box />
-        <Box />
-      </div>
-    );
-  } else if (props.title == "Learn") {
-    return (
-      <div className={styles.box}>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         <a className={styles.links} href="../../docs/learn/astro-pools/astro-pools-intro">
           <Box
             title={boxProps.learn.astroPools.title}
@@ -173,7 +164,7 @@ export default function ContentBox(props) {
     );
   } else if (props.title == "Govern") {
     return (
-      <div className={styles.box}>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         <a className={styles.links} href="../../docs/govern/astroport-improvement-proposal-framework">
           <Box
             title={boxProps.govern.aipf.title}
@@ -204,7 +195,7 @@ export default function ContentBox(props) {
     );
   } else if (props.title == "Develop") {
     return (
-      <div className={styles.box}>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         <a className={styles.links} href="../../docs/develop/backend">
           <Box
             title={boxProps.develop.backend.title}

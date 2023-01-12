@@ -19,25 +19,6 @@ import ContentBox from "../components/ContentBox";
 import AstroChad from "../components/AstroChad";
 import Satellites from "../components/Satellites";
 
-// function HomepageHeader() {
-//   const {siteConfig} = useDocusaurusContext();
-//   return (
-//     <header className={clsx('hero hero--primary', styles.heroBanner)}>
-//       <div className="container">
-//         <h1 className="hero__title">{siteConfig.title}</h1>
-//         <p className="hero__subtitle">{siteConfig.tagline}</p>
-//         <div className={styles.buttons}>
-//           <Link
-//             className="button button--secondary button--lg"
-//             to="/docs/intro">
-//             Docusaurus Tutorial - 5min ⏱️
-//           </Link>
-//         </div>
-//       </div>
-//     </header>
-//   );
-// }
-
 const subheaderClasses = "opacity-60 md:px-[25%] mb-10 text-lg text-center";
 
 function HomepageHeader() {
@@ -75,7 +56,7 @@ export default function Home() {
   return (
     <Layout>
       <RadialGradient />
-      <main className="relative z-10 py-8 lg:py-12 px-4 overflow-x-hidden">
+      <main className="relative z-10 py-8 lg:py-12 overflow-x-hidden">
         <HomepageHeader />
 
         {/* 
@@ -84,7 +65,7 @@ export default function Home() {
       </div> */}
 
         {/* <img src="/img/banner.png" /> */}
-        <div className="flex flex-col gap-y-10">
+        <div className="flex flex-col gap-y-10 container w-full mx-auto">
           <div className="max-w-xl w-full mx-auto">
             <Lottie animationData={animationHero} />
           </div>
