@@ -15,7 +15,7 @@ import * as animationHero from "@site/static/hero.json";
 import styles from "./index.module.css";
 
 import RadialGradient from "../components/RadialGradient";
-import ContentBlocks from "../components/ContentBlocks";
+import ContentBox from "../components/ContentBox";
 import AstroChad from "../components/AstroChad";
 import Satellites from "../components/Satellites";
 
@@ -37,6 +37,8 @@ import Satellites from "../components/Satellites";
 //     </header>
 //   );
 // }
+
+const subheaderClasses = "opacity-60 md:px-[25%] mb-10 text-lg text-center";
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -88,32 +90,37 @@ export default function Home() {
           </div>
 
           <div>
-            <ContentBlocks
-              title="Learn"
-              text="Get ready to explore the vast universe of Astroport. Dive in and discover all the ways you can deepen your understanding of Astroport, whether you're a beginner just starting your DeFi journey or a seasoned pro looking to expand your AMM knowledge."
-            />
-          </div>
-
-          <div className="max-w-[600px] w-full mx-auto aspect-square pb-[6rem]">
-            <Satellites />
-          </div>
-
-          <div>
-            <ContentBlocks
-              title="Govern"
-              text="Discover how to propose contributions as an active community member to the Astroport governing body, the Astral Assembly."
-            ></ContentBlocks>
-          </div>
-
-          <div className="max-w-[600px] w-full mx-auto aspect-square">
-            <AstroChad />
+            <h2 className={styles.title}>Learn</h2>
+            <p className={subheaderClasses}>
+              Get ready to explore the vast universe of Astroport. Dive in and discover all the ways you can deepen your
+              understanding of Astroport, whether you're a beginner just starting your DeFi journey or a seasoned pro
+              looking to expand your AMM knowledge.
+            </p>
+            <ContentBox title="Learn" />
           </div>
 
           <div>
-            <ContentBlocks
-              title="Develop"
-              text="Expand your developer skills and explore the exciting realm of Astroport's code base with detailed explanations and tutorials."
-            ></ContentBlocks>
+            <div className="max-w-[600px] w-full mx-auto aspect-square mb-10">
+              <Satellites />
+            </div>
+            <h2 className={styles.title}>Govern</h2>
+            <p className={subheaderClasses}>
+              Discover how to propose contributions as an active community member to the Astroport governing body, the
+              Astral Assembly.
+            </p>
+            <ContentBox title="Govern" />
+          </div>
+
+          <div>
+            <div className="max-w-[600px] w-full mx-auto aspect-square">
+              <AstroChad />
+            </div>
+            <h2 className={styles.title}>Develop</h2>
+            <p className={subheaderClasses}>
+              Expand your developer skills and explore the exciting realm of Astroport's code base with detailed
+              explanations and tutorials.
+            </p>
+            <ContentBox title="Develop" />
           </div>
         </div>
       </main>
