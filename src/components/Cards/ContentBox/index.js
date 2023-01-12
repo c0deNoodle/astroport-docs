@@ -393,7 +393,7 @@ const boxProps = {
 export default function ContentBox(props) {
   if (props.title == "Getting Started") {
     return (
-      <div className={styles.box}>
+      <div className="grid md:grid-cols-2 gap-3">
         <Box />
         <Box />
         <Box />
@@ -402,7 +402,7 @@ export default function ContentBox(props) {
     );
   } else if (props.title == "Learn") {
     return (
-      <div className={styles.box}>
+      <div className="grid md:grid-cols-2 gap-3">
         <a className={styles.links} href="../../../docs/learn/astro-pools/astro-pools-intro">
           <Box
             title={boxProps.learn.astroPools.title}
@@ -451,81 +451,69 @@ export default function ContentBox(props) {
     );
   } else if (props.title == "Govern") {
     return (
-      <div className={styles.box}>
-        <div>
-          <a className={styles.links} href="../../../docs/govern/astroport-improvement-proposal-framework">
-            <Box
-              title={boxProps.govern.aipf.title}
-              description={boxProps.govern.aipf.description}
-              image={boxProps.govern.aipf.image}
-              list={boxProps.govern.aipf.list}
-            />
-          </a>
-        </div>
+      <div className="grid md:grid-cols-2 gap-3">
+        <a className={styles.links} href="../../../docs/govern/astroport-improvement-proposal-framework">
+          <Box
+            title={boxProps.govern.aipf.title}
+            description={boxProps.govern.aipf.description}
+            image={boxProps.govern.aipf.image}
+            list={boxProps.govern.aipf.list}
+          />
+        </a>
 
-        <div>
-          <a className={styles.links} href="../../../docs/govern/astroport-incentive-framework">
-            <Box
-              title={boxProps.govern.aif.title}
-              description={boxProps.govern.aif.description}
-              image={boxProps.govern.aif.image}
-              list={boxProps.govern.aif.list}
-            />
-          </a>
-        </div>
+        <a className={styles.links} href="../../../docs/govern/astroport-incentive-framework">
+          <Box
+            title={boxProps.govern.aif.title}
+            description={boxProps.govern.aif.description}
+            image={boxProps.govern.aif.image}
+            list={boxProps.govern.aif.list}
+          />
+        </a>
 
-        <div>
-          <a className={styles.links} href="../../../docs/govern/proposal-messages/proposal-messages-intro">
-            <Box
-              title={boxProps.govern.proposalMessages.title}
-              description={boxProps.govern.proposalMessages.description}
-              image={boxProps.govern.proposalMessages.image}
-              list={boxProps.govern.proposalMessages.list}
-            />
-          </a>
-        </div>
+        <a className={styles.links} href="../../../docs/govern/proposal-messages/proposal-messages-intro">
+          <Box
+            title={boxProps.govern.proposalMessages.title}
+            description={boxProps.govern.proposalMessages.description}
+            image={boxProps.govern.proposalMessages.image}
+            list={boxProps.govern.proposalMessages.list}
+          />
+        </a>
       </div>
     );
   } else if (props.title == "Develop") {
     return (
-      <div className={styles.box}>
-        <div>
-          <a className={styles.links} href="../../../docs/develop/backend">
-            <Box
-              title={boxProps.develop.backend.title}
-              description={boxProps.develop.backend.description}
-              image={boxProps.develop.backend.image}
-              list={boxProps.develop.backend.list}
-            />
-          </a>
-        </div>
+      <div className="grid md:grid-cols-2 gap-3">
+        <a className={styles.links} href="../../../docs/develop/backend">
+          <Box
+            title={boxProps.develop.backend.title}
+            description={boxProps.develop.backend.description}
+            image={boxProps.develop.backend.image}
+            list={boxProps.develop.backend.list}
+          />
+        </a>
 
-        <div>
-          <a className={styles.links} href="../../../docs/develop/smart-contracts/smart-contracts-intro">
-            <Box
-              title={boxProps.develop.smartContracts.title}
-              description={boxProps.develop.smartContracts.description}
-              image={boxProps.develop.smartContracts.image}
-              list={boxProps.develop.smartContracts.list}
-            />
-          </a>
-        </div>
+        <a className={styles.links} href="../../../docs/develop/smart-contracts/smart-contracts-intro">
+          <Box
+            title={boxProps.develop.smartContracts.title}
+            description={boxProps.develop.smartContracts.description}
+            image={boxProps.develop.smartContracts.image}
+            list={boxProps.develop.smartContracts.list}
+          />
+        </a>
 
-        <div>
-          <a className={styles.links} href="../../../docs/develop/tutorials/tutorials-intro">
-            <Box
-              title={boxProps.develop.tutorials.title}
-              description={boxProps.develop.tutorials.description}
-              image={boxProps.develop.tutorials.image}
-              list={boxProps.develop.tutorials.list}
-            />
-          </a>
-        </div>
+        <a className={styles.links} href="../../../docs/develop/tutorials/tutorials-intro">
+          <Box
+            title={boxProps.develop.tutorials.title}
+            description={boxProps.develop.tutorials.description}
+            image={boxProps.develop.tutorials.image}
+            list={boxProps.develop.tutorials.list}
+          />
+        </a>
       </div>
     );
   } else if (props.title == "Workstation") {
     return (
-      <div className={styles.box}>
+      <div className="grid md:grid-cols-2 gap-3">
         <a className={styles.links} href="../../../docs/learn/workstation/starter-pack/starter-pack-intro">
           <Box
             title={boxProps.workstation.starterPack.title}
@@ -565,7 +553,7 @@ export default function ContentBox(props) {
     );
   } else if (props.title == "Starter Pack") {
     return (
-      <div className={styles.box}>
+      <div className="grid md:grid-cols-2 gap-3">
         <a
           className={styles.links}
           href="../../../learn/workstation/starter-pack/creating-a-wallet/creating-a-wallet-intro"
@@ -599,7 +587,7 @@ export default function ContentBox(props) {
     );
   } else if (props.title == "Creating a Wallet") {
     return (
-      <div className={styles.box}>
+      <div className="grid md:grid-cols-2 gap-3">
         <a className={styles.links} href="../../../workstation/starter-pack/creating-a-wallet/terra-station">
           <Box
             title={boxProps.creatingAWallet.terraStation.title}
@@ -621,7 +609,7 @@ export default function ContentBox(props) {
     );
   } else if (props.title == "Farmers Fields") {
     return (
-      <div className={styles.box}>
+      <div className="grid md:grid-cols-2 gap-3">
         <a className={styles.links} href="../../../learn/workstation/farmers-fields/creating-a-pool">
           <Box
             title={boxProps.farmersFields.creatingAPool.title}
@@ -652,7 +640,7 @@ export default function ContentBox(props) {
     );
   } else if (props.title == "Traders Port") {
     return (
-      <div className={styles.box}>
+      <div className="grid md:grid-cols-2 gap-3">
         <a className={styles.links} href="../../../learn/workstation/traders-port/swap">
           <Box
             title={boxProps.tradersPort.swap.title}
@@ -674,7 +662,7 @@ export default function ContentBox(props) {
     );
   } else if (props.title == "Astral Assembly") {
     return (
-      <div className={styles.box}>
+      <div className="grid md:grid-cols-2 gap-3">
         <a className={styles.links} href="../../../learn/workstation/astral-assembly/staking-unstaking">
           <Box
             title={boxProps.astralAssembly.stakingUnstakingASTROxASTRO.title}
@@ -705,7 +693,7 @@ export default function ContentBox(props) {
     );
   } else if (props.title == "Tokenomics") {
     return (
-      <div className={styles.box}>
+      <div className="grid md:grid-cols-2 gap-3">
         <a className={styles.links} href="../../../develop/smart-contracts/tokenomics/generator">
           <Box
             title={boxProps.tokenomics.generator.title}
@@ -763,7 +751,7 @@ export default function ContentBox(props) {
     );
   } else if (props.title == "Tutorials") {
     return (
-      <div className={styles.box}>
+      <div className="grid md:grid-cols-2 gap-3">
         <a className={styles.links} href="../../../docs/develop/tutorials/network/network-intro">
           <Box
             title={boxProps.tutorials.network.title}
@@ -803,7 +791,7 @@ export default function ContentBox(props) {
     );
   } else if (props.title == "Network") {
     return (
-      <div className={styles.box}>
+      <div className="grid md:grid-cols-2 gap-3">
         <a className={styles.links} href="../../../develop/tutorials/network/cosmos-chains">
           <Box
             title={boxProps.network.cosmosChains.title}
@@ -843,7 +831,7 @@ export default function ContentBox(props) {
     );
   } else if (props.title == "Trading") {
     return (
-      <div className={styles.box}>
+      <div className="grid md:grid-cols-2 gap-3">
         <a className={styles.links} href="../../../develop/tutorials/trading/swapping">
           <Box
             title={boxProps.trading.swapping.title}
@@ -865,7 +853,7 @@ export default function ContentBox(props) {
     );
   } else if (props.title == "Farming") {
     return (
-      <div className={styles.box}>
+      <div className="grid md:grid-cols-2 gap-3">
         <a className={styles.links} href="../../../develop/tutorials/farming/creating-a-pair">
           <Box
             title={boxProps.farming.creatingAPair.title}
@@ -905,7 +893,7 @@ export default function ContentBox(props) {
     );
   } else if (props.title == "Governance") {
     return (
-      <div className={styles.box}>
+      <div className="grid md:grid-cols-2 gap-3">
         <a className={styles.links} href="../../../develop/tutorials/governance/staking-unstaking-astro">
           <Box
             title={boxProps.governance.stakingUnstakingASTROxASTRO.title}

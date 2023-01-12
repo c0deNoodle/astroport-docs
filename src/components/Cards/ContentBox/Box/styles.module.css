@@ -1,9 +1,6 @@
 .box {
   display: flex;
   height: 136px;
-  /* width: 273px; */
-  /* width: 308px; */
-  width: 395px;
 
   /* height: 136px;
   width: 364px; */
@@ -18,7 +15,6 @@
   /* Note: backdrop-filter has minimal browser support */
 
   border-radius: 16px;
-  margin: 12px;
 }
 
 .box:hover {
@@ -54,7 +50,6 @@
 .links a {
   width: 420px !important;
 }
-
 
 .box:hover .links {
   color: rgba(255, 255, 255, 0.9);
@@ -115,7 +110,7 @@ ul.list {
 }
 
 ul.list li:before {
-  content: '';
+  content: "";
   position: absolute;
   border-right: 2px solid rgba(255, 255, 255, 0.4);
   border-bottom: 2px solid rgba(255, 255, 255, 0.4);
