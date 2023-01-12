@@ -1,0 +1,135 @@
+.box {
+  display: flex;
+  height: 136px;
+  /* width: 273px; */
+  /* width: 308px; */
+  width: 395px;
+
+  /* height: 136px;
+  width: 364px; */
+
+  /* height: 252px;
+  width: 547.3px; */
+
+  background: rgba(255, 255, 255, 0.05);
+  /* backgroundblur */
+
+  backdrop-filter: blur(10.5px);
+  /* Note: backdrop-filter has minimal browser support */
+
+  border-radius: 16px;
+  margin: 12px;
+}
+
+.box:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: all var(--ifm-transition-fast) ease;
+}
+
+.box:hover .title {
+  color: rgba(255, 255, 255, 1);
+  font-weight: bold;
+}
+
+.box:hover .subtext {
+  color: rgba(255, 255, 255, 0.9);
+  /* font-weight: bold; */
+}
+
+.box:hover ul.list li:before {
+  border-right: 2px solid rgba(255, 255, 255, 0.9);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.9);
+  /* font-weight: bold; */
+}
+
+.box:hover .fig {
+  opacity: 1;
+}
+
+.links {
+  color: rgba(255, 255, 255, 0.4);
+  width: 420px !important;
+}
+
+.links a {
+  width: 420px !important;
+}
+
+
+.box:hover .links {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+ul.list li:hover {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+/* remove later - just to test home screen */
+.box:hover .list {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* .links:hover {
+    color: rgba(255, 255, 255, 1); 
+} */
+
+.title {
+  font-size: 16.875px;
+  margin-bottom: 8px;
+}
+
+.fig {
+  margin-top: 8%;
+  margin-left: 4%;
+  opacity: 0.4;
+  width: 76px;
+  height: 76px;
+}
+
+.text {
+  margin-top: 4%;
+  margin-left: 4%;
+}
+
+.subtext {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 13.3333px;
+  padding-right: 5%;
+  margin-bottom: 20px;
+}
+
+.list {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 15px;
+  padding-left: 32px;
+}
+
+ul.list li {
+  position: relative;
+  padding-bottom: 10px;
+}
+
+ul.list {
+  list-style: none;
+}
+
+ul.list li:before {
+  content: '';
+  position: absolute;
+  border-right: 2px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  width: 5px;
+  height: 5px;
+  top: calc(50% - 4px);
+  left: -30px;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+/* .box a {
+  display: inline-block;
+} */
+
+/* .box a {
+  text-decoration: none !important;
+} */

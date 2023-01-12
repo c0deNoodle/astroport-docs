@@ -52,7 +52,7 @@ Performs a native swap in a given pool.
 
         For native swaps, you need to send the `native_token` along with the transaction message.
         
-        The code in this section is an example of what a `swap` message may look like using [feather.js](../tutorials-intro) to send `Coins` with our transaction. 
+        The code in this section is an example of what a `swap` message may look like using [feather.js](../network/terra-2#featherjs) to send `Coins` with our transaction. 
 
         ```js
         const astrolunaAddress = "terra1udsua9w6jljwxwgwsegvt6v657rg3ayfvemupnes7lrggd28s0wq7g8azm";
@@ -146,7 +146,7 @@ Performs a native swap in a given pool.
 
         {/* Once we have the amount of each asset in the pool. we can calculate the `belief_price` and input the result into our execute message.  */}
 
-        The code in this section is an example of using [feather.js](../tutorials-intro) to query the pair contract, perform calculations with our response, and store the results in a variable to use as an input for our swap message.  
+        The code in this section is an example of using [feather.js](../network/terra-2#featherjs) to query the pair contract, perform calculations with our response, and store the results in a variable to use as an input for our swap message.  
 
         {/* ```js
         const { assets } = await lcd.wasm.contractQuery(
@@ -196,7 +196,7 @@ Performs a native swap in a given pool.
 
         Depending on the token decimal for the assets you are swapping, you may need to normalize the response from the `simulation` query before passing it into your `swap` message. 
 
-        The code in this section is an example of using [feather.js](../tutorials-intro) to perform the `simulation` query, normalize the response, and store the results for later usage.
+        The code in this section is an example of using [feather.js](../network/terra-2#featherjs) to perform the `simulation` query, normalize the response, and store the results for later usage.
 
         ```js 
         const astrolunaAddress = "terra1udsua9w6jljwxwgwsegvt6v657rg3ayfvemupnes7lrggd28s0wq7g8azm";
@@ -291,7 +291,7 @@ Performs a CW20 swap in a given pool.
 
         #### `toBase64` Encoder
 
-        The code in this section is an example of what a `send` message may look like [feather.js](../tutorials-intro#featherjs) to define our custom function and encode our message. 
+        The code in this section is an example of what a `send` message may look like [feather.js](../network/terra-2#featherjs) to define our custom function and encode our message. 
 
         ```js
         const toBase64 = (obj) => {

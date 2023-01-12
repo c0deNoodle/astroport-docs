@@ -1,7 +1,5 @@
 {
     "label": "Astral Assembly",
     "position": 4,
-    "link": {
-      "type": "generated-index"
-    }
+    "link": { "type": "doc", "id": "astral-assembly-intro" }
 }

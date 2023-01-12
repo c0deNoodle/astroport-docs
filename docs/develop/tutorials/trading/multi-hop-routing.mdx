@@ -77,7 +77,7 @@ Use when the initial offer asset is a Cosmos native token.
 
         Since our initial offer token is a native asset, we need to send the native token along with the transaction message.
 
-        The code in this section is an example of what a complete swap message may look like using feather.js to send Coins with our transaction.
+        The code in this section is an example of what a complete swap message may look like using [feather.js](../network/terra-2#featherjs) to send Coins with our transaction.
 
         ```js focus=1:40,44:59
         // testnet contract addresses
@@ -401,7 +401,7 @@ Use when the initial offer asset is a CW20 token.
 
         #### `toBase64` Encoder
 
-        The code in this section is an example of what a `send` message may look like [feather.js](../tutorials-intro#featherjs) to define our custom function and encode our message.
+        The code in this section is an example of what a `send` message may look like [feather.js](../network/terra-2#featherjs) to define our custom function and encode our message.
 
         ```js
         const toBase64 = (obj) => {

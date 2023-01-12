@@ -1,0 +1,25 @@
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* text-decoration: none !important; */
+}
+/* 
+.links:hover {
+  all: unset;
+} */
+
+
+.box a {
+  text-decoration: none !important;
+}
+
+.starterPack {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.links {
+  text-decoration: none;
+}

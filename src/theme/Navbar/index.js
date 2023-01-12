@@ -11,10 +11,19 @@ import { APP_URL, SOCIAL_MEDIA_LINKS } from '../../constants';
 const NavigationItems = () => {
   return (
     <div className="flex gap-x-9">
-      <a>Blog</a>
-      <a>Community</a>
-      <a>Docs</a>
-      <a>Governance</a>
+      <a
+      href='https://blog.astroport.fi/'
+      >
+        Blog</a>
+      {/* <a>Community</a> */}
+      <a
+      href='../../'
+      >
+      Docs</a>
+      <a
+      href='https://forum.astroport.fi/'
+      >
+      Forum</a>
     </div>
   );
 };
@@ -45,7 +54,7 @@ export default function NavbarWrapper(props) {
   return (
     <>
       <div className="hidden md:flex justify-end items-center h-[90px] px-4 md:px-6 z-10">
-        <Link href="/" className="h-[32px] mr-auto">
+        <Link href="/" className="h-[32px] mr-auto pl-[1rem]">
           <img src="/img/logo.svg" alt="logo" />
         </Link>
         <div className="flex gap-16 items-center">

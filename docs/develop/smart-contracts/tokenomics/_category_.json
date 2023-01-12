@@ -1,7 +1,5 @@
 {
     "label": "Tokenomics",
     "position": 8,
-    "link": {
-      "type": "generated-index"
-    }
+    "link": { "type": "doc", "id": "tokenomics-intro" }
 }

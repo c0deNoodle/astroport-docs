@@ -15,7 +15,17 @@ export default function ContentBlocks({ image, title, text, children }) {
     );
   }
 
-  return (
+  else if (title === 'Govern') {
+    return (
+      <div>
+        <h2 className={styles.title}>{title}</h2>
+        <p className={styles.text}>{text}</p>
+        <ContentBox title="Govern" />
+      </div>
+    );
+  }
+
+  else return (
     <div>
       {children}
       <h2 className={styles.title}>{title}</h2>

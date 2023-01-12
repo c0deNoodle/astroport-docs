@@ -59,7 +59,96 @@ export default function Box(props) {
         </div>
       </div>
     );
-  } else if (props.list == 'Astro Generators') {
+  } else if (props.list == 'Workstation') {
+    return (
+      <div className={styles.box}>
+        <div className={styles.fig}>
+          <img src={props.image} />
+        </div>
+
+        <div className={styles.text}>
+          <p className={styles.title}>{props.title}</p>
+          <p className={styles.subtext}>{props.description}</p>
+          <ul className={styles.list}>
+            <li>
+              <a
+                className={styles.links}
+                href="../../../../docs/learn/category/starter-pack"
+              >
+                Starter Pack
+              </a>
+            </li>
+
+            <li>
+              <a
+                className={styles.links}
+                href="../../../../docs/learn/category/farmers-fields"
+              >
+                Farmers Fields
+              </a>
+            </li>
+
+            <li>
+              <a
+                className={styles.links}
+                href="../../../../docs/learn/category/traders-port"
+              >
+                Traders Port
+              </a>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    );  
+  } else if (props.list == 'Tutorials') {
+    return (
+      <div className={styles.box}>
+        <div className={styles.fig}>
+          <img src={props.image} />
+        </div>
+
+        <div className={styles.text}>
+          <p className={styles.title}>{props.title}</p>
+          <p className={styles.subtext}>{props.description}</p>
+          <ul className={styles.list}>
+
+            <li>
+              <a
+                className={styles.links}
+                href="../../../../docs/develop/category/trading"
+              >
+                Trading
+              </a>
+            </li>
+
+            <li>
+              <a
+                className={styles.links}
+                href="../../../../docs/develop/category/farming"
+              >
+                Farming
+              </a>
+            </li>
+
+            <li>
+              <a
+                className={styles.links}
+                href="../../../../docs/develop/category/governance"
+              >
+                Governance
+              </a>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    );
+  }
+  
+  
+  
+  else if (props.list == 'Astro Generators') {
     return (
       <div className={styles.box}>
         <div className={styles.fig}>
@@ -113,7 +202,16 @@ export default function Box(props) {
             <li>
               <a
                 className={styles.links}
-                href="../../../../docs/learn/tokenomics/fees"
+                href="../../../../docs/learn/astro-tokenomics/utility"
+              >
+                Utility
+              </a>
+            </li>
+
+            <li>
+              <a
+                className={styles.links}
+                href="../../../../docs/learn/astro-tokenomics/fees"
               >
                 Fees
               </a>
@@ -122,16 +220,7 @@ export default function Box(props) {
             <li>
               <a
                 className={styles.links}
-                href="../../../../docs/learn/tokenomics/staking-and-locking"
-              >
-                Staking & Locking
-              </a>
-            </li>
-
-            <li>
-              <a
-                className={styles.links}
-                href="../../../../docs/learn/tokenomics/allocation"
+                href="../../../../docs/learn/astro-tokenomics/allocation"
               >
                 Allocation
               </a>
@@ -188,29 +277,30 @@ export default function Box(props) {
             <li>
               <a
                 className={styles.links}
-                href="../../../../docs/govern/proposal-messages/fine-tuning-allocation-points"
+                href="../../../../docs/govern/proposal-messages/astro-allocation-points"
               >
-                ASTRO Emissions
+                ASTRO Allocation Points
               </a>
             </li>
 
             <li>
               <a
                 className={styles.links}
-                href="../../../../docs/govern/proposal-messages/integrating-proxy-contracts"
+                href="../../../../docs/govern/proposal-messages/proxy-contracts"
               >
-                Integrating Proxy Contracts
+                Proxy Contracts
               </a>
             </li>
 
             <li>
               <a
                 className={styles.links}
-                href="../../../../docs/govern/proposal-messages/integrating-dual-rewards"
+                href="../../../../docs/govern/proposal-messages/dual-rewards"
               >
                 Dual Rewards
               </a>
             </li>
+
           </ul>
         </div>
       </div>
@@ -251,7 +341,7 @@ export default function Box(props) {
             <li>
               <a
                 className={styles.links}
-                href="../../../../docs/develop/category/swap-pairs"
+                href="../../../../docs/develop/smart-contracts/swap-pairs/swap-pairs-intro"
               >
                 Swap Pairs
               </a>
@@ -274,7 +364,7 @@ export default function Box(props) {
             <li>
               <a
                 className={styles.links}
-                href="../../../../docs/develop/backend/apy-calculation"
+                href="../../../../docs/develop/backend#apy-calculation"
               >
                 APY Calculation
               </a>

@@ -171,7 +171,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       colorMode: {
-        disableSwitch: false,
+        disableSwitch: true,
       },
       docs: {
         sidebar: {

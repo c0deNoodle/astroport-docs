@@ -1,7 +1,5 @@
 {
     "label": "Starter Pack",
     "position": 1,
-    "link": {
-      "type": "generated-index"
-    }
+    "link": { "type": "doc", "id": "starter-pack-intro" }
 }

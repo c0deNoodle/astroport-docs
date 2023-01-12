@@ -1,6 +1,8 @@
 .box {
   display: flex;
   height: 252px;
+  width: 547.3px;
+
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10.5px);
   border-radius: 16px;
@@ -60,11 +62,15 @@ ul.list li:hover {
 }
 
 .fig {
+  position: relative;
   margin-top: 8%;
   margin-left: 4%;
   opacity: 0.4;
   width: 76px;
   height: 76px;
+  /* width: 76px;
+  height: 76px; */
+
 }
 
 .text {
@@ -95,7 +101,7 @@ ul.list {
 }
 
 ul.list li:before {
-  content: "";
+  content: '';
   position: absolute;
   border-right: 2px solid rgba(255, 255, 255, 0.4);
   border-bottom: 2px solid rgba(255, 255, 255, 0.4);

@@ -1,0 +1,98 @@
+---
+sidebar_position: 2
+---
+
+# Terra 2.0
+
+## feather.js
+
+feather.js is a fork of terra.js with interchain capabilities. It can be used to interact with Cosmos blockchains like Terra within JavaScript runtimes, such as Node.js and the browser. To learn more about feather.js and installing the package, look [here](https://docs.terra.money/develop/feather-js/).
+
+### Setup
+
+Getting started takes a few steps: 
+
+- Importing feather.js and relevant classes  
+- An `LCDClient` to connect to the Terra 2 blockchain
+- A `MnemonicKey` to sign and broadcast transactions 
+- A `wallet` (inputs our `MnemonicKey` into our `LCDClient`)
+
+```js 
+import { LCDClient, MnemonicKey, MsgExecuteContract, Coins, Fee } from '@terra-money/feather.js';
+
+const lcd = new LCDClient({
+  // key must be the chainID
+  'pisco-1': {
+    lcd: 'https://pisco-lcd.terra.dev', // testnet lcd
+    chainID: 'pisco-1', // testnet chain-id
+    gasAdjustment: 1.75,
+    gasPrices: { uluna: 0.015 },
+    prefix: 'terra', // bech32 prefix
+  },
+});
+
+const mk = new MnemonicKey({
+  mnemonic: '',
+});
+
+const wallet = lcd.wallet(mk);
+```
+
+### Executing Messages
+
+To execute a contract message, we create a new `MsgExecuteContract` object variable containing our `wallet`, the contract we are sending our message to, our message itself, and any `Coins` to send along with our transaction. 
+
+This object then gets passed into a `tx` variable which creates and signs the transaction. A custom `fee` variable can also be passed in. 
+
+Finally, our transaction gets broadcasted and the result is printed in the console. 
+
+```js
+const contract_address = '<INSERT_CONTRACT_ADDRESS>'; // A terra address on pisco-1
+
+const execute = new MsgExecuteContract(
+  wallet.key.accAddress('terra'),
+  contract_address,
+  {
+    "swap": {
+      "offer_asset": {
+        "info": {
+          "native_token": {
+            "denom": "uluna"
+          }
+        },
+        "amount": "100000"
+      }
+    }
+  }, // Example execute message  
+  new Coins({ uluna: '100000' }) // Coins to send with transaction
+);
+
+// Broadcast transaction
+const fee = new Fee(500000, { uluna: 200000 }); // 
+
+const tx = await wallet.createAndSignTx({
+  msgs: [execute],
+  fee,
+  chainID: 'pisco-1',
+});
+
+const result = await lcd.tx.broadcast(tx, 'pisco-1');
+
+console.log(result);
+```
+
+### Querying Data
+
+To query data from a contract, you just need to make an async call to the `LCDClient` containing the contract to query and the query itself. Note that you don't need a `MnemonicKey` or `wallet` to execute queries. 
+
+
+```js
+const contract_address = '<INSERT_CONTRACT_ADDRESS>'; // A terra address on pisco-1
+
+const query = await lcd.wasm.contractQuery(
+  contract_address, 
+  {
+    "config": {} // Example query
+  }
+).then(result => { console.log(result) }); // Print result 
+```

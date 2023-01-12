@@ -1,7 +1,5 @@
 {
     "label": "Traders Port",
     "position": 3,
-    "link": {
-      "type": "generated-index"
-    }
+    "link": { "type": "doc", "id": "traders-port-intro" }
 }
