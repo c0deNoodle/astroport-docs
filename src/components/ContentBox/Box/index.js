@@ -3,38 +3,13 @@ import clsx from "clsx";
 import styles from "./styles.module.css";
 import IntroUrl from "../../../../static/img/intro.png";
 
-// export default function Box(props) {
-
-//     return (
-//       <div className={styles.box}>
-
-//         <div className={styles.fig}>
-//           <img src={props.image} />
-//         </div>
-
-//         <div className={styles.text}>
-//           <p className={styles.title}>{props.title}</p>
-//           <p className={styles.subtext}>{props.description}</p>
-//           <ul className={styles.list}>
-//             <li>a</li>
-//             <li>a</li>
-//             <li>a</li>
-//           </ul>
-//         </div>
-
-//       </div>
-//     );
-// }
-
 export default function Box(props) {
   if (props.list == "Astro Pools") {
     return (
       <div className={styles.box}>
-        <div className={styles.fig}>
-          <img src={props.image} />
-        </div>
+        <img src={props.image} height={76} width={76} className="opacity-50 mt-4" />
 
-        <div className={styles.text}>
+        <div>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
           <ul className={styles.list}>
@@ -56,11 +31,9 @@ export default function Box(props) {
   } else if (props.list == "Workstation") {
     return (
       <div className={styles.box}>
-        <div className={styles.fig}>
-          <img src={props.image} />
-        </div>
+        <img src={props.image} height={76} width={76} className="opacity-50 self-start mt-4" />
 
-        <div className={styles.text}>
+        <div>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
           <ul className={styles.list}>
@@ -88,11 +61,9 @@ export default function Box(props) {
   } else if (props.list == "Tutorials") {
     return (
       <div className={styles.box}>
-        <div className={styles.fig}>
-          <img src={props.image} />
-        </div>
+        <img src={props.image} height={76} width={76} className="opacity-50 self-start mt-4" />
 
-        <div className={styles.text}>
+        <div>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
           <ul className={styles.list}>
@@ -120,11 +91,9 @@ export default function Box(props) {
   } else if (props.list == "Astro Generators") {
     return (
       <div className={styles.box}>
-        <div className={styles.fig}>
-          <img src={props.image} />
-        </div>
+        <img src={props.image} height={76} width={76} className="opacity-50 self-start mt-4" />
 
-        <div className={styles.text}>
+        <div>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
           <ul className={styles.list}>
@@ -137,11 +106,9 @@ export default function Box(props) {
   } else if (props.list == "Astro Assembly") {
     return (
       <div className={styles.box}>
-        <div className={styles.fig}>
-          <img src={props.image} />
-        </div>
+        <img src={props.image} height={76} width={76} className="opacity-50 self-start mt-4" />
 
-        <div className={styles.text}>
+        <div>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
           <ul className={styles.list}>
@@ -157,11 +124,9 @@ export default function Box(props) {
   } else if (props.list == "Astro Tokenomics") {
     return (
       <div className={styles.box}>
-        <div className={styles.fig}>
-          <img src={props.image} />
-        </div>
+        <img src={props.image} height={76} width={76} className="opacity-50 self-start mt-4" />
 
-        <div className={styles.text}>
+        <div>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
           <ul className={styles.list}>
@@ -189,11 +154,9 @@ export default function Box(props) {
   } else if (props.list == "AIPF") {
     return (
       <div className={styles.box}>
-        <div className={styles.fig}>
-          <img src={props.image} />
-        </div>
+        <img src={props.image} height={76} width={76} className="opacity-50 self-start mt-4" />
 
-        <div className={styles.text}>
+        <div>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
           <ul className={styles.list}>
@@ -206,11 +169,9 @@ export default function Box(props) {
   } else if (props.list == "AIF") {
     return (
       <div className={styles.box}>
-        <div className={styles.fig}>
-          <img src={props.image} />
-        </div>
+        <img src={props.image} height={76} width={76} className="opacity-50 self-start mt-4" />
 
-        <div className={styles.text}>
+        <div>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
           <ul className={styles.list}>
@@ -223,11 +184,9 @@ export default function Box(props) {
   } else if (props.list == "Proposal Messages") {
     return (
       <div className={styles.box}>
-        <div className={styles.fig}>
-          <img src={props.image} />
-        </div>
+        <img src={props.image} height={76} width={76} className="opacity-50 self-start mt-4" />
 
-        <div className={styles.text}>
+        <div>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
           <ul className={styles.list}>
@@ -255,11 +214,9 @@ export default function Box(props) {
   } else if (props.list == "Smart Contracts") {
     return (
       <div className={styles.box}>
-        <div className={styles.fig}>
-          <img src={props.image} />
-        </div>
+        <img src={props.image} height={76} width={76} className="opacity-50 self-start mt-4" />
 
-        <div className={styles.text}>
+        <div>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
           <ul className={styles.list}>
@@ -291,11 +248,9 @@ export default function Box(props) {
   } else if (props.list == "Backend") {
     return (
       <div className={styles.box}>
-        <div className={styles.fig}>
-          <img src={props.image} />
-        </div>
+        <img src={props.image} height={76} width={76} className="opacity-50 self-start mt-4" />
 
-        <div className={styles.text}>
+        <div>
           <p className={styles.title}>{props.title}</p>
           <p className={styles.subtext}>{props.description}</p>
           <ul className={styles.list}>
