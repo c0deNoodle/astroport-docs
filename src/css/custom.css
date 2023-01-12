@@ -146,6 +146,8 @@ textarea {
 
   --ifm-navbar-link-color: rgba(255, 255, 255, 0.6);
   --ifm-navbar-link-hover-color: rgba(255, 255, 255, 1);
+
+  --ifm-color-emphasis-300: rgba(255, 255, 255, 0.3);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -163,10 +165,6 @@ textarea {
 }
 
 /* CSS Global Variables */
-
-body {
-  /* zoom: 80%; */
-}
 
 div.col.col--3 {
   padding: 0px !important;
@@ -194,10 +192,6 @@ ul {
   max-width: 1600px;
   padding-right: 2rem;
   padding-left: 2rem;
-}
-
-.table-of-contents.table-of-contents__left-border {
-  width: fit-content;
 }
 
 .table-of-contents.table-of-contents__left-border li {
