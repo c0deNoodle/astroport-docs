@@ -398,7 +398,8 @@ button.button.button--secondary.button--outline {
 }
 
 table {
-  display: table;
+  width: fit-content;
+  max-width: 100%;
   backdrop-filter: blur(30px);
   background-color: rgba(217, 217, 217, 0.05);
 }
@@ -426,11 +427,6 @@ div.overview-figs:hover {
 .theme-doc-markdown a:hover {
   text-decoration: underline;
   color: white;
-}
-
-div.row {
-  width: 100%;
-  flex-direction: row;
 }
 
 a.links_src-components-Cards-ContentBox-styles-module {
