@@ -1,23 +1,23 @@
-import React from 'react';
-import Lottie from 'lottie-react';
-import clsx from 'clsx';
+import React from "react";
+import Lottie from "lottie-react";
+import clsx from "clsx";
 // import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Layout from '@theme/Layout';
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import Layout from "@theme/Layout";
 // import HomepageFeatures from '@site/src/components/HomepageFeatures';
-import BannerUrl from '@site/static/img/banner.png';
-import ChadUrl from '@site/static/img/astrochad.png';
+import BannerUrl from "@site/static/img/banner.png";
+import ChadUrl from "@site/static/img/astrochad.png";
 // import PepeUrl from '@site/static/img/astropepe.png';
-import AssemblyUrl from '@site/static/img/assembly.png';
+import AssemblyUrl from "@site/static/img/assembly.png";
 // import SearchBar from '@theme/SearchBar';
-import * as animationHero from '@site/static/hero.json';
+import * as animationHero from "@site/static/hero.json";
 
-import styles from './index.module.css';
+import styles from "./index.module.css";
 
-import RadialGradient from '../components/RadialGradient';
-import ContentBlocks from '../components/ContentBlocks';
-import AstroChad from '../components/AstroChad';
-import Satellites from '../components/Satellites';
+import RadialGradient from "../components/RadialGradient";
+import ContentBlocks from "../components/ContentBlocks";
+import AstroChad from "../components/AstroChad";
+import Satellites from "../components/Satellites";
 
 // function HomepageHeader() {
 //   const {siteConfig} = useDocusaurusContext();
@@ -82,37 +82,39 @@ export default function Home() {
       </div> */}
 
         {/* <img src="/img/banner.png" /> */}
-        <div className="max-w-xl w-full mx-auto">
-          <Lottie animationData={animationHero} />
-        </div>
+        <div className="flex flex-col gap-y-10">
+          <div className="max-w-xl w-full mx-auto">
+            <Lottie animationData={animationHero} />
+          </div>
 
-        <div className="pb-[3rem]">
-          <ContentBlocks
-            title="Learn"
-            text="Get ready to explore the vast universe of Astroport. Dive in and discover all the ways you can deepen your understanding of Astroport, whether you're a beginner just starting your DeFi journey or a seasoned pro looking to expand your AMM knowledge."
-          />
-        </div>
+          <div>
+            <ContentBlocks
+              title="Learn"
+              text="Get ready to explore the vast universe of Astroport. Dive in and discover all the ways you can deepen your understanding of Astroport, whether you're a beginner just starting your DeFi journey or a seasoned pro looking to expand your AMM knowledge."
+            />
+          </div>
 
-        <div className="max-w-[600px] w-full mx-auto aspect-square pb-[6rem]">
-          <Satellites />
-        </div>
+          <div className="max-w-[600px] w-full mx-auto aspect-square pb-[6rem]">
+            <Satellites />
+          </div>
 
-        <div className="py-[3rem]">
-          <ContentBlocks
-            title="Govern"
-            text="Discover how to propose contributions as an active community member to the Astroport governing body, the Astral Assembly."
-          ></ContentBlocks>
-        </div>
+          <div>
+            <ContentBlocks
+              title="Govern"
+              text="Discover how to propose contributions as an active community member to the Astroport governing body, the Astral Assembly."
+            ></ContentBlocks>
+          </div>
 
-        <div className="max-w-[600px] w-full mx-auto aspect-square">
-          <AstroChad />
-        </div>
+          <div className="max-w-[600px] w-full mx-auto aspect-square">
+            <AstroChad />
+          </div>
 
-        <div className="pb-[3rem]">
-          <ContentBlocks
-            title="Develop"
-            text="Expand your developer skills and explore the exciting realm of Astroport's code base with detailed explanations and tutorials."
-          ></ContentBlocks>
+          <div>
+            <ContentBlocks
+              title="Develop"
+              text="Expand your developer skills and explore the exciting realm of Astroport's code base with detailed explanations and tutorials."
+            ></ContentBlocks>
+          </div>
         </div>
       </main>
     </Layout>
