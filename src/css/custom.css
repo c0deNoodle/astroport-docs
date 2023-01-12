@@ -18,6 +18,85 @@
   font-style: normal;
 }
 
+/* tailwind preflight styles */
+
+*,
+::before,
+::after {
+  border-width: 0;
+  border-style: solid;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+/* landing page animation keyframes */
+
+@keyframes dex2 {
+  0% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes dex3 {
+  0% {
+    transform: translatey(-10px);
+  }
+
+  50% {
+    transform: translatey(10px) rotate(-10deg);
+  }
+
+  100% {
+    transform: translatey(-10px);
+  }
+}
+
+.dex-3 {
+  animation: dex3 20s infinite linear;
+}
+
+.dex-2 {
+  animation: dex2 200s infinite linear;
+}
+
+@keyframes lp2 {
+  0% {
+    transform: translatey(-10px);
+  }
+
+  50% {
+    transform: translatey(10px);
+  }
+
+  100% {
+    transform: translatey(-10px);
+  }
+}
+
+.lp-2 {
+  animation: lp2 14s infinite linear;
+}
+
+.lp-3 {
+  animation: lp2 6s infinite linear;
+}
+
 /**
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to
@@ -324,87 +403,10 @@ button.button.button--secondary.button--outline {
   text-decoration-style: none;
 }
 
-/* tailwind preflight styles */
-
-*,
-::before,
-::after {
-  border-width: 0;
-  border-style: solid;
-}
-
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: inherit;
-  font-size: 100%;
-  font-weight: inherit;
-  line-height: inherit;
-  color: inherit;
-  margin: 0;
-  padding: 0;
-}
-
 table {
   display: table;
   backdrop-filter: blur(30px);
   background-color: rgba(217, 217, 217, 0.05);
-}
-
-@keyframes dex2 {
-  0% {
-    transform: rotate(360deg);
-  }
-
-  100% {
-    transform: rotate(0deg);
-  }
-}
-
-@keyframes dex3 {
-  0% {
-    transform: translatey(-10px);
-  }
-
-  50% {
-    transform: translatey(10px) rotate(-10deg);
-  }
-
-  100% {
-    transform: translatey(-10px);
-  }
-}
-
-.dex-3 {
-  animation: dex3 20s infinite linear;
-}
-
-.dex-2 {
-  animation: dex2 200s infinite linear;
-}
-
-@keyframes lp2 {
-  0% {
-    transform: translatey(-10px);
-  }
-
-  50% {
-    transform: translatey(10px);
-  }
-
-  100% {
-    transform: translatey(-10px);
-  }
-}
-
-.lp-2 {
-  animation: lp2 14s infinite linear;
-}
-
-.lp-3 {
-  animation: lp2 6s infinite linear;
 }
 
 div.overview-figs {
