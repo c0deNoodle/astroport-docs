@@ -1,8 +1,6 @@
 .box {
   display: flex;
-
   gap: 16px;
-  height: 250px;
 
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10.5px);
@@ -10,6 +8,7 @@
   cursor: pointer;
 
   padding: 16px;
+  height: 100%;
 }
 
 .box:hover {

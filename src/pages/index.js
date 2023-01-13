@@ -65,7 +65,7 @@ export default function Home() {
       </div> */}
 
         {/* <img src="/img/banner.png" /> */}
-        <div className="flex flex-col gap-y-10 container w-full mx-auto">
+        <div className="flex flex-col gap-y-10 px-4 w-full mx-auto">
           <div className="max-w-xl w-full mx-auto">
             <Lottie animationData={animationHero} />
           </div>

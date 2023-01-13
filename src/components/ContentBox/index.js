@@ -115,113 +115,135 @@ const boxProps = {
 export default function ContentBox(props) {
   if (props.title == "Learn") {
     return (
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <a className={styles.links} href="../../docs/learn/astro-pools/astro-pools-intro">
-          <Box
-            title={boxProps.learn.astroPools.title}
-            description={boxProps.learn.astroPools.description}
-            image={boxProps.learn.astroPools.image}
-            list={boxProps.learn.astroPools.list}
-          />
-        </a>
+      <div className="flex flex-wrap justify-center gap-4">
+        <div className="max-w-[550px] w-full h-[250px]">
+          <a className={styles.links} href="../../docs/learn/astro-pools/astro-pools-intro">
+            <Box
+              title={boxProps.learn.astroPools.title}
+              description={boxProps.learn.astroPools.description}
+              image={boxProps.learn.astroPools.image}
+              list={boxProps.learn.astroPools.list}
+            />
+          </a>
+        </div>
 
-        <a className={styles.links} href="../../docs/learn/astro-generators">
-          <Box
-            title={boxProps.learn.astroGenerators.title}
-            description={boxProps.learn.astroGenerators.description}
-            image={boxProps.learn.astroGenerators.image}
-            list={boxProps.learn.astroGenerators.list}
-          />
-        </a>
+        <div className="max-w-[550px] w-full h-[250px]">
+          <a className={styles.links} href="../../docs/learn/astro-generators">
+            <Box
+              title={boxProps.learn.astroGenerators.title}
+              description={boxProps.learn.astroGenerators.description}
+              image={boxProps.learn.astroGenerators.image}
+              list={boxProps.learn.astroGenerators.list}
+            />
+          </a>
+        </div>
 
-        <a className={styles.links} href="../../docs/learn/astral-assembly">
-          <Box
-            title={boxProps.learn.astroAssembly.title}
-            description={boxProps.learn.astroAssembly.description}
-            image={boxProps.learn.astroAssembly.image}
-            list={boxProps.learn.astroAssembly.list}
-          />
-        </a>
+        <div className="max-w-[550px] w-full h-[250px]">
+          <a className={styles.links} href="../../docs/learn/astral-assembly">
+            <Box
+              title={boxProps.learn.astroAssembly.title}
+              description={boxProps.learn.astroAssembly.description}
+              image={boxProps.learn.astroAssembly.image}
+              list={boxProps.learn.astroAssembly.list}
+            />
+          </a>
+        </div>
 
-        <a className={styles.links} href="../../docs/learn/astro-tokenomics/astro-tokenomics-intro">
-          <Box
-            title={boxProps.learn.astroTokenomics.title}
-            description={boxProps.learn.astroTokenomics.description}
-            image={boxProps.learn.astroTokenomics.image}
-            list={boxProps.learn.astroTokenomics.list}
-          />
-        </a>
+        <div className="max-w-[550px] w-full h-[250px]">
+          <a className={styles.links} href="../../docs/learn/astro-tokenomics/astro-tokenomics-intro">
+            <Box
+              title={boxProps.learn.astroTokenomics.title}
+              description={boxProps.learn.astroTokenomics.description}
+              image={boxProps.learn.astroTokenomics.image}
+              list={boxProps.learn.astroTokenomics.list}
+            />
+          </a>
+        </div>
 
-        <a className={styles.links} href="../../docs/learn/workstation/workstation-intro">
-          <Box
-            title={boxProps.learn.workstation.title}
-            description={boxProps.learn.workstation.description}
-            image={boxProps.learn.workstation.image}
-            list={boxProps.learn.workstation.list}
-          />
-        </a>
+        <div className="max-w-[550px] w-full h-[250px]">
+          <a className={styles.links} href="../../docs/learn/workstation/workstation-intro">
+            <Box
+              title={boxProps.learn.workstation.title}
+              description={boxProps.learn.workstation.description}
+              image={boxProps.learn.workstation.image}
+              list={boxProps.learn.workstation.list}
+            />
+          </a>
+        </div>
       </div>
     );
   } else if (props.title == "Govern") {
     return (
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <a className={styles.links} href="../../docs/govern/astroport-improvement-proposal-framework">
-          <Box
-            title={boxProps.govern.aipf.title}
-            description={boxProps.govern.aipf.description}
-            image={boxProps.govern.aipf.image}
-            list={boxProps.govern.aipf.list}
-          />
-        </a>
+      <div className="flex flex-wrap justify-center gap-4">
+        <div className="max-w-[550px] w-full h-[250px]">
+          <a className={styles.links} href="../../docs/govern/astroport-improvement-proposal-framework">
+            <Box
+              title={boxProps.govern.aipf.title}
+              description={boxProps.govern.aipf.description}
+              image={boxProps.govern.aipf.image}
+              list={boxProps.govern.aipf.list}
+            />
+          </a>
+        </div>
 
-        <a className={styles.links} href="../../docs/govern/astroport-incentive-framework">
-          <Box
-            title={boxProps.govern.aif.title}
-            description={boxProps.govern.aif.description}
-            image={boxProps.govern.aif.image}
-            list={boxProps.govern.aif.list}
-          />
-        </a>
+        <div className="max-w-[550px] w-full h-[250px]">
+          <a className={styles.links} href="../../docs/govern/astroport-incentive-framework">
+            <Box
+              title={boxProps.govern.aif.title}
+              description={boxProps.govern.aif.description}
+              image={boxProps.govern.aif.image}
+              list={boxProps.govern.aif.list}
+            />
+          </a>
+        </div>
 
-        <a className={styles.links} href="../../docs/govern/proposal-messages/proposal-messages-intro">
-          <Box
-            title={boxProps.govern.proposalMessages.title}
-            description={boxProps.govern.proposalMessages.description}
-            image={boxProps.govern.proposalMessages.image}
-            list={boxProps.govern.proposalMessages.list}
-          />
-        </a>
+        <div className="max-w-[550px] w-full h-[250px]">
+          <a className={styles.links} href="../../docs/govern/proposal-messages/proposal-messages-intro">
+            <Box
+              title={boxProps.govern.proposalMessages.title}
+              description={boxProps.govern.proposalMessages.description}
+              image={boxProps.govern.proposalMessages.image}
+              list={boxProps.govern.proposalMessages.list}
+            />
+          </a>
+        </div>
       </div>
     );
   } else if (props.title == "Develop") {
     return (
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <a className={styles.links} href="../../docs/develop/backend">
-          <Box
-            title={boxProps.develop.backend.title}
-            description={boxProps.develop.backend.description}
-            image={boxProps.develop.backend.image}
-            list={boxProps.develop.backend.list}
-          />
-        </a>
+      <div className="flex flex-wrap justify-center gap-4">
+        <div className="max-w-[550px] w-full h-[250px]">
+          <a className={styles.links} href="../../docs/develop/backend">
+            <Box
+              title={boxProps.develop.backend.title}
+              description={boxProps.develop.backend.description}
+              image={boxProps.develop.backend.image}
+              list={boxProps.develop.backend.list}
+            />
+          </a>
+        </div>
 
-        <a className={styles.links} href="../../docs/develop/smart-contracts/smart-contracts-intro">
-          <Box
-            title={boxProps.develop.smartContracts.title}
-            description={boxProps.develop.smartContracts.description}
-            image={boxProps.develop.smartContracts.image}
-            list={boxProps.develop.smartContracts.list}
-          />
-        </a>
+        <div className="max-w-[550px] w-full h-[250px]">
+          <a className={styles.links} href="../../docs/develop/smart-contracts/smart-contracts-intro">
+            <Box
+              title={boxProps.develop.smartContracts.title}
+              description={boxProps.develop.smartContracts.description}
+              image={boxProps.develop.smartContracts.image}
+              list={boxProps.develop.smartContracts.list}
+            />
+          </a>
+        </div>
 
-        <a className={styles.links} href="../../docs/develop/tutorials/tutorials-intro">
-          <Box
-            title={boxProps.develop.tutorials.title}
-            description={boxProps.develop.tutorials.description}
-            image={boxProps.develop.tutorials.image}
-            list={boxProps.develop.tutorials.list}
-          />
-        </a>
+        <div className="max-w-[550px] w-full h-[250px]">
+          <a className={styles.links} href="../../docs/develop/tutorials/tutorials-intro">
+            <Box
+              title={boxProps.develop.tutorials.title}
+              description={boxProps.develop.tutorials.description}
+              image={boxProps.develop.tutorials.image}
+              list={boxProps.develop.tutorials.list}
+            />
+          </a>
+        </div>
       </div>
     );
   }
