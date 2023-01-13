@@ -224,7 +224,7 @@ export default function ContentBox(props) {
                   <p className={styles.subtext}>{entry.description}</p>
                   <ul className={styles.list}>
                     {entry.listItems.map((item) => (
-                      <li>
+                      <li key={item.label}>
                         <a className={styles.links} href={item.href}>
                           {item.label}
                         </a>
@@ -252,7 +252,7 @@ export default function ContentBox(props) {
                   <p className={styles.subtext}>{entry.description}</p>
                   <ul className={styles.list}>
                     {entry.listItems.map((item) => (
-                      <li>
+                      <li key={item.label}>
                         <a className={styles.links} href={item.href}>
                           {item.label}
                         </a>
@@ -280,7 +280,7 @@ export default function ContentBox(props) {
                   <p className={styles.subtext}>{entry.description}</p>
                   <ul className={styles.list}>
                     {entry.listItems.map((item) => (
-                      <li>
+                      <li key={item.label}>
                         <a className={styles.links} href={item.href}>
                           {item.label}
                         </a>
