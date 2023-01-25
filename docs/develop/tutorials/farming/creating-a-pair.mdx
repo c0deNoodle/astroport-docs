@@ -30,23 +30,23 @@ Creates an `xyk` pair.
 
         ```json
         {
-            "create_pair": {
-                "pair_type": {
-                    "xyk": {}
-                }, 
-                "asset_infos": [
-                    {
-                        "token": {
-                            "contract_addr": astroAddress
-                        }
-                    }, 
-                    {
-                        "token": {
-                            "contract_addr": steakAddress
-                        }
-                    }
-                ]
-            }
+          "create_pair": {
+            "pair_type": {
+              "xyk": {}
+            }, 
+            "asset_infos": [
+              {
+                "token": {
+                  "contract_addr": astroAddress
+                }
+              }, 
+              {
+                "token": {
+                  "contract_addr": steakAddress
+                }
+              }
+            ]
+          }
         }
         ```
 
@@ -62,36 +62,36 @@ Creates an `xyk` pair.
         const steakAddress = 'terra1xztnx8mm7dagn4ck3dgylaqucp6h6agw83pmyc29hnplq7355trs78fkcq'
 
         const createPair = new MsgExecuteContract(
-            wallet.key.accAddress('terra'),
-            factoryAddress,
-            {
-                "create_pair": {
-                    "pair_type": {
-                        "xyk": {}
-                    }, 
-                    "asset_infos": [
-                        {
-                            "token": {
-                                "contract_addr": astroAddress
-                            }
-                        }, 
-                        {
-                            "token": {
-                                "contract_addr": steakAddress
-                            }
-                        }
-                    ]
+          wallet.key.accAddress('terra'),
+          factoryAddress,
+          {
+            "create_pair": {
+              "pair_type": {
+                "xyk": {}
+              }, 
+              "asset_infos": [
+                {
+                  "token": {
+                    "contract_addr": astroAddress
+                  }
+                }, 
+                {
+                  "token": {
+                    "contract_addr": steakAddress
+                  }
                 }
+              ]
             }
+          }
         )
 
         let fee = new Fee(2000000, { uluna: 200000 });
 
         // // BROADCAST TRANSACTION
         let tx = await wallet.createAndSignTx({
-            msgs: [createPair],
-            fee,
-            chainID: 'pisco-1',
+          msgs: [createPair],
+          fee,
+          chainID: 'pisco-1',
         });
 
         let result = await lcd.tx.broadcast(tx, 'pisco-1');
@@ -122,28 +122,28 @@ Creates a `stable` pair.
 
         ```json 
         {
-            "create_pair": {
-                "pair_type": {
-                    "stable": {}
-                }, 
-                "asset_infos": [
-                    {
-                        "token": {
-                            "contract_addr": lunaxAddress
-                        }
-                    }, 
-                        {
-                        "token": {
-                            "contract_addr": steakAddress
-                        }
-                    }
-                ], 
-                "init_params": toBase64(
-                    {
-                        "amp": 10
-                    }
-                )
-            }
+          "create_pair": {
+            "pair_type": {
+              "stable": {}
+            }, 
+            "asset_infos": [
+              {
+                "token": {
+                  "contract_addr": lunaxAddress
+                }
+              }, 
+              {
+                "token": {
+                  "contract_addr": steakAddress
+                }
+              }
+            ], 
+            "init_params": toBase64(
+              {
+                "amp": 10
+              }
+            )
+          }
         }
         ```
 
@@ -173,36 +173,36 @@ Creates a `stable` pair.
         const steakAddress = 'terra1xztnx8mm7dagn4ck3dgylaqucp6h6agw83pmyc29hnplq7355trs78fkcq'
 
         const toBase64 = (obj) => {
-            return Buffer.from(JSON.stringify(obj)).toString("base64");
+          return Buffer.from(JSON.stringify(obj)).toString("base64");
         };
 
         const createStablePair = new MsgExecuteContract(
-            wallet.key.accAddress('terra'),
-            factoryAddress,
-            {
-                "create_pair": {
-                    "pair_type": {
-                        "stable": {}
-                    }, 
-                    "asset_infos": [
-                        {
-                            "token": {
-                                "contract_addr": lunaxAddress
-                            }
-                        }, 
-                            {
-                            "token": {
-                                "contract_addr": steakAddress
-                            }
-                        }
-                    ], 
-                    "init_params": toBase64(
-                        {
-                            "amp": 10
-                        }
-                    )
+          wallet.key.accAddress('terra'),
+          factoryAddress,
+          {
+            "create_pair": {
+              "pair_type": {
+                "stable": {}
+              }, 
+              "asset_infos": [
+                {
+                  "token": {
+                    "contract_addr": lunaxAddress
+                  }
+                }, 
+                {
+                  "token": {
+                    "contract_addr": steakAddress
+                  }
                 }
+              ], 
+              "init_params": toBase64(
+                {
+                  "amp": 10
+                }
+              )
             }
+          }
         )
 
 
@@ -210,9 +210,9 @@ Creates a `stable` pair.
 
         // // BROADCAST TRANSACTION
         let tx = await wallet.createAndSignTx({
-            msgs: [createStablePair],
-            fee,
-            chainID: 'pisco-1',
+          msgs: [createStablePair],
+          fee,
+          chainID: 'pisco-1',
         });
 
         let result = await lcd.tx.broadcast(tx, 'pisco-1');

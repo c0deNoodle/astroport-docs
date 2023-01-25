@@ -30,75 +30,75 @@ Use when submitting a proposal to integrate Dual Rewards through the Astroport W
 
         ```json
         [
-            {
-                "order": "1", 
-                "msg": {
-                    "wasm": {
-                        "execute": {
-                            "contract_addr": generatorAddress, 
-                            "msg": toBase64(
-                                {
-                                    "setup_pools": {
-                                        "pools": [
-                                            [
-                                                "terra...", 
-                                                "1538"
-                                            ], 
-                                            [
-                                                "terra...", 
-                                                "30018"
-                                            ], 
-                                            etc...
-                                        ]
-                                    }
-                                }
-                            ),
-                            "funds": []
-                        }
+          {
+            "order": "1", 
+            "msg": {
+              "wasm": {
+                "execute": {
+                  "contract_addr": generatorAddress, 
+                  "msg": toBase64(
+                    {
+                      "setup_pools": {
+                        "pools": [
+                          [
+                            "terra...", 
+                            "1538"
+                          ], 
+                          [
+                            "terra...", 
+                            "30018"
+                          ], 
+                          etc...
+                        ]
+                      }
                     }
+                  ),
+                  "funds": []
                 }
-            }, 
-            {
-                "order": "2", 
-                "msg": {
-                    "wasm": {
-                        "execute": {
-                            "contract_addr": generatorAddress,
-                            "msg": toBase64(
-                                {
-                                    "set_allowed_reward_proxies": {
-                                        "proxies": [
-                                            "terra...", 
-                                            "terra...", 
-                                            etc...
-                                        ]
-                                    }
-                                }
-                            ),
-                            "funds": []
-                        }
-                    }
-                }
-            }, 
-            {
-                "order": "3", 
-                "msg": {
-                    "wasm": {
-                        "execute": {
-                            "contract_addr": generatorAddress,
-                            "msg": toBase64(
-                                {
-                                    "move_to_proxy": {
-                                        "lp_token": exLPToken,
-                                        "proxy": exProxyAddress
-                                    } 
-                                }
-                            ),
-                            "funds": []
-                        }
-                    }
-                }
+              }
             }
+          }, 
+          {
+            "order": "2", 
+            "msg": {
+              "wasm": {
+                "execute": {
+                  "contract_addr": generatorAddress,
+                  "msg": toBase64(
+                    {
+                      "set_allowed_reward_proxies": {
+                        "proxies": [
+                          "terra...", 
+                          "terra...", 
+                          etc...
+                        ]
+                      }
+                    }
+                  ),
+                  "funds": []
+                }
+              }
+            }
+          }, 
+          {
+            "order": "3", 
+            "msg": {
+              "wasm": {
+                "execute": {
+                  "contract_addr": generatorAddress,
+                  "msg": toBase64(
+                    {
+                      "move_to_proxy": {
+                        "lp_token": exLPToken,
+                        "proxy": exProxyAddress
+                      } 
+                    }
+                  ),
+                  "funds": []
+                }
+              }
+            }
+          }
         ]
         ```
 
@@ -112,42 +112,42 @@ Use when submitting a proposal to integrate Dual Rewards through the Astroport W
 
         ```json
         [
-            {
-                "order": "1", 
-                "msg": {
-                    "wasm": {
-                        "execute": {
-                            "contract_addr": "terra1gc4d4v82vjgkz0ag28lrmlxx3tf6sq69tmaujjpe7jwmnqakkx0qm28j2l", 
-                            "msg": "ewogICJzZXR1cF9wb29scyI6IHsKICAgICJwb29scyIgOiBbCiAgICAgIFsKICAgICAgICAidGVycmExOG1jbWxmNHYyM2VodWtraDdxeGdwZjV0em56ZzY4OTNmeG1mOWZmbWR0OXBoZ2YzNjV6cXZtbHVnNiIsCiAgICAgICAgIjE1MzgiCiAgICAgIF0sCiAgICAgIFsKICAgICAgICAidGVycmExNmVzams3cXFsZ2g4dzdwMmE1OHl4aGdrZms0eWt2NzJwN2hhMDU2enVsNThhZHpqbTZtc3ZjNjc0dCIsCiAgICAgICAgIjMwMDE4IgogICAgICBdLAogICAgICBbCiAgICAgICAgInRlcnJhMWNrbXNxZGhsa3k5anhjbXR5ajY0Y3Jnemp4YWQ5cHZzZDU4azh6c3hzbnY0dnp2d2R0N3FrZTA0aGwiLAogICAgICAgICI0MDAyNiIKICAgICAgXSwKICAgICAgWwogICAgICAgICJ0ZXJyYTFrZ2dmZDZ6MGFkMms5cTh2MjRmN2Z0eHlxdXNoOGZwOXhrdTlueXJqY3Myd3YwZTRreXBzemZyZmQwIiwKICAgICAgICAiNjY2NiIKICAgICAgXSwKICAgICAgWwogICAgICAgICJ0ZXJyYTFjcTIyZXVneHdncDB4MzRjcWZyeG1kOWpreXk0M2dhczkzeXFqaG13cm03ajBoNWVjcnFxNWo3ZGdwIiwKICAgICAgICAiNjY2NiIKICAgICAgXSwKICAgICAgWwogICAgICAgICJ0ZXJyYTFraHN4d2ZuenV4cWN5emEyc3JheGYybmdrcjNkd3k5ZjdybTB1dHMweHBrZXNoczk2Y2NzcXR1Nm52IiwKICAgICAgICAiMTEyNTciCiAgICAgIF0sCiAgICAgIFsKICAgICAgICAidGVycmExaDN6Mnp2NmF3OTRmeDUyNjNkeTZ0Z3o2Njk5a3htZXdseDN2cmN1NGpqcnVkZzZ4bXR5cWs2dnQwdSIsCiAgICAgICAgIjY2NjYiCiAgICAgIF0sCiAgICAgIFsKICAgICAgICAidGVycmExY2VzNms2anA3cXpranB3c2w2eGc0Zjd6ZndyZTB1MjNjZ2xnNjloaGozZzIwZmh5Z3Rwc3UyNGRzeSIsCiAgICAgICAgIjIxNTIiCiAgICAgIF0KICAgIF0KICB9Cn0=",
-                            "funds": []
-                        }
-                    }
+          {
+            "order": "1", 
+            "msg": {
+              "wasm": {
+                "execute": {
+                  "contract_addr": "terra1gc4d4v82vjgkz0ag28lrmlxx3tf6sq69tmaujjpe7jwmnqakkx0qm28j2l", 
+                  "msg": "ewogICJzZXR1cF9wb29scyI6IHsKICAgICJwb29scyIgOiBbCiAgICAgIFsKICAgICAgICAidGVycmExOG1jbWxmNHYyM2VodWtraDdxeGdwZjV0em56ZzY4OTNmeG1mOWZmbWR0OXBoZ2YzNjV6cXZtbHVnNiIsCiAgICAgICAgIjE1MzgiCiAgICAgIF0sCiAgICAgIFsKICAgICAgICAidGVycmExNmVzams3cXFsZ2g4dzdwMmE1OHl4aGdrZms0eWt2NzJwN2hhMDU2enVsNThhZHpqbTZtc3ZjNjc0dCIsCiAgICAgICAgIjMwMDE4IgogICAgICBdLAogICAgICBbCiAgICAgICAgInRlcnJhMWNrbXNxZGhsa3k5anhjbXR5ajY0Y3Jnemp4YWQ5cHZzZDU4azh6c3hzbnY0dnp2d2R0N3FrZTA0aGwiLAogICAgICAgICI0MDAyNiIKICAgICAgXSwKICAgICAgWwogICAgICAgICJ0ZXJyYTFrZ2dmZDZ6MGFkMms5cTh2MjRmN2Z0eHlxdXNoOGZwOXhrdTlueXJqY3Myd3YwZTRreXBzemZyZmQwIiwKICAgICAgICAiNjY2NiIKICAgICAgXSwKICAgICAgWwogICAgICAgICJ0ZXJyYTFjcTIyZXVneHdncDB4MzRjcWZyeG1kOWpreXk0M2dhczkzeXFqaG13cm03ajBoNWVjcnFxNWo3ZGdwIiwKICAgICAgICAiNjY2NiIKICAgICAgXSwKICAgICAgWwogICAgICAgICJ0ZXJyYTFraHN4d2ZuenV4cWN5emEyc3JheGYybmdrcjNkd3k5ZjdybTB1dHMweHBrZXNoczk2Y2NzcXR1Nm52IiwKICAgICAgICAiMTEyNTciCiAgICAgIF0sCiAgICAgIFsKICAgICAgICAidGVycmExaDN6Mnp2NmF3OTRmeDUyNjNkeTZ0Z3o2Njk5a3htZXdseDN2cmN1NGpqcnVkZzZ4bXR5cWs2dnQwdSIsCiAgICAgICAgIjY2NjYiCiAgICAgIF0sCiAgICAgIFsKICAgICAgICAidGVycmExY2VzNms2anA3cXpranB3c2w2eGc0Zjd6ZndyZTB1MjNjZ2xnNjloaGozZzIwZmh5Z3Rwc3UyNGRzeSIsCiAgICAgICAgIjIxNTIiCiAgICAgIF0KICAgIF0KICB9Cn0=",
+                  "funds": []
                 }
-            }, 
-            {
-                "order": "2", 
-                "msg": {
-                    "wasm": {
-                        "execute": {
-                            "contract_addr": "terra1gc4d4v82vjgkz0ag28lrmlxx3tf6sq69tmaujjpe7jwmnqakkx0qm28j2l",
-                            "msg": "ewogICAgInNldF9hbGxvd2VkX3Jld2FyZF9wcm94aWVzIjogewogICAgICAgICJwcm94aWVzIjogWwogICAgICAgICAgJ3RlcnJhMTRld3ZxMzl2ZzIzajBoY2VzZWN2Nmhremt3a3ZybnV4emQ1c2RkbXJ5OWx4NnFyaGF4Y3FqZHg2ZXInLAogICAgICAgICAgJ3RlcnJhMTV5dXE2NGxwNzRkZjBkNXBkY213emVwODBqMGFhNGhzM2ZrdHF5dXB6NGE4MmF5dmR3MnM0cmR5a3YnLAogICAgICAgICAgJ3RlcnJhMTJqdnptMmN5MzN6c3B2cDhhc243bnM5OGpteWs0ODllczJjeTJqOGs5MjZtcjJuN21ldHFoYTQzMHEnLAogICAgICAgICAgJ3RlcnJhMXlhcTQyM2trbTV1bTgzdnhhYXAyMHJ6a255OWhobGhxYWQ4d3pkYzQzejIwY214bXVranF6NDZlMGYnLAogICAgICAgICAgJ3RlcnJhMXkzcGpuNmcwYXd6cGttZTJuZnA0bnp1NzVhZTZ3dWhkZnp0ZG4ycHFqdTV0bHpoa3BoanE1c3QydHMnCiAgICAgICAgXQogICAgfQp9",
-                            "funds": []
-                        }
-                    }
-                }
-            }, 
-            {
-                "order": "3", 
-                "msg": {
-                    "wasm": {
-                        "execute": {
-                            "contract_addr": "terra1gc4d4v82vjgkz0ag28lrmlxx3tf6sq69tmaujjpe7jwmnqakkx0qm28j2l",
-                            "msg": "ewogICAgIm1vdmVfdG9fcHJveHkiOiB7CiAgICAgICAgImxwX3Rva2VuIjogInRlcnJhMXM0bHMwYW1rNTZ2dmZndjVqdnNkYWN2cjM5cjNhNzZwNDl3Z3BsdjByMjdueHQ3ZzN1Z3Fwd3VsOTciLAogICAgICAgICJwcm94eSI6ICJ0ZXJyYTF5M3BqbjZnMGF3enBrbWUybmZwNG56dTc1YWU2d3VoZGZ6dGRuMnBxanU1dGx6aGtwaGpxNXN0MnRzIgogICAgfSAKfQ==",
-                            "funds": []
-                        }
-                    }
-                }
+              }
             }
+          }, 
+          {
+            "order": "2", 
+            "msg": {
+              "wasm": {
+                "execute": {
+                  "contract_addr": "terra1gc4d4v82vjgkz0ag28lrmlxx3tf6sq69tmaujjpe7jwmnqakkx0qm28j2l",
+                  "msg": "ewogICAgInNldF9hbGxvd2VkX3Jld2FyZF9wcm94aWVzIjogewogICAgICAgICJwcm94aWVzIjogWwogICAgICAgICAgJ3RlcnJhMTRld3ZxMzl2ZzIzajBoY2VzZWN2Nmhremt3a3ZybnV4emQ1c2RkbXJ5OWx4NnFyaGF4Y3FqZHg2ZXInLAogICAgICAgICAgJ3RlcnJhMTV5dXE2NGxwNzRkZjBkNXBkY213emVwODBqMGFhNGhzM2ZrdHF5dXB6NGE4MmF5dmR3MnM0cmR5a3YnLAogICAgICAgICAgJ3RlcnJhMTJqdnptMmN5MzN6c3B2cDhhc243bnM5OGpteWs0ODllczJjeTJqOGs5MjZtcjJuN21ldHFoYTQzMHEnLAogICAgICAgICAgJ3RlcnJhMXlhcTQyM2trbTV1bTgzdnhhYXAyMHJ6a255OWhobGhxYWQ4d3pkYzQzejIwY214bXVranF6NDZlMGYnLAogICAgICAgICAgJ3RlcnJhMXkzcGpuNmcwYXd6cGttZTJuZnA0bnp1NzVhZTZ3dWhkZnp0ZG4ycHFqdTV0bHpoa3BoanE1c3QydHMnCiAgICAgICAgXQogICAgfQp9",
+                  "funds": []
+                }
+              }
+            }
+          }, 
+          {
+            "order": "3", 
+            "msg": {
+              "wasm": {
+                "execute": {
+                  "contract_addr": "terra1gc4d4v82vjgkz0ag28lrmlxx3tf6sq69tmaujjpe7jwmnqakkx0qm28j2l",
+                  "msg": "ewogICAgIm1vdmVfdG9fcHJveHkiOiB7CiAgICAgICAgImxwX3Rva2VuIjogInRlcnJhMXM0bHMwYW1rNTZ2dmZndjVqdnNkYWN2cjM5cjNhNzZwNDl3Z3BsdjByMjdueHQ3ZzN1Z3Fwd3VsOTciLAogICAgICAgICJwcm94eSI6ICJ0ZXJyYTF5M3BqbjZnMGF3enBrbWUybmZwNG56dTc1YWU2d3VoZGZ6dGRuMnBxanU1dGx6aGtwaGpxNXN0MnRzIgogICAgfSAKfQ==",
+                  "funds": []
+                }
+              }
+            }
+          }
         ]
         ```
 
@@ -174,20 +174,20 @@ An advantage of submitting a proposal directly using, for example, a js script i
 
         ```json 
         {
-            "send": {
-                "contract": assemblyAddress, 
-                "amount": "1000", // testnet deposit amount
-                "msg": toBase64(
-                    {
-                        "submit_proposal": {
-                            "title": "integrate proxy contract", 
-                            "description": "Proposal to integrate 3rd party rewards", 
-                            "link": "https://forum.astroport.fi/", 
-                            "messages": [setup_pools_msg, allow_proxies_msg, move_to_proxy_msg]
-                        }
-                    }
-                ) 
-            }
+          "send": {
+            "contract": assemblyAddress, 
+            "amount": "1000", // testnet deposit amount
+            "msg": toBase64(
+              {
+                "submit_proposal": {
+                  "title": "integrate proxy contract", 
+                  "description": "Proposal to integrate 3rd party rewards", 
+                  "link": "https://forum.astroport.fi/", 
+                  "messages": [setup_pools_msg, allow_proxies_msg, move_to_proxy_msg]
+                }
+              }
+            ) 
+          }
         }
         ```
 
@@ -213,32 +213,32 @@ An advantage of submitting a proposal directly using, for example, a js script i
 
         ```json
         let setup_pools_msg = {
-            "order": "1", 
-            "msg": {
-                "wasm": {
-                    "execute": {
-                        "contract_addr": generatorAddress, 
-                        "msg": toBase64(
-                            {
-                                "setup_pools": {
-                                    "pools": [
-                                        [
-                                        "terra...", 
-                                        "1538"
-                                        ], 
-                                        [
-                                        "terra...", 
-                                        "30018"
-                                        ], 
-                                        etc...
-                                    ]
-                                }
-                            }
-                        ),
-                        "funds": []
+          "order": "1", 
+          "msg": {
+            "wasm": {
+              "execute": {
+                "contract_addr": generatorAddress, 
+                "msg": toBase64(
+                  {
+                    "setup_pools": {
+                      "pools": [
+                        [
+                          "terra...", 
+                          "1538"
+                        ], 
+                        [
+                          "terra...", 
+                          "30018"
+                        ], 
+                        etc...
+                      ]
                     }
-                }
+                  }
+                ),
+                "funds": []
+              }
             }
+          }
         }
         ```
 

@@ -199,7 +199,7 @@ const boxProps = {
     },
     stakingUnstakingLPTokens: {
       title: "Staking/Unstaking LP Tokens",
-      description: "Do more with your LP tokens",
+      description: "Learn how to manage your LP tokens",
       image: GeneratorUrl,
       list: "Staking/Unstaking LP Tokens",
     },
@@ -331,7 +331,7 @@ const boxProps = {
   trading: {
     swapping: {
       title: "Swapping",
-      description: "Discover how swap assets or integrate swaps into your Web App ",
+      description: "Discover how swap assets or integrate swaps into your Web App",
       image: SmartPepeUrl,
       list: "Swapping",
     },

@@ -27,15 +27,15 @@ Users can also unstake their LP tokens by calling [`withdraw`](../../smart-contr
 
         ```json
         {
-            "send": {
-                "contract": generatorAddress,
-                "amount": "10000000",
-                "msg": toBase64(
-                    {
-                        "deposit": {}
-                    }
-                )
-            }
+          "send": {
+            "contract": generatorAddress,
+            "amount": "10000000",
+            "msg": toBase64(
+              {
+                  "deposit": {}
+              }
+            )
+          }
         }
         ```
 
@@ -75,27 +75,27 @@ Users can also unstake their LP tokens by calling [`withdraw`](../../smart-contr
         const generatorAddress = 'terra1gc4d4v82vjgkz0ag28lrmlxx3tf6sq69tmaujjpe7jwmnqakkx0qm28j2l';
 
         const stakeLPTokens = new MsgExecuteContract(
-            wallet.key.accAddress('terra'),
-            astrolunaLPAddress,
-            {
-                "send": {
-                    "contract": generatorAddress,
-                    "amount": "10000000",
-                    "msg": toBase64(
-                        {
-                            "deposit": {}
-                        }
-                    )
+          wallet.key.accAddress('terra'),
+          astrolunaLPAddress,
+          {
+            "send": {
+              "contract": generatorAddress,
+              "amount": "10000000",
+              "msg": toBase64(
+                {
+                  "deposit": {}
                 }
+              )
             }
+          }
         )
 
         const fee = new Fee(2000000, { uluna: 200000 });
 
         const tx = await wallet.createAndSignTx({
-            msgs: [stakeLPTokens],
-            fee,
-            chainID: 'pisco-1',
+          msgs: [stakeLPTokens],
+          fee,
+          chainID: 'pisco-1',
         });
 
         const result = await lcd.tx.broadcast(tx, 'pisco-1');
@@ -119,10 +119,10 @@ Users can also unstake their LP tokens by calling [`withdraw`](../../smart-contr
 
         ```json
         {
-            "withdraw": {
-                "lp_token": astrolunaLPAddress,
-                "amount": "5000000"
-            }
+          "withdraw": {
+            "lp_token": astrolunaLPAddress,
+            "amount": "5000000"
+          }
         }
         ```
 

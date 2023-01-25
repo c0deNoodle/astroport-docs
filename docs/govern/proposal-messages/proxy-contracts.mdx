@@ -35,46 +35,46 @@ Use when submitting a proposal to integrate a proxy contract through the Astropo
 
         ```json 
         [
-            {
-                "order": "1", 
-                "msg": {
-                    "wasm": {
-                        "execute": {
-                            "contract_addr": generatorAddress,
-                            "msg": toBase64(
-                                {
-                                    "set_allowed_reward_proxies": {
-                                        "proxies": [
-                                        "terra...", 
-                                        "terra..."
-                                        ]
-                                    }
-                                }
-                            ),
-                            "funds": []
-                        }
+          {
+            "order": "1", 
+            "msg": {
+              "wasm": {
+                "execute": {
+                  "contract_addr": generatorAddress,
+                  "msg": toBase64(
+                    {
+                      "set_allowed_reward_proxies": {
+                        "proxies": [
+                          "terra...", 
+                          "terra..."
+                        ]
+                      }
                     }
+                  ),
+                  "funds": []
                 }
-            }, 
-            {
-                "order": "2", 
-                "msg": {
-                    "wasm": {
-                        "execute": {
-                            "contract_addr": generatorAddress,
-                            "msg": toBase64(
-                                {
-                                    "move_to_proxy": {
-                                        "lp_token": exLPTokenAddress,
-                                        "proxy": exProxyAddress
-                                    } 
-                                }
-                            ),
-                            "funds": []
-                        }
-                    }
-                }
+              }
             }
+          }, 
+          {
+            "order": "2", 
+            "msg": {
+              "wasm": {
+                "execute": {
+                  "contract_addr": generatorAddress,
+                  "msg": toBase64(
+                    {
+                      "move_to_proxy": {
+                        "lp_token": exLPTokenAddress,
+                        "proxy": exProxyAddress
+                      } 
+                    }
+                  ),
+                  "funds": []
+                }
+              }
+            }
+          }
         ]
         ```
 
@@ -127,25 +127,25 @@ Use when submitting a proposal to integrate a proxy contract through the Astropo
 
         ```json focus=8:15
         {
-            "order": "1", 
-            "msg": {
-                "wasm": {
-                    "execute": {
-                        "contract_addr": generatorAddress,
-                        "msg": toBase64(
-                            {
-                                "set_allowed_reward_proxies": {
-                                    "proxies": [
-                                        "terra...", 
-                                        "terra..."
-                                    ]
-                                }
-                            }
-                        ),
-                        "funds": []
+          "order": "1", 
+          "msg": {
+            "wasm": {
+              "execute": {
+                "contract_addr": generatorAddress,
+                "msg": toBase64(
+                  {
+                    "set_allowed_reward_proxies": {
+                      "proxies": [
+                        "terra...", 
+                        "terra..."
+                      ]
                     }
-                }
+                  }
+                ),
+                "funds": []
+              }
             }
+          }
         }
         ```
 
@@ -161,23 +161,23 @@ Use when submitting a proposal to integrate a proxy contract through the Astropo
 
         ```json focus=8:13
         {
-            "order": "2", 
-            "msg": {
-                "wasm": {
-                    "execute": {
-                        "contract_addr": generatorAddress,
-                        "msg": toBase64(
-                            {
-                                "move_to_proxy": {
-                                    "lp_token": exLPToken,
-                                    "proxy": exProxyAddress
-                                } 
-                            }
-                        ),
-                        "funds": []
-                    }
-                }
+          "order": "2", 
+          "msg": {
+            "wasm": {
+              "execute": {
+                "contract_addr": generatorAddress,
+                "msg": toBase64(
+                  {
+                    "move_to_proxy": {
+                      "lp_token": exLPToken,
+                      "proxy": exProxyAddress
+                    } 
+                  }
+                ),
+                "funds": []
+              }
             }
+          }
         }
         ```
 
@@ -193,46 +193,46 @@ Use when submitting a proposal to integrate a proxy contract through the Astropo
 
         ```json focus=8:17,29:36
         [
-            {
-                "order": "1", 
-                "msg": {
-                    "wasm": {
-                        "execute": {
-                            "contract_addr": generatorAddress,
-                            "msg": toBase64(
-                                {
-                                    "set_allowed_reward_proxies": {
-                                        "proxies": [
-                                        "terra...", 
-                                        "terra..."
-                                        ]
-                                    }
-                                }
-                            ),
-                            "funds": []
-                        }
+          {
+            "order": "1", 
+            "msg": {
+              "wasm": {
+                "execute": {
+                  "contract_addr": generatorAddress,
+                  "msg": toBase64(
+                    {
+                      "set_allowed_reward_proxies": {
+                        "proxies": [
+                          "terra...", 
+                          "terra..."
+                        ]
+                      }
                     }
+                  ),
+                  "funds": []
                 }
-            }, 
-            {
-                "order": "2", 
-                "msg": {
-                    "wasm": {
-                        "execute": {
-                            "contract_addr": generatorAddress,
-                            "msg": toBase64(
-                                {
-                                    "move_to_proxy": {
-                                        "lp_token": exLPTokenAddress,
-                                        "proxy": exProxyAddress
-                                    } 
-                                }
-                            ),
-                            "funds": []
-                        }
-                    }
-                }
+              }
             }
+          }, 
+          {
+            "order": "2", 
+            "msg": {
+              "wasm": {
+                "execute": {
+                  "contract_addr": generatorAddress,
+                  "msg": toBase64(
+                    {
+                      "move_to_proxy": {
+                        "lp_token": exLPTokenAddress,
+                        "proxy": exProxyAddress
+                      } 
+                    }
+                  ),
+                  "funds": []
+                }
+              }
+            }
+          }
         ]
         ```
 
@@ -246,30 +246,30 @@ Use when submitting a proposal to integrate a proxy contract through the Astropo
 
         ```json
         [
-            {
-                "order": "1", 
-                "msg": {
-                    "wasm": {
-                        "execute": {
-                            "contract_addr": "terra1ksvlfex49desf4c452j6dewdjs6c48nafemetuwjyj6yexd7x3wqvwa7j9",
-                            "msg": "ewogICAgInNldF9hbGxvd2VkX3Jld2FyZF9wcm94aWVzIjogewogICAgICAgICJwcm94aWVzIjogWwogICAgICAgICAgJ3RlcnJhMTRld3ZxMzl2ZzIzajBoY2VzZWN2Nmhremt3a3ZybnV4emQ1c2RkbXJ5OWx4NnFyaGF4Y3FqZHg2ZXInLAogICAgICAgICAgJ3RlcnJhMTV5dXE2NGxwNzRkZjBkNXBkY213emVwODBqMGFhNGhzM2ZrdHF5dXB6NGE4MmF5dmR3MnM0cmR5a3YnLAogICAgICAgICAgJ3RlcnJhMTJqdnptMmN5MzN6c3B2cDhhc243bnM5OGpteWs0ODllczJjeTJqOGs5MjZtcjJuN21ldHFoYTQzMHEnLAogICAgICAgICAgJ3RlcnJhMXlhcTQyM2trbTV1bTgzdnhhYXAyMHJ6a255OWhobGhxYWQ4d3pkYzQzejIwY214bXVranF6NDZlMGYnLAogICAgICAgICAgJ3RlcnJhMXkzcGpuNmcwYXd6cGttZTJuZnA0bnp1NzVhZTZ3dWhkZnp0ZG4ycHFqdTV0bHpoa3BoanE1c3QydHMnCiAgICAgICAgXQogICAgfQp9",
-                            "funds": []
-                        }
-                    }
+          {
+            "order": "1", 
+            "msg": {
+              "wasm": {
+              "execute": {
+                "contract_addr": "terra1ksvlfex49desf4c452j6dewdjs6c48nafemetuwjyj6yexd7x3wqvwa7j9",
+                "msg": "ewogICAgInNldF9hbGxvd2VkX3Jld2FyZF9wcm94aWVzIjogewogICAgICAgICJwcm94aWVzIjogWwogICAgICAgICAgJ3RlcnJhMTRld3ZxMzl2ZzIzajBoY2VzZWN2Nmhremt3a3ZybnV4emQ1c2RkbXJ5OWx4NnFyaGF4Y3FqZHg2ZXInLAogICAgICAgICAgJ3RlcnJhMTV5dXE2NGxwNzRkZjBkNXBkY213emVwODBqMGFhNGhzM2ZrdHF5dXB6NGE4MmF5dmR3MnM0cmR5a3YnLAogICAgICAgICAgJ3RlcnJhMTJqdnptMmN5MzN6c3B2cDhhc243bnM5OGpteWs0ODllczJjeTJqOGs5MjZtcjJuN21ldHFoYTQzMHEnLAogICAgICAgICAgJ3RlcnJhMXlhcTQyM2trbTV1bTgzdnhhYXAyMHJ6a255OWhobGhxYWQ4d3pkYzQzejIwY214bXVranF6NDZlMGYnLAogICAgICAgICAgJ3RlcnJhMXkzcGpuNmcwYXd6cGttZTJuZnA0bnp1NzVhZTZ3dWhkZnp0ZG4ycHFqdTV0bHpoa3BoanE1c3QydHMnCiAgICAgICAgXQogICAgfQp9",
+                "funds": []
                 }
-            }, 
-            {
-                "order": "2", 
-                "msg": {
-                    "wasm": {
-                        "execute": {
-                            "contract_addr": "terra1ksvlfex49desf4c452j6dewdjs6c48nafemetuwjyj6yexd7x3wqvwa7j9",
-                            "msg": "ewogICAgIm1vdmVfdG9fcHJveHkiOiB7CiAgICAgICAgImxwX3Rva2VuIjogInRlcnJhMXM0bHMwYW1rNTZ2dmZndjVqdnNkYWN2cjM5cjNhNzZwNDl3Z3BsdjByMjdueHQ3ZzN1Z3Fwd3VsOTciLAogICAgICAgICJwcm94eSI6ICJ0ZXJyYTF5M3BqbjZnMGF3enBrbWUybmZwNG56dTc1YWU2d3VoZGZ6dGRuMnBxanU1dGx6aGtwaGpxNXN0MnRzIgogICAgfSAKfQ==",
-                            "funds": []
-                        }
-                    }
-                }
+              }
             }
+          }, 
+          {
+            "order": "2", 
+            "msg": {
+              "wasm": {
+                "execute": {
+                  "contract_addr": "terra1ksvlfex49desf4c452j6dewdjs6c48nafemetuwjyj6yexd7x3wqvwa7j9",
+                  "msg": "ewogICAgIm1vdmVfdG9fcHJveHkiOiB7CiAgICAgICAgImxwX3Rva2VuIjogInRlcnJhMXM0bHMwYW1rNTZ2dmZndjVqdnNkYWN2cjM5cjNhNzZwNDl3Z3BsdjByMjdueHQ3ZzN1Z3Fwd3VsOTciLAogICAgICAgICJwcm94eSI6ICJ0ZXJyYTF5M3BqbjZnMGF3enBrbWUybmZwNG56dTc1YWU2d3VoZGZ6dGRuMnBxanU1dGx6aGtwaGpxNXN0MnRzIgogICAgfSAKfQ==",
+                  "funds": []
+                }
+              }
+            }
+          }
         ]
         ```
 
@@ -297,20 +297,20 @@ The Astroport Web App essentially wraps our executable message (covered above) w
 
         ```json 
         {
-            "send": {
-                "contract": assemblyAddress, 
-                "amount": "1000", // testnet deposit amount
-                "msg": toBase64(
-                    {
-                        "submit_proposal": {
-                            "title": "integrate proxy contract", 
-                            "description": "Proposal to integrate 3rd party rewards", 
-                            "link": "https://forum.astroport.fi/", 
-                            "messages": [allow_proxies_msg, move_to_proxy_msg]
-                        }
-                    }
-                ) 
-            }
+          "send": {
+            "contract": assemblyAddress, 
+            "amount": "1000", // testnet deposit amount
+            "msg": toBase64(
+              {
+                "submit_proposal": {
+                  "title": "integrate proxy contract", 
+                  "description": "Proposal to integrate 3rd party rewards", 
+                  "link": "https://forum.astroport.fi/", 
+                  "messages": [allow_proxies_msg, move_to_proxy_msg]
+                }
+              }
+            ) 
+          }
         }
         ```
 
@@ -343,22 +343,22 @@ The Astroport Web App essentially wraps our executable message (covered above) w
 
         ```js
         let allow_proxies_msg = {
-            "order": "1", 
-            "msg": {
-                "wasm": {
-                    "execute": {
-                        "contract_addr": generatorAddress,
-                        "msg": toBase64(
-                            {
-                                "set_allowed_reward_proxies": {
-                                    "proxies": config.allowed_reward_proxies
-                                }
-                            }
-                        ),
-                        "funds": []
+          "order": "1", 
+          "msg": {
+            "wasm": {
+              "execute": {
+                "contract_addr": generatorAddress,
+                "msg": toBase64(
+                  {
+                    "set_allowed_reward_proxies": {
+                      "proxies": config.allowed_reward_proxies
                     }
-                }
+                  }
+                ),
+                "funds": []
+              }
             }
+          }
         }
         ```
 
@@ -372,10 +372,10 @@ The Astroport Web App essentially wraps our executable message (covered above) w
         let config;
 
         const query = await lcd.wasm.contractQuery(
-            generatorAddress, 
-            {
-                "config": {}
-            }
+          generatorAddress, 
+          {
+            "config": {}
+          }
         ).then(result => { config = result });
 
         // before
@@ -400,23 +400,23 @@ The Astroport Web App essentially wraps our executable message (covered above) w
 
         ```js 
         let move_to_proxy_msg = {
-            "order": "2", 
-            "msg": {
-                "wasm": {
-                    "execute": {
-                        "contract_addr": generatorAddress,
-                        "msg": toBase64(
-                            {
-                                "move_to_proxy": {
-                                    "lp_token": exLPToken,
-                                    "proxy": exProxyAddress
-                                } 
-                            }
-                        ),
-                        "funds": []
-                    }
-                }
+          "order": "2", 
+          "msg": {
+            "wasm": {
+              "execute": {
+                "contract_addr": generatorAddress,
+                "msg": toBase64(
+                  {
+                    "move_to_proxy": {
+                      "lp_token": exLPToken,
+                      "proxy": exProxyAddress
+                    } 
+                  }
+                ),
+                "funds": []
+              }
             }
+          }
         }
         ```
 
@@ -430,7 +430,7 @@ The Astroport Web App essentially wraps our executable message (covered above) w
 
         ```js
         let toBase64 = (obj) => {
-            return Buffer.from(JSON.stringify(obj)).toString("base64");
+          return Buffer.from(JSON.stringify(obj)).toString("base64");
         };
         ```
 
@@ -442,87 +442,87 @@ The Astroport Web App essentially wraps our executable message (covered above) w
 
         ```js
         let toBase64 = (obj) => {
-            return Buffer.from(JSON.stringify(obj)).toString("base64");
+          return Buffer.from(JSON.stringify(obj)).toString("base64");
         };
 
         let config;
 
         const query = await lcd.wasm.contractQuery(
-            generatorAddress, 
-            {
-                "config": {}
-            }
+          generatorAddress, 
+          {
+            "config": {}
+          }
         ).then(result => { config = result });
 
         config.allowed_reward_proxies.push(exProxyAddress); 
 
         let allow_proxies_msg = {
-            "order": "1", 
-            "msg": {
-                "wasm": {
-                    "execute": {
-                        "contract_addr": generatorAddress,
-                        "msg": toBase64(
-                            {
-                                "set_allowed_reward_proxies": {
-                                    "proxies": config.allowed_reward_proxies
-                                }
-                            }
-                        ),
-                        "funds": []
+          "order": "1", 
+          "msg": {
+            "wasm": {
+              "execute": {
+                "contract_addr": generatorAddress,
+                "msg": toBase64(
+                  {
+                    "set_allowed_reward_proxies": {
+                      "proxies": config.allowed_reward_proxies
                     }
-                }
+                  }
+                ),
+                "funds": []
+              }
             }
+          }
         }
 
         let move_to_proxy_msg = {
-            "order": "2", 
-            "msg": {
-                "wasm": {
-                    "execute": {
-                        "contract_addr": generatorAddress,
-                        "msg": toBase64(
-                            {
-                                "move_to_proxy": {
-                                    "lp_token": exLPToken,
-                                    "proxy": exProxyAddress
-                                } 
-                            }
-                        ),
-                        "funds": []
-                    }
-                }
+          "order": "2", 
+          "msg": {
+            "wasm": {
+              "execute": {
+                "contract_addr": generatorAddress,
+                "msg": toBase64(
+                  {
+                    "move_to_proxy": {
+                      "lp_token": exLPToken,
+                      "proxy": exProxyAddress
+                    } 
+                  }
+                ),
+                "funds": []
+              }
             }
+          }
         }
 
         const integrateProxyContract = new MsgExecuteContract(
-            wallet.key.accAddress('terra'), 
-            xastroAddress, 
-            {
-                "send": {
-                    "contract": assemblyAddress, 
-                    "amount": "1000", // testnet deposit amount
-                    "msg": toBase64(
-                        {
-                            "submit_proposal": {
-                                "title": "integrate proxy contract", 
-                                "description": "Proposal to integrate 3rd party rewards", 
-                                "link": "https://forum.astroport.fi/", 
-                                "messages": [allow_proxies_msg, move_to_proxy_msg]
-                            }
-                        }
-                    ) 
+          wallet.key.accAddress('terra'), 
+          xastroAddress, 
+          {
+            "send": {
+              "contract": assemblyAddress, 
+              "amount": "1000", // testnet deposit amount
+              "msg": toBase64(
+                {
+                  "submit_proposal": {
+                    "title": "integrate proxy contract", 
+                    "description": "Proposal to integrate 3rd party rewards", 
+                    "link": "https://forum.astroport.fi/", 
+                    "messages": [allow_proxies_msg, move_to_proxy_msg]
+                  }
                 }
+              ) 
             }
+          }
         )
 
         // BROADCAST TRANSACTION
         let fee = new Fee(2000000, { uluna: 100000 });
 
         let tx = await wallet.createAndSignTx({
-            msgs: [integrateProxyContract],
-            fee,
-            chainID: 'phoenix-1',
+          msgs: [integrateProxyContract],
+          fee,
+          chainID: 'phoenix-1',
         });
 
         let result = await lcd.tx.broadcast(tx, 'phoenix-1');

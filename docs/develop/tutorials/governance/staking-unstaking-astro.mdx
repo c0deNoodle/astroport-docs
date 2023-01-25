@@ -27,15 +27,15 @@ Users can unstake their xASTRO tokens by calling [`leave`](../../smart-contracts
 
         ```json
         {
-            "send": {
-                "contract": stakingAddress, 
-                "amount": "100000000", 
-                "msg": toBase64(
-                    {
-                        "enter": {}
-                    }
-                )
-            }
+          "send": {
+            "contract": stakingAddress, 
+            "amount": "100000000", 
+            "msg": toBase64(
+              {
+                "enter": {}
+              }
+            )
+          }
         }
         ```
 
@@ -77,19 +77,19 @@ Users can unstake their xASTRO tokens by calling [`leave`](../../smart-contracts
         const stakingAddress = 'terra19t8ffmz6q2rdm3rllyksd6sex6n650a4anttzzvz9mf8mqr4nkrq44cyu6';
 
         const stake = new MsgExecuteContract(
-            wallet.key.accAddress('terra'),
-            astroAddress,
-            {
-                "send": {
-                    "contract": stakingAddress, 
-                    "amount": "100000000", 
-                    "msg": toBase64(
-                        {
-                            "enter": {}
-                        }
-                    )
+          wallet.key.accAddress('terra'),
+          astroAddress,
+          {
+            "send": {
+              "contract": stakingAddress, 
+              "amount": "100000000", 
+              "msg": toBase64(
+                {
+                  "enter": {}
                 }
+              )
             }
+          }
         )
         ```
 
@@ -114,15 +114,15 @@ Users can unstake their xASTRO tokens by calling [`leave`](../../smart-contracts
         
         ```json
         {
-            "send": {
-                "contract": stakingAddress, 
-                "amount": "50000000", 
-                "msg": toBase64(
-                    {
-                        "leave": {}
-                    }
-                )
-            }
+          "send": {
+            "contract": stakingAddress, 
+            "amount": "50000000", 
+            "msg": toBase64(
+              {
+                "leave": {}
+              }
+            )
+          }
         }
         ```
 

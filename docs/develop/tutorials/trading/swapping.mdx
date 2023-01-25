@@ -30,19 +30,19 @@ Performs a native swap in a given pool.
 
         ```json focus=1:10,14:15
         {
-            "swap": {
-                "offer_asset": {
-                    "info": {
-                        "native_token": {
-                            "denom": "uluna"
-                        }
-                    },
-                    "amount": "100000"
-                }, 
-                "belief_price": beliefPrice, 
-                "max_spread": '0.005', 
-                "to": "..."
-            }
+          "swap": {
+            "offer_asset": {
+              "info": {
+                "native_token": {
+                  "denom": "uluna"
+                }
+              },
+              "amount": "100000"
+            }, 
+            "belief_price": beliefPrice, 
+            "max_spread": '0.005', 
+            "to": "..."
+          }
         }
         ```
 
@@ -58,27 +58,27 @@ Performs a native swap in a given pool.
         const astrolunaAddress = "terra1udsua9w6jljwxwgwsegvt6v657rg3ayfvemupnes7lrggd28s0wq7g8azm";
 
         const swap = new MsgExecuteContract(
-            wallet.key.accAddress('terra'),
-            astrolunaAddress,
-            {
-                "swap": {
-                    "offer_asset": {
-                        "info": {
-                            "native_token": {
-                                "denom": "uluna"
-                            }
-                        },
-                        "amount": "100000"
+          wallet.key.accAddress('terra'),
+          astrolunaAddress,
+          {
+            "swap": {
+                "offer_asset": {
+                  "info": {
+                    "native_token": {
+                      "denom": "uluna"
                     }
+                  },
+                  "amount": "100000"
                 }
-            },
-            new Coins({ uluna: '100000' })
+            }
+          },
+          new Coins({ uluna: '100000' })
         );
 
         const tx = await wallet.createAndSignTx({
-            msgs: [swap],
-            feeDenoms: ['uluna'],
-            chainID: 'pisco-1',
+          msgs: [swap],
+          feeDenoms: ['uluna'],
+          chainID: 'pisco-1',
         });
 
         const result = await lcd.tx.broadcast(tx, 'pisco-1');
@@ -98,19 +98,19 @@ Performs a native swap in a given pool.
 
         ```json focus=11:13
         {
-            "swap": {
-                "offer_asset": {
-                    "info": {
-                        "native_token": {
-                            "denom": "uluna"
-                        }
-                    },
-                    "amount": "100000"
-                }, 
-                "belief_price": beliefPrice, 
-                "max_spread": '0.005', 
-                "to": "..."
-            }
+          "swap": {
+            "offer_asset": {
+              "info": {
+                "native_token": {
+                  "denom": "uluna"
+                }
+              },
+              "amount": "100000"
+            }, 
+            "belief_price": beliefPrice, 
+            "max_spread": '0.005', 
+            "to": "..."
+          }
         }
         ```
 
@@ -177,16 +177,16 @@ Performs a native swap in a given pool.
 
         ```json 
         {
-            "simulation": {
-                "offer_asset": {
-                    "info": {
-                        "native_token": {
-                            "denom": "uluna"
-                        }
-                    },
-                    "amount": "100000"
+          "simulation": {
+            "offer_asset": {
+              "info": {
+                "native_token": {
+                  "denom": "uluna"
                 }
+              },
+              "amount": "100000"
             }
+          }
         }
         ```      
 
@@ -205,16 +205,16 @@ Performs a native swap in a given pool.
         const simulation = await lcd.wasm.contractQuery(
         astrolunaAddress, 
         {
-            "simulation": {
-                "offer_asset": {
-                    "info": {
-                        "native_token": {
-                            "denom": "uluna"
-                        }
-                    },
-                    "amount": "100000"
+          "simulation": {
+            "offer_asset": {
+              "info": {
+                "native_token": {
+                  "denom": "uluna"
                 }
+              },
+              "amount": "100000"
             }
+          }
         }
         ).then(result => { beliefPrice = result.return_amount });
 
@@ -241,24 +241,24 @@ Performs a CW20 swap in a given pool.
 
         ```json
         {
-            "send": {
-                "contract": astrolunaAddress, 
-                "amount": "1000000", 
-                "msg": toBase64(
-                    {
-                        "swap": {
-                            "ask_asset_info": {
-                                "native_token": {
-                                    "denom": "uluna"
-                                }
-                            }, 
-                            "belief_price": beliefPrice, 
-                            "max_spread": "0.005", 
-                            "to": "..."
-                        }
+          "send": {
+            "contract": astrolunaAddress, 
+            "amount": "1000000", 
+            "msg": toBase64(
+              {
+                "swap": {
+                  "ask_asset_info": {
+                    "native_token": {
+                      "denom": "uluna"
                     }
-                )
-            }
+                  }, 
+                  "belief_price": beliefPrice, 
+                  "max_spread": "0.005", 
+                  "to": "..."
+                }
+              }
+            )
+          }
         }
         ```
         ---
@@ -299,27 +299,27 @@ Performs a CW20 swap in a given pool.
         };
 
         const cw20Swap = new MsgExecuteContract(
-            wallet.key.accAddress('terra'),
-            astroAddress,
-            {
-                "send": {
-                    "contract": astrolunaAddress, 
-                    "amount": "1000000", 
-                    "msg": toBase64(
-                        {
-                            "swap": {
-                                "ask_asset_info": {
-                                    "native_token": {
-                                        "denom": "uluna"
-                                    }
-                                }, 
-                                "belief_price": beliefPrice, 
-                                "max_spread": "0.005"
-                            }
-                        }
-                    )
+          wallet.key.accAddress('terra'),
+          astroAddress,
+          {
+            "send": {
+              "contract": astrolunaAddress, 
+              "amount": "1000000", 
+              "msg": toBase64(
+                {
+                  "swap": {
+                    "ask_asset_info": {
+                      "native_token": {
+                        "denom": "uluna"
+                      }
+                    }, 
+                    "belief_price": beliefPrice, 
+                    "max_spread": "0.005"
+                  }
                 }
+              )
             }
+          }
         )
         ```
 
@@ -334,16 +334,16 @@ Performs a CW20 swap in a given pool.
 
         ```json 
         {
-            "simulation": {
-                "offer_asset": {
-                    "info": {
-                        "token": {
-                            "contract_addr": astrolunaAddress
-                        }
-                    },
-                    "amount": "1000000"
+          "simulation": {
+            "offer_asset": {
+              "info": {
+                "token": {
+                  "contract_addr": astrolunaAddress
                 }
+              },
+              "amount": "1000000"
             }
+          }
         }
         ```
 

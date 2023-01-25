@@ -33,41 +33,41 @@ Use when the initial offer asset is a Cosmos native token.
 
         ```json focus=1:32,36:37
         {
-            "execute_swap_operations": {
-                "operations": [
-                    {
-                        "astro_swap": {
-                            "offer_asset_info": {
-                                "native_token": {
-                                    "denom": "uluna"
-                                }
-                            },
-                            "ask_asset_info": {
-                                "token": {
-                                    "contract_addr": usdcAddress
-                                }
-                            }
-                        }
-                    }, 
-                    {
-                        "astro_swap": {
-                            "offer_asset_info": {
-                                "token": {
-                                    "contract_addr": usdcAddress
-                                }
-                            },
-                            "ask_asset_info": {
-                                "token": {
-                                    "contract_addr": zeroAddress
-                                }
-                            }
-                        }
+          "execute_swap_operations": {
+            "operations": [
+              {
+                "astro_swap": {
+                  "offer_asset_info": {
+                    "native_token": {
+                      "denom": "uluna"
                     }
-                ], 
-                "minimum_receive": beliefPrice,
-                "max_spread": "0.005", 
-                "to": "..."
-            }
+                  },
+                  "ask_asset_info": {
+                    "token": {
+                      "contract_addr": usdcAddress
+                    }
+                  }
+                }
+              }, 
+              {
+                "astro_swap": {
+                  "offer_asset_info": {
+                    "token": {
+                      "contract_addr": usdcAddress
+                    }
+                  },
+                  "ask_asset_info": {
+                    "token": {
+                      "contract_addr": zeroAddress
+                    }
+                  }
+                }
+              }
+            ], 
+            "minimum_receive": beliefPrice,
+            "max_spread": "0.005", 
+            "to": "..."
+          }
         }
         ```
 
@@ -89,41 +89,41 @@ Use when the initial offer asset is a Cosmos native token.
         wallet.key.accAddress('terra'),
         routerAddress,
         {
-            "execute_swap_operations": {
-                "operations": [
-                    {
-                        "astro_swap": {
-                            "offer_asset_info": {
-                                "native_token": {
-                                    "denom": "uluna"
-                                }
-                            },
-                            "ask_asset_info": {
-                                "token": {
-                                    "contract_addr": usdcAddress
-                                }
-                            }
-                        }
-                    }, 
-                    {
-                        "astro_swap": {
-                            "offer_asset_info": {
-                                "token": {
-                                    "contract_addr": usdcAddress
-                                }
-                            },
-                            "ask_asset_info": {
-                                "token": {
-                                    "contract_addr": zeroAddress
-                                }
-                            }
-                        }
+          "execute_swap_operations": {
+            "operations": [
+              {
+                "astro_swap": {
+                  "offer_asset_info": {
+                    "native_token": {
+                      "denom": "uluna"
                     }
-                ], 
-                "minimum_receive": beliefPrice,
-                "max_spread": "0.005", 
-                "to": "..."
-            }
+                  },
+                  "ask_asset_info": {
+                    "token": {
+                      "contract_addr": usdcAddress
+                    }
+                  }
+                }
+              }, 
+              {
+                "astro_swap": {
+                  "offer_asset_info": {
+                    "token": {
+                      "contract_addr": usdcAddress
+                    }
+                  },
+                  "ask_asset_info": {
+                    "token": {
+                      "contract_addr": zeroAddress
+                    }
+                  }
+                }
+              }
+            ], 
+            "minimum_receive": beliefPrice,
+            "max_spread": "0.005", 
+            "to": "..."
+          }
         }, 
         new Coins({ "uluna": "100000" })
         )
@@ -132,9 +132,9 @@ Use when the initial offer asset is a Cosmos native token.
 
         // // BROADCAST TRANSACTION
         const tx = await wallet.createAndSignTx({
-            msgs: [nativeRouterSwap],
-            fee,
-            chainID: 'pisco-1',
+          msgs: [nativeRouterSwap],
+          fee,
+          chainID: 'pisco-1',
         });
 
         const result = await lcd.tx.broadcast(tx, 'pisco-1');
@@ -154,41 +154,41 @@ Use when the initial offer asset is a Cosmos native token.
 
         ```json focus=33:35
         {
-            "execute_swap_operations": {
-                "operations": [
-                    {
-                        "astro_swap": {
-                            "offer_asset_info": {
-                                "native_token": {
-                                    "denom": "uluna"
-                                }
-                            },
-                            "ask_asset_info": {
-                                "token": {
-                                    "contract_addr": usdcAddress
-                                }
-                            }
-                        }
-                    }, 
-                    {
-                        "astro_swap": {
-                            "offer_asset_info": {
-                                "token": {
-                                    "contract_addr": usdcAddress
-                                }
-                            },
-                            "ask_asset_info": {
-                                "token": {
-                                    "contract_addr": zeroAddress
-                                }
-                            }
-                        }
+          "execute_swap_operations": {
+            "operations": [
+              {
+                "astro_swap": {
+                  "offer_asset_info": {
+                    "native_token": {
+                      "denom": "uluna"
                     }
-                ], 
-                "minimum_receive": beliefPrice,
-                "max_spread": "0.005",
-                "to": "..."
-            }
+                  },
+                  "ask_asset_info": {
+                    "token": {
+                      "contract_addr": usdcAddress
+                    }
+                  }
+                }
+              }, 
+              {
+                "astro_swap": {
+                  "offer_asset_info": {
+                    "token": {
+                      "contract_addr": usdcAddress
+                    }
+                  },
+                  "ask_asset_info": {
+                    "token": {
+                      "contract_addr": zeroAddress
+                    }
+                  }
+                }
+              }
+            ], 
+            "minimum_receive": beliefPrice,
+            "max_spread": "0.005",
+            "to": "..."
+          }
         }
         ```
         ---
@@ -224,39 +224,39 @@ Use when the initial offer asset is a Cosmos native token.
 
         ```js
         {
-            "simulate_swap_operations": {
-                "offer_amount": "100000",
-                "operations": [
-                    {
-                        "astro_swap": {
-                            "offer_asset_info": {
-                                "native_token": {
-                                    "denom": "uluna"
-                                }
-                            },
-                            "ask_asset_info": {
-                                "token": {
-                                    "contract_addr": usdcAddress
-                                }
-                            }
-                        }
-                    }, 
-                    {
-                        "astro_swap": {
-                            "offer_asset_info": {
-                                "token": {
-                                    "contract_addr": usdcAddress
-                                }
-                            },
-                            "ask_asset_info": {
-                                "token": {
-                                    "contract_addr": zeroAddress
-                                }
-                            }
-                        }
+          "simulate_swap_operations": {
+            "offer_amount": "100000",
+            "operations": [
+              {
+                "astro_swap": {
+                  "offer_asset_info": {
+                    "native_token": {
+                      "denom": "uluna"
                     }
-                ]
-            }
+                  },
+                  "ask_asset_info": {
+                    "token": {
+                      "contract_addr": usdcAddress
+                    }
+                  }
+                }
+              }, 
+              {
+                "astro_swap": {
+                  "offer_asset_info": {
+                    "token": {
+                      "contract_addr": usdcAddress
+                    }
+                  },
+                  "ask_asset_info": {
+                    "token": {
+                      "contract_addr": zeroAddress
+                    }
+                  }
+                }
+              }
+            ]
+          }
         }
         ```
         ---
@@ -329,48 +329,48 @@ Use when the initial offer asset is a CW20 token.
 
         ```json 
         {
-            "send": {
-                "contract": routerAddress, 
-                "amount": "1000000", 
-                "msg": toBase64(
+          "send": {
+            "contract": routerAddress, 
+            "amount": "1000000", 
+            "msg": toBase64(
+              {
+                "execute_swap_operations": {
+                  "operations": [
                     {
-                        "execute_swap_operations": {
-                            "operations": [
-                                {
-                                    "astro_swap": {
-                                        "offer_asset_info": {
-                                            "token": {
-                                                "contract_addr": astroAddress
-                                            }
-                                        },
-                                        "ask_asset_info": {
-                                            "native_token": {
-                                                "denom": "uluna"
-                                            }
-                                        }
-                                    }
-                                }, 
-                                {
-                                    "astro_swap": {
-                                        "offer_asset_info": {
-                                            "native_token": {
-                                                "denom": "uluna"
-                                            }
-                                        },
-                                        "ask_asset_info": {
-                                            "token": {
-                                                "contract_addr": steakAddress
-                                            }
-                                        }
-                                    }
-                                }
-                            ], 
-                            "minimum_receive": nativeBeliefPrice,
-                            "max_spread": "0.005"
+                      "astro_swap": {
+                        "offer_asset_info": {
+                          "token": {
+                            "contract_addr": astroAddress
+                          }
+                        },
+                        "ask_asset_info": {
+                          "native_token": {
+                            "denom": "uluna"
+                          }
                         }
+                      }
+                    }, 
+                    {
+                      "astro_swap": {
+                        "offer_asset_info": {
+                          "native_token": {
+                            "denom": "uluna"
+                          }
+                        },
+                        "ask_asset_info": {
+                          "token": {
+                            "contract_addr": steakAddress
+                          }
+                        }
+                      }
                     }
-                )
-            }
+                  ], 
+                  "minimum_receive": nativeBeliefPrice,
+                  "max_spread": "0.005"
+                }
+              }
+            )
+          }
         }
         ```
 
@@ -405,65 +405,65 @@ Use when the initial offer asset is a CW20 token.
 
         ```js
         const toBase64 = (obj) => {
-            return Buffer.from(JSON.stringify(obj)).toString("base64");
+          return Buffer.from(JSON.stringify(obj)).toString("base64");
         };
 
         const cw20RouterSwap = new MsgExecuteContract(
-            wallet.key.accAddress('terra'),
-            astroAddress,
-            {
-                "send": {
-                    "contract": routerAddress, 
-                    "amount": "1000000", 
-                    "msg": toBase64(
-                        {
-                            "execute_swap_operations": {
-                                "operations": [
-                                    {
-                                        "astro_swap": {
-                                            "offer_asset_info": {
-                                                "token": {
-                                                    "contract_addr": astroAddress
-                                                }
-                                            },
-                                            "ask_asset_info": {
-                                                "native_token": {
-                                                    "denom": "uluna"
-                                                }
-                                            }
-                                        }
-                                    }, 
-                                    {
-                                        "astro_swap": {
-                                            "offer_asset_info": {
-                                                "native_token": {
-                                                    "denom": "uluna"
-                                                }
-                                            },
-                                            "ask_asset_info": {
-                                                "token": {
-                                                    "contract_addr": steakAddress
-                                                }
-                                            }
-                                        }
-                                    }
-                                ], 
-                                "minimum_receive": nativeBeliefPrice,
-                                "max_spread": "0.005"
+          wallet.key.accAddress('terra'),
+          astroAddress,
+          {
+            "send": {
+              "contract": routerAddress, 
+              "amount": "1000000", 
+              "msg": toBase64(
+                {
+                  "execute_swap_operations": {
+                    "operations": [
+                      {
+                        "astro_swap": {
+                          "offer_asset_info": {
+                            "token": {
+                              "contract_addr": astroAddress
                             }
+                          },
+                          "ask_asset_info": {
+                            "native_token": {
+                              "denom": "uluna"
+                            }
+                          }
                         }
-                    )
+                      }, 
+                      {
+                        "astro_swap": {
+                          "offer_asset_info": {
+                            "native_token": {
+                              "denom": "uluna"
+                            }
+                          },
+                          "ask_asset_info": {
+                            "token": {
+                              "contract_addr": steakAddress
+                            }
+                          }
+                        }
+                      }
+                    ], 
+                    "minimum_receive": nativeBeliefPrice,
+                    "max_spread": "0.005"
+                  }
                 }
+              )
             }
+          }
         )
 
         const fee = new Fee(2000000, { uluna: 200000 });
 
         // // BROADCAST TRANSACTION
         const tx = await wallet.createAndSignTx({
-            msgs: [cw20RouterSwap],
-            fee,
-            chainID: 'pisco-1',
+          msgs: [cw20RouterSwap],
+          fee,
+          chainID: 'pisco-1',
         });
 
         const result = await lcd.tx.broadcast(tx, 'pisco-1');
@@ -481,39 +481,39 @@ Use when the initial offer asset is a CW20 token.
 
         ```json
         {
-            "simulate_swap_operations": {
-            "offer_amount": "1000000",
-                "operations": [
-                    {
-                        "astro_swap": {
-                            "offer_asset_info": {
-                                "token": {
-                                    "contract_addr": astroAddress
-                                }
-                            },
-                            "ask_asset_info": {
-                                "native_token": {
-                                    "denom": "uluna"
-                                }
-                            }
-                        }
-                    }, 
-                    {
-                        "astro_swap": {
-                            "offer_asset_info": {
-                                "native_token": {
-                                    "denom": "uluna"
-                                }
-                            },
-                            "ask_asset_info": {
-                                "token": {
-                                    "contract_addr": steakAddress
-                                }
-                            }
-                        }
+          "simulate_swap_operations": {
+        "offer_amount": "1000000",
+            "operations": [
+              {
+                "astro_swap": {
+                  "offer_asset_info": {
+                    "token": {
+                      "contract_addr": astroAddress
                     }
-                ]
-            }
+                  },
+                  "ask_asset_info": {
+                    "native_token": {
+                      "denom": "uluna"
+                    }
+                  }
+                }
+              }, 
+              {
+                "astro_swap": {
+                  "offer_asset_info": {
+                    "native_token": {
+                      "denom": "uluna"
+                    }
+                  },
+                  "ask_asset_info": {
+                    "token": {
+                      "contract_addr": steakAddress
+                    }
+                  }
+                }
+              }
+            ]
+          }
         }
         ```
 

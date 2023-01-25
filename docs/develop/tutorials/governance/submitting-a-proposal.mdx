@@ -27,50 +27,50 @@ Upon approval, the upgrades or assignments will be autonomously executed.
 
         ```json focus=1:19,34:46
         {
-            "send": {
-                "contract": assemblyAddress, 
-                "amount": "1000", // testnet deposit amount - mainnet = 30,000 xASTRO
-                "msg": toBase64(
+          "send": {
+            "contract": assemblyAddress, 
+            "amount": "1000", // testnet deposit amount - mainnet = 30,000 xASTRO
+            "msg": toBase64(
+              {
+                "submit_proposal": {
+                  "title": "deregister astro-steak pair", 
+                  "description": "proposal to deregister inactive pair", 
+                  "link": "https://forum.astroport.fi/some-proposal", 
+                  "messages": [
                     {
-                        "submit_proposal": {
-                            "title": "deregister astro-steak pair", 
-                            "description": "proposal to deregister inactive pair", 
-                            "link": "https://forum.astroport.fi/some-proposal", 
-                            "messages": [
-                                {
-                                    "order": "1",
-                                    "msg": {
-                                        "wasm": {
-                                            "execute": {
-                                                "contract_addr": factoryAddress,
-                                                "msg": toBase64(
-                                                    {
-                                                        "deregister": {
-                                                            "asset_infos": [
-                                                                {
-                                                                    "token": {
-                                                                        "contract_addr": astroAddress
-                                                                    }
-                                                                },
-                                                                {
-                                                                    "token": {
-                                                                        "contract_addr": steakAddress
-                                                                    }
-                                                                }
-                                                            ]
-                                                        }
-                                                    }
-                                                ),
-                                                "funds": []
-                                            }
-                                        }
+                      "order": "1",
+                      "msg": {
+                        "wasm": {
+                          "execute": {
+                            "contract_addr": factoryAddress,
+                            "msg": toBase64(
+                              {
+                                "deregister": {
+                                  "asset_infos": [
+                                    {
+                                      "token": {
+                                        "contract_addr": astroAddress
+                                      }
+                                    },
+                                    {
+                                      "token": {
+                                        "contract_addr": steakAddress
+                                      }
                                     }
+                                  ]
                                 }
-                            ]
+                              }
+                            ),
+                            "funds": []
+                          }
                         }
+                      }
                     }
-                )
-            }
+                  ]
+                }
+              }
+            )
+          }
         }
         ```
 
@@ -130,20 +130,20 @@ Upon approval, the upgrades or assignments will be autonomously executed.
 
         ```json
         {
-            "deregister": {
-                "asset_infos": [
-                    {
-                        "token": {
-                            "contract_addr": astroAddress
-                        }
-                    },
-                    {
-                        "token": {
-                            "contract_addr": steakAddress
-                        }
-                    }
-                ]
-            }
+          "deregister": {
+            "asset_infos": [
+              {
+                "token": {
+                  "contract_addr": astroAddress
+                }
+              },
+              {
+                "token": {
+                  "contract_addr": steakAddress
+                }
+              }
+            ]
+          }
         }
         ```
 
@@ -160,7 +160,7 @@ Upon approval, the upgrades or assignments will be autonomously executed.
 
         ```js
         let toBase64 = (obj) => {
-            return Buffer.from(JSON.stringify(obj)).toString("base64");
+          return Buffer.from(JSON.stringify(obj)).toString("base64");
         };
         ```
 

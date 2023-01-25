@@ -26,35 +26,35 @@ Use when submitting a proposal to `deregister` a pool through the Astroport Web 
 
         ```json
         [
-            {
-                "order": "1",
-                "msg": {
-                    "wasm": {
-                        "execute": {
-                            "contract_addr": factoryAddress,
-                            "msg": toBase64(
-                                {
-                                    "deregister": {
-                                        "asset_infos": [
-                                            {
-                                                "token": {
-                                                    "contract_addr": astroAddress
-                                                }
-                                            },
-                                            {
-                                                "token": {
-                                                    "contract_addr": steakAddress
-                                                }
-                                            }
-                                        ]
-                                    }
-                                }
-                            ),
-                            "funds": []
+          {
+              "order": "1",
+              "msg": {
+                "wasm": {
+                  "execute": {
+                    "contract_addr": factoryAddress,
+                    "msg": toBase64(
+                      {
+                        "deregister": {
+                          "asset_infos": [
+                            {
+                              "token": {
+                                "contract_addr": astroAddress
+                              }
+                            },
+                            {
+                              "token": {
+                                "contract_addr": steakAddress
+                              }
+                            }
+                          ]
                         }
-                    }
+                      }
+                    ),
+                    "funds": []
+                  }
                 }
-            }
+              }
+          }
         ]
         ```
 
@@ -104,20 +104,20 @@ Use when submitting a proposal to `deregister` a pool through the Astroport Web 
 
         ```json
         {
-            "deregister": {
-                "asset_infos": [
-                    {
-                        "token": {
-                            "contract_addr": astroAddress
-                        }
-                    },
-                    {
-                        "token": {
-                            "contract_addr": steakAddress
-                        }
-                    }
-                ]
-            }
+          "deregister": {
+            "asset_infos": [
+              {
+                "token": {
+                  "contract_addr": astroAddress
+                }
+              },
+              {
+                "token": {
+                  "contract_addr": steakAddress
+                }
+              }
+            ]
+          }
         }
         ```
 
@@ -141,18 +141,18 @@ Use when submitting a proposal to `deregister` a pool through the Astroport Web 
 
         ```json
         [
-            {
-                "order": "1",
-                "msg": {
-                    "wasm": {
-                        "execute": {
-                            "contract_addr": "terra1z3y69xas85r7egusa0c7m5sam0yk97gsztqmh8f2cc6rr4s4anysudp7k0", // factoryAddress
-                            "msg": "ewogICJkZXJlZ2lzdGVyIjogewogICAgImFzc2V0X2luZm9zIjogWwogICAgICB7CiAgICAgICAgInRva2VuIjogewogICAgICAgICAgImNvbnRyYWN0X2FkZHIiOiAidGVycmExNjdkc3FraDJhbHVyeDk5N3dteWN3OXlka3l1NTRneXN3ZTN5Z21yczRsd3VtZTN2bXdrczhydXFudiIKICAgICAgICB9CiAgICAgIH0sCiAgICAgIHsKICAgICAgICAidG9rZW4iOiB7CiAgICAgICAgICAiY29udHJhY3RfYWRkciI6ICJ0ZXJyYTF4enRueDhtbTdkYWduNGNrM2RneWxhcXVjcDZoNmFndzgzcG15YzI5aG5wbHE3MzU1dHJzNzhma2NxIgogICAgICAgIH0KICAgICAgfQogICAgXQogIH0KfQ==",
-                            "funds": []
-                        }
-                    }
+          {
+            "order": "1",
+            "msg": {
+              "wasm": {
+                "execute": {
+                  "contract_addr": "terra1z3y69xas85r7egusa0c7m5sam0yk97gsztqmh8f2cc6rr4s4anysudp7k0", // factoryAddress
+                  "msg": "ewogICJkZXJlZ2lzdGVyIjogewogICAgImFzc2V0X2luZm9zIjogWwogICAgICB7CiAgICAgICAgInRva2VuIjogewogICAgICAgICAgImNvbnRyYWN0X2FkZHIiOiAidGVycmExNjdkc3FraDJhbHVyeDk5N3dteWN3OXlka3l1NTRneXN3ZTN5Z21yczRsd3VtZTN2bXdrczhydXFudiIKICAgICAgICB9CiAgICAgIH0sCiAgICAgIHsKICAgICAgICAidG9rZW4iOiB7CiAgICAgICAgICAiY29udHJhY3RfYWRkciI6ICJ0ZXJyYTF4enRueDhtbTdkYWduNGNrM2RneWxhcXVjcDZoNmFndzgzcG15YzI5aG5wbHE3MzU1dHJzNzhma2NxIgogICAgICAgIH0KICAgICAgfQogICAgXQogIH0KfQ==",
+                  "funds": []
                 }
+              }
             }
+          }
         ]
         ```
 
@@ -182,33 +182,33 @@ Before continuing with this section, make sure to read the section above on subm
 
         ```json
         {
-            "send": {
-                "contract": assemblyAddress, 
-                "amount": "1000", // testnet deposit amount
-                "msg": toBase64(
+          "send": {
+            "contract": assemblyAddress, 
+            "amount": "1000", // testnet deposit amount
+            "msg": toBase64(
+              {
+                "submit_proposal": {
+                  "title": "deregister astro-steak pair", 
+                  "description": "proposal to deregister inactive pair", 
+                  "link": "https://forum.astroport.fi/t/arc-37-update-deployed-stableswaps-to-latest-pool-version/927", 
+                  "messages": [
                     {
-                        "submit_proposal": {
-                            "title": "deregister astro-steak pair", 
-                            "description": "proposal to deregister inactive pair", 
-                            "link": "https://forum.astroport.fi/t/arc-37-update-deployed-stableswaps-to-latest-pool-version/927", 
-                            "messages": [
-                                {
-                                    "order": "1",
-                                    "msg": {
-                                        "wasm": {
-                                            "execute": {
-                                                "contract_addr": factoryAddress,
-                                                "msg": "ewogICJkZXJlZ2lzdGVyIjogewogICAgImFzc2V0X2luZm9zIjogWwogICAgICB7CiAgICAgICAgInRva2VuIjogewogICAgICAgICAgImNvbnRyYWN0X2FkZHIiOiAidGVycmExNjdkc3FraDJhbHVyeDk5N3dteWN3OXlka3l1NTRneXN3ZTN5Z21yczRsd3VtZTN2bXdrczhydXFudiIKICAgICAgICB9CiAgICAgIH0sCiAgICAgIHsKICAgICAgICAidG9rZW4iOiB7CiAgICAgICAgICAiY29udHJhY3RfYWRkciI6ICJ0ZXJyYTF4enRueDhtbTdkYWduNGNrM2RneWxhcXVjcDZoNmFndzgzcG15YzI5aG5wbHE3MzU1dHJzNzhma2NxIgogICAgICAgIH0KICAgICAgfQogICAgXQogIH0KfQ",
-                                                "funds": []
-                                            }
-                                        }
-                                    }
-                                }
-                            ]
+                      "order": "1",
+                      "msg": {
+                        "wasm": {
+                          "execute": {
+                            "contract_addr": factoryAddress,
+                            "msg": "ewogICJkZXJlZ2lzdGVyIjogewogICAgImFzc2V0X2luZm9zIjogWwogICAgICB7CiAgICAgICAgInRva2VuIjogewogICAgICAgICAgImNvbnRyYWN0X2FkZHIiOiAidGVycmExNjdkc3FraDJhbHVyeDk5N3dteWN3OXlka3l1NTRneXN3ZTN5Z21yczRsd3VtZTN2bXdrczhydXFudiIKICAgICAgICB9CiAgICAgIH0sCiAgICAgIHsKICAgICAgICAidG9rZW4iOiB7CiAgICAgICAgICAiY29udHJhY3RfYWRkciI6ICJ0ZXJyYTF4enRueDhtbTdkYWduNGNrM2RneWxhcXVjcDZoNmFndzgzcG15YzI5aG5wbHE3MzU1dHJzNzhma2NxIgogICAgICAgIH0KICAgICAgfQogICAgXQogIH0KfQ",
+                            "funds": []
+                          }
                         }
+                      }
                     }
-                )
-            }
+                  ]
+                }
+              }
+            )
+          }
         }
         ```
 
@@ -248,7 +248,7 @@ Before continuing with this section, make sure to read the section above on subm
 
         ```js
         let toBase64 = (obj) => {
-            return Buffer.from(JSON.stringify(obj)).toString("base64");
+          return Buffer.from(JSON.stringify(obj)).toString("base64");
         };
         ```
 

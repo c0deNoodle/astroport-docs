@@ -27,13 +27,13 @@ Users can also withdraw liquidity by calling `withdraw_liquidity`. To receive th
 
         ```json
         {
-            "increase_allowance": {
-                "spender": astrolunaAddress,
-                "amount": "1000000000000",
-                "expires": {
-                    "never": {}
-                }
+          "increase_allowance": {
+            "spender": astrolunaAddress,
+            "amount": "1000000000000",
+            "expires": {
+              "never": {}
             }
+          }
         }
         ```
 
@@ -49,29 +49,29 @@ Users can also withdraw liquidity by calling `withdraw_liquidity`. To receive th
 
         ```json
         {
-            "provide_liquidity": {
-                "assets": [
-                    {
-                        "info": {
-                            "token": {
-                                "contract_addr": astroAddress
-                            }
-                        },
-                        "amount": beliefPrice
-                    },
-                    {
-                        "info": {
-                            "native_token": {
-                                "denom": "uluna"
-                            }
-                        },
-                        "amount": "500000"
-                    }
-                ],
-                "slippage_tolerance": "0.005",
-                "auto_stake": false, 
-                "receiver": "..."
-            }
+          "provide_liquidity": {
+            "assets": [
+              {
+                "info": {
+                  "token": {
+                    "contract_addr": astroAddress
+                  }
+                },
+                "amount": beliefPrice
+              },
+              {
+                "info": {
+                  "native_token": {
+                    "denom": "uluna"
+                  }
+                },
+                "amount": "500000"
+              }
+            ],
+            "slippage_tolerance": "0.005",
+            "auto_stake": false, 
+            "receiver": "..."
+          }
         }
         ```
 
@@ -102,42 +102,42 @@ Users can also withdraw liquidity by calling `withdraw_liquidity`. To receive th
         const astroAddress = 'terra167dsqkh2alurx997wmycw9ydkyu54gyswe3ygmrs4lwume3vmwks8ruqnv';
 
         const provideLiquidity = new MsgExecuteContract(
-            wallet.key.accAddress('terra'),
-            astrolunaAddress,
-            {
-                "provide_liquidity": {
-                    "assets": [
-                        {
-                            "info": {
-                                "token": {
-                                    "contract_addr": astroAddress
-                                }
-                            },
-                            "amount": beliefPrice
-                        },
-                        {
-                            "info": {
-                                "native_token": {
-                                    "denom": "uluna"
-                                }
-                            },
-                            "amount": "500000"
-                        }
-                    ],
-                    "slippage_tolerance": "0.005",
-                    "auto_stake": false
+          wallet.key.accAddress('terra'),
+          astrolunaAddress,
+          {
+            "provide_liquidity": {
+              "assets": [
+                {
+                  "info": {
+                    "token": {
+                      "contract_addr": astroAddress
+                    }
+                  },
+                  "amount": beliefPrice
+                },
+                {
+                  "info": {
+                    "native_token": {
+                      "denom": "uluna"
+                    }
+                  },
+                  "amount": "500000"
                 }
-            }, 
-            new Coins({ "uluna": "500000" })
+              ],
+              "slippage_tolerance": "0.005",
+              "auto_stake": false
+            }
+          }, 
+          new Coins({ "uluna": "500000" })
         );
 
 
         const fee = new Fee(2000000, { uluna: 200000 });
 
         const tx = await wallet.createAndSignTx({
-        msgs: [provideLiquidity],
-        fee,
-        chainID: 'pisco-1',
+          msgs: [provideLiquidity],
+          fee,
+          chainID: 'pisco-1',
         });
 
         const result = await lcd.tx.broadcast(tx, 'pisco-1');
@@ -155,28 +155,28 @@ Users can also withdraw liquidity by calling `withdraw_liquidity`. To receive th
 
         ```json
         {
-            "provide_liquidity": {
-                "assets": [
-                    {
-                        "info": {
-                            "token": {
-                                "contract_addr": astroAddress
-                            }
-                        },
-                        "amount": beliefPrice
-                    },
-                    {
-                        "info": {
-                            "native_token": {
-                                "denom": "uluna"
-                            }
-                        },
-                        "amount": "500000"
-                    }
-                ],
-                "slippage_tolerance": "0.005",
-                "auto_stake": false
-            }
+          "provide_liquidity": {
+            "assets": [
+              {
+                "info": {
+                  "token": {
+                    "contract_addr": astroAddress
+                  }
+                },
+                "amount": beliefPrice
+              },
+              {
+                "info": {
+                  "native_token": {
+                    "denom": "uluna"
+                  }
+                },
+                "amount": "500000"
+              }
+            ],
+            "slippage_tolerance": "0.005",
+            "auto_stake": false
+          }
         }
         ```
 
@@ -190,16 +190,16 @@ Users can also withdraw liquidity by calling `withdraw_liquidity`. To receive th
 
         ```json
         {
-            "simulation": {
-                "offer_asset": {
-                    "info": {
-                        "native_token": {
-                            "denom": "uluna"
-                        }
-                    },
-                    "amount": "500000"
+          "simulation": {
+            "offer_asset": {
+              "info": {
+                "native_token": {
+                  "denom": "uluna"
                 }
+              },
+              "amount": "500000"
             }
+          }
         }
         ```
 
@@ -222,15 +222,15 @@ Users can also withdraw liquidity by calling `withdraw_liquidity`. To receive th
 
         ```json
         {
-            "send": {
-                "contract": astrolunaAddress,
-                "amount": "10000000",
-                "msg": toBase64(
-                    {
-                        "withdraw_liquidity": {}
-                    }
-                )
-            }
+          "send": {
+            "contract": astrolunaAddress,
+            "amount": "10000000",
+            "msg": toBase64(
+              {
+                "withdraw_liquidity": {}
+              }
+            )
+          }
         }
         ```
         ---
@@ -258,32 +258,32 @@ Users can also withdraw liquidity by calling `withdraw_liquidity`. To receive th
         const astrolunaLPAddress = 'terra1886vn036tc9e7ejx8pe4nkhts3gwpdfegwc4n3u77n0q76fjdthqarl8uc';
         
         const toBase64 = (obj) => {
-            return Buffer.from(JSON.stringify(obj)).toString("base64");
+          return Buffer.from(JSON.stringify(obj)).toString("base64");
         };
 
         const withdraw = new MsgExecuteContract(
-            wallet.key.accAddress('terra'),
-            astrolunaLPAddress,
-            {
-                "send": {
-                    "contract": astrolunaAddress,
-                    "amount": "10000000",
-                    "msg": toBase64(
-                        {
-                            "withdraw_liquidity": {}
-                        }
-                    )
+          wallet.key.accAddress('terra'),
+          astrolunaLPAddress,
+          {
+            "send": {
+              "contract": astrolunaAddress,
+              "amount": "10000000",
+              "msg": toBase64(
+                {
+                  "withdraw_liquidity": {}
                 }
+              )
             }
+          }
         )
 
         const fee = new Fee(2000000, { uluna: 200000 });
 
         // // BROADCAST TRANSACTION
         const tx = await wallet.createAndSignTx({
-        msgs: [withdraw],
-        fee,
-        chainID: 'pisco-1',
+          msgs: [withdraw],
+          fee,
+          chainID: 'pisco-1',
         });
 
         const result = await lcd.tx.broadcast(tx, 'pisco-1');
