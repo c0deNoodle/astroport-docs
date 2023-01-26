@@ -216,7 +216,7 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://github.com/astroport-fi/astroport-core',
+            href: 'https://github.com/astroport-fi/',
             label: 'GitHub',
             position: 'right',
           },
@@ -272,7 +272,7 @@ const config = {
               },
               {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/astroport-fi/',
               },
             ],
           },
