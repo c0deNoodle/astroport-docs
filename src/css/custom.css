@@ -493,3 +493,22 @@ div.navbar__items {
   padding-left: 0px !important;
   margin-left: 0px !important;
 }
+
+
+/* @media (max-width: 1130px) {
+  div.col.col--3 {
+    display: none;
+  }
+} */
+
+@media (max-width: 1240px) {
+  div.col.col--3 {
+    display: none;
+  }
+
+  .docMainContainer_src-theme-DocPage-Layout-Main-styles-module {
+    display: block;
+  }
+
+
+}
