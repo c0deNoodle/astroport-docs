@@ -2,4 +2,74 @@
 sidebar_position: 3
 ---
 
+import LP1Url from '@site/static/img/web-app-tutorials/farmers-fields/staking/1.png';
+import LP2Url from '@site/static/img/web-app-tutorials/farmers-fields/staking/2.png';
+import LP3Url from '@site/static/img/web-app-tutorials/farmers-fields/staking/3.png';
+import LP4Url from '@site/static/img/web-app-tutorials/farmers-fields/staking/4.png';
+import LP5Url from '@site/static/img/web-app-tutorials/farmers-fields/staking/5.png';
+import LP6Url from '@site/static/img/web-app-tutorials/farmers-fields/staking/6.png';
+import LP7Url from '@site/static/img/web-app-tutorials/farmers-fields/staking/7.png';
+import LP8Url from '@site/static/img/web-app-tutorials/farmers-fields/staking/8.png';
+import LP9Url from '@site/static/img/web-app-tutorials/farmers-fields/staking/9.png';
+
 # Staking/Unstaking LP Tokens
+
+## Staking LP Tokens 
+
+### Step 1: Go to the Astroport Web App pools tab: https://app.astroport.fi/pools
+
+<img src={LP1Url} style={{ paddingBottom: 10 }} />
+
+### Step 1A: Auto-Stake
+
+<img src={LP2Url} style={{ paddingBottom: 10 }} />
+
+The simplest way to stake LP tokens into the generator contract is to auto stake them at the time that you provide liquidity. This can be done in the same contract message and can also be completed through the Astroport UI. 
+
+When providing liqudiity, select "On" to "Stake LP tokens for Generator rewards". 
+
+### Step 2: Staking LP Tokens 
+
+<img src={LP3Url} style={{ paddingBottom: 10 }} />
+
+To stake LP tokens manually, select "Stake Liquidity" from the Pools tab page. This will lead you to a UI where you can select the percentage of avialiable LP tokens you'd like to stake in the Generator contract for ASTRO emissions. 
+
+### Step 3: Confirm Transaction
+
+<img src={LP4Url} style={{ paddingBottom: 10 }} />
+
+Select "Confirm Staking LP Tokens" to continue.
+
+### Step 4: Sign & Broadcast Transaction 
+
+<img src={LP5Url} style={{ paddingBottom: 10 }} />
+
+You will be prompted to sign and confirm the transaction using a compatible wallet. 
+
+## Unstaking LP Tokens 
+
+### Step 1: Go to the Astroport Web App pools tab: https://app.astroport.fi/pools
+
+<img src={LP1Url} style={{ paddingBottom: 10 }} />
+
+Select "Unstake Liquidity" to move forward. 
+
+### Step 2: Unstake LP Tokens
+
+<img src={LP7Url} style={{ paddingBottom: 10 }} />
+
+The UI will allow you to select the percentage of avialiable LP tokens staked in the Generator contract that you'd like to withdraw. To unstake LP tokens, select "Unstake LP Tokens".
+
+Note that this simply unstakes LP tokens and returns the LP tokens from the Generator contract back to your address. You can verify this by checking your LP token balance in your wallet You still need to withdraw your LP tokens to retrieve the underlying liquidity. 
+
+### Step 3: Confirm Transaction
+
+<img src={LP8Url} style={{ paddingBottom: 10 }} />
+
+Select "Confirm Unstaking LP Tokens" to continue.
+
+### Step 4: Sign & Broadcast Transaction 
+
+<img src={LP9Url} style={{ paddingBottom: 10 }} />
+
+You will be prompted to sign and confirm the transaction using a compatible wallet. 

@@ -337,7 +337,7 @@ const boxProps = {
     },
     multihopRouting: {
       title: "Multi-hop Routing",
-      description: "Improve your swapping skills with custom multi-hop routs",
+      description: "Improve your swapping skills with custom multi-hop routes",
       image: AstroChadUrl,
       list: "Multi-hop Routing",
     },

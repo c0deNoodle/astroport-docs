@@ -58,7 +58,7 @@ const learnContent = [
     title: "Astro Generators",
     description: "Open the operation manual of Astroports unique Generators",
     image: AstroGeneratorsImg,
-    listItems: [{ label: "Proxy Contracts" }, { label: "Dual Rewards" }],
+    listItems: [{ label: "Overview", href: "../../../../docs/learn/astro-generators" }, { label: "Dual Liquidity Mining", href: "../../../../docs/learn/astro-generators#dual-liquidity-mining" }],
   },
   {
     title: "Astral Assembly",
@@ -190,17 +190,17 @@ const developContent = [
     image: TutorialsImg,
     listItems: [
       {
-        href: "../../../../docs/develop/category/trading",
+        href: "../../../../docs/develop/tutorials/trading/trading-intro",
         label: "Trading",
       },
 
       {
-        href: "../../../../docs/develop/category/farming",
+        href: "../../../../docs/develop/tutorials/farming/farming-intro",
         label: "Farming",
       },
 
       {
-        href: "../../../../docs/develop/category/governance",
+        href: "../../../../docs/develop/tutorials/governance/governance-intro",
         label: "Governance",
       },
     ],
@@ -215,7 +215,7 @@ export default function ContentBox(props) {
       <div className="flex flex-wrap justify-center gap-4">
         {learnContent.map((entry) => (
           <Card key={entry.title}>
-            <a className={styles.links} href="../../docs/develop/backend">
+            {/* <a className={styles.links} href="../../docs/develop/backend"> */}
               <div className={styles.box}>
                 <img src={entry.image} height={76} width={76} className="opacity-50 self-start mt-4" />
 
@@ -233,7 +233,7 @@ export default function ContentBox(props) {
                   </ul>
                 </div>
               </div>
-            </a>
+            {/* </a> */}
           </Card>
         ))}
       </div>
@@ -243,7 +243,7 @@ export default function ContentBox(props) {
       <div className="flex flex-wrap justify-center gap-4">
         {governContent.map((entry) => (
           <Card key={entry.title}>
-            <a className={styles.links} href="../../docs/develop/backend">
+            {/* <a className={styles.links} href="../../docs/develop/backend"> */}
               <div className={styles.box}>
                 <img src={entry.image} height={76} width={76} className="opacity-50 self-start mt-4" />
 
@@ -261,7 +261,7 @@ export default function ContentBox(props) {
                   </ul>
                 </div>
               </div>
-            </a>
+            {/* </a> */}
           </Card>
         ))}
       </div>
@@ -271,7 +271,7 @@ export default function ContentBox(props) {
       <div className="flex flex-wrap justify-center gap-4">
         {developContent.map((entry) => (
           <Card key={entry.title}>
-            <a className={styles.links} href="../../docs/develop/backend">
+            {/* <a className={styles.links} href="../../docs/develop/backend"> */}
               <div className={styles.box}>
                 <img src={entry.image} height={76} width={76} className="opacity-50 self-start mt-4" />
 
@@ -289,7 +289,7 @@ export default function ContentBox(props) {
                   </ul>
                 </div>
               </div>
-            </a>
+            {/* </a> */}
           </Card>
         ))}
       </div>
