@@ -1,5 +1,9 @@
 {
   "redirects": [
-    { "source": "/astroport/smart-contracts/tokenomics/generator", "destination": "/docs/learn/astro-generators" }
+    {
+      "source": "/astroport/smart-contracts/tokenomics/generator",
+      "destination": "/docs/learn/astro-generators",
+      "statusCode": 301
+    }
   ]
 }
