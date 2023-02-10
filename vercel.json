@@ -1,8 +1,362 @@
 {
   "redirects": [
     {
-      "source": "/astroport/smart-contracts/tokenomics/generator",
+      "source": "/astroport",
+      "destination": "/docs/overview/astroport-onboarding/astroport-onboarding-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/astroport-onboarding/the-impact",
+      "destination": "/docs/overview/astroport-onboarding/the-impact",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/astroport-onboarding/the-vision",
+      "destination": "/docs/overview/astroport-onboarding/the-vision",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/astroport/astro-pools",
+      "destination": "/docs/learn/astro-pools/astro-pools-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/astroport/astro-pools/constant-product-pools",
+      "destination": "/docs/learn/astro-pools/constant-product-pools",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/astroport/astro-pools/stableswap-invariant-pools",
+      "destination": "/docs/learn/astro-pools/stableswap-pools",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/astroport/astro-generators",
       "destination": "/docs/learn/astro-generators",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/astroport/astral-assembly",
+      "destination": "/docs/learn/astral-assembly",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/astroport/astro-nft",
+      "destination": "/docs/overview/astroport-onboarding/astroport-onboarding-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/astroport/astro-faq",
+      "destination": "/docs/overview/astroport-faq",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/workstation/basics",
+      "destination": "/docs/learn/workstation/starter-pack/starter-pack-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/workstation/basics/setting-up-your-terra-wallet",
+      "destination": "/docs/learn/workstation/starter-pack/creating-a-wallet/terra-station",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/workstation/trading",
+      "destination": "/docs/learn/workstation/traders-port/traders-port-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/workstation/trading/swaps",
+      "destination": "/docs/learn/workstation/traders-port/swap",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/workstation/trading/trading",
+      "destination": "/docs/learn/workstation/traders-port/swap",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/workstation/pools",
+      "destination": "/docs/learn/workstation/farmers-fields/farmers-fields-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/workstation/pools/adding-removing-liquidity",
+      "destination": "/docs/learn/workstation/farmers-fields/providing-withdrawing-liquidity",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/workstation/pools/using-generators",
+      "destination": "/docs/learn/astro-generators",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/workstation/governance",
+      "destination": "/docs/learn/workstation/astral-assembly/astral-assembly-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/workstation/governance/staking",
+      "destination": "/docs/learn/workstation/astral-assembly/staking-unstaking",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/workstation/governance/adding-proposals",
+      "destination": "/docs/learn/workstation/astral-assembly/submitting-a-proposal",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/workstation/governance/voting",
+      "destination": "/docs/learn/workstation/astral-assembly/voting",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/concepts/traders-port",
+      "destination": "/docs/learn/workstation/traders-port/traders-port-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/concepts/traders-port/price-impact-and-slippage",
+      "destination": "/docs/overview/astroport-onboarding/astroport-onboarding-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/concepts/farmers-fields",
+      "destination": "/docs/learn/workstation/farmers-fields/farmers-fields-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/tokenomics/astroport-tokenomics-overview",
+      "destination": "/docs/learn/astro-tokenomics/astro-tokenomics-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/tokenomics/fees",
+      "destination": "/docs/learn/astro-tokenomics/fees",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/tokenomics/staking-and-locking",
+      "destination": "/docs/learn/astro-tokenomics/utility",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/tokenomics/utility",
+      "destination": "/docs/learn/astro-tokenomics/utility",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/tokenomics/calibration",
+      "destination": "/docs/overview/astroport-onboarding/astroport-onboarding-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/tokenomics/allocation",
+      "destination": "/docs/learn/astro-tokenomics/allocation",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/governance/astroport-improvement-proposal-framework",
+      "destination": "/docs/govern/astroport-improvement-proposal-framework",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/governance/proposal-messages",
+      "destination": "/docs/govern/proposal-messages/proposal-messages-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/governance/proposal-messages/fine-tuning-allocation-points",
+      "destination": "/docs/govern/proposal-messages/astro-allocation-points",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/governance/proposal-messages/integrating-proxy-contracts",
+      "destination": "/docs/govern/proposal-messages/proxy-contracts",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/governance/proposal-messages/integrating-dual-rewards",
+      "destination": "/docs/govern/proposal-messages/dual-rewards",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/backend/apy-calculation",
+      "destination": "/docs/develop/backend",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/common-types-and-utils",
+      "destination": "/docs/develop/smart-contracts/common-types",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/common-types-and-utils/token",
+      "destination": "/docs/develop/smart-contracts/common-types",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/common-types-and-utils/querier",
+      "destination": "/docs/develop/smart-contracts/common-types",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/common-types-and-utils/lib",
+      "destination": "/docs/develop/smart-contracts/common-types",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/common-types-and-utils/common",
+      "destination": "/docs/develop/smart-contracts/common-types",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/common-types-and-utils/asset",
+      "destination": "/docs/develop/smart-contracts/common-types",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/astroport-factory",
+      "destination": "/docs/develop/smart-contracts/factory",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/swap-pairs",
+      "destination": "/docs/develop/smart-contracts/swap-pairs/swap-pairs-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/swap-pairs/constant-product-pool",
+      "destination": "/docs/develop/smart-contracts/swap-pairs/constant-product-pools",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/swap-pairs/stableswap-pool",
+      "destination": "/docs/develop/smart-contracts/swap-pairs/stableswap-pools",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/router",
+      "destination": "/docs/develop/smart-contracts/router",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/oracles",
+      "destination": "/docs/develop/smart-contracts/oracle",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/astro-token",
+      "destination": "/docs/develop/smart-contracts/token",
+      "statusCode": 301
+    },
+
+
+
+
+    {
+      "source": "/astroport/smart-contracts/tokenomics",
+      "destination": "/docs/develop/smart-contracts/tokenomics/tokenomics-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/tokenomics/generator",
+      "destination": "/docs/develop/smart-contracts/tokenomics/generator",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/tokenomics/maker",
+      "destination": "/docs/develop/smart-contracts/tokenomics/maker",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/tokenomics/xastro-staking",
+      "destination": "/docs/develop/smart-contracts/tokenomics/staking",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/tokenomics/vesting",
+      "destination": "/docs/develop/smart-contracts/tokenomics/vesting",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/tokenomics/xastro-token",
+      "destination": "/docs/develop/smart-contracts/tokenomics/xastro-token",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/tokenomics/dual-reward-proxy",
+      "destination": "/docs/develop/smart-contracts/tokenomics/generator-proxy",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/tokenomics/dual-reward-proxy/integrating-dual-rewards",
+      "destination": "/docs/develop/smart-contracts/tokenomics/generator-proxy",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/astral-assembly",
+      "destination": "/docs/develop/smart-contracts/astral-assembly",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/astroport-contract-addresses",
+      "destination": "/docs/develop/smart-contracts/smart-contracts-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/smart-contracts/access-controls-and-permissions",
+      "destination": "/docs/develop/smart-contracts/smart-contracts-intro#access-controls-and-permissions",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/risk/astroport-general-risks",
+      "destination": "/docs/overview/security/security-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/extras/community",
+      "destination": "/docs/overview/useful-links#socials",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/extras/assets",
+      "destination": "/docs/overview/brand-kit",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/extras/lockdrop",
+      "destination": "/docs/overview/astroport-onboarding/astroport-onboarding-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/extras/lockdrop/phase-0-or-airdrop",
+      "destination": "/docs/overview/astroport-onboarding/astroport-onboarding-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/extras/lockdrop/phase-1-or-lockdrop",
+      "destination": "/docs/overview/astroport-onboarding/astroport-onboarding-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/extras/lockdrop/phase-2-or-bootstrapping-pool",
+      "destination": "/docs/overview/astroport-onboarding/astroport-onboarding-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/extras/astroport-litepaper",
+      "destination": "/docs/overview/useful-links#whitepaper",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/extras/disclaimers-disclosures",
+      "destination": "/docs/overview/legal/legal-intro",
+      "statusCode": 301
+    },
+    {
+      "source": "/astroport/extras/audits",
+      "destination": "/docs/overview/security/audits",
       "statusCode": 301
     }
   ]
