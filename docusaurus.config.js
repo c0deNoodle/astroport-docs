@@ -279,6 +279,11 @@ const config = {
         ],
       },
 
+      metadata: [
+        {property: 'og:image', content: 'https://docs.astroport.fi/img/global-metadata.png'}, 
+        {property: 'image', content: 'https://docs.astroport.fi/img/global-metadata.png'}, 
+      ],
+
       // prism: {
       //   darkTheme: darkCodeTheme,
       // },
