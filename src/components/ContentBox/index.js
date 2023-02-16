@@ -98,17 +98,17 @@ const learnContent = [
     image: WorkstationImg,
     listItems: [
       {
-        href: "../../../../docs/learn/category/starter-pack",
+        href: "../../../../docs/learn/workstation/starter-pack/starter-pack-intro",
         label: "Starter Pack",
       },
 
       {
-        href: "../../../../docs/learn/category/farmers-fields",
+        href: "../../../../docs/learn/workstation/farmers-fields/farmers-fields-intro",
         label: "Farmers Fields",
       },
 
       {
-        href: "../../../../docs/learn/category/traders-port",
+        href: "../../../../docs/learn/workstation/traders-port/traders-port-intro",
         label: "Traders Port",
       },
     ],
