@@ -33,5 +33,7 @@ export default function Cards({ image, title, text, children }) {
     return <ContentBox title="Farming" />;
   } else if (title === "Governance") {
     return <ContentBox title="Governance" />;
+  } else if (title === "Bridging Tokens") {
+    return <ContentBox title="Bridging Tokens" />;
   }
 }

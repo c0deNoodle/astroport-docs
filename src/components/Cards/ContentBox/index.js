@@ -169,7 +169,35 @@ const boxProps = {
       image: CheersPepeUrl,
       list: "Connecting a Wallet",
     },
+    bridgingTokens: {
+      title: "Bridging Tokens",
+      description: "Discover the methods to teleport your tokens through the Cosmos",
+      image: AstroTokenomicsUrl,
+      list: "Bridging Tokens",
+    }
   },
+
+  bridgingTokens: {
+    astroportBridge: {
+      title: "Astroport Bridge",
+      description: "Discover Astroports newest Bridge and transfer your ASTRO now",
+      image: AstroShield,
+      list: "Astroport Bridge",
+    }, 
+    injectiveBridge: {
+      title: "Injective Bridge",
+      description: "Learn how to transfer tokens on Injective's most popular bridge",
+      image: InjectiveUrl,
+      list: "Bridging Tokens",
+    }, 
+    wormhole: {
+      title: "Wormhole",
+      description: "For those who seek adventure. Learn how to transfer tokens across the Cosmos and more using Wormhole.",
+      image: TutorialsUrl,
+      list: "Wormhole",
+    }
+  },
+
   creatingAWallet: {
     terraStation: {
       title: "Terra Station",
@@ -583,9 +611,60 @@ export default function ContentBox(props) {
             list={boxProps.starterPack.connectingAWallet.list}
           />
         </a>
+
+        <a className={styles.links} href="../../../learn/workstation/starter-pack/bridging-tokens/bridging-tokens-intro">
+          <Box
+            title={boxProps.starterPack.bridgingTokens.title}
+            description={boxProps.starterPack.bridgingTokens.description}
+            image={boxProps.starterPack.bridgingTokens.image}
+            list={boxProps.starterPack.bridgingTokens.list}
+          />
+        </a>
+
       </div>
     );
-  } else if (props.title == "Creating a Wallet") {
+  } 
+
+  else if (props.title == "Bridging Tokens") {
+    return (
+      <div className="grid md:grid-cols-2 gap-3">
+        <a
+          className={styles.links}
+          href="../../../../learn/workstation/starter-pack/bridging-tokens/astroport-bridge"
+        >
+          <Box
+            title={boxProps.bridgingTokens.astroportBridge.title}
+            description={boxProps.bridgingTokens.astroportBridge.description}
+            image={boxProps.bridgingTokens.astroportBridge.image}
+            list={boxProps.bridgingTokens.astroportBridge.list}
+          />
+        </a>
+
+        <a className={styles.links} href="../../../../learn/workstation/starter-pack/bridging-tokens/injective-bridge">
+          <Box
+            title={boxProps.bridgingTokens.injectiveBridge.title}
+            description={boxProps.bridgingTokens.injectiveBridge.description}
+            image={boxProps.bridgingTokens.injectiveBridge.image}
+            list={boxProps.bridgingTokens.injectiveBridge.list}
+          />
+        </a>
+
+        <a className={styles.links} href="../../../../learn/workstation/starter-pack/bridging-tokens/wormhole">
+          <Box
+            title={boxProps.bridgingTokens.wormhole.title}
+            description={boxProps.bridgingTokens.wormhole.description}
+            image={boxProps.bridgingTokens.wormhole.image}
+            list={boxProps.bridgingTokens.wormhole.list}
+          />
+        </a>
+
+      </div>
+    );
+  } 
+  
+  
+  
+  else if (props.title == "Creating a Wallet") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
         <a className={styles.links} href="../../../workstation/starter-pack/creating-a-wallet/terra-station">
