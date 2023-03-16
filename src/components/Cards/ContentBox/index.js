@@ -124,6 +124,68 @@ const boxProps = {
       list: "Tutorials",
     },
   },
+  smartContracts: {
+    contractAddresses: {
+      title: "Contract Addresses",
+      description: "A collection of contract Code IDs and addresses for Astroport's various deployments.",
+      image: AIPFUrl,
+      list: "Contract Addresses",
+    }, 
+    commonTypes: {
+      title: "Common Types",
+      description: "A collection of common types which are commonly used in Astroport contracts.",
+      image: AstroChadUrl,
+      list: "Common Types",
+    }, 
+    factory: {
+      title: "Factory",
+      description: "Creates new Astroport pair contracts which are tracked in a registry and used as a directory for all pairs.",
+      image: AIFUrl,
+      list: "Factory",
+    }, 
+    swapPairs: {
+      title: "Swap Pairs",
+      description: "Discover Astroport's various specialized pool types.",
+      image: PoolUrl,
+      list: "Swap Pairs",
+    }, 
+    oracle: {
+      title: "Oracle",
+      description: "Calculates a 1 day TWAP for an xy=k Astroport pool.",
+      image: TutorialsUrl,
+      list: "Oracle",
+    }, 
+    router: {
+      title: "Router",
+      description: "Contains logic to facilitate multi-hop swaps for Cosmos native & CW20 tokens.",
+      image: AstroRocketship,
+      list: "Router",
+    }, 
+    token: {
+      title: "Token",
+      description: "Implementation for the ASTRO token.",
+      image: AstroTokenomicsUrl,
+      list: "Token",
+    }, 
+    tokenomics: {
+      title: "Tokenomics",
+      description: "Discover Astroport's tokenomics smart contracts: generator, maker, staking, xASTRO token, and more.",
+      image: AstroShield,
+      list: "Tokenomics",
+    }, 
+    astralAssembly: {
+      title: "Astral Assembly",
+      description: "Allows xASTRO holders as well as Initial Astroport Builders to post and vote on new on-chain proposals that can execute arbitrary logic.",
+      image: AstralAssemblyUrl,
+      list: "Astral Assembly",
+    }, 
+    accessControlsAndPermissions: {
+      title: "Access Controls and Permissions",
+      description: "An overview of smart contract access controls for the full Astroport protocol. ",
+      image: BackendUrl,
+      list: "Access Controls and Permissions",
+    }
+  },
   workstation: {
     starterPack: {
       title: "Starter Pack",
@@ -416,6 +478,7 @@ const boxProps = {
       list: "Voting",
     },
   },
+  
 };
 
 export default function ContentBox(props) {
@@ -539,7 +602,106 @@ export default function ContentBox(props) {
         </a>
       </div>
     );
-  } else if (props.title == "Workstation") {
+  } 
+  
+  else if (props.title == "Smart Contracts") {
+    return (
+      <div className="grid md:grid-cols-2 gap-3">
+        <a className={styles.links} href="../../../docs/develop/backend">
+          <Box
+            title={boxProps.smartContracts.contractAddresses.title}
+            description={boxProps.smartContracts.contractAddresses.description}
+            image={boxProps.smartContracts.contractAddresses.image}
+            list={boxProps.smartContracts.contractAddresses.list}
+          />
+        </a>
+
+        <a className={styles.links} href="../../../docs/develop/backend">
+          <Box
+            title={boxProps.smartContracts.commonTypes.title}
+            description={boxProps.smartContracts.commonTypes.description}
+            image={boxProps.smartContracts.commonTypes.image}
+            list={boxProps.smartContracts.commonTypes.list}
+          />
+        </a>
+
+        <a className={styles.links} href="../../../docs/develop/backend">
+          <Box
+            title={boxProps.smartContracts.factory.title}
+            description={boxProps.smartContracts.factory.description}
+            image={boxProps.smartContracts.factory.image}
+            list={boxProps.smartContracts.factory.list}
+          />
+        </a>
+
+        <a className={styles.links} href="../../../docs/develop/backend">
+          <Box
+            title={boxProps.smartContracts.swapPairs.title}
+            description={boxProps.smartContracts.swapPairs.description}
+            image={boxProps.smartContracts.swapPairs.image}
+            list={boxProps.smartContracts.swapPairs.list}
+          />
+        </a>
+
+        <a className={styles.links} href="../../../docs/develop/backend">
+          <Box
+            title={boxProps.smartContracts.oracle.title}
+            description={boxProps.smartContracts.oracle.description}
+            image={boxProps.smartContracts.oracle.image}
+            list={boxProps.smartContracts.oracle.list}
+          />
+        </a>
+
+        <a className={styles.links} href="../../../docs/develop/backend">
+          <Box
+            title={boxProps.smartContracts.router.title}
+            description={boxProps.smartContracts.router.description}
+            image={boxProps.smartContracts.router.image}
+            list={boxProps.smartContracts.router.list}
+          />
+        </a>
+
+        <a className={styles.links} href="../../../docs/develop/backend">
+          <Box
+            title={boxProps.smartContracts.token.title}
+            description={boxProps.smartContracts.token.description}
+            image={boxProps.smartContracts.token.image}
+            list={boxProps.smartContracts.token.list}
+          />
+        </a>
+
+        <a className={styles.links} href="../../../docs/develop/backend">
+          <Box
+            title={boxProps.smartContracts.tokenomics.title}
+            description={boxProps.smartContracts.tokenomics.description}
+            image={boxProps.smartContracts.tokenomics.image}
+            list={boxProps.smartContracts.tokenomics.list}
+          />
+        </a>
+
+        <a className={styles.links} href="../../../docs/develop/backend">
+          <Box
+            title={boxProps.smartContracts.astralAssembly.title}
+            description={boxProps.smartContracts.astralAssembly.description}
+            image={boxProps.smartContracts.astralAssembly.image}
+            list={boxProps.smartContracts.astralAssembly.list}
+          />
+        </a>
+
+        <a className={styles.links} href="../../../docs/develop/backend">
+          <Box
+            title={boxProps.smartContracts.accessControlsAndPermissions.title}
+            description={boxProps.smartContracts.accessControlsAndPermissions.description}
+            image={boxProps.smartContracts.accessControlsAndPermissions.image}
+            list={boxProps.smartContracts.accessControlsAndPermissions.list}
+          />
+        </a>
+
+      </div>
+    );
+  } 
+  
+  else if (props.title == "Workstation") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
         <a className={styles.links} href="../../../docs/learn/workstation/starter-pack/starter-pack-intro">
