@@ -131,6 +131,12 @@ const boxProps = {
       image: AIPFUrl,
       list: "Contract Addresses",
     }, 
+    githubCommits: {
+      title: "GitHub Commits",
+      description: "A collection of GitHub commits for Astroport's contract deployments.",
+      image: WorkstationUrl,
+      list: "GitHub Commits",
+    },
     commonTypes: {
       title: "Common Types",
       description: "A collection of common types which are commonly used in Astroport contracts.",
@@ -607,7 +613,7 @@ export default function ContentBox(props) {
   else if (props.title == "Smart Contracts") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
-        <a className={styles.links} href="../../../docs/develop/backend">
+        <a className={styles.links} href="../../../docs/develop/smart-contracts/contract-addresses">
           <Box
             title={boxProps.smartContracts.contractAddresses.title}
             description={boxProps.smartContracts.contractAddresses.description}
@@ -616,7 +622,16 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/backend">
+        <a className={styles.links} href="../../../docs/develop/smart-contracts/github-commits">
+          <Box
+            title={boxProps.smartContracts.githubCommits.title}
+            description={boxProps.smartContracts.githubCommits.description}
+            image={boxProps.smartContracts.githubCommits.image}
+            list={boxProps.smartContracts.githubCommits.list}
+          />
+        </a>
+
+        <a className={styles.links} href="../../../docs/develop/smart-contracts/common-types">
           <Box
             title={boxProps.smartContracts.commonTypes.title}
             description={boxProps.smartContracts.commonTypes.description}
@@ -625,7 +640,7 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/backend">
+        <a className={styles.links} href="../../../docs/develop/smart-contracts/factory">
           <Box
             title={boxProps.smartContracts.factory.title}
             description={boxProps.smartContracts.factory.description}
@@ -634,7 +649,7 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/backend">
+        <a className={styles.links} href="../../../docs/develop/smart-contracts/swap-pairs/swap-pairs-intro">
           <Box
             title={boxProps.smartContracts.swapPairs.title}
             description={boxProps.smartContracts.swapPairs.description}
@@ -643,7 +658,7 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/backend">
+        <a className={styles.links} href="../../../docs/develop/smart-contracts/oracle">
           <Box
             title={boxProps.smartContracts.oracle.title}
             description={boxProps.smartContracts.oracle.description}
@@ -652,7 +667,7 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/backend">
+        <a className={styles.links} href="../../../docs/develop/smart-contracts/router">
           <Box
             title={boxProps.smartContracts.router.title}
             description={boxProps.smartContracts.router.description}
@@ -661,7 +676,7 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/backend">
+        <a className={styles.links} href="../../../docs/develop/smart-contracts/token">
           <Box
             title={boxProps.smartContracts.token.title}
             description={boxProps.smartContracts.token.description}
@@ -670,7 +685,7 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/backend">
+        <a className={styles.links} href="../../../docs/develop/smart-contracts/tokenomics/tokenomics-intro">
           <Box
             title={boxProps.smartContracts.tokenomics.title}
             description={boxProps.smartContracts.tokenomics.description}
@@ -679,7 +694,7 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/backend">
+        <a className={styles.links} href="../../../docs/develop/smart-contracts/astral-assembly">
           <Box
             title={boxProps.smartContracts.astralAssembly.title}
             description={boxProps.smartContracts.astralAssembly.description}
@@ -688,7 +703,7 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/backend">
+        <a className={styles.links} href="../../../docs/develop/smart-contracts/access-controls-and-permissions">
           <Box
             title={boxProps.smartContracts.accessControlsAndPermissions.title}
             description={boxProps.smartContracts.accessControlsAndPermissions.description}
