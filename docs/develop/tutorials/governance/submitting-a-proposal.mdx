@@ -33,40 +33,39 @@ Upon approval, the upgrades or assignments will be autonomously executed.
             "msg": toBase64(
               {
                 "submit_proposal": {
-                  "title": "deregister astro-steak pair", 
-                  "description": "proposal to deregister inactive pair", 
-                  "link": "https://forum.astroport.fi/some-proposal", 
-                  "messages": [
-                    {
-                      "order": "1",
-                      "msg": {
-                        "wasm": {
-                          "execute": {
-                            "contract_addr": factoryAddress,
-                            "msg": toBase64(
-                              {
-                                "deregister": {
-                                  "asset_infos": [
-                                    {
-                                      "token": {
-                                        "contract_addr": astroAddress
+                  "title": "Example proposal",
+                  "description": "Example proposal",
+                  "link": "https://forum.astroport.fi/",
+                  "messages":
+                      [
+                          {
+                            "wasm": {
+                                "execute": {
+                                    "contract_addr": factoryAddress,
+                                    "msg": toBase64(
+                                      {
+                                        "deregister": {
+                                          "asset_infos": [
+                                            {
+                                              "token": {
+                                                "contract_addr": astroAddress
+                                              }
+                                            },
+                                            {
+                                              "token": {
+                                                "contract_addr": steakAddress
+                                              }
+                                            }
+                                          ]
+                                        }
                                       }
-                                    },
-                                    {
-                                      "token": {
-                                        "contract_addr": steakAddress
-                                      }
-                                    }
-                                  ]
+                                    ),
+                                    "funds": []
                                 }
-                              }
-                            ),
-                            "funds": []
+                            }
                           }
-                        }
-                      }
-                    }
-                  ]
+                      ],
+                  "ibc_channel": "channel..."
                 }
               }
             )
@@ -86,12 +85,13 @@ Upon approval, the upgrades or assignments will be autonomously executed.
         - `description`: Description for the proposal
         - `link`: Link to forum discussion
         - `messages`: Proposal messages 
+        - `ibc_channel`: Governance channel
 
-        ```json focus=6:19,34:43
+        ```json focus=6:11,40:42
         ```
         ---
 
-        #### `messages`
+        {/* #### `messages`
 
         The `messages` parameter requires a vector containing objects of type [`CosmosMsg`](https://docs.rs/cosmwasm-std/latest/cosmwasm_std/enum.CosmosMsg.html)
 
@@ -102,7 +102,7 @@ Upon approval, the upgrades or assignments will be autonomously executed.
 
 
         ```json focus=11:19,34:41
-        ```
+        ``` */}
 
         ---
 
@@ -117,7 +117,7 @@ Upon approval, the upgrades or assignments will be autonomously executed.
         - `msg`: Binary encoded message containing our contract call.
         - `funds`: Any funds to send along with our transaction.
 
-        ```json focus=14:19,34:39
+        ```json focus=13:38
         ```
 
         --- 

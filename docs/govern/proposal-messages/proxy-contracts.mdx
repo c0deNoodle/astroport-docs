@@ -36,8 +36,7 @@ Use when submitting a proposal to integrate a proxy contract through the Astropo
         ```json 
         [
           {
-            "order": "1", 
-            "msg": {
+            {
               "wasm": {
                 "execute": {
                   "contract_addr": generatorAddress,
@@ -57,8 +56,7 @@ Use when submitting a proposal to integrate a proxy contract through the Astropo
             }
           }, 
           {
-            "order": "2", 
-            "msg": {
+             {
               "wasm": {
                 "execute": {
                   "contract_addr": generatorAddress,
@@ -86,7 +84,7 @@ Use when submitting a proposal to integrate a proxy contract through the Astropo
         
         In the background, we are creating two wasm contract calls. One to the `set_allowed_reward_proxies` endpoint and another to the [`move_to_proxy`](../../develop/smart-contracts/tokenomics/generator#move_to_proxy) endpoint (both found in the [`Generator`](../../develop/smart-contracts/tokenomics/generator) contract).
         
-        ```json focus=5:20,26:39
+        ```json focus=4:18,24:37
         ```
 
         ---
@@ -99,7 +97,7 @@ Use when submitting a proposal to integrate a proxy contract through the Astropo
         - `msg`: A binary encoded message containing our contract call.
         - `funds`: Any funds to send along with our transaction.
 
-        ```json focus=6:19,27:38
+        ```json focus=5:18,25:37
         ```
 
         ---
@@ -110,7 +108,7 @@ Use when submitting a proposal to integrate a proxy contract through the Astropo
 
         Use for demonstration purposes only. The actual string representation of our messages will be an encoded binary, which will be covered below.
 
-        ```json focus=8:17,29:36
+        ```json focus=7:16,27:34
         ```
 
         ---
@@ -125,10 +123,9 @@ Use when submitting a proposal to integrate a proxy contract through the Astropo
             Specifying a single address rewrites all active proxy contracts with the proxy contracts specified in the message. You can query the Generator contract (`config: {}`) to include previous proxy contract addresses.
         </Admonition>
 
-        ```json focus=8:15
+        ```json focus=7:14
         {
-          "order": "1", 
-          "msg": {
+           {
             "wasm": {
               "execute": {
                 "contract_addr": generatorAddress,
@@ -159,10 +156,9 @@ Use when submitting a proposal to integrate a proxy contract through the Astropo
         - `lp_token`: Address of LP token contract to migrate
         - `proxy`: Address of the deployed proxy contract
 
-        ```json focus=8:13
+        ```json focus=7:12
         {
-          "order": "2", 
-          "msg": {
+          {
             "wasm": {
               "execute": {
                 "contract_addr": generatorAddress,
@@ -191,11 +187,10 @@ Use when submitting a proposal to integrate a proxy contract through the Astropo
 
         Make sure to replace the substitute variables with contract addresses before encoding your message.
 
-        ```json focus=8:17,29:36
+        ```json focus=7:16,27:34
         [
           {
-            "order": "1", 
-            "msg": {
+            {
               "wasm": {
                 "execute": {
                   "contract_addr": generatorAddress,
@@ -215,8 +210,7 @@ Use when submitting a proposal to integrate a proxy contract through the Astropo
             }
           }, 
           {
-            "order": "2", 
-            "msg": {
+             {
               "wasm": {
                 "execute": {
                   "contract_addr": generatorAddress,
@@ -247,8 +241,7 @@ Use when submitting a proposal to integrate a proxy contract through the Astropo
         ```json
         [
           {
-            "order": "1", 
-            "msg": {
+            {
               "wasm": {
               "execute": {
                 "contract_addr": "terra1ksvlfex49desf4c452j6dewdjs6c48nafemetuwjyj6yexd7x3wqvwa7j9",
@@ -259,8 +252,7 @@ Use when submitting a proposal to integrate a proxy contract through the Astropo
             }
           }, 
           {
-            "order": "2", 
-            "msg": {
+            {
               "wasm": {
                 "execute": {
                   "contract_addr": "terra1ksvlfex49desf4c452j6dewdjs6c48nafemetuwjyj6yexd7x3wqvwa7j9",
@@ -306,7 +298,8 @@ The Astroport Web App essentially wraps our executable message (covered above) w
                   "title": "integrate proxy contract", 
                   "description": "Proposal to integrate 3rd party rewards", 
                   "link": "https://forum.astroport.fi/", 
-                  "messages": [allow_proxies_msg, move_to_proxy_msg]
+                  "messages": [allow_proxies_msg, move_to_proxy_msg], 
+                  "ibc_channel": "..."
                 }
               }
             ) 
@@ -326,8 +319,10 @@ The Astroport Web App essentially wraps our executable message (covered above) w
         - `description`: Description for the proposal
         - `link`: Link to forum discussion
         - `messages`: Proposal message containing our binary contract call to `set_allowed_reward_proxies` and [`move_to_proxy`](../../develop/smart-contracts/tokenomics/generator#move_to_proxy) (both found in the [`Generator`](../../develop/smart-contracts/tokenomics/generator) contract).
+        - `ibc_channel`: If the proposal should be executed on a remote chain, this field should specify the governance channel.
 
-        ```json focus=6:13
+
+        ```json focus=6:14
         ```
 
         ---
@@ -343,8 +338,7 @@ The Astroport Web App essentially wraps our executable message (covered above) w
 
         ```js
         let allow_proxies_msg = {
-          "order": "1", 
-          "msg": {
+          {
             "wasm": {
               "execute": {
                 "contract_addr": generatorAddress,
@@ -400,8 +394,7 @@ The Astroport Web App essentially wraps our executable message (covered above) w
 
         ```js 
         let move_to_proxy_msg = {
-          "order": "2", 
-          "msg": {
+          {
             "wasm": {
               "execute": {
                 "contract_addr": generatorAddress,
@@ -457,8 +450,7 @@ The Astroport Web App essentially wraps our executable message (covered above) w
         config.allowed_reward_proxies.push(exProxyAddress); 
 
         let allow_proxies_msg = {
-          "order": "1", 
-          "msg": {
+          {
             "wasm": {
               "execute": {
                 "contract_addr": generatorAddress,
@@ -476,8 +468,7 @@ The Astroport Web App essentially wraps our executable message (covered above) w
         }
 
         let move_to_proxy_msg = {
-          "order": "2", 
-          "msg": {
+          {
             "wasm": {
               "execute": {
                 "contract_addr": generatorAddress,
@@ -508,7 +499,8 @@ The Astroport Web App essentially wraps our executable message (covered above) w
                     "title": "integrate proxy contract", 
                     "description": "Proposal to integrate 3rd party rewards", 
                     "link": "https://forum.astroport.fi/", 
-                    "messages": [allow_proxies_msg, move_to_proxy_msg]
+                    "messages": [allow_proxies_msg, move_to_proxy_msg], 
+                    "ibc_channel": "..."
                   }
                 }
               ) 

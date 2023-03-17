@@ -31,8 +31,7 @@ Use when submitting a proposal to integrate Dual Rewards through the Astroport W
         ```json
         [
           {
-            "order": "1", 
-            "msg": {
+            {
               "wasm": {
                 "execute": {
                   "contract_addr": generatorAddress, 
@@ -59,8 +58,7 @@ Use when submitting a proposal to integrate Dual Rewards through the Astroport W
             }
           }, 
           {
-            "order": "2", 
-            "msg": {
+            {
               "wasm": {
                 "execute": {
                   "contract_addr": generatorAddress,
@@ -81,8 +79,7 @@ Use when submitting a proposal to integrate Dual Rewards through the Astroport W
             }
           }, 
           {
-            "order": "3", 
-            "msg": {
+             {
               "wasm": {
                 "execute": {
                   "contract_addr": generatorAddress,
@@ -113,8 +110,7 @@ Use when submitting a proposal to integrate Dual Rewards through the Astroport W
         ```json
         [
           {
-            "order": "1", 
-            "msg": {
+            {
               "wasm": {
                 "execute": {
                   "contract_addr": "terra1gc4d4v82vjgkz0ag28lrmlxx3tf6sq69tmaujjpe7jwmnqakkx0qm28j2l", 
@@ -125,8 +121,7 @@ Use when submitting a proposal to integrate Dual Rewards through the Astroport W
             }
           }, 
           {
-            "order": "2", 
-            "msg": {
+            {
               "wasm": {
                 "execute": {
                   "contract_addr": "terra1gc4d4v82vjgkz0ag28lrmlxx3tf6sq69tmaujjpe7jwmnqakkx0qm28j2l",
@@ -137,8 +132,7 @@ Use when submitting a proposal to integrate Dual Rewards through the Astroport W
             }
           }, 
           {
-            "order": "3", 
-            "msg": {
+            {
               "wasm": {
                 "execute": {
                   "contract_addr": "terra1gc4d4v82vjgkz0ag28lrmlxx3tf6sq69tmaujjpe7jwmnqakkx0qm28j2l",
@@ -183,7 +177,8 @@ An advantage of submitting a proposal directly using, for example, a js script i
                   "title": "integrate proxy contract", 
                   "description": "Proposal to integrate 3rd party rewards", 
                   "link": "https://forum.astroport.fi/", 
-                  "messages": [setup_pools_msg, allow_proxies_msg, move_to_proxy_msg]
+                  "messages": [setup_pools_msg, allow_proxies_msg, move_to_proxy_msg], 
+                  "ibc_channel": "..."
                 }
               }
             ) 
@@ -213,8 +208,7 @@ An advantage of submitting a proposal directly using, for example, a js script i
 
         ```json
         let setup_pools_msg = {
-          "order": "1", 
-          "msg": {
+          {
             "wasm": {
               "execute": {
                 "contract_addr": generatorAddress, 

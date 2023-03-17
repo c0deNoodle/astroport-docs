@@ -627,6 +627,29 @@ In `send.msg`, you may encode this JSON string into base64 encoding.
         ```json json
         {
             "submit_proposal": {
+                "title": "Example proposal",
+                "description": "Example proposal",
+                "link": "https://forum.astroport.fi/",
+                "messages":
+                    [
+                        {
+                            "wasm": {
+                                "execute": {
+                                    "contract_addr": "terra..",
+                                    "msg": "<base64_encoded_json_string>",
+                                    "funds": []
+                                }
+                            }
+                        }
+                    ],
+                "ibc_channel": "channel..."
+            }
+        }
+        ```
+
+        {/* ```json json
+        {
+            "submit_proposal": {
                 "title": "...", 
                 "description": "...", 
                 "link": "https://some.link", 
@@ -643,7 +666,7 @@ In `send.msg`, you may encode this JSON string into base64 encoding.
                 ]
             }
         }
-        ```
+        ``` */}
 
         ```rust assembly.rs
         #[cw_serde]
@@ -664,7 +687,9 @@ In `send.msg`, you may encode this JSON string into base64 encoding.
 | [`title`](focus://json#3)   | `String`        | Proposal title      |
 | [`description`](focus://json#4)   | `String`        | Description for proposal      |
 | [`link`](focus://json#5)   | `Option<String>`        | Link for proposal      |
-| [`messages`](focus://json#6:16)   | [`Option<Vec<ProposalMessage>>`](#proposalmessage)        | Proposal messages      |
+| [`messages`](focus://json#6:17)   | [`Option<Vec<ProposalMessage>>`](#proposalmessage)        | Proposal messages      |
+| [`ibc_channel`](focus://json#18)   | `Option<String>`        | If the proposal should be executed on a remote chain, this field should specify the governance channel      |
+
 
 </CH.Section>
 

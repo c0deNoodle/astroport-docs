@@ -29,8 +29,7 @@ Use when submitting a proposal to adjust allocation points through the Astroport
         ```json
         [
           {
-            "order": "1",
-            "msg": {
+            {
               "wasm": {
                 "execute": {
                   "contract_addr": generatorAddress,
@@ -65,7 +64,7 @@ Use when submitting a proposal to adjust allocation points through the Astroport
 
         `CosmosMsg` is an enum that supports various types of messages. To adjust allocation points, our `CosmosMsg` must be of type [`wasm`](https://docs.rs/cosmwasm-std/latest/cosmwasm_std/enum.WasmMsg.html). Furthermore, our `wasm` message must be of type [`execute`](https://docs.rs/cosmwasm-std/latest/cosmwasm_std/enum.WasmMsg.html#variant.Execute). In the backgrund, we are creating a wasm contract call to the [`setup_pools`](../../develop/smart-contracts/tokenomics/generator#setup_pools) endpoint in the [`Generator`](../../develop/smart-contracts/tokenomics/generator) contract. 
 
-        ```json focus=5:27
+        ```json focus=4:27
         ```
 
         #### `execute`
@@ -88,7 +87,7 @@ Use when submitting a proposal to adjust allocation points through the Astroport
         
         **Use for demonstration purposes only.** The actual string representation of our message will be an encoded binary, which will be covered below.
 
-        ```json focus=8:24
+        ```json focus=7:23
         ```
         ---
 
@@ -165,8 +164,7 @@ Use when submitting a proposal to adjust allocation points through the Astroport
         ```json 
         [
           {
-            "order": "1",
-            "msg": {
+            {
               "wasm": {
                 "execute": {
                   "contract_addr": "terra1gc4d4v82vjgkz0ag28lrmlxx3tf6sq69tmaujjpe7jwmnqakkx0qm28j2l", // generatorAddress
@@ -215,8 +213,7 @@ Before continuing with this section, make sure to read the section above on adju
                   "link": "https://forum.astroport.fi/", 
                   "messages": [
                     {
-                      "order": "1",
-                      "msg": {
+                      {
                         "wasm": {
                           "execute": {
                             "contract_addr": generatorAddress, 
@@ -226,10 +223,11 @@ Before continuing with this section, make sure to read the section above on adju
                         }
                       }
                     }
-                  ]
+                  ], 
+                  "ibc_channel": "channel..."
                 }
               }
-            )
+            ), 
           }
         }
         ```
@@ -246,6 +244,7 @@ Before continuing with this section, make sure to read the section above on adju
         - `description`: Description for the proposal
         - `link`: Link to forum discussion
         - `messages`: Proposal message containing our binary contract call to `setup_pools`
+        - `ibc_channel`: If the proposal should be executed on a remote chain, this field should specify the governance channel
 
         All further steps to the `messages` parameter can be found [above](#using-the-astroport-web-app). 
 

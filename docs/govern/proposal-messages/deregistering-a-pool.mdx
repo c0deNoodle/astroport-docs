@@ -27,8 +27,7 @@ Use when submitting a proposal to `deregister` a pool through the Astroport Web 
         ```json
         [
           {
-              "order": "1",
-              "msg": {
+            {
                 "wasm": {
                   "execute": {
                     "contract_addr": factoryAddress,
@@ -64,7 +63,7 @@ Use when submitting a proposal to `deregister` a pool through the Astroport Web 
 
         `CosmosMsg` is an enum that supports various types of messages. To deregister a pool, our `CosmosMsg` must be of type [`wasm`](https://docs.rs/cosmwasm-std/latest/cosmwasm_std/enum.WasmMsg.html). Furthermore, our `wasm` message must be of type [`execute`](https://docs.rs/cosmwasm-std/latest/cosmwasm_std/enum.WasmMsg.html#variant.Execute). In the backgrund, we are creating a wasm contract call to the [`submit_proposal`](../../develop/smart-contracts/astral-assembly#submit_proposal) endpoint in the [`Assembly`](../../develop/smart-contracts/astral-assembly) contract. 
 
-        ```json focus=5:28
+        ```json focus=3:28
         ```
 
         ---
@@ -81,7 +80,7 @@ Use when submitting a proposal to `deregister` a pool through the Astroport Web 
         This tutorial uses placeholder variables for contract addresses. Use the actual string representation of each contract address when submitting a proposal. 
         </Admonition>
 
-        ```json focus=6:27
+        ```json focus=5:26
         ```
         ---
 
@@ -91,7 +90,7 @@ Use when submitting a proposal to `deregister` a pool through the Astroport Web 
         
         **Use for demonstration purposes only.** The actual string representation of our message will be an encoded binary, which will be covered below.
 
-        ```json focus=8:25
+        ```json focus=7:24
         ```
 
         ---
@@ -142,8 +141,7 @@ Use when submitting a proposal to `deregister` a pool through the Astroport Web 
         ```json
         [
           {
-            "order": "1",
-            "msg": {
+            {
               "wasm": {
                 "execute": {
                   "contract_addr": "terra1z3y69xas85r7egusa0c7m5sam0yk97gsztqmh8f2cc6rr4s4anysudp7k0", // factoryAddress
@@ -204,7 +202,8 @@ Before continuing with this section, make sure to read the section above on subm
                         }
                       }
                     }
-                  ]
+                  ], 
+                  "ibc_channel": "..."
                 }
               }
             )
@@ -224,10 +223,11 @@ Before continuing with this section, make sure to read the section above on subm
         - `description`: Description for the proposal
         - `link`: Link to forum discussion
         - `messages`: Proposal message containing our binary contract call to `deregister`
+        - `ibc_channel`: If the proposal should be executed on a remote chain, this field should specify the governance channel.
 
         All further steps to the `messages` parameter can be found [above](#using-the-astroport-web-app). 
 
-        ```json focus=6:26
+        ```json focus=6:27
 
         ```
 
@@ -237,7 +237,7 @@ Before continuing with this section, make sure to read the section above on subm
 
         Finally, our `submit_proposal` message needs to be encoded and passed as an input into our msg parameter within our `send` call.
 
-        ```json focus=5:27
+        ```json focus=5:28
         ```
 
         ---
