@@ -1,37 +1,13 @@
 .docPage {
-    display: flex;
-    width: 100%;
-    /* margin-top: 35px; */
-    z-index: 100;
-  }
-  
-.docsWrapper {
-    display: flex;
+  display: flex;
+  width: 100%;
+  z-index: 10;
 }
-  
-  /* .banner {
-    background: url("../../../../static/img/docspage-banners/hero-banner.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    display: contain;
-    position: absolute;
-    width: 100%;
-    height: 342px;
-    left: 0px;
-    top: 0px;
-    z-index: -100;
-  }
-   */
 
-.container {
-    display: flex;
-  }
-  
-.sidebar {
-    height: auto;
+.docsWrapper {
+  display: flex;
+
+  max-width: 1800px;
+  margin: 0 auto;
+  width: 100%;
 }
-  
-  /* .sub {
-    opacity: 1;
-  } */
