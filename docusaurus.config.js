@@ -163,6 +163,7 @@ const config = {
         editUrl: 'https://github.com/astroport-fi/docs/blob/master',
       },
     ],
+    ['docusaurus-node-polyfills', { excludeAliases: ['console']}],
   ],
 
   themes: ['mdx-v2'],
@@ -242,6 +243,12 @@ const config = {
             activeBaseRegex: `/develop/`,
           },
           // {to: '/blog', label: 'Blog', position: 'left'},
+          {
+            to: '/badges', // ./docs-api/intro.md
+            label: 'Badges',
+            position: 'right',
+            activeBaseRegex: `/badges/`,
+          },
           {
             href: 'https://github.com/astroport-fi/',
             label: 'GitHub',
