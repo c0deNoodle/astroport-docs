@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
+import ReactDOM from 'react-dom'
 import App from './app'
 // import './index.css'
 import { KeplrProvider, Network, ShuttleProvider } from "@delphi-labs/shuttle";
