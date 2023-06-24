@@ -1,0 +1,115 @@
+
+import Admonition from '@theme/Admonition'
+
+# Staking/Unstaking LP Tokens
+
+You can stake your LP tokens into the [Generator contract](../../../develop/smart-contracts/tokenomics/generator) to receive ASTRO and/or 3rd party rewards by calling the [`deposit`](../../../develop/smart-contracts/tokenomics/generator#deposit) endpoint. 
+
+You can unstake your LP tokens by calling [`withdraw`](../../../develop/smart-contracts/tokenomics/generator#withdraw) endpoint in the Generator contract. `withdraw` also claims any outstanding token rewards.
+
+The sections below are dedicated to guiding users through the process of staking and unstaking LP tokens in the Generator contract to receive ASTRO and/or third-party rewards.
+
+## Staking LP Tokens
+
+### 1. Construct `send` message
+
+Initiate a contract message pointing to the [`send`](https://docs.rs/cw20/latest/cw20/enum.Cw20ExecuteMsg.html#variant.Send) endpoint of the LP token contract that you want to stake. The `send` operation requires three parameters:
+
+- **`contract`:** This refers to the address where the LP tokens are being dispatched. In this context, it should be the generator address.
+- **`amount`:** This specifies the quantity of LP tokens to be sent or staked. 
+- **`msg`:** This is a binary-encoded message that contains a contract call to the `deposit` endpoint. This message will be discussed below. 
+
+<Admonition type="info" title="NOTE">
+    The `send` function should be executed from the contract of the LP token you want to stake.
+</Admonition>
+
+<CH.Section>
+    <CH.Code>
+
+        ```json focus=1:5,9:11
+        {
+          "send": {
+            "contract": generatorAddress, 
+            "amount": "12345", 
+            "msg": toBase64(
+              {
+                "deposit": {}
+              }
+            ) 
+          }
+        }
+        ```
+
+    </CH.Code>
+</CH.Section>
+
+### 2. Construct `deposit` message
+
+The `msg` parameter in Step 1 requires a binary-encoded message, which essentially includes a contract call to the [`deposit`](../../../develop/smart-contracts/tokenomics/generator#deposit) endpoint within the Generator contract. For this message, no other parameters are needed.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json focus=5:9
+        {
+          "send": {
+            "contract": generatorAddress, 
+            "amount": "12345", 
+            "msg": toBase64(
+              {
+                "deposit": {}
+              }
+            ) 
+          }
+        }
+        ```
+
+    </CH.Code>
+</CH.Section>
+
+### 3. Define an encoding function
+
+Next, you'll need to encode the `deposit` message you've constructed. As previously outlined in Step 1, the `msg` parameter requires a binary-encoded string. In Step 2, we prepped our `deposit` message for encoding using a `toBase64` function. Now it's time to actually perform that encoding.
+
+Please note that the `toBase64` function must be defined in your code environment to use it for encoding purposes. This function is crucial to convert the JSON string representation of our message into a base64 encoded string.
+
+Here's an example of how to define the `toBase64` function in JavaScript:
+
+<CH.Section>
+    <CH.Code>
+
+        ```js
+        let toBase64 = (obj) => {
+          return Buffer.from(JSON.stringify(obj)).toString("base64");
+        };
+        ```
+    </CH.Code>
+</CH.Section>
+
+## Unstaking LP Tokens
+
+### 1. Construct `withdraw` message
+
+When you are ready to unstake your LP tokens from the Generator contract, you can execute a contract call to the [`withdraw`](../../../develop/smart-contracts/tokenomics/generator#withdraw) endpoint within the [Generator contract](../../../develop/smart-contracts/tokenomics/generator) itself.
+
+The `withdraw` operation requires two parameters:
+- **`lp_token`**: The address of the LP token that you want to withdraw.
+- **`amount`**: The quantity of tokens you wish to unstake.
+
+<Admonition type="info" title="NOTE">
+    You should replace `astroUSDCLPAddress` with the specific address of the LP token you wish to unstake. Each LP token has a unique contract address, so it's important to make sure you are using the correct one in your `withdraw` operation.
+</Admonition>
+
+<CH.Section>
+    <CH.Code>
+
+        ```json
+        {
+            "withdraw": {
+                "lp_token": astroUSDCLPAddress,
+                "amount": "5000000"
+            }
+        }
+        ```
+    </CH.Code>
+</CH.Section>
