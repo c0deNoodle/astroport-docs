@@ -1,0 +1,53 @@
+# Frontend
+
+## Docket 
+
+Anyone can run the Astroport User Interface (UI) in Docker. Docker images for the frontend can be found in the [official Astroport GitHub Packages](https://github.com/orgs/astroport-fi/packages).
+
+### Getting Started
+
+Before you start, make sure that you have Docker installed on your machine. If you haven't installed it yet, you can download Docker from the [official website](https://www.docker.com/get-started/).
+
+### Steps to Run the Astroport UI in Docker
+
+#### Pull the Docker Image
+
+Open your terminal and use the following command to pull the Astroport UI Docker image:
+
+<CH.Section>
+    <CH.Code>
+
+        ```bash 
+        docker pull docker.pkg.github.com/astroport-fi/<repository>/<package>:<tag>
+        ```
+
+    </CH.Code>
+</CH.Section>
+
+Make sure to replace `repository`, `package`, and `tag` with the correct repository name, package name, and the version tag respectively.
+
+#### Run the Docker Image
+
+Once the Docker image has been pulled successfully, run the image using the following command:
+
+<CH.Section>
+    <CH.Code>
+
+        ```bash 
+        docker pull docker.pkg.github.com/astroport-fi/<repository>/<package>:<tag>
+        ```
+
+    </CH.Code>
+</CH.Section>
+
+This command runs the Docker image and maps the application which is running on port 80 inside the Docker container to port 8000 on your host machine.
+
+Now, you can open your web browser and navigate to http://localhost:8000 to see the Astroport UI running.
+
+Remember to replace placeholders (`repository`, `package`, and `tag`) with the actual values. You may need to check the exact usage of Docker commands depending on the configuration of your Docker image.
+
+
+
+
+
+
