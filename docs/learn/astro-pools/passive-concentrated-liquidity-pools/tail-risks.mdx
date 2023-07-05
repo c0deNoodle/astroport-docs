@@ -1,0 +1,20 @@
+---
+sidebar_position: 6
+---
+
+# Tail Risks
+
+Tail risk refers to the risk of extreme price movements that can lead to significant losses. In the context of AMMs, tail risk can affect both passive concentrated liquidity and constant product models, but the impact and implications of tail risk differ between the two.
+
+Passive Concentrated Liquidity AMMs:
+
+- **Liquidity concentration**: In passive concentrated liquidity AMMs, liquidity is focused within specific, narrow price ranges. This means that if the asset's price moves outside of these ranges, liquidity becomes scarce, and slippage can become extremely high for traders.
+- **Impermanent loss**: Passive concentrated liquidity AMMs can help mitigate impermanent loss within the specified price ranges. However, if the asset's price experiences an extreme movement (a tail event) and moves significantly outside of the specified range, the impermanent loss can be substantial.
+- **Limited protection**: Automated strategies for managing price ranges in passive concentrated liquidity AMMs may not be able to adapt quickly enough to sudden, extreme price movements, leaving liquidity providers exposed to tail risk.
+
+Constant Product AMMs:
+
+- **Even liquidity distribution**: In constant product AMMs, liquidity is distributed evenly across the entire price range. This means that even during extreme price movements, there is still liquidity available for trades, reducing the potential impact of tail events on liquidity providers.
+- **Impermanent loss**: Constant product AMMs are more susceptible to impermanent loss, regardless of whether the price movement is extreme or not. However, the risk is spread evenly across the entire price range, and liquidity providers share the risk more evenly.
+
+In the context of AMMs, tail risk and capital efficiency are two important factors that liquidity providers need to consider when choosing between passive concentrated liquidity AMMs and constant product AMMs. The balance between these factors can impact the overall performance and risk exposure of liquidity providers in each model.

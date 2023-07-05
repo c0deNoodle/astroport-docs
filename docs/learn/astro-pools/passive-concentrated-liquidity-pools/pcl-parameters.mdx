@@ -1,0 +1,21 @@
+---
+sidebar_position: 2
+---
+
+
+# PCL Parameters
+
+When creating a Passive Concentrated Liquidity (PCL) pool, there are several parameters you can adjust to modify how the pool operates. Here's a detailed breakdown of these parameters:
+
+1. **Amplification Coefficient (A)**: This parameter influences the flatness of the curve at the center. Higher A values lead to higher liquidity concentration around the current price scale, essentially flattening the curve at the center. The effect is a more significant provision of liquidity around the current price scale, making it easier for traders to transact without causing substantial price slippage.
+2. **Gamma (g)**: Whereas A affects the center of the curve, Gamma fine-tunes the tail ends of the curve during pool imbalances. Keeping Gamma on the low end is generally advised, as it has overlapping effects with A. Lower Gamma values promote a more gradual transition, thereby moderating the extremes of the curve. This helps to prevent sudden shifts in the pool's balance.
+3. **Mid Fee**: This is the base transaction fee charged under optimal, balanced pool conditions. It's an essential source of revenue for the liquidity providers.
+4. **Out Fee**: This represents the upper limit of the transaction fee, which is applied during pronounced pool imbalances. The Out Fee helps compensate liquidity providers for the additional risks they undertake during periods of significant volatility or price swings.
+5. **Fee Gamma**: This parameter dictates the rate at which the transaction fee transitions from the Mid Fee to the Out Fee, depending on the distance from the price scale. It essentially defines how quickly the fee increases as the pool's balance deviates from the optimal state.
+6. **Repeg Profit Threshold**: This parameter sets the minimum profit threshold that must be met before triggering a price adjustment or "repeg". It ensures that the pool only adjusts its price scale if the net gains from fees can offset at least half of the potential Impermanent Loss from re-pegging.
+7. **Min Price Scale Delta**: This parameter designates the smallest amount by which the price scale can adjust during a repeg. It prevents the price scale from making micro-adjustments that may not significantly impact the pool's balance or profitability.
+8. **Price Scale**: The Price Scale sets the basic trading ratio between the two assets in the pool. It determines how much of one asset is equivalent to one unit of the other asset.
+9. **MA Half-Time**: MA Half-Time is used for calculating the price oracle, which helps maintain an equilibrium point for the liquidity within the pool. It represents the 'half-life' period used in the Exponential Moving Average (EMA) calculation of the price oracle.
+10. **Track Asset Balances**: This is an optional feature that, when enabled, allows the system to persistently track the asset balances within the pool. Note that once this feature is activated, it cannot be disabled. This feature can provide valuable insights into the pool's performance and the behavior of its participants over time.
+
+Each of these parameters can significantly impact the performance and behavior of your PCL pool, so it's crucial to understand them thoroughly before adjusting them.

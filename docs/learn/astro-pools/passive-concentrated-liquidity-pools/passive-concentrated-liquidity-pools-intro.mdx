@@ -1,0 +1,24 @@
+# Passive Concentrated Liquidity Pools
+
+Concentrated liquidity is a concept introduced by Uniswap to improve the capital efficiency of liquidity providers (LPs) and optimize the price impact of trades. In traditional xyk AMMs, liquidity is distributed evenly across the entire price range of an asset pair. This means that the provided liquidity is used in smaller portions for trades at various price points, making it less capital-efficient for liquidity providers.
+
+Concentrated liquidity enables liquidity providers to allocate their assets more efficiently and optimize trading outcomes by focusing liquidity within specific price ranges. In Uniswap v3’s model, liquidity providers have to actively specify the price ranges in which they want to provide liquidity. This requires a more hands-on approach and a better understanding of the market to optimize returns and minimize risks. 
+
+On the other hand, Curve's passive concentrated liquidity model automates the management of price ranges. LPs don't need to actively manage their price ranges, as the model relies on automated strategies to handle price range adjustments. This reduces complexity and allows for a more hands-off experience for LPs.
+
+
+Passive concentrated liquidity is a concept introduced by Curve in its V2 model. It is a way for liquidity providers (LPs) to participate in a concentrated liquidity pool without actively managing their price ranges. This approach reduces the management complexity typically associated with concentrated liquidity and allows for a more hands-off experience for LPs.
+
+Passive concentrated liquidity pools enable LPs to deposit their assets into a pool with pre-defined price ranges, which are automatically adjusted to follow the market price. These pre-defined price ranges are managed by automated strategies, which are designed to optimize returns for LPs while minimizing the risks associated with impermanent loss and price fluctuations.
+
+The passive concentrated liquidity approach has the following advantages:
+
+- **Reduced Complexity**: LPs don't need to actively manage their positions or adjust price ranges, making it easier for them to participate in providing liquidity.
+- **Optimized for LPs**: By participating in a passive concentrated liquidity pool, LPs can potentially enjoy higher returns than in traditional liquidity pools, as the automated strategies aim to optimize capital efficiency and yield.
+- **Enhanced Efficiency for Traders**: Traders can execute swaps in a Passive Concentrated Liquidity (PCL) pool that has less overall liquidity compared to a traditional x*y=k AMM, and still experience reduced slippage. 
+
+However, there may be some trade-offs associated with passive concentrated liquidity:
+
+- **Control**: LPs have less control over the specific price ranges of their assets, as they rely on the automated strategies to manage the price ranges on their behalf.
+- **Strategy Risk**: The performance of passive concentrated liquidity is subject to the effectiveness of the automated strategies managing the price ranges. If the strategies are not well-designed or fail to adapt to market changes, LPs may experience suboptimal returns or higher risks.
+

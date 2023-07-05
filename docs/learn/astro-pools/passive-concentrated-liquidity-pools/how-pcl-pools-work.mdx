@@ -1,0 +1,21 @@
+---
+sidebar_position: 1
+---
+
+# How PCL Pools Work​
+
+In a Passive Concentrated Liquidity (PCL) pool, liquidity is optimally clustered around a 'Price Scale', which is the current price level that yields the most effective use of the supplied assets. The pool's function and operation are dynamic, continually adjusting in response to market activities such as trades and price movements.
+
+The pool incorporates a 'Price Oracle', an internal mechanism that tracks the exponential moving average of the pair price based on recent trades and a parameter called 'ema_half_time'. The purpose of the Price Oracle is to maintain an equilibrium point for the liquidity within the pool.
+
+As the market becomes more volatile, the gap between the Price Scale and the Price Oracle widens. This increased spread represents a risk for liquidity providers in the form of 'Impermanent Loss' (IL). To counterbalance this, the pool raises its transaction fees, which then get distributed to liquidity providers as compensation.
+
+## Repegging
+
+A unique aspect of PCL pools is their ability to 're-peg' or re-adjust their Price Scale towards the Price Oracle value. The pool is continually monitoring the market and performs a series of checks to decide whether it's advantageous to re-peg. This re-pegging process is governed by a simple condition: the pool will only adjust its Price Scale if the net gains from fees are substantial enough to offset at least half of the potential Impermanent Loss from re-pegging.
+
+This ensures that the pool isn't just blindly following price movements, but is also taking into account the overall profitability and risk to liquidity providers.
+
+However, the re-pegging mechanism isn't a perfect solution. There will be times when the market price moves away from the Price Scale too quickly and the pool hasn't collected enough fees to justify a re-peg. In these scenarios, the pool will offer slightly worse execution than a regular x*y=k pool, until it has collected enough fees to re-peg, or the market price returns to the equilibrium point.
+
+Remember, while re-pegging can mitigate some of the Impermanent Loss, it doesn't eliminate it entirely. LPs are still exposed to the remaining "unrealized" IL that has accrued prior to a re-peg. It's crucial for liquidity providers to understand these dynamics before participating in a PCL pool.
