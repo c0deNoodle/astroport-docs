@@ -1,0 +1,72 @@
+# Migrating Oracles 
+
+## Intro
+
+In the early iterations of Astroport, the protocol provided time-weighted average price (TWAP) oracles for acquiring asset prices. This TWAP-based oracle captured the average price of tokens over a specific period, providing a snapshot of market behavior. However, with the release of Astroport 3.0.0, Astroport transitioned to a different model of price discovery for PCL and Stableswap pools, specifically utilizing Uniswap V3 style oracles, which are termed as "swaps-based" oracles below.
+
+## Understanding Swaps-Based Oracles
+
+Unlike the TWAP-based oracles, swaps-based oracles capture price only on swaps. However, it's important to note that the price won't be registered if either of the trade sizes is less than 0.001 tokens. This threshold is put in place to prevent noise from very small trades from affecting the recorded price. Also, provide and withdraw operations do not trigger a price update.
+
+## Migrating to Swaps-Based Oracles
+
+With the move towards swaps-based oracles, the method to acquire oracle prices has changed. Previously, you would have interacted with the [TWAP oracle contract](../smart-contracts/oracle) to get the oracle prices. However, as we transition towards the new system, this process is done directly within the [PCL](../smart-contracts/swap-pairs/passive-concentrated-liquidity-pools) or [Stableswap](../smart-contracts/swap-pairs/stableswap-pools) pool contracts.
+
+The [`observe`](../smart-contracts/swap-pairs/passive-concentrated-liquidity-pools#observe) query within the PCL and Stableswap pool contracts returns the oracle price. If observation was not found at exact time then it is interpolated using surrounding observations.
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+            "observe": {
+                "seconds_ago": 3600
+            }
+        }
+        ```
+
+        ```rs pair_concentrated.rs 
+        #[cw_serde]
+        #[derive(QueryResponses)]
+        pub enum QueryMsg {
+
+            // other queries
+
+            #[returns(OracleObservation)]
+            Observe { seconds_ago: u64 },
+        }
+        ```
+
+    </CH.Code>
+</CH.Section>
+
+#### `OracleObservation` (Response)
+
+This structure is used to return an observation query response.
+
+<CH.Section>
+<CH.Code>
+
+        ```json json
+        {
+            "timestamp": 12345, 
+            "price": "1.23"
+        }
+        ```
+
+        ```rust observation.rs
+        #[cw_serde]
+        pub struct OracleObservation {
+            pub timestamp: u64,
+            pub price: Decimal,
+        }
+        ```
+
+    </CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`timestamp`](focus://json#2)   | `u64` | The timestamp for returned price observations     |
+| [`price`](focus://json#3)   | `Decimal`        | The price from stored observations      |
+
+</CH.Section>

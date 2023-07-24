@@ -964,3 +964,65 @@ pub struct CumulativePricesResponse {
 | [`cumulative_prices`](focus://json#21:22)   | `Vec<(AssetInfo, AssetInfo, Uint128)>`       | The vector contains cumulative prices for each pair of assets in the pool      |
 
 </CH.Section>
+
+### `observe`
+
+Queries price from stored observations. If observation was not found at exact time then it is interpolated using surrounding observations.
+
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+            "observe": {
+                "seconds_ago": 3600
+            }
+        }
+        ```
+
+        ```rs pair.rs 
+        #[cw_serde]
+        #[derive(QueryResponses)]
+        pub enum QueryMsg {
+
+            // other queries
+
+            #[returns(OracleObservation)]
+            Observe { seconds_ago: u64 },
+        }
+        ```
+
+    </CH.Code>
+</CH.Section>
+
+#### `OracleObservation` (Response)
+
+This structure is used to return an observation query response.
+
+<CH.Section>
+<CH.Code>
+
+        ```json json
+        {
+            "timestamp": 12345, 
+            "price": "1.23"
+        }
+        ```
+
+        ```rust observation.rs
+        #[cw_serde]
+        pub struct OracleObservation {
+            pub timestamp: u64,
+            pub price: Decimal,
+        }
+        ```
+
+    </CH.Code>
+
+| **Params**      | **Type** | **Description** |
+| ----------- | ----------- | ----------- |
+| [`timestamp`](focus://json#2)   | `u64` | The timestamp for returned price observations     |
+| [`price`](focus://json#3)   | `Decimal`        | The price from stored observations      |
+
+</CH.Section>
