@@ -1,3 +1,211 @@
+# Querying Oracle Prices
+
+## Intro
+
+Oracle prices can be queried from Astroport's PCL and Stableswap pool pair contracts using the "observe" function. 
+
+The `observe` function retrieves the price of a token for a specified period in the past. It uses stored observations and takes as input the number of seconds to look back from the current time. If an observation is not found for the exact time specified, the function interpolates the price using the nearest surrounding observations to provide an estimated price. This way, the `observe` function can return price data for any point in time within the range of stored observations.
+
+Here is an example of the `observe` query as a JSON object:
+
+<CH.Section>
+    <CH.Code>
+
+        ```json json
+        {
+            "observe": {
+                "seconds_ago": 3600
+            }
+        }
+        ```
+
+        ```rs pair_concentrated.rs 
+        #[cw_serde]
+        #[derive(QueryResponses)]
+        pub enum QueryMsg {
+
+            // other queries
+
+            #[returns(OracleObservation)]
+            Observe { seconds_ago: u64 },
+        }
+        ```
+
+    </CH.Code>
+</CH.Section>
+
+In this example, the query is set to look back 3600 seconds (1 hour). The query returns the price of a token in a struct of type `OracleObservation`:
+
+<CH.Section>
+<CH.Code>
+
+        ```json json
+        {
+            "timestamp": 12345, 
+            "price": "1.23"
+        }
+        ```
+
+        ```rust observation.rs
+        #[cw_serde]
+        pub struct OracleObservation {
+            pub timestamp: u64,
+            pub price: Decimal,
+        }
+        ```
+
+    </CH.Code>
+</CH.Section>
+
+## Executing the "Observe" Query in a Script
+
+To execute the `observe` query, we can use a script written in JavaScript that interacts with the CosmWasm network. The script connects to the network, retrieves the contract data, and logs the response.
+
+Here's a complete script for calling the `observe` query:
+
+<CH.Section>
+    <CH.Code>
+
+        ```js js
+        import { CosmWasmClient } from "@cosmjs/cosmwasm-stargate";
+
+        const start = async () => {
+            try {
+
+                // ** CONSTANTS ** // 
+
+                const rpc = "<RPC-URL>"; // testnet
+                const client = await CosmWasmClient.connect(rpc);
+                const pairContract = "<Astroport-Pair-Contract-Address>" 
+
+                // ** QUERY ** // 
+
+                const observeQuery = await client.queryContractSmart(
+                    pairContract,
+                    {
+                        "observe": {
+                            "seconds_ago": 3600
+                        }
+                    }
+                );
+
+                console.log(observeQuery);
+
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        start();
+        ```
+    </CH.Code>
+</CH.Section>
+
+Replace `<RPC-URL>` with your network's RPC URL and `<Astroport-Pair-Contract-Address>` with the contract's address you wish to query.
+
+### Scheduling the Script
+
+For obtaining price data regularly, we can schedule this script to run at fixed intervals. This can be achieved using two main options: setInterval in Node.js or setting up a cron job on Unix-like systems. Both methods have their advantages and disadvantages and can be chosen based on the specific requirements of the application.
+
+#### Option 1: setInterval
+
+This option uses Node.js' built-in `setInterval` function to run the start function every hour (3600000 milliseconds). This is the simplest option and doesn't require any extra setup, but it's also less robust because it relies on the Node.js process staying up indefinitely.
+
+Here's the code using setInterval:
+
+<CH.Section>
+    <CH.Code>
+
+        ```js js
+        import { CosmWasmClient } from "@cosmjs/cosmwasm-stargate";
+
+        const start = async () => {
+            // (code omitted for brevity)
+        };
+
+        start();
+
+        // Run start every hour
+        setInterval(start, 3600000);
+        ```
+    </CH.Code>
+</CH.Section>
+
+In this example, the function runs every hour. This could be changed to every 24 hours (86400000 milliseconds) or every second (1000 milliseconds). 
+
+#### Option 2: Cron job
+
+A more robust option for Unix-like systems is to set up a cron job that runs the script. Cron is a time-based job scheduler in Unix-like operating systems. Users can schedule jobs (commands or scripts) to run periodically at fixed times, dates, or intervals.
+
+##### Step 1: Make your Node.js script executable
+
+To start, ensure your script is executable. The first line of your script should contain the following shebang:
+
+```js js
+#!/usr/bin/env node
+```
+
+So, your script would look like this:
+
+<CH.Section>
+    <CH.Code>
+
+        ```js js
+        #!/usr/bin/env node
+
+        import { CosmWasmClient } from "@cosmjs/cosmwasm-stargate";
+
+        const start = async () => {
+            // (code omitted for brevity)
+        };
+
+        start();
+        ```
+    </CH.Code>
+</CH.Section>
+
+##### Step 2: Set the correct permissions
+
+Next, navigate to your script's directory in the terminal and run the following command to make it executable:
+
+```bash bash
+chmod +x your-script.js
+```
+
+Replace `your-script.js` with the name of your script.
+
+##### Step 3: Create a cron job
+
+To create a cron job, open the crontab editor by running the following command in your terminal:
+
+```bash bash
+crontab -e
+```
+
+This will open the cron table file where you can set the scheduled jobs. Cron syntax allows you to specify the minute, hour, day of the month, month, and day of the week for the command to be run.
+
+For example, to run your script at the beginning of every hour, add the following line to the file:
+
+```lua lua
+0 * * * * /usr/local/bin/node /path-to-your-script/script.js >> /path-to-log-file/log.txt 2>&1
+```
+
+In this case, 0 * * * * means the cron job will run at the beginning of every hour. Here's the breakdown of the 5 asterisks:
+
+- Minute: 0
+- Hour: * (any)
+- Day of month: * (any)
+- Month: * (any)
+- Day of week: * (any)
+
+Replace `/path-to-your-script/script.js` with the path to your script, and `/path-to-log-file/log.txt` with the path where you want the output log file to be written.
+
+After adding the line, save and close the file. The cron job is now set and will run your script once a day at the specified time. The output can be found in the specified log file.  
+
+{/* 
+
+
+
 # Migrating Oracles 
 
 ## Intro
@@ -69,4 +277,4 @@ This structure is used to return an observation query response.
 | [`timestamp`](focus://json#2)   | `u64` | The timestamp for returned price observations     |
 | [`price`](focus://json#3)   | `Decimal`        | The price from stored observations      |
 
-</CH.Section>
+</CH.Section> */}
