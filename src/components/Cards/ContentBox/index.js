@@ -245,6 +245,21 @@ const boxProps = {
     }
   },
 
+  neutronStarterPack: {
+    gasOnNeutron: {
+      title: "Gas on Neutron",
+      description: "Learn how to seed your Neutron wallet with gas for initial transactions.",
+      image: SearchPepeUrl,
+      list: "Gas on Neutron",
+    },
+    wstETHWETHPoolTutorial: {
+      title: "wstETH - WETH Pool Tutorial",
+      description: "Learn how to provide liquidity to the wstETH - WETH pool on Astroport.",
+      image: PoolUrl,
+      list: "wstETH - WETH Pool Tutorial",
+    }
+  },
+
   bridgingTokens: {
     astroportBridge: {
       title: "Astroport Bridge",
@@ -795,6 +810,32 @@ export default function ContentBox(props) {
             description={boxProps.starterPack.bridgingTokens.description}
             image={boxProps.starterPack.bridgingTokens.image}
             list={boxProps.starterPack.bridgingTokens.list}
+          />
+        </a>
+
+      </div>
+    );
+  } 
+
+  else if (props.title == "Neutron Starter Pack") {
+    return (
+      <div className="grid md:grid-cols-2 gap-3">
+        
+        <a className={styles.links} href="../../../learn/workstation/neutron-starter-pack/gas-on-neutron">
+          <Box
+            title={boxProps.neutronStarterPack.gasOnNeutron.title}
+            description={boxProps.neutronStarterPack.gasOnNeutron.description}
+            image={boxProps.neutronStarterPack.gasOnNeutron.image}
+            list={boxProps.neutronStarterPack.gasOnNeutron.list}
+          />
+        </a>
+
+        <a className={styles.links} href="../../../learn/workstation/neutron-starter-pack/wsteth-weth-pool-tutorial/wsteth-weth-pool-tutorial-intro">
+          <Box
+            title={boxProps.neutronStarterPack.wstETHWETHPoolTutorial.title}
+            description={boxProps.neutronStarterPack.wstETHWETHPoolTutorial.description}
+            image={boxProps.neutronStarterPack.wstETHWETHPoolTutorial.image}
+            list={boxProps.neutronStarterPack.wstETHWETHPoolTutorial.list}
           />
         </a>
 

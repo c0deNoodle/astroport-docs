@@ -37,5 +37,7 @@ export default function Cards({ image, title, text, children }) {
     return <ContentBox title="Bridging Tokens" />;
   } else if (title === "Smart Contracts") {
     return <ContentBox title="Smart Contracts" />;
+  } else if (title === "Neutron Starter Pack") {
+    return <ContentBox title="Neutron Starter Pack" />;
   }
 }
