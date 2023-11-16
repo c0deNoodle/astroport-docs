@@ -13,7 +13,7 @@ const { remarkCodeHike } = require('@code-hike/mdx');
 const config = {
   title: 'Astroport Docs',
   tagline: 'Build the future of Astroport',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://astroport.fi',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
