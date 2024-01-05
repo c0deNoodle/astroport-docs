@@ -1,5 +1,5 @@
 {
-    "label": "Workstation",
+    "label": "WebApp Tutorials",
     "position": 5,
     "link": { "type": "doc", "id": "workstation-intro" }
 }

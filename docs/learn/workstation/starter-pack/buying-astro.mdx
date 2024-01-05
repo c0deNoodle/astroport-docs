@@ -1,0 +1,148 @@
+import Admonition from '@theme/Admonition'
+import BuyingAstroUrl from '@site/static/img/web-app-tutorials/starter-pack/buying-astro/buying-astro.png';
+
+import Volatile1Url from '@site/static/img/web-app-tutorials/starter-pack/buying-astro/volatile-1.png';
+import Volatile2Url from '@site/static/img/web-app-tutorials/starter-pack/buying-astro/volatile-2.png';
+import Volatile3Url from '@site/static/img/web-app-tutorials/starter-pack/buying-astro/volatile-3.png';
+import Volatile4Url from '@site/static/img/web-app-tutorials/starter-pack/buying-astro/volatile-4.png';
+
+import Stable1Url from '@site/static/img/web-app-tutorials/starter-pack/buying-astro/stable-1.png';
+import Stable2Url from '@site/static/img/web-app-tutorials/starter-pack/buying-astro/stable-2.png';
+import Stable3Url from '@site/static/img/web-app-tutorials/starter-pack/buying-astro/stable-3.png';
+import Stable4Url from '@site/static/img/web-app-tutorials/starter-pack/buying-astro/stable-4.png';
+import Stable5Url from '@site/static/img/web-app-tutorials/starter-pack/buying-astro/stable-5.png';
+import Stable6Url from '@site/static/img/web-app-tutorials/starter-pack/buying-astro/stable-6.png';
+import Stable7Url from '@site/static/img/web-app-tutorials/starter-pack/buying-astro/stable-7.png';
+import Stable8Url from '@site/static/img/web-app-tutorials/starter-pack/buying-astro/stable-8.png';
+import Stable9Url from '@site/static/img/web-app-tutorials/starter-pack/buying-astro/stable-9.png';
+
+
+# Buying $ASTRO
+
+<img src={BuyingAstroUrl} style={{ paddingBottom: 10 }} />
+
+The $ASTRO token can be swapped for in any of Astroports outposts. The current markets and liquidity distributions for $ASTRO (as of Jan 5th, 2024) are as follows: 
+
+- Terra: ASTRO / USDC.axl - $2.94M
+- Neutron: ASTRO / USDC.axl - $979.58k
+- Sei: ASTRO / USDC.eth - $504.32k
+- Injective: ASTRO / USDT - $269.6k
+
+This tutorial will guide you through swapping for $ASTRO starting from either a centralized exchange or an EVM chain. 
+
+## Starting from a CEX
+
+The $ASTRO token is currently not availiable on CEXs. As a result, you will have to transfer either a volatile or stable token that can be swapped for $ASTRO on-chain. 
+
+### Bridging a Volatile Pair Asset
+
+One of the simplest methods for buying $ASTRO starting from a CEX is to bridge a gas token and then swap that token for $ASTRO on-chain. E.g. you can purchase $LUNA, $NTRN, $SEI, and $INJ on Binance. Either of these tokens could be transferred to their respective outposts and swapped for $ASTRO. However, you may be exposed to negative volatility between the time you buy/transfer the gas token and when you swap that token for $ASTRO. 
+
+<Admonition type="info" title="NOTE">
+These tokens also serve as gas tokens for their respective chains, so make sure to keep some remaining in your wallet for additional swaps. 
+</Admonition>
+
+This tutorial will walk you through transferring $NTRN from Binance to the Neutron chain and swapping $ATOM for $ASTRO. But you can follow similar steps for other gas tokens ($SEI, $INJ, $LUNA) on other exchanges (Coinbase, KuCoin, etc). 
+
+#### Step 1: Purchase and withdraw $NTRN from a centralized exchange
+
+The most popular market to purchase NTRN is on Binance. You can withdraw NTRN from Binance with a 0.25 NTRN fee and a 0.4 NTRN minimum. 
+
+<img src={Volatile1Url} style={{ paddingBottom: 10 }} />
+
+#### Step 2: Swap $NTRN for $ASTRO 
+
+You can now swap your $NTRN for $ASTRO on Astroport. Select the assets to swap and amount. 
+
+You can select the drop down menu on swap routes to see specific routes and price impacts before you make a swap. E.g. in this example at the time, we recieve a more favorable quote routing through a pool with less liquidity.  
+
+Press "Swap" to continue. 
+
+<img src={Volatile2Url} style={{ paddingBottom: 10 }} />
+
+#### Step 3: Confirm the transaction
+
+Before you finalize your transaction, make sure to review the price impact and exchange rate. Select confirm swap to continue. 
+
+<img src={Volatile3Url} style={{ paddingBottom: 10 }} />
+
+#### Step 4: Sign transaction
+
+Sign and confirm the transaction using your wallet. Once signed, your swap will soon be complete. 
+
+<img src={Volatile4Url} style={{ paddingBottom: 10 }} />
+
+### Bridging a Stablecoin
+
+If you do not want to temporarily hold a volatile asset, you can transfer stablecoins (in addition to some gas) to swap for $ASTRO. However, each ASTRO market is paired with a different stablecoin, e.g. Terra and Neutron markets are paired with USDC.axl, the Injective market is paired with Injective's Eth-bridged USDT, and the Sei market is paired with USDC bridged from Eth using Wormhole. As such, there are several routes you could take to reduce slippage for each chain. 
+
+Here are some routes: 
+- **Neutron/Terra:** Purchase $USDC and withdraw to an EVM chain (e.g. ARB, OP, Base). Bridge your USDC to USDC.axl on Neutron/Terra using [Squid Router](https://www.squidrouter.com/). Purchase and transfer $NTRN/$LUNA for gas. Swap your $USDC.axl for $ASTRO on Astroport's Neutron/Terra outpost. 
+- **Sei:** Purchase $USDC and withdraw to an EVM chain or Solana. Bridge your USDC to Sei using the official Sei bridge: [app.sei.io/bridge](https://app.sei.io/bridge). Purchase and transfer some $SEI for gas. Swap your $USDC for $ASTRO on Astroport's Sei outpost. 
+- **Injective:** Purchase $USDT and withdraw to the Ethereum network. Bridge your ERC20 USDT to Injective using the official [Injective bride](https://hub.injective.network/bridge/). Purchase and transfer $INJ for gas. Swap your $USDT for $ASTRO on Astroport's Injective outpost. 
+
+This tutorial will walk you through transferring $USDC from Coinbase to Arbitrum where it will be bridged to Neutron for USDC.axl using Squid Router. Once on Neutron, our $USDC.axl can be swapped for $ASTRO. 
+
+#### Step 1: Purchase and withdraw $USDC from a centralized exchange to an EVM chain
+
+This example uses Coinbase to purchase $USDC and and Arbitrum to bridge using Squid Router. But you can use another exchange as well, such as Binance, and another EVM chain (e.g. OP, Base). 
+
+<img src={Stable1Url} style={{ paddingBottom: 10 }} />
+
+#### Step 2: Head to Squid Router: https://app.squidrouter.com/ and select the swap path
+
+In our example, we will be swapping USDC from Arbitrum to USDC.axl on Neutron. 
+
+<img src={Stable2Url} style={{ paddingBottom: 10 }} />
+
+#### Step 3: Connect Arbitrum Wallet
+
+<img src={Stable3Url} style={{ paddingBottom: 10 }} />
+
+#### Step 4: Connect Neutron Wallet
+
+<img src={Stable4Url} style={{ paddingBottom: 10 }} />
+
+#### Step 5: Select amount to swap
+
+<img src={Stable5Url} style={{ paddingBottom: 10 }} />
+
+#### Step 6: Sign and confirm transaction
+
+You will need gas on the EVM chain to sign the transaction. In this example, ETH on Arbitrum will work. 
+
+<img src={Stable6Url} style={{ paddingBottom: 10 }} />
+
+#### Step 7: Swap $USDC for $ASTRO 
+
+You can now swap your stables for $ASTRO on Astroport. Select the assets to swap and amount. Press "Swap" to continue. 
+
+<img src={Stable7Url} style={{ paddingBottom: 10 }} />
+
+#### Step 8: Confirm transaction
+
+Before you finalize your transaction, make sure to review the price impact and exchange rate. Select confirm swap to continue. 
+
+<img src={Stable8Url} style={{ paddingBottom: 10 }} />
+
+#### Step 9: Sign transaction
+
+Sign and confirm the transaction using your wallet. Once signed, your swap will soon be complete. 
+
+Note, you will need NTRN or ATOM for gas to transact on Neutron.
+
+<img src={Stable9Url} style={{ paddingBottom: 10 }} />
+
+## Starting from an EVM Chain
+
+If you want to bridge from an EVM chain, the best route is to transfer stablecoins to swap for $ASTRO. However, you will need to aquire some gas for the destination chain. Assuming you cannot aquire gas from a centralized exchange, the easiest way to get a tiny amount of gas on-chain from EVM is through a router (Squid Router). Once you have gas on the destination chain, you can bridge your stables from an EVM chain using any of the previously listed strategies:
+
+- **Neutron/Terra:** Bridge $USDC to USDC.axl on Neutron/Terra using [Squid Router](https://www.squidrouter.com/). Swap your $USDC.axl for $ASTRO on Astroport's Neutron/Terra outpost. 
+- **Sei:** Bridge $USDC to Sei using the official Sei bridge: [app.sei.io/bridge](https://app.sei.io/bridge). Swap your $USDC for $ASTRO on Astroport's Sei outpost. 
+- **Injective:** Bridge ERC20 USDT to Injective using the official [Injective bride](https://hub.injective.network/bridge/). Swap your $USDT for $ASTRO on Astroport's Injective outpost. 
+
+For a step-by-step example of bridging stables from EVM to Neutron using Squid Router and then swapping for $ASTRO, refer to the [section above](#step-2-head-to-squid-router-httpsappsquidroutercom-and-select-the-swap-path).
+
+
+
+
