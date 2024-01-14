@@ -129,25 +129,23 @@ Create the swap message with asset details.
 
         ```js
         const swapMsg = {
-            {
-                "swap": {
-                    "offer_asset": {
-                        "info": {
-                            "token": {
-                                "contract_addr": "..."
-                            }
-                        }, 
-                        "amount": "10000000"
-                    }, 
-                    "ask_asset_info": {
-                        "native_token": {
-                            "denom": "..."
+            "swap": {
+                "offer_asset": {
+                    "info": {
+                        "token": {
+                            "contract_addr": "..."
                         }
-                    },
-                    "belief_price": beliefPrice, 
-                    "max_spread": "0.1",
-                    "to": "...."
-                }
+                    }, 
+                    "amount": "10000000"
+                }, 
+                "ask_asset_info": {
+                    "native_token": {
+                        "denom": "..."
+                    }
+                },
+                "belief_price": beliefPrice, 
+                "max_spread": "0.1",
+                "to": "...."
             }
         };
         ```
