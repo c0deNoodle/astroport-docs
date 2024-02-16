@@ -1,0 +1,56 @@
+# Deploying Incentives
+
+import IncentivesUrl1 from '@site/static/img/web-app-tutorials/incentives/step-1.png';
+import IncentivesUrl2 from '@site/static/img/web-app-tutorials/incentives/step-2.png';
+import IncentivesUrl3 from '@site/static/img/web-app-tutorials/incentives/step-3.png';
+import IncentivesUrl4 from '@site/static/img/web-app-tutorials/incentives/step-4.png';
+import IncentivesUrl5 from '@site/static/img/web-app-tutorials/incentives/step-5.png';
+import IncentivesUrl5b from '@site/static/img/web-app-tutorials/incentives/step-5b.png';
+
+
+Astroport's new permissionless incentive system offers a streamlined and democratized approach to deploying incentives for pools. Now, anyone can incentivize any pool with up to five different tokens. Here's how it works:
+
+1. **Select a Pool:** Users begin by choosing which liquidity pool they wish to incentivize.
+2. **Define Incentives:** They then select the token(s) with which they want to incentivize the pool.
+3. **Set Duration:** Users set the duration of the incentive, ranging from a minimum of 1 week to a maximum of 25 weeks. The total amount of the incentive will be distributed either linearly or decreasingly over this period.
+4. **Sign and Confirm:** The final step involves signing and confirming the transaction, with a 250 ASTRO fee to activate the incentives.
+
+Continue below for an in-depth guide on deploying incentives.
+
+### Step 1: Head over to [https://app.astroport.fi/pools](https://app.astroport.fi/pools) and select **Incentivize Pool**.
+
+The **Incentivize Pool** button can be found on the top right of the **Pools** page. 
+
+<img src={IncentivesUrl1} style={{ paddingBottom: 10 }} />
+
+### Step 2: Select a pool to incentivize
+
+<img src={IncentivesUrl2} style={{ paddingBottom: 10 }} />
+
+### Step 3: Define Incentives
+
+First, we select the token we will be using to incentivize the pool. 
+
+<img src={IncentivesUrl3} style={{ paddingBottom: 10 }} />
+
+### Step 4: Set Incentives Amount
+
+Next, we define the amount of incentives that are being deposited. 
+
+<img src={IncentivesUrl4} style={{ paddingBottom: 10 }} />
+
+### Step 5: Define Duration 
+
+Lastly, we define the incentives schedule, or how many weeks your incentives will last. Your total incentive amount will be distributed linearly or decreasingly. Incentives require a minimum of 1 week and a maximum of 25 weeks. 
+
+Note that rewards per second must be at least 1 unit. 
+
+<img src={IncentivesUrl5} style={{ paddingBottom: 10 }} />
+
+You can expand the duration tab to see incentives distributed per week for your defined schedule. 
+
+<img src={IncentivesUrl5b} style={{ paddingBottom: 10 }} />
+
+### Step 6: Sign and Confirm transaction
+
+Once complete, your incentives schedule should begin!

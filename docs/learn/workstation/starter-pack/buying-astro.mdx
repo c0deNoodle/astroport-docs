@@ -28,6 +28,11 @@ The $ASTRO token can be swapped for in any of Astroports outposts. The current m
 - Sei: ASTRO / USDC.eth - $504.32k
 - Injective: ASTRO / USDT - $269.6k
 
+There are two primary ways to obtain ASTRO:
+
+1. Centralized approach: Use a CEX to buy the native token on any chain where Astroport has an active outpost: Neutron (NTRN), Terra (LUNA), Sei (SEI) or Injective (INJ). Then, withdraw it to a wallet on your target chain and swap that token for $ASTRO at app.astroport.fi.
+2. Decentralized approach: Bridge tokens to a chain where Astroport has an active outpost with Squid Router, IBC.fun or TFM.com. Then, swap those bridged tokens for $ASTRO at app.astroport.fi.
+
 This tutorial will guide you through swapping for $ASTRO starting from either a centralized exchange or an EVM chain. 
 
 ## Starting from a CEX
@@ -80,6 +85,7 @@ Here are some routes:
 - **Neutron/Terra:** Purchase $USDC and withdraw to an EVM chain (e.g. ARB, OP, Base). Bridge your USDC to USDC.axl on Neutron/Terra using [Squid Router](https://www.squidrouter.com/). Purchase and transfer $NTRN/$LUNA for gas. Swap your $USDC.axl for $ASTRO on Astroport's Neutron/Terra outpost. 
 - **Sei:** Purchase $USDC and withdraw to an EVM chain or Solana. Bridge your USDC to Sei using the official Sei bridge: [app.sei.io/bridge](https://app.sei.io/bridge). Purchase and transfer some $SEI for gas. Swap your $USDC for $ASTRO on Astroport's Sei outpost. 
 - **Injective:** Purchase $USDT and withdraw to the Ethereum network. Bridge your ERC20 USDT to Injective using the official [Injective bride](https://hub.injective.network/bridge/). Purchase and transfer $INJ for gas. Swap your $USDT for $ASTRO on Astroport's Injective outpost. 
+- **CCTP:** Purchase $USDC and withdraw to an EVM chain or Noble directly (availiable on Coinbase). Bridge your USDC to 
 
 This tutorial will walk you through transferring $USDC from Coinbase to Arbitrum where it will be bridged to Neutron for USDC.axl using Squid Router. Once on Neutron, our $USDC.axl can be swapped for $ASTRO. 
 
