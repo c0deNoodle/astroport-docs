@@ -251,9 +251,6 @@
       "statusCode": 301
     },
 
-
-
-
     {
       "source": "/astroport/smart-contracts/tokenomics",
       "destination": "/docs/develop/smart-contracts/tokenomics/tokenomics-intro",
@@ -357,6 +354,11 @@
     {
       "source": "/astroport/extras/audits",
       "destination": "/docs/overview/security/audits",
+      "statusCode": 301
+    },
+    {
+      "source": "/docs/develop/smart-contracts/astroport-contract-addresses",
+      "destination": "/docs/develop/smart-contracts/contract-addresses",
       "statusCode": 301
     }
   ]
