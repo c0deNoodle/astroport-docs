@@ -158,7 +158,7 @@ const developContent = [
     image: SmartContractsImg,
     listItems: [
       {
-        href: "../../../../docs/develop/smart-contracts/astroport-contract-addresses",
+        href: "../../../../docs/develop/smart-contracts/contract-addresses",
         label: "Astroport Contract Addresses",
       },
 
