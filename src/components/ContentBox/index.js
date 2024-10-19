@@ -58,15 +58,11 @@ const learnContent = [
     ],
   },
   {
-    title: "Astro Generators",
-    description: "Open the operation manual of Astroports unique Generators",
+    title: "Astro Incentives",
+    description: "Open the operation manual of Astroports unique Incentives",
     image: AstroGeneratorsImg,
     listItems: [
-      { label: "Overview", href: "../../../../docs/learn/astro-generators" },
-      {
-        label: "Dual Liquidity Mining",
-        href: "../../../../docs/learn/astro-generators#dual-liquidity-mining",
-      },
+      { label: "Overview", href: "../../../../docs/learn/astro-incentives" },
     ],
   },
   {
