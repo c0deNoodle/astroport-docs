@@ -67,19 +67,22 @@ const boxProps = {
     },
     astroAssembly: {
       title: "Astral Assembly",
-      description: "Enter the doors of Astroports governing body, the Astral Assembly",
+      description:
+        "Enter the doors of Astroports governing body, the Astral Assembly",
       image: AstralAssemblyUrl,
       list: "Astro Assembly",
     },
     astroTokenomics: {
       title: "Astro Tokenomics",
-      description: "Learn the key insights about the fuel that powers the station: ASTRO",
+      description:
+        "Learn the key insights about the fuel that powers the station: ASTRO",
       image: AstroTokenomicsUrl,
       list: "Astro Tokenomics",
     },
     workstation: {
       title: "Workstation",
-      description: "Astronaut approved step-by-step tutorials for the Astroport Web App",
+      description:
+        "Astronaut approved step-by-step tutorials for the Astroport Web App",
       image: WorkstationUrl,
       list: "Workstation",
     },
@@ -99,7 +102,8 @@ const boxProps = {
     },
     proposalMessages: {
       title: "Proposal Messages",
-      description: "Insights and best practices for on-chain governance proposals",
+      description:
+        "Insights and best practices for on-chain governance proposals",
       image: ProposalMessagesUrl,
       list: "Proposal Messages",
     },
@@ -107,7 +111,8 @@ const boxProps = {
   develop: {
     smartContracts: {
       title: "Smart Contracts",
-      description: "Deep dive into the galactic smart contracts powering Astroport",
+      description:
+        "Deep dive into the galactic smart contracts powering Astroport",
       image: SmartContractsUrl,
       list: "Smart Contracts",
     },
@@ -119,7 +124,8 @@ const boxProps = {
     },
     tutorials: {
       title: "Tutorials",
-      description: "Apply and improve your developer skills with hands-on tutorials",
+      description:
+        "Apply and improve your developer skills with hands-on tutorials",
       image: TutorialsUrl,
       list: "Tutorials",
     },
@@ -127,93 +133,105 @@ const boxProps = {
   smartContracts: {
     contractAddresses: {
       title: "Contract Addresses",
-      description: "A collection of contract Code IDs and addresses for Astroport's various deployments.",
+      description:
+        "A collection of contract Code IDs and addresses for Astroport's various deployments.",
       image: AIPFUrl,
       list: "Contract Addresses",
-    }, 
+    },
     githubCommits: {
       title: "GitHub Commits",
-      description: "A collection of GitHub commits for Astroport's contract deployments.",
+      description:
+        "A collection of GitHub commits for Astroport's contract deployments.",
       image: WorkstationUrl,
       list: "GitHub Commits",
     },
     commonTypes: {
       title: "Common Types",
-      description: "A collection of common types which are commonly used in Astroport contracts.",
+      description:
+        "A collection of common types which are commonly used in Astroport contracts.",
       image: AstroChadUrl,
       list: "Common Types",
-    }, 
+    },
     factory: {
       title: "Factory",
-      description: "Creates new Astroport pair contracts which are tracked in a registry and used as a directory for all pairs.",
+      description:
+        "Creates new Astroport pair contracts which are tracked in a registry and used as a directory for all pairs.",
       image: AIFUrl,
       list: "Factory",
-    }, 
+    },
     swapPairs: {
       title: "Swap Pairs",
       description: "Discover Astroport's various specialized pool types.",
       image: PoolUrl,
       list: "Swap Pairs",
-    }, 
+    },
     oracle: {
       title: "Oracle",
       description: "Calculates a 1 day TWAP for an xy=k Astroport pool.",
       image: TutorialsUrl,
       list: "Oracle",
-    }, 
+    },
     router: {
       title: "Router",
-      description: "Contains logic to facilitate multi-hop swaps for Cosmos native & CW20 tokens.",
+      description:
+        "Contains logic to facilitate multi-hop swaps for Cosmos native & CW20 tokens.",
       image: AstroRocketship,
       list: "Router",
-    }, 
+    },
     token: {
       title: "Token",
       description: "Implementation for the ASTRO token.",
       image: AstroTokenomicsUrl,
       list: "Token",
-    }, 
+    },
     tokenomics: {
       title: "Tokenomics",
-      description: "Discover Astroport's tokenomics smart contracts: generator, maker, staking, xASTRO token, and more.",
+      description:
+        "Discover Astroport's tokenomics smart contracts: generator, maker, staking, xASTRO token, and more.",
       image: AstroShield,
       list: "Tokenomics",
-    }, 
+    },
     astralAssembly: {
       title: "Astral Assembly",
-      description: "Allows xASTRO holders as well as Initial Astroport Builders to post and vote on new on-chain proposals that can execute arbitrary logic.",
+      description:
+        "Allows xASTRO holders as well as Initial Astroport Builders to post and vote on new on-chain proposals that can execute arbitrary logic.",
       image: AstralAssemblyUrl,
       list: "Astral Assembly",
-    }, 
+    },
     accessControlsAndPermissions: {
       title: "Access Controls and Permissions",
-      description: "An overview of smart contract access controls for the full Astroport protocol. ",
+      description:
+        "An overview of smart contract access controls for the full Astroport protocol. ",
       image: BackendUrl,
       list: "Access Controls and Permissions",
-    }
+    },
   },
   workstation: {
     starterPack: {
       title: "Starter Pack",
-      description: "Everything about Cosmos wallets and connecting to the Astroport Web App",
+      description:
+        "Everything about Cosmos wallets and connecting to the Astroport Web App",
       image: StarterPackUrl,
       list: "Starter Pack",
     },
     farmersFields: {
       title: "Farmers Fields",
-      description: "Learn how to create pools, provide liquidity, stake LP tokens, and more",
+      description:
+        "Learn how to create pools, provide liquidity, stake LP tokens, and more",
       image: FarmersFieldsUrl,
       list: "Farmers Fields",
     },
     tradersPort: {
       title: "Traders Port",
-      description: "Discover permissionless trading using the Astroport Web App",
+      description:
+        "Discover permissionless trading using the Astroport Web App",
       image: TradersPortUrl,
       list: "Traders Port",
     },
     astralAssembly: {
       title: "Astral Assembly",
-      description: "Participate in Astroports governing body, the Astral Assembly",
+      description:
+        "Participate in Astroports governing body, the Astral Assembly",
       image: AstralAssemblyUrl,
       list: "Astral Assembly",
     },
@@ -221,7 +239,8 @@ const boxProps = {
   starterPack: {
     creatingAWallet: {
       title: "Creating a Wallet",
-      description: "From zero to hero: learn the basics of creating a Cosmos wallet",
+      description:
+        "From zero to hero: learn the basics of creating a Cosmos wallet",
       image: SearchPepeUrl,
       list: "Creating a Wallet",
     },
@@ -239,46 +258,52 @@ const boxProps = {
     },
     bridgingTokens: {
       title: "Bridging Tokens",
-      description: "Discover the methods to teleport your tokens through the Cosmos",
+      description:
+        "Discover the methods to teleport your tokens through the Cosmos",
       image: AstroTokenomicsUrl,
       list: "Bridging Tokens",
-    }
+    },
   },
 
   neutronStarterPack: {
     gasOnNeutron: {
       title: "Gas on Neutron",
-      description: "Learn how to seed your Neutron wallet with gas for initial transactions.",
+      description:
+        "Learn how to seed your Neutron wallet with gas for initial transactions.",
       image: SearchPepeUrl,
       list: "Gas on Neutron",
     },
     wstETHWETHPoolTutorial: {
       title: "wstETH - WETH Pool Tutorial",
-      description: "Learn how to provide liquidity to the wstETH - WETH pool on Astroport.",
+      description:
+        "Learn how to provide liquidity to the wstETH - WETH pool on Astroport.",
       image: PoolUrl,
       list: "wstETH - WETH Pool Tutorial",
-    }
+    },
   },
 
   bridgingTokens: {
     astroportBridge: {
       title: "Astroport Bridge",
-      description: "Discover Astroports newest Bridge and transfer your ASTRO now",
+      description:
+        "Discover Astroports newest Bridge and transfer your ASTRO now",
       image: AstroShield,
       list: "Astroport Bridge",
-    }, 
+    },
     injectiveBridge: {
       title: "Injective Bridge",
-      description: "Learn how to transfer tokens on Injective's most popular bridge",
+      description:
+        "Learn how to transfer tokens on Injective's most popular bridge",
       image: InjectiveUrl,
       list: "Bridging Tokens",
-    }, 
+    },
     wormhole: {
       title: "Wormhole",
-      description: "For those who seek adventure. Learn how to transfer tokens across the Cosmos and more using Wormhole.",
+      description:
+        "For those who seek adventure. Learn how to transfer tokens across the Cosmos and more using Wormhole.",
       image: TutorialsUrl,
       list: "Wormhole",
-    }
+    },
   },
 
   creatingAWallet: {
@@ -298,7 +323,8 @@ const boxProps = {
   farmersFields: {
     creatingAPool: {
       title: "Creating a Pool",
-      description: "Learn how to create the different liquidity pool types of Astroport",
+      description:
+        "Learn how to create the different liquidity pool types of Astroport",
       image: PoolUrl,
       list: "Creating a Pool",
     },
@@ -324,7 +350,8 @@ const boxProps = {
     },
     limitOrder: {
       title: "Limit Orders",
-      description: "Learn how to set limit orders and advance your trading skills",
+      description:
+        "Learn how to set limit orders and advance your trading skills",
       image: SmartPepeUrl,
       list: "Limit Orders",
     },
@@ -352,31 +379,36 @@ const boxProps = {
   tokenomics: {
     generator: {
       title: "Generator",
-      description: "Allocates ASTRO for various LP tokens and distributes them pro-rata to LP stakers",
+      description:
+        "Allocates ASTRO for various LP tokens and distributes them pro-rata to LP stakers",
       image: GeneratorUrl,
       list: "Generator",
     },
     generatorProxy: {
       title: "Generator Proxy",
-      description: "Allows an external staking contract to be connected to the Generator",
+      description:
+        "Allows an external staking contract to be connected to the Generator",
       image: MessengerUrl,
       list: "Generator Proxy",
     },
     maker: {
       title: "Maker",
-      description: "Collects part of Astroports pair fees (according to the factorys maker fee)",
+      description:
+        "Collects part of Astroports pair fees (according to the factorys maker fee)",
       image: AstroShield,
       list: "Maker",
     },
     staking: {
       title: "Staking",
-      description: "Allows ASTRO holders to stake their tokens in exchange for xASTRO",
+      description:
+        "Allows ASTRO holders to stake their tokens in exchange for xASTRO",
       image: TokenUrl,
       list: "Staking",
     },
     vesting: {
       title: "Vesting",
-      description: "Progressively unlocks ASTRO that can then be distributed to LP stakers",
+      description:
+        "Progressively unlocks ASTRO that can then be distributed to LP stakers",
       image: VestingUrl,
       list: "Vesting",
     },
@@ -408,7 +440,8 @@ const boxProps = {
     },
     governance: {
       title: "Governance",
-      description: "Take part in the governing body of Astroport, the Astral Assembly",
+      description:
+        "Take part in the governing body of Astroport, the Astral Assembly",
       image: AstralAssemblyUrl,
       list: "Governance",
     },
@@ -442,7 +475,8 @@ const boxProps = {
   trading: {
     swapping: {
       title: "Swapping",
-      description: "Discover how swap assets or integrate swaps into your Web App",
+      description:
+        "Discover how swap assets or integrate swaps into your Web App",
       image: SmartPepeUrl,
       list: "Swapping",
     },
@@ -456,7 +490,8 @@ const boxProps = {
   farming: {
     creatingAPair: {
       title: "Creating a Pair",
-      description: "Learn how to create the different liquidity pool types of Astroport",
+      description:
+        "Learn how to create the different liquidity pool types of Astroport",
       image: AstroRocketship,
       list: "Creating a Pair",
     },
@@ -468,7 +503,8 @@ const boxProps = {
     },
     stakingUnstakingLPTokens: {
       title: "Staking/Unstaking LP Tokens",
-      description: "Learn how to stake/unstake your LP tokens from the Generator contract",
+      description:
+        "Learn how to stake/unstake your LP tokens from the Generator contract",
       image: GeneratorUrl,
       list: "Staking/Unstaking LP Tokens",
     },
@@ -499,7 +535,6 @@ const boxProps = {
       list: "Voting",
     },
   },
-  
 };
 
 export default function ContentBox(props) {
@@ -515,7 +550,10 @@ export default function ContentBox(props) {
   } else if (props.title == "Learn") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
-        <a className={styles.links} href="../../../docs/learn/astro-pools/astro-pools-intro">
+        <a
+          className={styles.links}
+          href="../../../docs/learn/astro-pools/astro-pools-intro"
+        >
           <Box
             title={boxProps.learn.astroPools.title}
             description={boxProps.learn.astroPools.description}
@@ -542,7 +580,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/learn/astro-tokenomics/astro-tokenomics-intro">
+        <a
+          className={styles.links}
+          href="../../../docs/learn/astro-tokenomics/astro-tokenomics-intro"
+        >
           <Box
             title={boxProps.learn.astroTokenomics.title}
             description={boxProps.learn.astroTokenomics.description}
@@ -551,7 +592,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/learn/workstation/workstation-intro">
+        <a
+          className={styles.links}
+          href="../../../docs/learn/workstation/workstation-intro"
+        >
           <Box
             title={boxProps.learn.workstation.title}
             description={boxProps.learn.workstation.description}
@@ -564,7 +608,10 @@ export default function ContentBox(props) {
   } else if (props.title == "Govern") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
-        <a className={styles.links} href="../../../docs/govern/astroport-improvement-proposal-framework">
+        <a
+          className={styles.links}
+          href="../../../docs/govern/astroport-improvement-proposal-framework"
+        >
           <Box
             title={boxProps.govern.aipf.title}
             description={boxProps.govern.aipf.description}
@@ -573,7 +620,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/govern/astroport-incentive-framework">
+        <a
+          className={styles.links}
+          href="../../../docs/govern/astroport-incentive-framework"
+        >
           <Box
             title={boxProps.govern.aif.title}
             description={boxProps.govern.aif.description}
@@ -582,7 +632,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/govern/proposal-messages/proposal-messages-intro">
+        <a
+          className={styles.links}
+          href="../../../docs/govern/proposal-messages/proposal-messages-intro"
+        >
           <Box
             title={boxProps.govern.proposalMessages.title}
             description={boxProps.govern.proposalMessages.description}
@@ -604,7 +657,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/smart-contracts/smart-contracts-intro">
+        <a
+          className={styles.links}
+          href="../../../docs/develop/smart-contracts/smart-contracts-intro"
+        >
           <Box
             title={boxProps.develop.smartContracts.title}
             description={boxProps.develop.smartContracts.description}
@@ -613,7 +669,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/tutorials/tutorials-intro">
+        <a
+          className={styles.links}
+          href="../../../docs/develop/tutorials/tutorials-intro"
+        >
           <Box
             title={boxProps.develop.tutorials.title}
             description={boxProps.develop.tutorials.description}
@@ -623,12 +682,13 @@ export default function ContentBox(props) {
         </a>
       </div>
     );
-  } 
-  
-  else if (props.title == "Smart Contracts") {
+  } else if (props.title == "Smart Contracts") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
-        <a className={styles.links} href="../../../docs/develop/smart-contracts/contract-addresses">
+        <a
+          className={styles.links}
+          href="../../../docs/develop/smart-contracts/contract-addresses"
+        >
           <Box
             title={boxProps.smartContracts.contractAddresses.title}
             description={boxProps.smartContracts.contractAddresses.description}
@@ -637,7 +697,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/smart-contracts/github-commits">
+        <a
+          className={styles.links}
+          href="../../../docs/develop/smart-contracts/github-commits"
+        >
           <Box
             title={boxProps.smartContracts.githubCommits.title}
             description={boxProps.smartContracts.githubCommits.description}
@@ -646,7 +709,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/smart-contracts/common-types">
+        <a
+          className={styles.links}
+          href="../../../docs/develop/smart-contracts/common-types"
+        >
           <Box
             title={boxProps.smartContracts.commonTypes.title}
             description={boxProps.smartContracts.commonTypes.description}
@@ -655,7 +721,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/smart-contracts/factory">
+        <a
+          className={styles.links}
+          href="../../../docs/develop/smart-contracts/factory"
+        >
           <Box
             title={boxProps.smartContracts.factory.title}
             description={boxProps.smartContracts.factory.description}
@@ -664,7 +733,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/smart-contracts/swap-pairs/swap-pairs-intro">
+        <a
+          className={styles.links}
+          href="../../../docs/develop/smart-contracts/swap-pairs/swap-pairs-intro"
+        >
           <Box
             title={boxProps.smartContracts.swapPairs.title}
             description={boxProps.smartContracts.swapPairs.description}
@@ -673,7 +745,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/smart-contracts/oracle">
+        <a
+          className={styles.links}
+          href="../../../docs/develop/smart-contracts/oracle"
+        >
           <Box
             title={boxProps.smartContracts.oracle.title}
             description={boxProps.smartContracts.oracle.description}
@@ -682,7 +757,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/smart-contracts/router">
+        <a
+          className={styles.links}
+          href="../../../docs/develop/smart-contracts/router"
+        >
           <Box
             title={boxProps.smartContracts.router.title}
             description={boxProps.smartContracts.router.description}
@@ -691,7 +769,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/smart-contracts/token">
+        <a
+          className={styles.links}
+          href="../../../docs/develop/smart-contracts/token"
+        >
           <Box
             title={boxProps.smartContracts.token.title}
             description={boxProps.smartContracts.token.description}
@@ -700,7 +781,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/smart-contracts/tokenomics/tokenomics-intro">
+        <a
+          className={styles.links}
+          href="../../../docs/develop/smart-contracts/tokenomics/tokenomics-intro"
+        >
           <Box
             title={boxProps.smartContracts.tokenomics.title}
             description={boxProps.smartContracts.tokenomics.description}
@@ -709,7 +793,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/smart-contracts/astral-assembly">
+        <a
+          className={styles.links}
+          href="../../../docs/develop/smart-contracts/astral-assembly"
+        >
           <Box
             title={boxProps.smartContracts.astralAssembly.title}
             description={boxProps.smartContracts.astralAssembly.description}
@@ -718,23 +805,28 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/smart-contracts/access-controls-and-permissions">
+        <a
+          className={styles.links}
+          href="../../../docs/develop/smart-contracts/access-controls-and-permissions"
+        >
           <Box
             title={boxProps.smartContracts.accessControlsAndPermissions.title}
-            description={boxProps.smartContracts.accessControlsAndPermissions.description}
+            description={
+              boxProps.smartContracts.accessControlsAndPermissions.description
+            }
             image={boxProps.smartContracts.accessControlsAndPermissions.image}
             list={boxProps.smartContracts.accessControlsAndPermissions.list}
           />
         </a>
-
       </div>
     );
-  } 
-  
-  else if (props.title == "Workstation") {
+  } else if (props.title == "Workstation") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
-        <a className={styles.links} href="../../../docs/learn/workstation/starter-pack/starter-pack-intro">
+        <a
+          className={styles.links}
+          href="../../../docs/learn/workstation/starter-pack/starter-pack-intro"
+        >
           <Box
             title={boxProps.workstation.starterPack.title}
             description={boxProps.workstation.starterPack.description}
@@ -743,7 +835,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/learn/workstation/farmers-fields/farmers-fields-intro">
+        <a
+          className={styles.links}
+          href="../../../docs/learn/workstation/farmers-fields/farmers-fields-intro"
+        >
           <Box
             title={boxProps.workstation.farmersFields.title}
             description={boxProps.workstation.farmersFields.description}
@@ -752,7 +847,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/learn/workstation/traders-port/traders-port-intro">
+        <a
+          className={styles.links}
+          href="../../../docs/learn/workstation/traders-port/traders-port-intro"
+        >
           <Box
             title={boxProps.workstation.tradersPort.title}
             description={boxProps.workstation.tradersPort.description}
@@ -761,7 +859,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/learn/workstation/astral-assembly/astral-assembly-intro">
+        <a
+          className={styles.links}
+          href="../../../docs/learn/workstation/astral-assembly/astral-assembly-intro"
+        >
           <Box
             title={boxProps.workstation.astralAssembly.title}
             description={boxProps.workstation.astralAssembly.description}
@@ -786,7 +887,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../learn/workstation/starter-pack/funding-a-wallet">
+        <a
+          className={styles.links}
+          href="../../../learn/workstation/starter-pack/funding-a-wallet"
+        >
           <Box
             title={boxProps.starterPack.fundingAWallet.title}
             description={boxProps.starterPack.fundingAWallet.description}
@@ -795,7 +899,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../learn/workstation/starter-pack/connecting-a-wallet">
+        <a
+          className={styles.links}
+          href="../../../learn/workstation/starter-pack/connecting-a-wallet"
+        >
           <Box
             title={boxProps.starterPack.connectingAWallet.title}
             description={boxProps.starterPack.connectingAWallet.description}
@@ -804,7 +911,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../learn/workstation/starter-pack/bridging-tokens/bridging-tokens-intro">
+        <a
+          className={styles.links}
+          href="../../../learn/workstation/starter-pack/bridging-tokens/bridging-tokens-intro"
+        >
           <Box
             title={boxProps.starterPack.bridgingTokens.title}
             description={boxProps.starterPack.bridgingTokens.description}
@@ -812,16 +922,15 @@ export default function ContentBox(props) {
             list={boxProps.starterPack.bridgingTokens.list}
           />
         </a>
-
       </div>
     );
-  } 
-
-  else if (props.title == "Neutron Starter Pack") {
+  } else if (props.title == "Neutron Starter Pack") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
-        
-        <a className={styles.links} href="../../../learn/workstation/neutron-starter-pack/gas-on-neutron">
+        <a
+          className={styles.links}
+          href="../../../learn/workstation/neutron-starter-pack/gas-on-neutron"
+        >
           <Box
             title={boxProps.neutronStarterPack.gasOnNeutron.title}
             description={boxProps.neutronStarterPack.gasOnNeutron.description}
@@ -830,20 +939,22 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../learn/workstation/neutron-starter-pack/wsteth-weth-pool-tutorial/wsteth-weth-pool-tutorial-intro">
+        <a
+          className={styles.links}
+          href="../../../learn/workstation/neutron-starter-pack/wsteth-weth-pool-tutorial/wsteth-weth-pool-tutorial-intro"
+        >
           <Box
             title={boxProps.neutronStarterPack.wstETHWETHPoolTutorial.title}
-            description={boxProps.neutronStarterPack.wstETHWETHPoolTutorial.description}
+            description={
+              boxProps.neutronStarterPack.wstETHWETHPoolTutorial.description
+            }
             image={boxProps.neutronStarterPack.wstETHWETHPoolTutorial.image}
             list={boxProps.neutronStarterPack.wstETHWETHPoolTutorial.list}
           />
         </a>
-
       </div>
     );
-  } 
-
-  else if (props.title == "Bridging Tokens") {
+  } else if (props.title == "Bridging Tokens") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
         <a
@@ -858,7 +969,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../../learn/workstation/starter-pack/bridging-tokens/injective-bridge">
+        <a
+          className={styles.links}
+          href="../../../../learn/workstation/starter-pack/bridging-tokens/injective-bridge"
+        >
           <Box
             title={boxProps.bridgingTokens.injectiveBridge.title}
             description={boxProps.bridgingTokens.injectiveBridge.description}
@@ -867,7 +981,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../../learn/workstation/starter-pack/bridging-tokens/wormhole">
+        <a
+          className={styles.links}
+          href="../../../../learn/workstation/starter-pack/bridging-tokens/wormhole"
+        >
           <Box
             title={boxProps.bridgingTokens.wormhole.title}
             description={boxProps.bridgingTokens.wormhole.description}
@@ -875,17 +992,15 @@ export default function ContentBox(props) {
             list={boxProps.bridgingTokens.wormhole.list}
           />
         </a>
-
       </div>
     );
-  } 
-  
-  
-  
-  else if (props.title == "Creating a Wallet") {
+  } else if (props.title == "Creating a Wallet") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
-        <a className={styles.links} href="../../../workstation/starter-pack/creating-a-wallet/terra-station">
+        <a
+          className={styles.links}
+          href="../../../workstation/starter-pack/creating-a-wallet/terra-station"
+        >
           <Box
             title={boxProps.creatingAWallet.terraStation.title}
             description={boxProps.creatingAWallet.terraStation.description}
@@ -894,7 +1009,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../workstation/starter-pack/creating-a-wallet/keplr">
+        <a
+          className={styles.links}
+          href="../../../workstation/starter-pack/creating-a-wallet/keplr"
+        >
           <Box
             title={boxProps.creatingAWallet.keplr.title}
             description={boxProps.creatingAWallet.keplr.description}
@@ -907,7 +1025,10 @@ export default function ContentBox(props) {
   } else if (props.title == "Farmers Fields") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
-        <a className={styles.links} href="../../../learn/workstation/farmers-fields/creating-a-pool">
+        <a
+          className={styles.links}
+          href="../../../learn/workstation/farmers-fields/creating-a-pool"
+        >
           <Box
             title={boxProps.farmersFields.creatingAPool.title}
             description={boxProps.farmersFields.creatingAPool.description}
@@ -916,19 +1037,29 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../learn/workstation/farmers-fields/providing-withdrawing-liquidity">
+        <a
+          className={styles.links}
+          href="../../../learn/workstation/farmers-fields/providing-withdrawing-liquidity"
+        >
           <Box
             title={boxProps.farmersFields.providingWithdrawingLiquidity.title}
-            description={boxProps.farmersFields.providingWithdrawingLiquidity.description}
+            description={
+              boxProps.farmersFields.providingWithdrawingLiquidity.description
+            }
             image={boxProps.farmersFields.providingWithdrawingLiquidity.image}
             list={boxProps.farmersFields.providingWithdrawingLiquidity.list}
           />
         </a>
 
-        <a className={styles.links} href="../../../learn/workstation/farmers-fields/staking-unstaking-lp-tokens">
+        <a
+          className={styles.links}
+          href="../../../learn/workstation/farmers-fields/staking-unstaking-lp-tokens"
+        >
           <Box
             title={boxProps.farmersFields.stakingUnstakingLPTokens.title}
-            description={boxProps.farmersFields.stakingUnstakingLPTokens.description}
+            description={
+              boxProps.farmersFields.stakingUnstakingLPTokens.description
+            }
             image={boxProps.farmersFields.stakingUnstakingLPTokens.image}
             list={boxProps.farmersFields.stakingUnstakingLPTokens.list}
           />
@@ -938,7 +1069,10 @@ export default function ContentBox(props) {
   } else if (props.title == "Traders Port") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
-        <a className={styles.links} href="../../../learn/workstation/traders-port/swap">
+        <a
+          className={styles.links}
+          href="../../../learn/workstation/traders-port/swap"
+        >
           <Box
             title={boxProps.tradersPort.swap.title}
             description={boxProps.tradersPort.swap.description}
@@ -947,7 +1081,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../learn/workstation/traders-port/limit-orders">
+        <a
+          className={styles.links}
+          href="../../../learn/workstation/traders-port/limit-orders"
+        >
           <Box
             title={boxProps.tradersPort.limitOrder.title}
             description={boxProps.tradersPort.limitOrder.description}
@@ -960,25 +1097,38 @@ export default function ContentBox(props) {
   } else if (props.title == "Astral Assembly") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
-        <a className={styles.links} href="../../../learn/workstation/astral-assembly/staking-unstaking">
+        <a
+          className={styles.links}
+          href="../../../learn/workstation/astral-assembly/staking-unstaking"
+        >
           <Box
             title={boxProps.astralAssembly.stakingUnstakingASTROxASTRO.title}
-            description={boxProps.astralAssembly.stakingUnstakingASTROxASTRO.description}
+            description={
+              boxProps.astralAssembly.stakingUnstakingASTROxASTRO.description
+            }
             image={boxProps.astralAssembly.stakingUnstakingASTROxASTRO.image}
             list={boxProps.astralAssembly.stakingUnstakingASTROxASTRO.list}
           />
         </a>
 
-        <a className={styles.links} href="../../../learn/workstation/astral-assembly/submitting-a-proposal">
+        <a
+          className={styles.links}
+          href="../../../learn/workstation/astral-assembly/submitting-a-proposal"
+        >
           <Box
             title={boxProps.astralAssembly.submittingAProposal.title}
-            description={boxProps.astralAssembly.submittingAProposal.description}
+            description={
+              boxProps.astralAssembly.submittingAProposal.description
+            }
             image={boxProps.astralAssembly.submittingAProposal.image}
             list={boxProps.astralAssembly.submittingAProposal.list}
           />
         </a>
 
-        <a className={styles.links} href="../../../learn/workstation/astral-assembly/voting">
+        <a
+          className={styles.links}
+          href="../../../learn/workstation/astral-assembly/voting"
+        >
           <Box
             title={boxProps.astralAssembly.voting.title}
             description={boxProps.astralAssembly.voting.description}
@@ -991,7 +1141,10 @@ export default function ContentBox(props) {
   } else if (props.title == "Tokenomics") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
-        <a className={styles.links} href="../../../develop/smart-contracts/tokenomics/generator">
+        <a
+          className={styles.links}
+          href="../../../develop/smart-contracts/tokenomics/generator"
+        >
           <Box
             title={boxProps.tokenomics.generator.title}
             description={boxProps.tokenomics.generator.description}
@@ -1000,7 +1153,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../develop/smart-contracts/tokenomics/generator-proxy">
+        <a
+          className={styles.links}
+          href="../../../develop/smart-contracts/tokenomics/generator-proxy"
+        >
           <Box
             title={boxProps.tokenomics.generatorProxy.title}
             description={boxProps.tokenomics.generatorProxy.description}
@@ -1009,7 +1165,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../develop/smart-contracts/tokenomics/maker">
+        <a
+          className={styles.links}
+          href="../../../develop/smart-contracts/tokenomics/maker"
+        >
           <Box
             title={boxProps.tokenomics.maker.title}
             description={boxProps.tokenomics.maker.description}
@@ -1018,7 +1177,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../develop/smart-contracts/tokenomics/staking">
+        <a
+          className={styles.links}
+          href="../../../develop/smart-contracts/tokenomics/staking"
+        >
           <Box
             title={boxProps.tokenomics.staking.title}
             description={boxProps.tokenomics.staking.description}
@@ -1027,7 +1189,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../develop/smart-contracts/tokenomics/vesting">
+        <a
+          className={styles.links}
+          href="../../../develop/smart-contracts/tokenomics/vesting"
+        >
           <Box
             title={boxProps.tokenomics.vesting.title}
             description={boxProps.tokenomics.vesting.description}
@@ -1036,7 +1201,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../develop/smart-contracts/tokenomics/xastro-token">
+        <a
+          className={styles.links}
+          href="../../../develop/smart-contracts/tokenomics/xastro-token"
+        >
           <Box
             title={boxProps.tokenomics.xastroToken.title}
             description={boxProps.tokenomics.xastroToken.description}
@@ -1049,7 +1217,10 @@ export default function ContentBox(props) {
   } else if (props.title == "Tutorials") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
-        <a className={styles.links} href="../../../docs/develop/tutorials/network/network-intro">
+        <a
+          className={styles.links}
+          href="../../../docs/develop/tutorials/network/network-intro"
+        >
           <Box
             title={boxProps.tutorials.network.title}
             description={boxProps.tutorials.network.description}
@@ -1058,7 +1229,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/tutorials/trading/trading-intro">
+        <a
+          className={styles.links}
+          href="../../../docs/develop/tutorials/trading/trading-intro"
+        >
           <Box
             title={boxProps.tutorials.trading.title}
             description={boxProps.tutorials.trading.description}
@@ -1067,7 +1241,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/tutorials/farming/farming-intro">
+        <a
+          className={styles.links}
+          href="../../../docs/develop/tutorials/farming/farming-intro"
+        >
           <Box
             title={boxProps.tutorials.farming.title}
             description={boxProps.tutorials.farming.description}
@@ -1076,7 +1253,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../docs/develop/tutorials/governance/governance-intro">
+        <a
+          className={styles.links}
+          href="../../../docs/develop/tutorials/governance/governance-intro"
+        >
           <Box
             title={boxProps.tutorials.governance.title}
             description={boxProps.tutorials.governance.description}
@@ -1089,7 +1269,10 @@ export default function ContentBox(props) {
   } else if (props.title == "Network") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
-        <a className={styles.links} href="../../../develop/tutorials/network/cosmos-chains">
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/network/cosmos-chains"
+        >
           <Box
             title={boxProps.network.cosmosChains.title}
             description={boxProps.network.cosmosChains.description}
@@ -1098,7 +1281,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../develop/tutorials/network/terra-2">
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/network/terra-2"
+        >
           <Box
             title={boxProps.network.terra2.title}
             description={boxProps.network.terra2.description}
@@ -1107,7 +1293,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../develop/tutorials/network/terra-classic">
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/network/terra-classic"
+        >
           <Box
             title={boxProps.network.terraClassic.title}
             description={boxProps.network.terraClassic.description}
@@ -1116,7 +1305,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../develop/tutorials/network/injective">
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/network/injective"
+        >
           <Box
             title={boxProps.network.injective.title}
             description={boxProps.network.injective.description}
@@ -1129,7 +1321,10 @@ export default function ContentBox(props) {
   } else if (props.title == "Trading") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
-        <a className={styles.links} href="../../../develop/tutorials/trading/swapping">
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/trading/swapping"
+        >
           <Box
             title={boxProps.trading.swapping.title}
             description={boxProps.trading.swapping.description}
@@ -1138,7 +1333,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../develop/tutorials/trading/multi-hop-routing">
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/trading/multi-hop-routing"
+        >
           <Box
             title={boxProps.trading.multihopRouting.title}
             description={boxProps.trading.multihopRouting.description}
@@ -1151,7 +1349,10 @@ export default function ContentBox(props) {
   } else if (props.title == "Farming") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
-        <a className={styles.links} href="../../../develop/tutorials/farming/creating-a-pair">
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/farming/creating-a-pair"
+        >
           <Box
             title={boxProps.farming.creatingAPair.title}
             description={boxProps.farming.creatingAPair.description}
@@ -1160,16 +1361,24 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../develop/tutorials/farming/providing-withdrawing-liquidity">
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/farming/providing-withdrawing-liquidity"
+        >
           <Box
             title={boxProps.farming.providingWithdrawingLiquidity.title}
-            description={boxProps.farming.providingWithdrawingLiquidity.description}
+            description={
+              boxProps.farming.providingWithdrawingLiquidity.description
+            }
             image={boxProps.farming.providingWithdrawingLiquidity.image}
             list={boxProps.farming.providingWithdrawingLiquidity.list}
           />
         </a>
 
-        <a className={styles.links} href="../../../develop/tutorials/farming/staking-unstaking-lp-tokens">
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/farming/staking-unstaking-lp-tokens"
+        >
           <Box
             title={boxProps.farming.stakingUnstakingLPTokens.title}
             description={boxProps.farming.stakingUnstakingLPTokens.description}
@@ -1178,7 +1387,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../develop/tutorials/farming/claiming-rewards">
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/farming/claiming-rewards"
+        >
           <Box
             title={boxProps.farming.claimingRewards.title}
             description={boxProps.farming.claimingRewards.description}
@@ -1191,16 +1403,24 @@ export default function ContentBox(props) {
   } else if (props.title == "Governance") {
     return (
       <div className="grid md:grid-cols-2 gap-3">
-        <a className={styles.links} href="../../../develop/tutorials/governance/staking-unstaking-astro">
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/governance/staking-unstaking-astro"
+        >
           <Box
             title={boxProps.governance.stakingUnstakingASTROxASTRO.title}
-            description={boxProps.governance.stakingUnstakingASTROxASTRO.description}
+            description={
+              boxProps.governance.stakingUnstakingASTROxASTRO.description
+            }
             image={boxProps.governance.stakingUnstakingASTROxASTRO.image}
             list={boxProps.governance.stakingUnstakingASTROxASTRO.list}
           />
         </a>
 
-        <a className={styles.links} href="../../../develop/tutorials/governance/submitting-a-proposal">
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/governance/submitting-a-proposal"
+        >
           <Box
             title={boxProps.governance.submittingAProposal.title}
             description={boxProps.governance.submittingAProposal.description}
@@ -1209,7 +1429,10 @@ export default function ContentBox(props) {
           />
         </a>
 
-        <a className={styles.links} href="../../../develop/tutorials/governance/voting">
+        <a
+          className={styles.links}
+          href="../../../develop/tutorials/governance/voting"
+        >
           <Box
             title={boxProps.governance.voting.title}
             description={boxProps.governance.voting.description}

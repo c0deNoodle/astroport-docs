@@ -1,12 +1,12 @@
 .admonition {
   margin-bottom: 1em;
-  border-color: #D4F2DE;
+  border-color: #d4f2de;
   /* background: rgba(0, 0, 0, 0.3); */
   background: rgba(255, 255, 255, 0.05);
   /* border: 1px solid #D4F2DE; */
   backdrop-filter: blur(6px);
   /* Note: backdrop-filter has minimal browser support */
-  
+
   border-radius: 16px;
 }
 
@@ -48,7 +48,7 @@ p {
 }
 
 .admonition a {
-  color: #D4F2DE;
+  color: #d4f2de;
   /* color: rgb(184, 175, 255); */
 }
 

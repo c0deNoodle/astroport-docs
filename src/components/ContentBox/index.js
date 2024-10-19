@@ -58,11 +58,18 @@ const learnContent = [
     title: "Astro Generators",
     description: "Open the operation manual of Astroports unique Generators",
     image: AstroGeneratorsImg,
-    listItems: [{ label: "Overview", href: "../../../../docs/learn/astro-generators" }, { label: "Dual Liquidity Mining", href: "../../../../docs/learn/astro-generators#dual-liquidity-mining" }],
+    listItems: [
+      { label: "Overview", href: "../../../../docs/learn/astro-generators" },
+      {
+        label: "Dual Liquidity Mining",
+        href: "../../../../docs/learn/astro-generators#dual-liquidity-mining",
+      },
+    ],
   },
   {
     title: "Astral Assembly",
-    description: "Enter the doors of Astroports governing body, the Astral Assembly",
+    description:
+      "Enter the doors of Astroports governing body, the Astral Assembly",
     image: AstralAssemblyImg,
     listItems: [
       {
@@ -73,7 +80,8 @@ const learnContent = [
   },
   {
     title: "Astro Tokenomics",
-    description: "Learn the key insights about the fuel that powers the station: ASTRO",
+    description:
+      "Learn the key insights about the fuel that powers the station: ASTRO",
     image: AstroTokenomicsImg,
     listItems: [
       {
@@ -94,7 +102,8 @@ const learnContent = [
   },
   {
     title: "Workstation",
-    description: "Astronaut approved step-by-step tutorials to guide you through the Astroport Web App",
+    description:
+      "Astronaut approved step-by-step tutorials to guide you through the Astroport Web App",
     image: WorkstationImg,
     listItems: [
       {
@@ -130,7 +139,8 @@ const governContent = [
   },
   {
     title: "Proposal Messages",
-    description: "Insights and best practices for on-chain governance proposals",
+    description:
+      "Insights and best practices for on-chain governance proposals",
     image: ProposalMessagesImg,
     listItems: [
       {
@@ -154,7 +164,8 @@ const governContent = [
 const developContent = [
   {
     title: "Smart Contracts",
-    description: "Deep dive into the galactic smart contracts powering Astroport",
+    description:
+      "Deep dive into the galactic smart contracts powering Astroport",
     image: SmartContractsImg,
     listItems: [
       {
@@ -186,7 +197,8 @@ const developContent = [
   },
   {
     title: "Tutorials",
-    description: "Apply and improve your developer skills with hands-on tutorials",
+    description:
+      "Apply and improve your developer skills with hands-on tutorials",
     image: TutorialsImg,
     listItems: [
       {
@@ -207,7 +219,9 @@ const developContent = [
   },
 ];
 
-const Card = ({ children }) => <div className="max-w-[550px] w-full h-[250px]">{children}</div>;
+const Card = ({ children }) => (
+  <div className="max-w-[550px] w-full h-[250px]">{children}</div>
+);
 
 export default function ContentBox(props) {
   if (props.title == "Learn") {
@@ -216,23 +230,28 @@ export default function ContentBox(props) {
         {learnContent.map((entry) => (
           <Card key={entry.title}>
             {/* <a className={styles.links} href="../../docs/develop/backend"> */}
-              <div className={styles.box}>
-                <img src={entry.image} height={76} width={76} className="opacity-50 self-start mt-4" />
+            <div className={styles.box}>
+              <img
+                src={entry.image}
+                height={76}
+                width={76}
+                className="opacity-50 self-start mt-4"
+              />
 
-                <div>
-                  <p className={styles.title}>{entry.title}</p>
-                  <p className={styles.subtext}>{entry.description}</p>
-                  <ul className={styles.list}>
-                    {entry.listItems.map((item) => (
-                      <li key={item.label}>
-                        <a className={styles.links} href={item.href}>
-                          {item.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div>
+                <p className={styles.title}>{entry.title}</p>
+                <p className={styles.subtext}>{entry.description}</p>
+                <ul className={styles.list}>
+                  {entry.listItems.map((item) => (
+                    <li key={item.label}>
+                      <a className={styles.links} href={item.href}>
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
+            </div>
             {/* </a> */}
           </Card>
         ))}
@@ -244,23 +263,28 @@ export default function ContentBox(props) {
         {governContent.map((entry) => (
           <Card key={entry.title}>
             {/* <a className={styles.links} href="../../docs/develop/backend"> */}
-              <div className={styles.box}>
-                <img src={entry.image} height={76} width={76} className="opacity-50 self-start mt-4" />
+            <div className={styles.box}>
+              <img
+                src={entry.image}
+                height={76}
+                width={76}
+                className="opacity-50 self-start mt-4"
+              />
 
-                <div>
-                  <p className={styles.title}>{entry.title}</p>
-                  <p className={styles.subtext}>{entry.description}</p>
-                  <ul className={styles.list}>
-                    {entry.listItems.map((item) => (
-                      <li key={item.label}>
-                        <a className={styles.links} href={item.href}>
-                          {item.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div>
+                <p className={styles.title}>{entry.title}</p>
+                <p className={styles.subtext}>{entry.description}</p>
+                <ul className={styles.list}>
+                  {entry.listItems.map((item) => (
+                    <li key={item.label}>
+                      <a className={styles.links} href={item.href}>
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
+            </div>
             {/* </a> */}
           </Card>
         ))}
@@ -272,23 +296,28 @@ export default function ContentBox(props) {
         {developContent.map((entry) => (
           <Card key={entry.title}>
             {/* <a className={styles.links} href="../../docs/develop/backend"> */}
-              <div className={styles.box}>
-                <img src={entry.image} height={76} width={76} className="opacity-50 self-start mt-4" />
+            <div className={styles.box}>
+              <img
+                src={entry.image}
+                height={76}
+                width={76}
+                className="opacity-50 self-start mt-4"
+              />
 
-                <div>
-                  <p className={styles.title}>{entry.title}</p>
-                  <p className={styles.subtext}>{entry.description}</p>
-                  <ul className={styles.list}>
-                    {entry.listItems.map((item) => (
-                      <li key={item.label}>
-                        <a className={styles.links} href={item.href}>
-                          {item.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div>
+                <p className={styles.title}>{entry.title}</p>
+                <p className={styles.subtext}>{entry.description}</p>
+                <ul className={styles.list}>
+                  {entry.listItems.map((item) => (
+                    <li key={item.label}>
+                      <a className={styles.links} href={item.href}>
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
+            </div>
             {/* </a> */}
           </Card>
         ))}

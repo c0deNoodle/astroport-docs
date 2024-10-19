@@ -1,7 +1,7 @@
 .title {
   text-align: center;
   font-size: 40px;
-  font-family: 'Whyte';
+  font-family: "Whyte";
   margin-bottom: 12px;
 }
 
@@ -12,7 +12,7 @@
   font-size: 18px;
   color: #fff;
   opacity: 0.6;
-  font-family: 'Inter';
+  font-family: "Inter";
   margin-bottom: 40px;
 }
 
@@ -37,8 +37,6 @@
   overflow: hidden;
 }
 
-
-
 @media only screen and (max-width: 500px) {
   .box {
     background-color: rgba(255, 255, 255, 0.07);
@@ -49,7 +47,7 @@
   }
 
   .title {
-    color:rgba(255, 255, 255, 1);
+    color: rgba(255, 255, 255, 1);
   }
 
   .box .titleBanner {
@@ -65,7 +63,6 @@
     /* font-weight: bold; */
   }
 
-    
   .links {
     color: rgba(255, 255, 255, 0.6);
   }
@@ -82,7 +79,7 @@
     border-right: 2px solid rgba(255, 255, 255, 0.6);
     border-bottom: 2px solid rgba(255, 255, 255, 0.6);
   }
-  
+
   .box:hover ul.list li:before {
     border-right: 2px solid rgba(255, 255, 255, 0.6);
     border-bottom: 2px solid rgba(255, 255, 255, 0.6);

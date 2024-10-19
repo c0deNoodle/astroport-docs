@@ -1,35 +1,26 @@
-import React from 'react';
-import Navbar from '@theme-original/Navbar';
-import Link from '@docusaurus/Link';
+import React from "react";
+import Navbar from "@theme-original/Navbar";
+import Link from "@docusaurus/Link";
 
-import TwitterIcon from '../../components/icons/TwitterIcon';
-import DiscordIcon from '../../components/icons/DiscordIcon';
-import MediumIcon from '../../components/icons/MediumIcon';
-import TelegramIcon from '../../components/icons/TelegramIcon';
-import { APP_URL, SOCIAL_MEDIA_LINKS } from '../../constants';
+import TwitterIcon from "../../components/icons/TwitterIcon";
+import DiscordIcon from "../../components/icons/DiscordIcon";
+import MediumIcon from "../../components/icons/MediumIcon";
+import TelegramIcon from "../../components/icons/TelegramIcon";
+import { APP_URL, SOCIAL_MEDIA_LINKS } from "../../constants";
 
 const NavigationItems = () => {
   return (
     <div className="flex gap-x-9">
-      <a
-      href='https://blog.astroport.fi/'
-      >
-        Blog</a>
+      <a href="https://blog.astroport.fi/">Blog</a>
       {/* <a>Community</a> */}
-      <a
-      href='../../'
-      >
-      Docs</a>
-      <a
-      href='https://forum.astroport.fi/'
-      >
-      Forum</a>
+      <a href="../../">Docs</a>
+      <a href="https://forum.astroport.fi/">Forum</a>
     </div>
   );
 };
 
 const iconsClassNames =
-  'h-7 hover:text-indigo-300 cursor-pointer transition-all duration-200 block';
+  "h-7 hover:text-indigo-300 cursor-pointer transition-all duration-200 block";
 
 const SocialIcons = () => {
   return (
@@ -62,7 +53,7 @@ export default function NavbarWrapper(props) {
           <SocialIcons />
           <button
             className="uppercase rounded-2xl bg-primary py-2 px-6 text-[13px] font-medium text-white hover:bg-white hover:text-primary transition-all duration-500 cursor-pointer"
-            onClick={() => window.open(APP_URL, '_blank')}
+            onClick={() => window.open(APP_URL, "_blank")}
           >
             Enter app
           </button>

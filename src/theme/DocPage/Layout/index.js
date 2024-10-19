@@ -23,7 +23,9 @@ export default function DocPageLayout({ children }) {
             setHiddenSidebarContainer={setHiddenSidebarContainer}
           />
         )}
-        <DocPageLayoutMain hiddenSidebarContainer={hiddenSidebarContainer}>{children}</DocPageLayoutMain>
+        <DocPageLayoutMain hiddenSidebarContainer={hiddenSidebarContainer}>
+          {children}
+        </DocPageLayoutMain>
       </div>
     </Layout>
   );

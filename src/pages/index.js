@@ -73,9 +73,10 @@ export default function Home() {
           <div>
             <h2 className={styles.title}>Learn</h2>
             <p className={subheaderClasses}>
-              Get ready to explore the vast universe of Astroport. Dive in and discover all the ways you can deepen your
-              understanding of Astroport, whether you're a beginner just starting your DeFi journey or a seasoned pro
-              looking to expand your AMM knowledge.
+              Get ready to explore the vast universe of Astroport. Dive in and
+              discover all the ways you can deepen your understanding of
+              Astroport, whether you're a beginner just starting your DeFi
+              journey or a seasoned pro looking to expand your AMM knowledge.
             </p>
             <ContentBox title="Learn" />
           </div>
@@ -86,8 +87,8 @@ export default function Home() {
             </div>
             <h2 className={styles.title}>Govern</h2>
             <p className={subheaderClasses}>
-              Discover how to propose contributions as an active community member to the Astroport governing body, the
-              Astral Assembly.
+              Discover how to propose contributions as an active community
+              member to the Astroport governing body, the Astral Assembly.
             </p>
             <ContentBox title="Govern" />
           </div>
@@ -98,8 +99,8 @@ export default function Home() {
             </div>
             <h2 className={styles.title}>Develop</h2>
             <p className={subheaderClasses}>
-              Expand your developer skills and explore the exciting realm of Astroport's code base with detailed
-              explanations and tutorials.
+              Expand your developer skills and explore the exciting realm of
+              Astroport's code base with detailed explanations and tutorials.
             </p>
             <ContentBox title="Develop" />
           </div>

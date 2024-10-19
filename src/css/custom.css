@@ -13,7 +13,8 @@
 
 @font-face {
   font-family: "Whyte";
-  src: url("../../static/font/whyte/ABCWhyteInktrap-Regular.woff") format("woff");
+  src: url("../../static/font/whyte/ABCWhyteInktrap-Regular.woff")
+    format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -118,10 +119,10 @@ textarea {
   --ifm-toc-border-color: rgba(255, 255, 255, 0);
 
   --ifm-code-font-size: 95%;
-  --ifm-breadcrumb-separator-filter: invert(100%) sepia(94%) saturate(17%) hue-rotate(223deg) brightness(104%)
-    contrast(98%);
-  --ifm-menu-link-sublist-icon-filter: invert(100%) sepia(94%) saturate(17%) hue-rotate(223deg) brightness(104%)
-    contrast(98%);
+  --ifm-breadcrumb-separator-filter: invert(100%) sepia(94%) saturate(17%)
+    hue-rotate(223deg) brightness(104%) contrast(98%);
+  --ifm-menu-link-sublist-icon-filter: invert(100%) sepia(94%) saturate(17%)
+    hue-rotate(223deg) brightness(104%) contrast(98%);
   --ifm-navbar-background-color: #08082f;
   --ifm-top-menu-color: rgba(0, 0, 0, 0.3);
   --ifm-toc-link-color: white;
