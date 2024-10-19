@@ -21,18 +21,15 @@
 
 .box:hover .title {
   color: rgba(255, 255, 255, 1);
-  font-weight: bold;
 }
 
 .box:hover .subtext {
   color: rgba(255, 255, 255, 0.9);
-  /* font-weight: bold; */
 }
 
 .box:hover ul.list li:before {
   border-right: 2px solid rgba(255, 255, 255, 0.9);
   border-bottom: 2px solid rgba(255, 255, 255, 0.9);
-  /* font-weight: bold; */
 }
 
 .box:hover .fig {

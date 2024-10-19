@@ -44,10 +44,13 @@ const learnContent = [
     image: AstroPoolsImg,
     listItems: [
       {
+        href: "../../../../docs/learn/astro-pools/passive-concentrated-liquidity-pools/passive-concentrated-liquidity-pools-intro",
+        label: "Passive Concentrated Liquidity Pools",
+      },
+      {
         href: "../../../../docs/learn/astro-pools/constant-product-pools",
         label: "Constant Product Pools",
       },
-
       {
         href: "../../../../docs/learn/astro-pools/stableswap-pools",
         label: "Stableswap Pools",
@@ -129,13 +132,25 @@ const governContent = [
     title: "Astroport Improvement Proposal Framework",
     description: "The framework that empowers Assembly participants",
     image: AIPFImg,
-    listItems: [{ label: "AIP Lifecycle" }, { label: "AIP Templates" }],
+    listItems: [
+      {
+        label: "AIP Lifecycle",
+        href: "../../../../docs/govern/astroport-improvement-proposal-framework",
+      },
+      // , { label: "AIP Templates" }
+    ],
   },
   {
     title: "Astroport Incentive Framework",
     description: "The blueprint for ASTRO emissions",
     image: AIFImg,
-    listItems: [{ label: "Overview" }, { label: "AIF Template" }],
+    listItems: [
+      {
+        label: "Overview",
+        href: "../../../../docs/govern/astroport-incentive-framework",
+      },
+      // { label: "AIF Template" },
+    ],
   },
   {
     title: "Proposal Messages",
@@ -147,16 +162,14 @@ const governContent = [
         href: "../../../../docs/govern/proposal-messages/astro-allocation-points",
         label: "ASTRO Allocation Points",
       },
-
       {
-        href: "../../../../docs/govern/proposal-messages/proxy-contracts",
-        label: "Proxy Contracts",
+        href: "../../../../docs/govern/proposal-messages/deregistering-a-pool",
+        label: "Deregistering a Pool",
       },
-
-      {
-        href: "../../../../docs/govern/proposal-messages/dual-rewards",
-        label: "Dual Rewards",
-      },
+      // {
+      //   href: "../../../../docs/govern/proposal-messages/dual-rewards",
+      //   label: "Dual Rewards",
+      // },
     ],
   },
 ];
