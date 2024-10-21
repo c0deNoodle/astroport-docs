@@ -1,16 +1,14 @@
-import vxASTROflow from '@site/static/img/learn/vxastro_flow.png';
-
 # Emissions Voting (vxASTRO)
 
-The vxASTRO contract enables xASTRO token holders to stake their tokens and participate in Emissions Voting.
+The vxASTRO contract enables xASTRO token holders to lock their tokens and participate in Emissions Voting.
 
 ## Features
 
 - **Indefinite Locking:** Tokens are locked indefinitely, with an option for users to request unlocking at any time.
-- **Unlocking Period:** The unlocking process takes 14 days.
-- **Voting Power:** vxASTRO voting power is always equivalent to the underlying xASTRO share.
-- **Governance:** vxASTRO holders retain their voting power in Astroport Governance while their xASTRO is locked.
-- **Non-Transferable:** vxASTRO tokens are not transferable.
+- **Unlocking Period:** The vxASTRO unlocking process takes 14 days.
+- **Voting Power: vxASTRO voting power can be used to direct ASTRO emissions each epoch. Your previous epoch votes will carry over to the next epoch unless manually changed.
+- **Governance:** vxASTRO holders retain their normal Astroport Governance voting power (equivalent to the underlying xASTRO share) while locked.
+- **Non-Transferable:** vxASTRO tokens cannot be swapped or transferred across addresses.
 - **CW20 Queries:** The contract implements several CW20 queries to function like a CW20 token for query purposes, useful for wallet views.
 - **Emissions Controller Interaction:** The contract interacts with the Emissions Controller whenever a user's balance changes, updating the user's contribution in Emissions Voting.
 
@@ -21,6 +19,17 @@ The Emissions Controller allows vxASTRO holders to vote on ASTRO emissions. This
 
 ## Usage
 
-vxASTRO allows holders to influence liquidity flows and participate in the governance of the Astroport.
+vxASTRO allows holders to influence liquidity flows with ASTRO emissions each epoch as well as participate in the governance of Astroport.
 
-<img src={vxASTROflow} style={{ }} />
+### Locking ASTRO/xASTRO for vxASTRO
+- xASTRO holders may lock their xASTRO tokens to receive an equivalent amount of vxASTRO tokens. 
+- ASTRO holders may stake and lock their tokens for vxASTRO in a single step, and will receive an amount of vxASTRO relative to the current xASTRO:ASTRO staking ratio. This is because the ASTRO tokens are first staked for xASTRO and then subsequently locked for vxASTRO in a single transaction.
+
+**Note:** Locking these tokens for vxASTRO will immediately grant voting power to direct emissions across the outposts. If the user has already voted with an existing amount of vxASTRO, this additional locked amount will increase their vote proportionately for the same previously selected pools.
+
+### Unlocking vxASTRO for xASTRO
+- Immediately upon beginning the 14-day unlock period, any existing votes by the user will be nullified and their total voting power will decrease.
+- At any time during the 14-day unlock period the user may decide to relock the full vxASTRO position. This will immediately cancel the unlock and recover the user's full voting power. Any votes that were in place before the unlock process began would be reinstated to their prior state (you can still change your vote at any time before the epoch ends).
+- After the full 14-day unlock period has passed, the user may then select to withdraw xASTRO. The xASTRO will then be returned to their address on the outpost they were originally locked from.
+
+**Note:** You may cancel the unlocking process at any time within the 14-day period, but would then need to revote to direct emissions to preferred pools.
