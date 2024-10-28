@@ -2,19 +2,19 @@
 sidebar_position: 1
 ---
 
-import EmissionsController from '@site/static/img/learn/emissions_controller_general.png';
-import EmissionsFlow from '@site/static/img/learn/emissions_controller_tuning_flow.png';
+<!-- import EmissionsController from '@site/static/img/learn/emissions_controller_general.png'; -->
+<!-- import EmissionsFlow from '@site/static/img/learn/emissions_controller_tuning_flow.png'; -->
 
 
 # Emissions Controller (Hub)
 
 The Emissions Controller allows vxASTRO holders to vote on ASTRO emissions. This Hub's contract is responsible for collecting votes from vxASTRO stakers from all outposts and calculating the final ASTRO emissions every epoch.
 
-<img src={EmissionsController} style={{ }} />
+<!-- <img src={EmissionsController} style={{ }} /> -->
 
 ## Voting With vxASTRO
 
-In order to participate in emission voting, you will need vxASTRO. Holders of vxASTRO may vote for whitelisted pools once every epoch. After submission, votes cannot be changed until the next epoch has begun. A new epoch will take place every 2 weeks (on Monday 00:00 UTC starting from Mon Oct 28 00:00:00 UTC 2024). If you do not vote in the current epoch but had voted in the previous epoch, then your previous vote will remain intact. 
+In order to participate in emission voting, you will need vxASTRO. Holders of vxASTRO may vote for whitelisted pools once every epoch. After submission, votes cannot be changed until the next epoch has begun. A new epoch will take place every 2 weeks (on Monday 00:00 UTC starting from Mon Oct 28 2024). If you do not vote in the current epoch but had voted in the previous epoch, then your previous vote will remain intact. 
 
 > [!NOTE]
 > You do not need to revote every epoch if you intend to vote for the same pools with the same weight ratio.
@@ -89,7 +89,7 @@ The contract distributes ASTRO to the selected pools based on their percentage s
 
 In the diagram below, several scenarios are presented. Black arrows represent the flow on the Hub, green arrows represent successful IBC transfer to the remote outpost with possible filtered invalid LP tokens, red arrows represent failed IBC transfer to the remote outpost followed by permissionless `retry_failed_outposts` call.
 
-<img src={EmissionsFlow} style={{ }} />
+<!-- <img src={EmissionsFlow} style={{ }} /> -->
 
 ## ASTRO Pools
 
