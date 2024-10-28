@@ -91,22 +91,22 @@ In the diagram below, several scenarios are presented. Black arrows represent th
 
 <img src={EmissionsFlow} style={{ }} />
 
-## IBC Failures
+## ASTRO Pools
 
-Thanks to Neutron Integrated Apps support, it allows handling timeouts and failures of ICS20 packets. After the tuning process, IBC callbacks are processed and each outpost is marked as done or failed depending on the result. If an outpost has failed this check, then anyone can call the `retry_failed_outposts` endpoint to retry all failed outposts. If an outpost has failed the check and is not retried during the epoch, then their state will be cleared on the next epoch.
+Each outpost may or may not have an ASTRO pool which needs to be incentivized with flat emissions. Those pools cannot be voted on, and they receive emissions out of the dynamic emissions curve by default. This is to incentivise sufficient ASTRO liquidity for swapping rewards on each outpost.
+
+## Governance Voting (xASTRO / Astral Assembly)
+
+vxASTRO stakers have voting power equal to their xASTRO staked amount. When someone submits a new governance proposal in the Assembly contract, the Emissions Controller Hub is responsible for registering it on all outposts. Once registered, vxASTRO outpost stakers can then vote on it. The Emissions Controller receives IBC messages from each [Emissions Controller (Outpost)](Emissions%20Controller%20(Outpost).mdx) and applies votes in the Assembly contract.
 
 ## Maintaining Whitelist Presence
 
 In order to increase security and prevent whitelist "spam" a special parameter has been introduced: `config.whitelist_threshold` (initially 0.001 or 0.1% of all votes). Every epoch during tuning this contract removes all pools that have less than `config.whitelist_threshold` of total votes. Those pools will need to be whitelisted again, and their voting process starts from scratch. Users who voted for removed pools will need to vote again or re-apply their votes via the special `refresh_user_votes` endpoint with no cooldown. Whitelisted pools that receive an amount of total votes that are above this parameter will remain whitelisted.
 
-## ASTRO Pools
-
-Each outpost may or may not have an ASTRO pool which needs to be incentivized with flat emissions. Those pools cannot be voted on, and they receive emissions out of the dynamic emissions curve by default. This is to incentivise sufficient ASTRO liquidity for swapping rewards on each outpost.
-
 ## Emissions Controller Hub Balance
 
 Astroport governance must maintain this contract's ASTRO and NTRN balance. ASTRO is used for emission distribution and NTRN is used for IBC fees. It is expected that governance will top up the contract with ASTRO upfront for the first year. At the time of writing, Neutron requires 0.2 NTRN per IBC transfer while 0.1 out of 0.2 is sent back to the contract. So generally, it is expected that the contract should have 0.2 * number of outposts NTRN balance every epoch.
 
-## Governance Voting (xASTRO / Astral Assembly)
+## IBC Failures
 
-vxASTRO stakers have voting power equal to their xASTRO staked amount. When someone submits a new governance proposal in the Assembly contract, the Emissions Controller Hub is responsible for registering it on all outposts. Once registered, vxASTRO outpost stakers can then vote on it. The Emissions Controller receives IBC messages from each [Emissions Controller (Outpost)](https://github.com/c0deNoodle/astroport-docs/blob/master/docs/learn/Emissions%20Voting%20(vxASTRO)/Emissions%20Controller%20(Outpost).mdx) and applies votes in the Assembly contract.
+Thanks to Neutron Integrated Apps support, it allows handling of timeouts and failures of ICS20 packets. After the tuning process, IBC callbacks are processed to check that each outpost is marked as done or failed depending on the result. If an outpost has failed this check, then anyone can call the `retry_failed_outposts` endpoint to retry all failed outposts. If an outpost has failed the check and is not retried during the epoch, then their state will be cleared on the next epoch.
