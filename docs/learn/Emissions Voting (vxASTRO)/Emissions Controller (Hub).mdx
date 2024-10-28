@@ -8,70 +8,105 @@ import EmissionsFlow from '@site/static/img/learn/emissions_controller_tuning_fl
 
 # Emissions Controller (Hub)
 
-The Emissions Controller allows vxASTRO holders to vote on ASTRO emissions. This Hub's contract is responsible for collecting votes from vxASTRO stakers from all outposts and calculating the final ASTRO emissions every epoch. Epoch lasts 2 weeks and always starts on Monday 00:00 UTC. Total ASTRO emissions every epoch are based on two-epoch Exponential Moving Average (EMA) of the total collected ASTRO to ASTRO staking contract (i.e. ASTRO buybacks).
+The Emissions Controller allows vxASTRO holders to vote on ASTRO emissions. This Hub's contract is responsible for collecting votes from vxASTRO stakers from all outposts and calculating the final ASTRO emissions every epoch.
 
 <img src={EmissionsController} style={{ }} />
 
+## Voting With vxASTRO
+
+In order to participate in emission voting, you will need vxASTRO. Holders of vxASTRO may vote for whitelisted pools once every epoch. After submission, votes cannot be changed until the next epoch has begun. A new epoch will take place every 2 weeks (on Monday 00:00 UTC starting from Mon Oct 28 00:00:00 UTC 2024). If you do not vote in the current epoch but had voted in the previous epoch, then your previous vote will remain intact. 
+
+> [!NOTE]
+> You do not need to revote every epoch if you intend to vote for the same pools with the same weight ratio.
+
+Example transaction message:
+```
+{
+  "vote": {
+    "votes": [
+      [
+        "neutron1sc470v7me3gmjnqmpgvc7cnus2ge7dcj05q6l2xvc0zcredh42estrhgnw", // LP token address 1
+        "0.5" // Pool 1 weight
+      ],
+      [
+        "neutron1799j4qcwqnrl4mdu4ryjkpdpqwjdjjj7x5tjc5swwfq3faqd7lrsdn659k", // LP token address 2
+        "0.3" // Pool 2 weight
+      ],
+      [
+        "neutron1vpvhl7j5ecs7fjr0mgqr0qcf4sn6g9vtewx4ex44lg4s8px07lfse4dy0w", // LP token address 3
+        "0.2" // Pool 3 weight
+      ]
+    ]
+  }
+}
+```
+* The executable message accepts an array of tuples with LP token and vote weight.
+* Vote weight is a number between 0 and 1 and total vote weight can't exceed 1.
+
 ## Pool Whitelisting
 
-The Emissions Controller accepts votes only for whitelisted pools. Whitelisting is permissionless but requires a fee to be paid. Anyone can whitelist a pool which respects to registered outpost. If the pool is located on the Hub contract also checks, this LP token corresponds to the pool in the factory.
+The Emissions Controller accepts votes only for whitelisted pools. Whitelisting a pool is permissionless but requires an ASTRO fee to be paid (initially 1500 ASTRO) that is set by governance. Anyone can whitelist a pool that is registered on that outpost. The Hub contract will also confirm that the specified LP token corresponds to the pool in the factory.
 
-## Voting
+## vxASTRO Amount Changes
 
-Users are required to have vxASTRO to cast their votes. They can vote for whitelisted pools at once every epoch. Vote changes are not allowed after votes are cast. After voting, they can't change their votes until the next epoch. Executable message accepts an array of tuples with LP token and vote weight. Vote weight is a number between 0 and 1. Total vote weight can't exceed 1. If user doesn't vote during the next epochs, their contribution stays intact.
+If a user locks additional vxASTRO or unlocks the amount, the changes are then reflected in the Emissions Controller. The contract updates their voting power based on their previous weight distribution.
 
-## vxASTRO Changes
+For example, user with 100 voting power voted `[(pool1, 0.5), (pool2, 0.5)]`. Their initial contribution would be 50 to pool1 and 50 to pool2. If they lock 100 more vxASTRO, their new voting power would be 200 and their contribution to pool1 and pool2 would be 100 each. If a user requests to unlock their vxASTRO, their total vote contribution will be removed from both pools.
 
-If a user locks or unlocks vxASTRO, the changes are reflected in the Emissions Controller. The contract updates their voting power based on their previous weight distribution.
+## ASTRO Dynamic Emissions Curve
 
-For example, user with 100 voting power voted `[(pool1, 0.5), (pool2, 0.5)]`. Their initial contribution would be 50 to pool1 and 50 to pool2. If they lock 100 more vxASTRO, their new voting power would be 200 and their contribution to pool1 and pool2 would be 100 each. If a user requests to unlock vxASTRO, their contribution will be removed from both pools.
-
-## ASTRO dynamic emissions curve
-
-Total ASTRO emissions are derived based on two-epoch EMAs of the total collected ASTRO to ASTRO staking contract (xASTRO). Two-epochs EMA is calculated by the following formula:
-
+Total ASTRO emissions are derived every epoch based on the two-epoch Exponential Moving Average (EMA) of the total ASTRO collected to the ASTRO staking contract (i.e. ASTRO buybacks). This two-epoch EMA is calculated by the following formula:
 ```
 (V_n-1 * 2/ 3 + EMA_n-1 * 1/ 3)
 ```
+* V_n is the collected ASTRO amount at epoch n
+* n is the current epoch
 
-where V_n is the collected ASTRO at epoch n, n is the current epoch (a starting one).
-
-Dynamic emissions formula is:
-
+The dynamic emissions formula is:
 ```
 next emissions = MAX(MIN(max_astro, V_n-1 * emissions_multiple), MIN(max_astro, two-epochs EMA))
 ```
+* max_astro is the cap or upper limit of emissions (initially 1.4M ASTRO)
+* emissions_multiple is the constant that controls the ASTRO inflation rate (initially 0.8)
+* max_astro and emissions_multiple part of the contract state and can be modified by governance
 
-Emissions are capped to `max_astro` which is part of contract state. `emissions_multiple` constant controls the ASTRO inflation rate. `max_astro` is expected to be set to 1.4M ASTRO per epoch on vxASTRO launch and `emissions_multiple` is expected to be 0.8. Both `max_astro` and `emissions_multiple` can be changed by governance later on.
+Since this formula is recursive, the contract requires accurate EMA and collected ASTRO values from the previous epoch in order to calculate the next epoch's emissions.
 
-Since this formula is recursive, the contract requires accurate EMA and collected ASTRO values from previous epoch prior contract instantiation.
+## Emissions Distribution / "Tuning"
 
-## Emissions distribution
+We call the process of ASTRO emission distribution `tuning`. The tuning endpoint is permissionless and has a 2-week cooldown.
 
-We call the process of ASTRO emission distribution `tuning`. Tuning endpoint is permissionless and has 2-week cooldown. During tuning contract queries snapshotted votes per pool at the exact start of the epoch (Monday 00:00 UTC starting from Mon May 27 00:00:00 UTC 2024). Then it filters out pools which are not part of any outpost, sorts pools by votes and takes top X pools, where X - 'config.pools_per_outpost' * number of outposts. At the time when this endpoint is executed, new dynamic ASTRO emissions are calculated. Then the contract distributes ASTRO to the selected pools based on their share of **total voting power of selected pools** from the previous step. Based on whether outpost is the Hub or remote Astroport deployment, the contract sends ASTRO along with an executable message to the Astroport Incentives contract or IBC Hook to remote Emissions Controller respectively. We approximate `config.pools_per_outpost` as 5 on vxASTRO launch, however, it can be changed by governance later on.
+During the tuning process, the contract queries snapshotted votes per pool at the exact start of the epoch and determines the total voting power. It then filters out pools which are not part of any outpost and/or whitelisted and sorts these pools by votes to determine the top X pools. At the same time as this endpoint is executed, new dynamic ASTRO emissions are calculated.
+```
+X = 'config.pools_per_outpost' * number of outposts
+```
+* config.pools_per_outpost is a constant set by governance (initially 5)
 
-Note, that receiving outpost **must** implement IBC hooks to have the whole process working in one go. At the time of writing, Astroport has one outpost (Sei chain) which doesn't support it and requires manual intervention by Builders multisig.
+The contract distributes ASTRO to the selected pools based on their percentage share of **total voting power of selected pools** from the previous step. Based on whether the outpost is the Hub or remote Astroport deployment, the contract sends ASTRO along with an executable message to the Astroport Incentives contract, or IBC Hook to remote Emissions Controller, respectively.
+
+> [!NOTE]
+> The receiving outpost **must** implement IBC hooks to have the whole process working in one go. Astroport currently has one outpost (Sei network) that does not support it. This one outpost requires manual intervention by Builders multisig until it support is added.
 
 In the diagram below, several scenarios are presented. Black arrows represent the flow on the Hub, green arrows represent successful IBC transfer to the remote outpost with possible filtered invalid LP tokens, red arrows represent failed IBC transfer to the remote outpost followed by permissionless `retry_failed_outposts` call.
 
 <img src={EmissionsFlow} style={{ }} />
 
-## IBC failures
+## IBC Failures
 
-Thanks to Neutron Integrated Apps support, it allows handling timeouts and failures of ICS20 packets. After the tunning, contract processes IBC callbacks and marks outposts as done or failed depending on the result. If any of outposts failed anyone can call `retry_failed_outposts` endpoint to retry the failed outposts. Note that if those outposts haven't been retried during the epoch, their state will be cleared on the next epoch.
+Thanks to Neutron Integrated Apps support, it allows handling timeouts and failures of ICS20 packets. After the tuning process, IBC callbacks are processed and each outpost is marked as done or failed depending on the result. If an outpost has failed this check, then anyone can call the `retry_failed_outposts` endpoint to retry all failed outposts. If an outpost has failed the check and is not retried during the epoch, then their state will be cleared on the next epoch.
 
 ## Maintaining Whitelist Presence
 
-Due to security reasons we introduced special parameter `config.whitelist_threshold` which is expected to be 0.001 (0.1% of all votes). Every epoch during tuning the contract removes all pools that have less than `config.whitelist_threshold` of total votes. Those pools will need to be whitelisted again, and their voting process starts from scratch. Users who voted for removed pools will need to vote again or to re-apply their votes via special `refresh_user_votes` endpoint with no cooldown.
+In order to increase security and prevent whitelist "spam" a special parameter has been introduced: `config.whitelist_threshold` (initially 0.001 or 0.1% of all votes). Every epoch during tuning this contract removes all pools that have less than `config.whitelist_threshold` of total votes. Those pools will need to be whitelisted again, and their voting process starts from scratch. Users who voted for removed pools will need to vote again or re-apply their votes via the special `refresh_user_votes` endpoint with no cooldown. Whitelisted pools that receive an amount of total votes that are above this parameter will remain whitelisted.
 
-## ASTRO pools
+## ASTRO Pools
 
-Each outpost may or may not have an ASTRO pool which needs to be incentivized with flat emissions. Those pools can't be voted on, and they receive emissions out of the dynamic emissions curve.
+Each outpost may or may not have an ASTRO pool which needs to be incentivized with flat emissions. Those pools cannot be voted on, and they receive emissions out of the dynamic emissions curve by default. This is to incentivise sufficient ASTRO liquidity for swapping rewards on each outpost.
 
-## Emissions Controller balance
+## Emissions Controller Hub Balance
 
-Astroport governance must maintain contract's ASTRO and NTRN balance. ASTRO is used for emission distribution and NTRN is used for IBC fees. It is expected that governance will top up the contract with ASTRO upfront for the next year. At the time of writing, Neutron requires 0.2 NTRN per IBC transfer while 0.1 out of 0.2 is sent back to the contract. So generally, it is expected that the contract has 0.2 * number of outposts NTRN balance every epoch.
+Astroport governance must maintain this contract's ASTRO and NTRN balance. ASTRO is used for emission distribution and NTRN is used for IBC fees. It is expected that governance will top up the contract with ASTRO upfront for the first year. At the time of writing, Neutron requires 0.2 NTRN per IBC transfer while 0.1 out of 0.2 is sent back to the contract. So generally, it is expected that the contract should have 0.2 * number of outposts NTRN balance every epoch.
 
-## Governance voting
+## Governance Voting (xASTRO / Astral Assembly)
 
-vxASTRO stakers have voting power equal to their xASTRO staked amount. When someone submits a new governance proposal in the Assembly contract, Emissions Controller is responsible for registering it on all outposts. Once registered, vxASTRO outpost stakers can vote on it. Emissions Controller receives IBC messages and applies votes in the Assembly contract.
+vxASTRO stakers have voting power equal to their xASTRO staked amount. When someone submits a new governance proposal in the Assembly contract, the Emissions Controller Hub is responsible for registering it on all outposts. Once registered, vxASTRO outpost stakers can then vote on it. The Emissions Controller receives IBC messages from each [Emissions Controller (outpost)](https://github.com/c0deNoodle/astroport-docs/blob/master/docs/learn/Emissions%20Voting%20(vxASTRO)/Emissions%20Controller%20(Outpost).mdx) and applies votes in the Assembly contract.
