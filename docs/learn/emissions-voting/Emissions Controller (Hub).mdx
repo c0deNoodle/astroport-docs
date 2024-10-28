@@ -2,15 +2,14 @@
 sidebar_position: 1
 ---
 
-<!-- import EmissionsController from '@site/static/img/learn/emissions_controller_general.png'; -->
-<!-- import EmissionsFlow from '@site/static/img/learn/emissions_controller_tuning_flow.png'; -->
+import EmissionsFlow from '@site/static/img/learn/emissions_controller_tuning_flow.png';
 
 
 # Emissions Controller (Hub)
 
 The Emissions Controller only exists on the Astroport Governance Hub (Neutron) and allows vxASTRO holders to vote on ASTRO emissions. This Hub's contract is responsible for collecting/validating votes from vxASTRO stakers from all outposts and calculating the final ASTRO emissions every epoch.
 
-<!-- <img src={EmissionsController} style={{ }} /> -->
+
 
 ## Voting With vxASTRO
 
@@ -89,7 +88,7 @@ The contract distributes ASTRO to the selected pools based on their percentage s
 
 In the diagram below, several scenarios are presented. Black arrows represent the flow on the Hub, green arrows represent successful IBC transfer to the remote outpost with possible filtered invalid LP tokens, red arrows represent failed IBC transfer to the remote outpost followed by permissionless `retry_failed_outposts` call.
 
-<!-- <img src={EmissionsFlow} style={{ }} /> -->
+<img src={EmissionsFlow} style={{ }} />
 
 ## ASTRO Pools
 
