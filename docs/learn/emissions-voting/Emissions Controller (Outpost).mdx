@@ -4,9 +4,9 @@ sidebar_position: 2
 
 # Emissions Controller (Outpost)
 
-The Emissions Controller Outpost functions as a lightweight "survey satellite" for the main [Emissions Controller (Hub)](Emissions%20Controller%20(Hub).mdx). From the vxASTRO voter's perspective, this contract has the same features as the main Emissions Controller. However, the Outpost is more limited and cannot perform fine-grained sanity checks for voted LP tokens.
+The Emissions Controller Outpost exists on each chain that Astroport is deployed and functions as a lightweight "survey satellite" for the main [Emissions Controller (Hub)](Emissions%20Controller%20(Hub).mdx). From the vxASTRO voter's perspective, this contract has the same features as the main Emissions Controller. However, the Outpost is more limited and cannot perform fine-grained sanity checks for voted LP tokens.
 
-Voters can allocate votes to a maximum of five pools, only once per epoch. Once votes are cast they can't be changed until the next epoch. The Controller Outpost's purpose is to collect this voting information and report it back to the main Hub in order to verify and register votes. The contract composes a special internal IBC message to the Hub with the user's vote, and if all checks pass on the Hub, the vote is then accepted. In case of IBC failure or timeouts, the user may attempt the voting transaction again.
+The Controller Outpost's purpose is to collect voting information and report it back to the main Hub in order to verify and register votes. The contract composes a special internal IBC message to the Hub with the user's vote, and if all checks pass on the Hub, the vote is then accepted. In case of IBC failure or timeouts, the user may attempt the voting transaction again.
 
 ## Emissions Setting
 
