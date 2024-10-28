@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Emissions Controller (Outpost)
 
-The Emissions Controller Outpost exists on each chain that Astroport is deployed and functions as a lightweight "survey satellite" for the main [Emissions Controller (Hub)](Emissions%20Controller%20(Hub).mdx). From the vxASTRO voter's perspective, this contract has the same features as the main Emissions Controller. However, the Outpost is more limited and cannot perform fine-grained sanity checks for voted LP tokens.
+The Emissions Controller Outpost exists on each chain that Astroport is deployed and functions as a lightweight "survey satellite" for the main [Emissions Controller (Hub)](emissions-controller-hub.mdx). From the vxASTRO voter's perspective, this contract has the same features as the main Emissions Controller. However, the Outpost is more limited and cannot perform fine-grained sanity checks for voted LP tokens.
 
 The Controller Outpost's purpose is to collect voting information and report it back to the main Hub in order to verify and register votes. The contract composes a special internal IBC message to the Hub with the user's vote, and if all checks pass on the Hub, the vote is then accepted. In case of IBC failure or timeouts, the user may attempt the voting transaction again.
 
@@ -24,4 +24,4 @@ In case the chain (for example, Sei network) does not support IBC hooks, the emi
 
 ## Governance Voting From Outpost (xASTRO / [Astral Assembly](../astral-assembly.mdx))
 
-vxASTRO stakers are allowed to vote on registered governance proposals sent to the Outpost from the Hub. The Outpost will then send this vote back to the Hub through IBC messaging where it is verified and registered. Only the [Emissions Controller (Hub)](Emissions%20Controller%20(Hub).mdx) can initiate proposal registration via IBC messages. The initial proposal registration sets the proposal start time so the contract knows an individual's voting power at that time.
+vxASTRO stakers are allowed to vote on registered governance proposals sent to the Outpost from the Hub. The Outpost will then send this vote back to the Hub through IBC messaging where it is verified and registered. Only the [Emissions Controller (Hub)](emissions-controller-hub.mdx) can initiate proposal registration via IBC messages. The initial proposal registration sets the proposal start time so the contract knows an individual's voting power at that time.
