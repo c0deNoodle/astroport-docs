@@ -4,16 +4,24 @@ sidebar_position: 2
 
 # Emissions Controller (Outpost)
 
-The Emissions Controller Outpost is a lightweight satellite for the main Emissions Controller located on the Hub. For the vxASTRO staker perspective, this contract has the same API as the main Emissions Controller. However, Outpost can't perform fine-grained sanity checks for voted LP tokens. Users can vote up to five pools only once per epoch. Once votes are cast they can't be changed until the next epoch. The contract composes a special internal IBC message to the Hub with the user's vote. If sanity checks passed on the Hub, the vote is accepted. In case of IBC failure or timeouts, the user can try to vote again.
+The Emissions Controller Outpost functions as a lightweight "survey satellite" for the main [Emissions Controller (Hub)](Emissions%20Controller%20(Hub).mdx). From the vxASTRO voter's perspective, this contract has the same features as the main Emissions Controller. However, the Outpost is more limited and cannot perform fine-grained sanity checks for voted LP tokens.
+
+Voters can allocate votes to a maximum of five pools, only once per epoch. Once votes are cast they can't be changed until the next epoch. The Controller Outpost's purpose is to collect this voting information and report it back to the main Hub in order to verify and register votes. The contract composes a special internal IBC message to the Hub with the user's vote, and if all checks pass on the Hub, the vote is then accepted. In case of IBC failure or timeouts, the user may attempt the voting transaction again.
 
 ## Emissions Setting
 
-This endpoint is meant to be called during IBC hook processing. It might be a gas extensive transaction, thus Astroport devs must settle it with supporting relayer operators prior to the vxASTRO launch. The contract has a permissionless endpoint which allows setting ASTRO emissions in the incentives contract for the next epoch. It filters out invalid LP tokens, checks that schedules have >= 1 uASTRO per second, sets reward schedules, and IBC sends leftover funds back to the Hub. Contract call must supply the exact ASTRO amount contained in the schedules.
+This endpoint is meant to be called during IBC hook processing. It might be a gas extensive transaction, thus Astroport devs must settle it with supporting relayer operators prior to the vxASTRO launch. The contract has a permissionless endpoint which allows the Hub to set ASTRO emissions in the incentives contract for the next epoch. The contract call must supply the exact ASTRO amount to satisfy the schedules.
+
+This incentives contract:
+* filters out invalid LP tokens
+* checks that schedules have >= 1 uASTRO (0.000001 ASTRO) per second
+* sets up the reward schedules for the pools to receive incentives for the epoch
+* IBC sends leftover funds back to the Hub.
 
 ## Permissioned Emissions Setting
 
-In case the chain (for example, Sei) doesn't support IBC hooks, emissions message from the Hub might end up with ASTRO bridged to the chain but not distributed. In that case, the contract owner can call this endpoint along with the emissions voting outcome (schedules) for this specific chain. Same as in permissionless endpoint, this endpoint performs sanity checks, sets reward schedules, and IBC sends leftover funds back to the Hub.
+In case the chain (for example, Sei network) does not support IBC hooks, the emissions message from the Hub might end up with ASTRO bridged to the chain but not distributed. In that case, the contract owner (governance or multisig) can call this endpoint along with the emissions voting outcome (schedules) for this specific outpost. Just as the permissionless contract does above, this endpoint performs checks, sets reward schedules, and IBC sends any leftover funds back to the Hub.
 
-## Governance voting
+## Governance Voting From Outpost (xASTRO / [Astral Assembly](../astral-assembly.mdx))
 
-vxASTRO stakers are allowed to vote on registered governance proposals from the Hub. Proposal registration sets proposal start time so contract knows user's voting power at that time. Only Hub's Emissions Contrller can initiate proposal registration via IBC messages.
+vxASTRO stakers are allowed to vote on registered governance proposals sent to the Outpost from the Hub. The Outpost will then send this vote back to the Hub through IBC messaging where it is verified and registered. Only the [Emissions Controller (Hub)](Emissions%20Controller%20(Hub).mdx) can initiate proposal registration via IBC messages. The initial proposal registration sets the proposal start time so the contract knows an individual's voting power at that time.
